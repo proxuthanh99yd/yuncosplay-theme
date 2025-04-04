@@ -1,0 +1,214 @@
+.program .faqs__item {
+    padding: 0;
+}
+
+.program .faqs__item {
+    border: none;
+    box-shadow: none;
+}
+
+.program .faqs__item-title-text {
+    background: #f5f8f6;
+    padding: 1rem;
+    padding-right: 2.5rem;
+    border-radius: 0.75rem;
+}
+
+.program .faqs__item-title-text img {
+    margin-top: -0.25rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.75rem;
+}
+
+.program .faqs__item-content-text {
+    padding-top: 1rem;
+    padding-left: 1.69rem;
+    padding-bottom: 0;
+}
+
+.program .faqs__item-content-text,
+.program .faqs__item-content-text p {
+    color: var(--text-body-75, rgba(46, 46, 46, 0.75));
+
+    /* PC/BODY/16R */
+    font-family: Matter;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 1.5rem */
+}
+
+.program .faqs__item-content-text strong {
+    color: var(--Text-Body-T1, #2e2e2e);
+    font-weight: 700;
+}
+
+.program .faqs__item-content-text h5 {
+    color: var(--titile, #1c1c1c);
+
+    /* PC/BUTTON/16-B */
+    font-family: Matter;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%; /* 1.5rem */
+}
+
+.program .faqs__item-content-text img {
+    border-radius: 0.75rem;
+}
+
+.program .faqs__item-content {
+    margin-left: 1.65rem;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+    border-left: 1.5px dashed var(--Test, #2e871c);
+    transition: max-height 0.25s ease-in-out, padding 0.25s ease-in-out;
+}
+
+.program .faqs__item:last-child .faqs__item-title + .faqs__item-content {
+    padding: 0;
+}
+
+.program .faqs__item:last-child .faqs__item-title.active + .faqs__item-content {
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+}
+
+.program .faqs__item:not(:first-child) {
+    margin-top: 0;
+}
+.program__container {
+    padding: 2rem;
+    margin-top: 1.5rem;
+    border-radius: 1.25rem;
+    background: #fff;
+    box-shadow: 0px 0px 20px 0px #faf7f0;
+}
+
+.program__header {
+    margin-bottom: 1.44rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.program__header-btn {
+    position: relative;
+    padding: 0.25rem 2.44rem 0.25rem 1.25rem;
+    border-radius: 2.8125rem;
+    border: 1px solid var(--text-body-40, rgba(46, 46, 46, 0.4));
+    background: transparent;
+}
+.program__header-btn span {
+    color: var(--Text-Body-T1, #2e2e2e);
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%; /* 1.05rem */
+}
+.program__header-btn .icon {
+    position: absolute;
+    top: 50%;
+    right: 0.5rem;
+    transform: translateY(-50%);
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--text-body-40, rgba(46, 46, 46, 0.4));
+    transition: opacity 0.2s ease-in-out;
+}
+.program__header-btn .icon-minus,
+.program__header-btn.active .icon-plus {
+    opacity: 0;
+}
+.program__header-btn.active .icon-minus {
+    opacity: 1;
+}
+.program.hidden .program__body {
+    display: none;
+}
+
+.program.hidden .program__header {
+    margin-bottom: 0;
+}
+
+@media (max-width: 639.98px) {
+    .program {
+        padding: 0 1rem;
+    }
+    .program__container {
+        padding: 1rem;
+        border-radius: 0.75rem;
+    }
+    .program .faqs__item-content {
+        max-height: 100%;
+        margin: 0;
+        padding: 0;
+        border: none;
+    }
+
+    .program .faqs__item-content-text {
+        padding: 0;
+        margin: 0;
+    }
+    .program .faqs__item-title-text {
+        margin-bottom: 0.75rem;
+        padding: 0;
+        background: transparent;
+
+        color: var(--Text-Body-T1, #2e2e2e);
+        font-size: 1rem;
+        line-height: 150%; /* 1.5rem */
+    }
+
+    .program .faqs__item-title-text strong {
+        color: var(--text-body-75, rgba(46, 46, 46, 0.75));
+        font-size: 0.875rem;
+        line-height: 140%; /* 1.225rem */
+        text-transform: uppercase;
+    }
+    .program .faqs__item-title-text::before,
+    .program .faqs__item-title-text::after {
+        display: none;
+    }
+    .program .faqs__item-title-text img {
+        margin-top: -0.15rem;
+        width: 1.125rem;
+        height: 1.125rem;
+        margin-right: 0.5rem;
+    }
+    .program__header-btn {
+        position: absolute;
+        border: none;
+        padding: 0;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .program__header-btn span {
+        display: none;
+    }
+
+    .program__title {
+        font-size: 1.125rem;
+        margin-bottom: 0;
+        line-height: 120%; /* 1.35rem */
+    }
+    .program .faqs__item-content-text,
+    .program .faqs__item-content-text p,
+    .program__container .program .faqs__item-content-text li {
+        color: var(--Text-Body-T1, #2e2e2e);
+    }
+    .program__header-btn .icon {
+        right: 0;
+    }
+    .program__header {
+        position: relative;
+        margin-bottom: 1.25rem;
+    }
+    .program .faqs__item:not(:first-child) {
+        margin-top: 1rem;
+    }
+}

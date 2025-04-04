@@ -1,0 +1,56 @@
+@import url("../../front-page/section-customized-trip/assets/styles.css");
+@import url("../../front-page/section-faqs/assets/styles.css");
+@import url("../../front-page/section-discover/assets/styles.css");
+@import url("../section-list-tours-1/assets/styles.css");
+@import url("../section-list-tours-2/assets/styles.css");
+@import url("../section-faqs/assets/styles.css");
+
+main {
+    overflow: hidden;
+    position: relative;
+}
+.page-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.page-background img {
+    width: 100%;
+    height: auto;
+}
+
+.page-background::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+            0deg,
+            rgba(255, 241, 219, 0.31) 0%,
+            rgba(255, 241, 219, 0.31) 100%
+        ),
+        linear-gradient(180deg, #fff 55.73%, #fdfdfd 75.65%);
+    z-index: 1;
+}
+
+@media (max-width: 639.98px) {
+    main {
+        background: #f7f3ec;
+    }
+    .customized-trip__card-image {
+        height: 12.8125rem;
+    }
+    .customized-trip__card-button {
+        display: none;
+    }
+    .customized-trip__card-location {
+        margin-bottom: 0;
+    }
+    .customized-trip__card-location span {
+        font-size: 0.625rem;
+    }
+}
