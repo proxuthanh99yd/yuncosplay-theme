@@ -1,0 +1,221 @@
+.experts-locaux-section {
+  background: #f6eee2;
+  position: relative;
+
+}
+.experts-locaux-section__background {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    object-fit: cover;
+    opacity: 0.8;
+}
+.experts-locaux-section .container-section {
+  max-width: 81.06rem;
+  margin: 0 auto;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  position: relative;
+  z-index: 5;
+}
+.experts-locaux-section__subtitle {
+  color: var(--text-body-60, rgba(46, 46, 46, 0.6));
+
+  /* PC/SUB/14M */
+  font-family: Matter;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%; /* 1.05rem */
+}
+.experts-locaux-section__title {
+  color: var(--Text-Body-T1, #2e2e2e);
+  font-family: "Clash Grotesk";
+  font-size: 2.75rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%; /* 3.3rem */
+  width: 25rem;
+  margin-top: 1rem;
+  margin-bottom: 2.5rem;
+}
+.experts-locaux-section__title strong {
+  color: var(--Test, #2e871c);
+  font-family: Fraunces;
+}
+.expertsLocauxSwiper-item {
+  width: 100%;
+  height: 21.1875rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+}
+.expertsLocauxSwiper-item__image {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.expertsLocauxSwiper-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: 4px solid rgba(255, 255, 255, 0.4);
+  border-radius: 0.75rem;
+  z-index: 2;
+}
+.expertsLocauxSwiper-item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 54.33%, #000 100%);
+  z-index: 2;
+}
+.expertsLocauxSwiper-item__content {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.expertsLocauxSwiper-item__name {
+  color: var(--Text-Title-White, #fff);
+
+  /* PC/BUTTON/16-B */
+  font-family: Matter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 1.5rem */
+}
+.expertsLocauxSwiper-item__position {
+  color: var(--Text-Title-White, #fff);
+
+  /* PC/BODY/BODY2/14-R */
+  font-family: Matter;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 1.3125rem */
+}
+.expertsLocauxSwiper-next,
+.expertsLocauxSwiper-prev {
+  width: 2.93825rem;
+  height: 2.93825rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fffaf3;
+  border-radius: 999999px;
+  box-shadow: 1.469px 2.938px 14.691px 1.469px rgba(205, 204, 218, 0.4);
+  transition: all 0.3s ease-in-out;
+  position: absolute;
+}
+.expertsLocauxSwiper-next img,
+.expertsLocauxSwiper-prev img {
+  width: 1.25rem;
+  height: 1.1905rem;
+  object-fit: contain;
+  transition: all 0.3s ease-in-out;
+  user-select: none;
+}
+.expertsLocauxSwiper-prev img {
+  transform: rotate(180deg);
+}
+.expertsLocauxSwiper-next:hover {
+  background: #e77b00;
+  transition: all 0.3s ease-in-out;
+}
+.expertsLocauxSwiper-next:hover img {
+  filter: brightness(0) invert(1);
+  transition: all 0.3s ease-in-out;
+}
+.expertsLocauxSwiper-prev:hover {
+  background: #e77b00;
+  transition: all 0.3s ease-in-out;
+}
+.expertsLocauxSwiper-prev:hover img {
+  filter: brightness(0) invert(1);
+  transition: all 0.3s ease-in-out;
+}
+.experts-locaux-section__content {
+  position: relative;
+}
+.swiper-button-disabled {
+  cursor: not-allowed;
+}
+.expertsLocauxSwiper-next {
+  top: 50%;
+  right: 0;
+  z-index: 2;
+  transform: translate(50%, -50%);
+}
+.expertsLocauxSwiper-prev {
+  top: 50%;
+  left: 0;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+}
+.expertsLocauxSwiper-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+.expertsLocauxSwiper-pagination .swiper-pagination-bullet {
+  width: 3.9375rem;
+  height: 0.375rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.58);
+  opacity: 1;
+}
+.expertsLocauxSwiper-pagination .swiper-pagination-bullet-active{
+    background: #5D4B30;
+}
+@media (max-width: 768px) {
+    .experts-locaux-section__background {
+        display: none;
+    }
+    .expertsLocauxSwiper-pagination {
+        display: none;
+    }
+    .expertsLocauxSwiper-next {
+        display: none;
+    }
+    .expertsLocauxSwiper-prev {
+        display: none;
+    }
+    .experts-locaux-section__subtitle {
+        font-size: 0.75rem;
+        display: block;
+        padding: 0 1rem;
+    }
+    .experts-locaux-section__title {
+        width: 70%;
+        font-size: 1.5rem;
+        padding: 0 1rem;
+    }
+    .expertsLocauxSwiper {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .experts-locaux-section .container-section {
+        padding-top: 0rem;
+    }
+}

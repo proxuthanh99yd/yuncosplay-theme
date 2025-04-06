@@ -6,8 +6,10 @@ $_CLOSE_CIRCLE_ID = 18;
 $_DECO_ICON_ID = 24;
 $_STAR_ICON_ID = 25;
 $_CLOCK_ICON_ID = 26;
+$_AlLOW_HEADER_COLOR = is_singular('tours');
+
 ?>
-<header id="header" class="header">
+<header id="header" class="header <?= $_AlLOW_HEADER_COLOR ? 'header--color' : '' ?>">
     <div class="header__top">
         <div class="header__top-container">
             <div class="header__contact">

@@ -1,10 +1,26 @@
+@import url("../../components/banner/assets/styles.css");
 @import url("../../front-page/section-customized-trip/assets/styles.css");
 @import url("../../front-page/section-faqs/assets/styles.css");
 @import url("../../front-page/section-discover/assets/styles.css");
 @import url("../section-list-tours-1/assets/styles.css");
 @import url("../section-list-tours-2/assets/styles.css");
 @import url("../section-faqs/assets/styles.css");
-
+@import url("../../about-us/section-pourquo-garanties/assets/styles.css");
+@import url("../../components/pourquoi_nous_choisir/assets/styles.css");
+@import url("../../components/nos_four_garanties/assets/styles.css");
+.page-template-page-tours {
+background: linear-gradient(0deg, rgba(255, 241, 219, 0.31) 0%, rgba(255, 241, 219, 0.31) 100%), linear-gradient(180deg, #fff 55.73%, #fdfdfd 75.65%);
+}
+.section-pourquo-garanties {
+	margin-top:6.31rem;
+	background:transparent;
+	z-index:2;
+}
+@media (max-width:768px) {
+	.section-pourquo-garanties {
+	margin-top:3rem;
+}
+}
 main {
     overflow: hidden;
     position: relative;
@@ -38,9 +54,7 @@ main {
 }
 
 @media (max-width: 639.98px) {
-    main {
-        background: #f7f3ec;
-    }
+
     .customized-trip__card-image {
         height: 12.8125rem;
     }

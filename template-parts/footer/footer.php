@@ -1,5 +1,5 @@
 <?php
-$image_thumb = wp_is_mobile() ? 123 : 124;
+$image_thumb = wp_is_mobile() ? 314 : 124;
 $image_bg = 122;
 $icon_mail = 121;
 $icon_down = 117;
@@ -47,10 +47,22 @@ $contact = [
     ]
 ];
 ?>
-<footer class="footer">
+<footer class="footer <?php
+            if (!is_home() && !is_front_page()) {
+                echo 'footer--different-page';
+            } else {
+                echo 'footer--home-page';
+            }
+            ?>">
     <div class="footer-thumnail">
         <div class="footer-thumnail__overlay"></div>
-
+        <div class="footer-horizon">
+            <?php
+            if (!is_home() && !is_front_page()) {
+                get_template_part('template-parts/front-page/section-travel-review/index');
+            }
+            ?>
+        </div>
         <div class="footer-form">
             <h2>Inscrivez-vous à notre <strong>newsletter</strong></h2>
             <div class="form">
@@ -82,37 +94,37 @@ $contact = [
         <div class="footer-body__content">
             <div class="footer-body__links--item">
                 <?php foreach ($links as $link): ?>
-                <div class="footer-body__links--group acordion">
-                    <div class="footer-body__links--item__title">
-                        <span><?= $link["title"] ?></span>
-                        <?= wp_get_attachment_image($icon_down, 'full', false, [
+                    <div class="footer-body__links--group acordion">
+                        <div class="footer-body__links--item__title">
+                            <span><?= $link["title"] ?></span>
+                            <?= wp_get_attachment_image($icon_down, 'full', false, [
                                 'class' => 'footer-body__links--item__title__icon',
                             ]) ?>
+                        </div>
+                        <ul class="footer-body__links--item__list">
+                            <?php foreach ($link["children"] as $child): ?>
+                                <li class="footer-body__links--item__list__item">
+                                    <a href="<?= $child["link"] ?>"><?= $child["title"] ?></a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
                     </div>
-                    <ul class="footer-body__links--item__list">
-                        <?php foreach ($link["children"] as $child): ?>
-                        <li class="footer-body__links--item__list__item">
-                            <a href="<?= $child["link"] ?>"><?= $child["title"] ?></a>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
                 <?php endforeach; ?>
 
                 <?php if (!empty($contact)): ?>
-                <div class="footer-body__links--group">
-                    <div class="footer-body__links--item__title"><?= $contact["title"] ?> </div>
-                    <ul class="footer-body__links--item__list">
-                        <?php foreach ($contact["children"] as $item): ?>
-                        <li class="footer-body__links--item__list__item">
-                            <a href="<?= $item["link"] ?>">
-                                <?= wp_get_attachment_image($item["icon"], 'full', false, []) ?>
-                                <?= $item["title"] ?>
-                            </a>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
+                    <div class="footer-body__links--group">
+                        <div class="footer-body__links--item__title"><?= $contact["title"] ?> </div>
+                        <ul class="footer-body__links--item__list">
+                            <?php foreach ($contact["children"] as $item): ?>
+                                <li class="footer-body__links--item__list__item">
+                                    <a href="<?= $item["link"] ?>">
+                                        <?= wp_get_attachment_image($item["icon"], 'full', false, []) ?>
+                                        <?= $item["title"] ?>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
                 <?php endif; ?>
             </div>
             <div class="footer-body__social">

@@ -15,7 +15,7 @@
                             </div>
                             <div class="faqs__item-content">
                                 <div class="faqs__item-content-text">
-                                    <?= get_the_content(null, false, 146) ?>
+                                    <?= get_full_content(1) ?>
                                 </div>
                             </div>
                         </div>

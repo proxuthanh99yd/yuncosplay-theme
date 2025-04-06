@@ -1,0 +1,28 @@
+.section-pourquo-garanties {
+  background: #f6eee2;
+}
+.section-pourquo-garanties .container-section {
+  max-width: 81.1rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 3.16rem;
+}
+.pourquoi-nous-choisir,.nos-four-garanties {
+  width: 100%;
+}
+.section-pourquo-garanties__line {
+  margin: 0 3.5rem;
+}
+@media (max-width: 768px) {
+  .section-pourquo-garanties .container-section {
+    flex-direction: column;
+  }
+  .section-pourquo-garanties__line {
+    display: none;
+  }
+  .pourquoi-nous-choisir {
+    margin-bottom: 3rem;
+  }
+}

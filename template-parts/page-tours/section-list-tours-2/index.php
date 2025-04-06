@@ -193,7 +193,8 @@ $_ARROW_LEFT_ICON = 56;
         </div>
     </div>
     <div class="list-tours__body">
-        <?php for ($i = 0; $i < 6; $i++): ?>
+        <?php $max = wp_is_mobile() ? 6 : 12;
+	for ($i = 0; $i < $max; $i++): ?>
         <div class="customized-trip__card">
             <div class="customized-trip__card-image">
                 <img class="customized-trip__card-image-main" src="/wp-content/uploads/2025/03/customize-trip-item.webp"

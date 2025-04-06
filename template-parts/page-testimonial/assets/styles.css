@@ -1,4 +1,20 @@
+@import url("../../components/banner/assets/styles.css");
 @import url("../section-travel-reviews/assets/styles.css");
+@import url("../../about-us/section-pourquo-garanties/assets/styles.css");
+@import url("../../components/pourquoi_nous_choisir/assets/styles.css");
+@import url("../../components/nos_four_garanties/assets/styles.css");
 main {
     background: #f6eee3;
+}
+.page-template-page-testimonial {
+	background: #f6eee3;
+
+}
+.section-pourquo-garanties {
+	margin-top:6.31rem;
+}
+@media (max-width:768px) {
+	.section-pourquo-garanties {
+	margin-top:3rem;
+}
 }

@@ -27,7 +27,7 @@ $_LOCATION_ICON = wp_is_mobile() ? 'https://horizonvietnamtravel.okhub-tech.com/
                             </div>
                             <div class="faqs__item-content">
                                 <div class="faqs__item-content-text">
-                                    <?= get_the_content(null, false, 1) ?>
+                                    <?= get_full_content(166) ?>
                                 </div>
                             </div>
                         </div>

@@ -1,0 +1,174 @@
+.csr-activities__horizon-vietnam {
+  width: 100%;
+  position: relative;
+  background: #fff;
+  height: 73rem;
+}
+.csr-activities__horizon-vietnam_bg {
+  position: absolute;
+  width: 100%;
+  height: 66.625rem;
+  object-fit: cover;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+}
+.csr-activities__horizon-vietnam_cloud {
+  position: absolute;
+  width: 100%;
+  height: 32.625rem;
+  object-fit: cover;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+}
+.csr-activities__horizon-vietnam .container {
+  max-width: 81.25rem;
+  margin: 0 auto;
+  padding-top: 6.94rem;
+}
+.csr-activities__horizon-vietnam_subtitle {
+  color: var(--text-body-60, rgba(46, 46, 46, 0.6));
+  text-align: center;
+  /* PC/SUB/14M */
+  font-family: Matter;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%; /* 1.05rem */
+  display: block;
+  text-align: center;
+}
+.csr-activities__horizon-vietnam_title {
+  color: var(--Text-Body-T1, #2e2e2e);
+
+  /* PC/H2/44SEMI */
+  font-family: "Clash Grotesk";
+  font-size: 2.75rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+  text-align: center;
+}
+.csr-activities__horizon-vietnam_title strong {
+  color: var(--Foundation-Green-Dark, #348320);
+  font-size: 2.625rem;
+  font-family: Fraunces;
+  font-style: italic;
+}
+.csr-activities__horizon-vietnam_content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  position: relative;
+  z-index: 2;
+  margin-top: 3rem;
+}
+.csr-activities__horizon-vietnam_content_item {
+  width: 100%;
+  height: 13.59375rem;
+  background: var(--Text-Title-White, #fff);
+  border-radius: 0.75rem;
+  box-shadow: 0px 214.763px 60.402px 0px rgba(163, 163, 163, 0),
+    0px 137.103px 54.649px 0px rgba(163, 163, 163, 0.01),
+    0px 77.66px 46.021px 0px rgba(163, 163, 163, 0.05),
+    0px 34.515px 34.515px 0px rgba(163, 163, 163, 0.09),
+    0px 8.629px 19.175px 0px rgba(163, 163, 163, 0.1);
+  padding: 1.75rem;
+}
+.csr-activities__horizon-vietnam_content_item span {
+  color: var(--Text-Body-T1, #2e2e2e);
+  font-family: Fraunces;
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 2.94469rem; /* 98.156% */
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 1.75rem;
+}
+.csr-activities__horizon-vietnam_content_text {
+  color: var(--text-body-75, rgba(46, 46, 46, 0.75));
+
+  /* PC/BODY/BODY2/14-R */
+  font-family: Matter;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 1.3125rem */
+}
+.csr-activities__horizon-vietnam_content_text strong {
+  font-weight: 500;
+}
+@media (max-width: 768px) {
+  .csr-activities__horizon-vietnam {
+    height: 31.75rem;
+  }
+  .csr-activities__horizon-vietnam_content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .csr-activities__horizon-vietnam_bg {
+    height: 16.75rem;
+  }
+  .csr-activities__horizon-vietnam_cloud {
+    height: 8.625rem;
+  }
+  .csr-activities__horizon-vietnam .container {
+    padding-top: 3rem;
+  }
+  .csr-activities__horizon-vietnam_subtitle {
+    text-align: left;
+    font-size: 0.75rem;
+    padding-left: 1rem;
+  }
+  .csr-activities__horizon-vietnam_title {
+    text-align: left;
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+  .csr-activities__horizon-vietnam_title strong {
+    font-size: 1.5rem;
+  }
+  .csr-activities__horizon-vietnam_content {
+    width: 100%;
+    display: block;
+    gap: 0;
+    margin-top: 0;
+  }
+  .mySwiperCsr-activities_horizon-vietnam {
+    padding: 0 1rem;
+  }
+  .csr-activities__horizon-vietnam_content_item {
+    height: 11.9375rem;
+    padding: 1.12rem;
+  }
+  .csr-activities__horizon-vietnam_content_item span {
+    font-size: 3rem;
+    margin-bottom: 1.12rem;
+  }
+  .csr-activities__horizon-vietnam_content_text {
+    font-size: 0.875rem;
+  }
+  .swiperHorizonVnCSR-next {
+    display: flex;
+    width: 2rem;
+    height: 2rem;
+    padding: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3125rem;
+    flex-shrink: 0;
+    border-radius: 999px;
+    background: #fffaf3;
+    box-shadow: 1px 2px 10px 1px rgba(205, 204, 218, 0.4);
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    transform: translate(-50%,-50%);
+  }
+  .swiperHorizonVnCSR-next img {
+    width: 0.86419rem;
+    height: 0.82306rem;
+    transform: rotate(180%);
+  }
+}

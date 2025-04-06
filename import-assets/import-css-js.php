@@ -201,6 +201,42 @@ function  wp_enqueue_local()
 			'in_footer' => true,
 			'condition' => is_singular('tours')
 		],
+		[
+			'type' => 'style',
+			'handle' => 'about-us',
+			'src' => get_theme_file_uri('/template-parts/about-us/assets/styles.css'),
+			'deps' => [],
+			'ver' => THEME_VERSION,
+			'in_footer' => false,
+			'condition' => is_page_template('page-about-us.php')
+		],
+		[
+			'type' => 'script',
+			'handle' => 'about-us',
+			'src' => get_theme_file_uri('/template-parts/about-us/assets/scripts.js'),
+			'deps' => [],
+			'ver' => THEME_VERSION,
+			'in_footer' => true,
+			'condition' => is_page_template('page-about-us.php')
+		],
+		[
+			'type' => 'style',
+			'handle' => 'csr-activities',
+			'src' => get_theme_file_uri('/template-parts/csr-activities/assets/styles.css'),
+			'deps' => [],
+			'ver' => THEME_VERSION,
+			'in_footer' => false,
+			'condition' => is_page_template('csr-activities.php')
+		],
+		[
+			'type' => 'script',
+			'handle' => 'csr-activities',
+			'src' => get_theme_file_uri('/template-parts/csr-activities/assets/scripts.js'),
+			'deps' => [],
+			'ver' => THEME_VERSION,
+			'in_footer' => true,
+			'condition' => is_page_template('csr-activities.php')
+		],
 	];
 
 	foreach ($wp_enqueue_mapping as $wp_enqueue) {
@@ -223,9 +259,10 @@ function add_type_attribute($tag, $handle, $src)
 {
 	// if not your script, do nothing and return original $tag
 	// if ('front-page' !== $handle && 'offcanvas' !== $handle) {
-	if ('front-page' !== $handle && 'page-testimonial' !== $handle && 'page-tours' !== $handle && 'single-tours' !== $handle) {
-		return $tag;
-	}
+	$module_handles = ['front-page', 'about-us', 'csr-activities','page-testimonial','page-tours','single-tours'];
+		if (!in_array($handle, $module_handles, true)) {
+				return $tag;
+			}
 
 	// change the script tag by adding type="module" and return it.
 	$tag = '<script type="module" src="' . esc_url($src) . '"></script>';

@@ -19,8 +19,16 @@ class HandleHeaderToggleOnScroll {
             const headerHeight = this.header.offsetHeight;
             const headerTop = this.header.getBoundingClientRect().top;
             // Kiểm tra nếu header còn trong viewport => remove "header--color", ngược lại thì add
-            if (scrollTop <= vh) {
-                this.header.classList.remove("header--color");
+
+            const isSingleTour =
+                document.body.classList.contains("single-tours");
+
+            if (!isSingleTour) {
+                if (scrollTop <= vh) {
+                    this.header.classList.remove("header--color");
+                } else {
+                    this.header.classList.add("header--color");
+                }
             } else {
                 this.header.classList.add("header--color");
             }
