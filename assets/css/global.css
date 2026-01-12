@@ -103,3 +103,107 @@ input[type="checkbox"] {
     transform: translateX(100%);
   }
 }
+
+/* Button chung */
+.compound-avian-button {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.25rem;
+  background: #630f3f;
+  padding: 0 0.5rem;
+  min-width: 8.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.625rem;
+  cursor: pointer;
+}
+.compound-avian-button.compound-avian-button--md {
+  height: 2.625rem;
+}
+.compound-avian-button.compound-avian-button--lg {
+  height: 3.125rem;
+}
+.compound-avian-button::before {
+  content: "";
+  position: absolute;
+  top: 0.5625rem;
+  width: 8.69663rem;
+  height: 8.69663rem;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("/wp-content/uploads/2026/01/image-trong-dong.webp");
+  pointer-events: none;
+  z-index: 0;
+}
+.compound-avian-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(
+    80deg,
+    #f6ec51 -3.88%,
+    #630f3f 27.57%,
+    #630f3f 70.42%,
+    #f6ec51 102.57%
+  );
+  opacity: 0;
+  z-index: 1;
+}
+.compound-avian-button__content {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.compound-avian-button__content-text {
+  color: #fff;
+  font-family: "Trip Sans";
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 130%;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.compound-avian-button__content-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: 0.75rem;
+}
+@media screen and (min-width: 1024px) {
+  .compound-avian-button::after {
+    transition: all 0.8s cubic-bezier(0.48, 0, 0, 1.01);
+  }
+  .compound-avian-button:hover::after {
+    opacity: 1;
+  }
+}
+@media screen and (max-width: 639.98px) {
+  .compound-avian-button {
+    padding: 0 1.125rem;
+    border-radius: 0.125rem;
+  }
+  .compound-avian-button.compound-avian-button--lg {
+    height: 2.375rem;
+  }
+  .compound-avian-button::before {
+    width: 8.883rem;
+    height: 8.883rem;
+  }
+  .compound-avian-button__content-text {
+    text-align: center;
+    font-size: 0.75rem;
+    line-height: 130%;
+  }
+}

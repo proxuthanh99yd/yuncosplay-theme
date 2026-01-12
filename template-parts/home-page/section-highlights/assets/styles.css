@@ -1,0 +1,274 @@
+.highlights {
+  position: relative;
+  padding: 8.125rem 0 5.625rem 0;
+  height: 50.1875rem;
+}
+.highlights-image__farmer {
+  position: absolute;
+  left: 0;
+  bottom: -1.8125rem;
+  width: auto;
+  height: 19.25rem;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 0;
+}
+.highlights-container {
+  position: relative;
+  height: 100%;
+  max-width: 75rem;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+.highlight-title {
+  position: absolute;
+  top: 0;
+  left: 25.625rem;
+  max-width: 23.75rem;
+
+  color: #630f3f;
+  font-family: "BHN TAN - MEMORIES";
+  font-size: 2.625rem;
+  font-weight: 400;
+  line-height: 170%;
+  letter-spacing: 0.1575rem;
+  font-style: italic;
+}
+
+.highlight-title strong {
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 139%;
+  letter-spacing: 0.18rem;
+}
+.highlights-content {
+  position: absolute;
+  top: 3.25rem;
+  right: 0;
+  width: 22.6875rem;
+}
+.highlights-content__description {
+  color: rgba(46, 46, 46, 0.8);
+  font-family: "BHN TAN - MEMORIES";
+  font-size: 0.875rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 220%;
+  letter-spacing: 0.0625rem;
+  margin-bottom: 2.5rem;
+}
+.highlights-content__contact-link {
+  min-width: 10rem;
+}
+.highlights-content__contact-link.highlights-content__contact-link--mb {
+  display: none;
+}
+.highlights-column__list.highlights-column__list--pc {
+  display: flex;
+}
+.highlights-column__list.highlights-column__list--mb {
+  display: none;
+}
+.highlights-column__list--pc .highlight-column__item {
+  flex: 1 0 0;
+  position: relative;
+}
+.highlights-column__list--pc .highlight-column__item:nth-child(1) {
+  max-width: 36.4375rem;
+  align-self: flex-start;
+}
+.highlights-column__list--pc .highlight-column__item:nth-child(2) {
+  max-width: 4.625rem;
+  align-self: flex-end;
+  padding-bottom: 13.1875rem;
+}
+.highlights-column__list--pc .highlight-column__item:nth-child(3) {
+  max-width: 33.9375rem;
+  display: flex;
+  align-items: flex-end;
+  align-self: flex-end;
+}
+.highlight-card__item {
+  position: relative;
+  padding: 2rem 1.5rem;
+  overflow: hidden;
+}
+.highlight-column__item .highlight-column__image-decor {
+  width: 100%;
+  height: auto;
+  border-radius: inherit;
+  overflow: hidden;
+}
+.highlight-column__item .highlight-column__image-decor img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.highlight-column__item:nth-child(1) .highlight-card__item:nth-child(1) {
+  width: 21.25rem;
+  height: 23.25rem;
+  border-radius: 1.5rem 1.5rem 0 1.5rem;
+}
+.highlight-column__item:nth-child(1) .highlight-card__item:nth-child(2) {
+  width: 21.4375rem;
+  height: 13.1875rem;
+  border-radius: 0 0 1.5rem 1.5rem;
+  margin-left: auto;
+}
+.highlight-column__item:nth-child(1) .highlight-column__image-decor {
+  position: absolute;
+  bottom: 13.1875rem;
+  left: 21.25rem;
+  width: 13.3125rem;
+}
+.highlight-column__item:nth-child(2) .highlight-column__image-decor {
+  width: 4.625rem;
+  height: 3.6875rem;
+  opacity: 0.2;
+  background: #d9d9d9;
+}
+.highlight-column__item:nth-child(3) .highlight-column__image-decor {
+  flex-shrink: 0;
+  width: 10.75rem;
+  border-radius: 0 0 0 1.5rem;
+}
+.highlight-column__item:nth-child(3) .highlight-card__item {
+  flex: 1 0 0;
+  height: 15.875rem;
+  border-radius: 1.5rem 0;
+}
+
+.highlight-card__item-content {
+  position: relative;
+}
+.highlight-card__item-content__title {
+  color: #fff;
+  font-family: "BHN TAN - MEMORIES";
+  font-size: 1.125rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 0.0625rem;
+  margin-bottom: 1.25rem;
+}
+.highlight-card__item-content__description {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: "Trip Sans";
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+}
+.highlight-card__item-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.highlight-card__item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.highlights-content__contact-link-wrapper--mb {
+  display: none;
+}
+
+@media screen and (max-width: 639.98px) {
+  .highlights {
+    padding: 3.8125rem 0;
+    height: auto;
+  }
+  .highlights-image__farmer {
+    display: none;
+  }
+  .highlights-container {
+    height: auto;
+  }
+  .highlight-title {
+    position: static;
+    max-width: 100%;
+    padding-inline: 1.25rem;
+    text-align: center;
+    font-size: 1.5rem;
+    letter-spacing: 0.09rem;
+    margin-bottom: 1.125rem;
+  }
+
+  .highlight-title strong {
+    font-size: 1.75rem;
+    letter-spacing: 0.105rem;
+  }
+  .highlights-content {
+    position: static;
+    width: 100%;
+    padding-inline: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  .highlights-content__description {
+    text-align: center;
+    font-size: 0.75rem;
+    line-height: 200%;
+    margin-bottom: 0;
+  }
+  .highlights-content__contact-link {
+    min-width: 8.9375rem;
+  }
+  .highlights-content__contact-link.highlights-content__contact-link--pc {
+    display: none;
+  }
+  .highlights-content__contact-link.highlights-content__contact-link--mb {
+    display: inline-flex;
+  }
+  .highlights-column__list.highlights-column__list--pc {
+    display: none;
+  }
+  .highlights-column__list.highlights-column__list--mb {
+    display: flex;
+    overflow-x: auto;
+    margin-bottom: 2.5rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .highlights-column__list.highlights-column__list--mb::-webkit-scrollbar {
+    display: none;
+  }
+  .highlight-column__item {
+    width: 18.4375rem;
+    height: 16.25rem;
+    flex-shrink: 0;
+  }
+  .highlight-column__item:first-child {
+    margin-left: 1.25rem;
+  }
+  .highlight-column__item:last-child {
+    margin-right: 1.25rem;
+  }
+  .highlight-column__item:not(:last-child) {
+    margin-right: 0.875rem;
+  }
+  .highlight-card__item {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0.25rem !important;
+    padding: 1.625rem 1.125rem;
+  }
+
+  .highlight-card__item-content__title {
+    font-size: 0.9375rem;
+    line-height: 150%;
+    letter-spacing: 0.0625rem;
+    margin-bottom: 1rem;
+  }
+  .highlight-card__item-content__description {
+    font-size: 0.8125rem;
+  }
+  .highlights-content__contact-link-wrapper--mb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -1,2 +1,11 @@
 @import url("../section-banner/assets/styles.css");
-@import url("../section-hero/assets/styles.css");
+@import url("../section-highlights/assets/styles.css");
+
+main {
+  background-image: url("/wp-content/uploads/2026/01/background-image-pc-scaled.webp");
+  background-size: 100vw 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #fbf9f8;
+}

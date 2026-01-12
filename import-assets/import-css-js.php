@@ -38,6 +38,20 @@ function  wp_enqueue_lib()
 		THEME_VERSION,
 		true
 	);
+	// AOS
+	wp_enqueue_style(
+		'aos',
+		'https://unpkg.com/aos@2.3.1/dist/aos.css',
+		[],
+		THEME_VERSION
+	);
+	wp_enqueue_script(
+		'aos',
+		'https://unpkg.com/aos@2.3.1/dist/aos.js',
+		[],
+		THEME_VERSION,
+		true
+	);
 }
 add_action('wp_enqueue_scripts', 'wp_enqueue_lib', 1000);
 
