@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html <?php language_attributes(); ?>>
+<html lang="vi">
 
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
@@ -8,9 +8,8 @@
 </head>
 
 <body <?php body_class(); ?>>
-    <?php if (!wp_is_mobile()): ?>
-        <?php get_template_part('template-parts/header/header'); ?>
-    <?php else: ?>
-        <?php get_template_part('template-parts/header/header-mobile'); ?>
-    <?php endif; ?>
+    <?php
+    get_template_part('template-parts/layouts/header/index');
+    ?>
+
     <main id="main" class="main">

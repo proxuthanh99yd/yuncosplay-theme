@@ -1,3 +1,7 @@
-<?php get_header(); ?>
-<?php get_template_part('template-parts/front-page/index'); ?>
-<?php get_footer(); ?>
+<?php
+/*
+Template Name: Home Page
+*/
+get_header(); 
+get_template_part('template-parts/home-page/index'); 
+get_footer(); 

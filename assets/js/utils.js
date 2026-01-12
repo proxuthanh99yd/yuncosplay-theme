@@ -55,7 +55,7 @@ class FormValidator {
     constructor(formSelector, constraints, onSuccess) {
         this.form = document.querySelector(formSelector);
         this.constraints = constraints;
-        this.onSuccess = onSuccess; // Callback khi form hợp lệ
+        this.onSuccess = onSuccess;
 
         if (!this.form) {
             console.error(`Form với selector '${formSelector}' không tồn tại!`);
@@ -65,7 +65,6 @@ class FormValidator {
         this.attachEventListeners();
     }
 
-    // Gắn sự kiện cho các input, select
     attachEventListeners() {
         this.form.addEventListener("submit", (event) => {
             event.preventDefault();
@@ -74,75 +73,98 @@ class FormValidator {
 
         const inputs = this.form.querySelectorAll("input, textarea, select");
         inputs.forEach((input) => {
-            input.addEventListener("input", () => this.validateInput(input));
-        });
-    }
-
-    // Validate toàn bộ form
-    validateForm() {
-        const errors = validate(this.form, this.constraints);
-        this.showErrors(errors || {});
-        if (!errors) this.handleSuccess();
-    }
-
-    // Validate một input riêng lẻ
-    validateInput(input) {
-        const formGroup = this.closestParent(input, "form-group");
-        if (!formGroup) return;
-
-        // Reset lỗi trước khi kiểm tra lại
-        this.resetFormGroup(formGroup);
-
-        const errors = validate(this.form, this.constraints) || {};
-        const prevError = errors[input.name];
-
-        if (prevError) {
-            const inputErrs = prevError.map((prevEr) => {
-                return this.convertAndRemove(input.name, prevEr);
-            });
-            this.showErrorsForInput(input, inputErrs);
-        }
-    }
-
-    // Hiển thị lỗi trên toàn bộ form
-    showErrors(errors) {
-        console.log(errors);
-        const inputs = this.form.querySelectorAll("input[name], select[name]");
-        inputs.forEach((input) => {
-            const prevError = errors[input.name];
-            if (prevError) {
-                const inputErrs = prevError.map((prevEr) => {
-                    return this.convertAndRemove(input.name, prevEr);
-                });
-                this.showErrorsForInput(input, inputErrs);
+            if (input.hasAttribute("datepicker")) {
+                input.addEventListener("changeDate", () =>
+                    this.validateInput(input)
+                );
+            } else {
+                input.addEventListener("input", () =>
+                    this.validateInput(input)
+                );
             }
         });
     }
 
-    convertAndRemove(input, text) {
-        // Chuyển "name-name" thành "Name name"
-        let formattedName = input
-            .split("-")
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ");
-
-        // Tạo regex để xóa cụm "Name name" không phân biệt hoa/thường
-        let regex = new RegExp(formattedName, "gi");
-
-        // Xóa cụm từ và chuẩn hóa khoảng trắng
-        return text.replace(regex, "").replace(/\s+/g, " ").trim();
+    // Lấy dữ liệu form thành object để truyền vào validate.js
+    getFormData() {
+        const data = {};
+        const elements = this.form.querySelectorAll("[name]");
+        elements.forEach((el) => {
+            if (el.type === "checkbox") {
+                data[el.name] = el.checked ? el.value : "";
+            } else if (el.type === "radio") {
+                if (el.checked) data[el.name] = el.value;
+            } else {
+                data[el.name] = el.value;
+            }
+        });
+        return data;
     }
 
-    // Hiển thị lỗi cho một input
-    showErrorsForInput(input, errors) {
-        input.focus();
+    validateForm(cb) {
+        const formData = this.getFormData();
+        const errors = validate(formData, this.constraints);
+        this.showErrors(errors || {});
+        if (!errors) this.handleSuccess();
+        if (typeof cb === "function") {
+            cb({
+                status: !errors, // true nếu không có lỗi
+                errors: errors || null,
+                formData: formData,
+            });
+        }
+    }
+
+    validateInput(input) {
         const formGroup = this.closestParent(input, "form-group");
         if (!formGroup) return;
 
-        const messages = formGroup.querySelector(".messages");
         this.resetFormGroup(formGroup);
-        console.log("this.resetFormGroup");
-        if (errors) {
+
+        const data = this.getFormData();
+        const fieldConstraint = { [input.name]: this.constraints[input.name] };
+        const errors = validate(data, fieldConstraint);
+
+        if (errors && errors[input.name]) {
+            const messages = errors[input.name].map((msg) =>
+                this.convertAndRemove(input.name, msg)
+            );
+            this.showErrorsForInput(input, messages);
+        }
+    }
+
+    showErrors(errors) {
+        const inputs = this.form.querySelectorAll(
+            "input[name], select[name], textarea[name]"
+        );
+        inputs.forEach((input) => {
+            const messages = errors[input.name];
+            if (messages) {
+                const msgList = messages.map((msg) =>
+                    this.convertAndRemove(input.name, msg)
+                );
+                this.showErrorsForInput(input, msgList);
+            } else {
+                this.resetFormGroup(this.closestParent(input, "form-group"));
+            }
+        });
+    }
+
+    showErrorsForInput(input, errors) {
+        const formGroup = this.closestParent(input, "form-group");
+        if (!formGroup) return;
+
+        // Tìm hoặc tạo thẻ .messages
+        let messages = formGroup.querySelector(".messages");
+        if (!messages) {
+            messages = document.createElement("div");
+            messages.classList.add("messages");
+            formGroup.appendChild(messages);
+        }
+
+        this.resetFormGroup(formGroup);
+
+        if (errors.length > 0) {
             formGroup.classList.add("has-error");
             errors.forEach((error) => this.addError(messages, error));
         } else {
@@ -150,7 +172,36 @@ class FormValidator {
         }
     }
 
-    // Tìm phần tử cha gần nhất có class chỉ định
+    resetFormGroup(formGroup) {
+        formGroup.classList.remove("has-error", "has-success");
+
+        const messages = formGroup.querySelector(".messages");
+        if (messages) {
+            messages.innerHTML = "";
+        }
+    }
+
+    resetAll() {
+        const groups = this.form.querySelectorAll(".form-group");
+        groups.forEach((group) => this.resetFormGroup(group));
+    }
+
+    addError(messages, error) {
+        const block = document.createElement("p");
+        block.classList.add("help-block", "error");
+        block.innerText = error;
+        messages.appendChild(block);
+    }
+
+    convertAndRemove(input, text) {
+        const formatted = input
+            .split("-")
+            .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+            .join(" ");
+        const regex = new RegExp(formatted, "gi");
+        return text.replace(regex, "").replace(/\s+/g, " ").trim();
+    }
+
     closestParent(element, className) {
         while (element && element !== document) {
             if (element.classList.contains(className)) return element;
@@ -159,128 +210,11 @@ class FormValidator {
         return null;
     }
 
-    // Xóa lỗi và reset trạng thái input
-    resetFormGroup(formGroup) {
-        formGroup.classList.remove("has-error", "has-success");
-        const oldMessages = formGroup.querySelectorAll(".help-block.error");
-        oldMessages.forEach((el) => el.remove());
-    }
-
-    // Thêm lỗi vào phần hiển thị
-    addError(messages, error) {
-        const block = document.createElement("p");
-        block.classList.add("help-block", "error");
-        block.innerText = error;
-        messages.appendChild(block);
-    }
-
-    // Xử lý khi form hợp lệ
     handleSuccess() {
         console.log("Form validated successfully!");
         const formData = new FormData(this.form);
         if (typeof this.onSuccess === "function") {
-            this.onSuccess(formData); // Gọi callback với dữ liệu form
+            this.onSuccess(formData);
         }
     }
 }
-
-// class CustomDropdown extends HTMLElement {
-//     constructor() {
-//         super();
-//         this.attachShadow({ mode: "open" });
-//         this.render();
-//     }
-
-//     connectedCallback() {
-//         this.init();
-//     }
-
-//     render() {
-//         this.shadowRoot.innerHTML = `
-//             <style>
-//                 :host { display: block; position: relative; }
-//                 .dropdown-toggle { cursor: pointer; padding: 10px; border: 1px solid #ccc; display: flex; align-items: center; gap: 5px; }
-//                 .dropdown-menu { display: none; position: absolute; background: white; border: 1px solid #ccc; list-style: none; padding: 0; margin: 0; width: 100%; }
-//                 .dropdown-menu li { padding: 10px; cursor: pointer; display: flex; align-items: center; gap: 5px; }
-//                 .dropdown-menu li:hover { background: #f0f0f0; }
-//                 .open .dropdown-menu { display: block; }
-//                 ::slotted(custom-option) { display: none; }
-//             </style>
-//             <div class="dropdown">
-//                 <div class="dropdown-toggle">
-//                     <slot name="placeholder">Select</slot>
-//                 </div>
-//                 <ul class="dropdown-menu"></ul>
-//                 <input type="hidden" class="dropdown-input" />
-//                 <slot></slot>
-//             </div>
-//         `;
-//     }
-
-//     init() {
-//         this.toggle = this.shadowRoot.querySelector(".dropdown-toggle");
-//         this.menu = this.shadowRoot.querySelector(".dropdown-menu");
-//         this.input = this.shadowRoot.querySelector(".dropdown-input");
-
-//         this.renderOptions();
-
-//         this.toggle.addEventListener("click", () => this.toggleDropdown());
-//         document.addEventListener("click", (e) => this.closeOnOutsideClick(e));
-//     }
-
-//     toggleDropdown() {
-//         this.shadowRoot.querySelector(".dropdown").classList.toggle("open");
-//     }
-
-//     closeOnOutsideClick(e) {
-//         if (!this.contains(e.target)) {
-//             this.shadowRoot.querySelector(".dropdown").classList.remove("open");
-//         }
-//     }
-
-//     renderOptions() {
-//         const slot = this.querySelectorAll("custom-option");
-//         this.menu.innerHTML = Array.from(slot)
-//             .map(
-//                 (opt) =>
-//                     `<li data-value="${opt.getAttribute("value")}">
-//                 ${opt.innerHTML}
-//             </li>`
-//             )
-//             .join("");
-
-//         this.menu.addEventListener("click", (e) => this.selectOption(e));
-//     }
-
-//     selectOption(e) {
-//         if (e.target.tagName !== "LI") return;
-
-//         this.toggle.innerHTML = e.target.innerHTML;
-//         this.input.value = e.target.getAttribute("data-value");
-//         this.shadowRoot.querySelector(".dropdown").classList.remove("open");
-
-//         this.dispatchEvent(
-//             new CustomEvent("change", {
-//                 detail: { value: this.input.value },
-//                 bubbles: true,
-//                 composed: true,
-//             })
-//         );
-//     }
-// }
-
-// customElements.define("custom-dropdown", CustomDropdown);
-
-// class CustomOption extends HTMLElement {
-//     constructor() {
-//         super();
-//     }
-// }
-
-// customElements.define("custom-option", CustomOption);
-
-// document
-//     .querySelector("custom-dropdown")
-//     .addEventListener("change", (event) => {
-//         console.log("Giá trị được chọn:", event.detail.value);
-//     });

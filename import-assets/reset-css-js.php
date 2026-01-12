@@ -37,7 +37,7 @@ add_filter('should_load_separate_core_block_assets', '__return_true');
 function custom_dequeue_styles()
 {
     wp_dequeue_style('contact-form-7');
-    wp_dequeue_script('contact-form-7');
+    // wp_dequeue_script('contact-form-7');
     wp_dequeue_style('wp-emoji-styles');
     wp_dequeue_style('dashicons');
     wp_deregister_style('dashicons');

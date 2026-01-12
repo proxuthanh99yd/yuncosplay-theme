@@ -1,5 +1,6 @@
 <?php
-$VERSION = WP_DEBUG ? time() : wp_get_theme()->get('Version');;
+$VERSION = true ? time() : wp_get_theme()->get('Version');
+// define('THEME_VERSION', null);
 define('THEME_VERSION', $VERSION);
 // ============================== start wp_enqueue lib =====================//
 // Add preconnect for Google Fonts
@@ -21,15 +22,22 @@ add_filter('wp_resource_hints', 'my_add_preconnects', 10, 2);
 
 function  wp_enqueue_lib()
 {
-	// wp_enqueue_style('link-tag-id', 'url');
-	// wp_enqueue_script("ffmpeg", "https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/dist/umd/ffmpeg.min.js", [], false, true);
-	wp_enqueue_style('font-Fraunces', 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap', [], THEME_VERSION);
-
-	wp_enqueue_style('swiper', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css', [], THEME_VERSION);
-	wp_enqueue_script("swiper", 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', [], THEME_VERSION, true);
-
-	wp_enqueue_style('plyr', get_theme_file_uri('/assets/css/plyr.css'), [], THEME_VERSION);
-	wp_enqueue_script("plyr", get_theme_file_uri('/assets/js/plyr.js'), [], THEME_VERSION, true);
+	wp_enqueue_style('swiper', get_theme_file_uri('/assets/css/swiper-bundle.min.css'), [], THEME_VERSION);
+	wp_enqueue_script("swiper", get_theme_file_uri('/assets/js/swiper-bundle.min.js'), [], THEME_VERSION, true);
+	// Lenis smooth scroll
+	wp_enqueue_style(
+		'lenis',
+		'https://unpkg.com/lenis@1.3.17/dist/lenis.css',
+		[],
+		THEME_VERSION
+	);
+	wp_enqueue_script(
+		'lenis',
+		'https://unpkg.com/lenis@1.3.17/dist/lenis.min.js',
+		[],
+		THEME_VERSION,
+		true
+	);
 }
 add_action('wp_enqueue_scripts', 'wp_enqueue_lib', 1000);
 
@@ -39,6 +47,15 @@ add_action('wp_enqueue_scripts', 'wp_enqueue_lib', 1000);
 function  wp_enqueue_local()
 {
 	$wp_enqueue_mapping = [
+		[
+			'type' => 'style',
+			'handle' => 'stylesheet',
+			'src' => get_theme_file_uri('/assets/fonts/stylesheet.css'),
+			'deps' => [],
+			'ver' => THEME_VERSION,
+			'in_footer' => false,
+			'condition' => true
+		],
 		[
 			'type' => 'style',
 			'handle' => '_reset',
@@ -67,12 +84,12 @@ function  wp_enqueue_local()
 			'condition' => true
 		],
 		[
-			'type' => 'style',
-			'handle' => 'fonts',
-			'src' => get_theme_file_uri('/assets/fonts/stylesheet.css'),
+			'type' => 'script',
+			'handle' => 'app',
+			'src' => get_theme_file_uri('/assets/js/app.js'),
 			'deps' => [],
 			'ver' => THEME_VERSION,
-			'in_footer' => false,
+			'in_footer' => true,
 			'condition' => true
 		],
 		[
@@ -94,9 +111,18 @@ function  wp_enqueue_local()
 			'condition' => true
 		],
 		[
+			'type' => 'script',
+			'handle' => '_custom_drawer',
+			'src' => get_theme_file_uri('/assets/js/custom-drawer.js'),
+			'deps' => [],
+			'ver' => THEME_VERSION,
+			'in_footer' => true,
+			'condition' => true
+		],
+		[
 			'type' => 'style',
-			'handle' => 'header',
-			'src' => get_theme_file_uri('/template-parts/header/assets/styles.css'),
+			'handle' => 'datepicker',
+			'src' => get_theme_file_uri('/assets/css/flatpickr.min.css'),
 			'deps' => [],
 			'ver' => THEME_VERSION,
 			'in_footer' => false,
@@ -104,17 +130,37 @@ function  wp_enqueue_local()
 		],
 		[
 			'type' => 'script',
-			'handle' => 'header',
-			'src' => get_theme_file_uri('/template-parts/header/assets/scripts.js'),
+			'handle' => 'datepicker',
+			'src' => get_theme_file_uri('/assets/js/flatpickr.min.js'),
 			'deps' => [],
 			'ver' => THEME_VERSION,
 			'in_footer' => true,
 			'condition' => true
 		],
+		// Header
+		[
+			'type' => 'style',
+			'handle' => 'header',
+			'src' => get_theme_file_uri('/template-parts/layouts/header/assets/styles.css'),
+			'deps' => [],
+			'ver' => THEME_VERSION,
+			'in_header' => false,
+			'condition' => true
+		],
+		[
+			'type' => 'script',
+			'handle' => 'header',
+			'src' => get_theme_file_uri('/template-parts/layouts/header/assets/scripts.js'),
+			'deps' => [],
+			'ver' => THEME_VERSION,
+			'in_footer' => true,
+			'condition' => true
+		],
+		// Footer
 		[
 			'type' => 'style',
 			'handle' => 'footer',
-			'src' => get_theme_file_uri('/template-parts/footer/assets/styles.css'),
+			'src' => get_theme_file_uri('/template-parts/layouts/footer/assets/styles.css'),
 			'deps' => [],
 			'ver' => THEME_VERSION,
 			'in_footer' => false,
@@ -123,120 +169,56 @@ function  wp_enqueue_local()
 		[
 			'type' => 'script',
 			'handle' => 'footer',
-			'src' => get_theme_file_uri('/template-parts/footer/assets/scripts.js'),
+			'src' => get_theme_file_uri('/template-parts/layouts/footer/assets/scripts.js'),
 			'deps' => [],
 			'ver' => THEME_VERSION,
 			'in_footer' => true,
 			'condition' => true
 		],
+		// Home page
 		[
 			'type' => 'style',
-			'handle' => 'front-page',
-			'src' => get_theme_file_uri('/template-parts/front-page/assets/styles.css'),
+			'handle' => 'home-page',
+			'src' => get_theme_file_uri('/template-parts/home-page/assets/styles.css'),
 			'deps' => [],
 			'ver' => THEME_VERSION,
 			'in_footer' => false,
-			'condition' => is_front_page()
+			'condition' => is_page_template('front-page.php')
 		],
 		[
 			'type' => 'script',
-			'handle' => 'front-page',
-			'src' => get_theme_file_uri('/template-parts/front-page/assets/scripts.js'),
+			'handle' => 'home-page',
+			'src' => get_theme_file_uri('/template-parts/home-page/assets/scripts.js'),
 			'deps' => [],
 			'ver' => THEME_VERSION,
 			'in_footer' => true,
-			'condition' => is_front_page()
-		],
-		[
-			'type' => 'style',
-			'handle' => 'page-testimonial',
-			'src' => get_theme_file_uri('/template-parts/page-testimonial/assets/styles.css'),
-			'deps' => [],
-			'ver' => THEME_VERSION,
-			'in_footer' => false,
-			'condition' => is_page_template('page-testimonial.php')
-		],
-		[
-			'type' => 'script',
-			'handle' => 'page-testimonial',
-			'src' => get_theme_file_uri('/template-parts/page-testimonial/assets/scripts.js'),
-			'deps' => [],
-			'ver' => THEME_VERSION,
-			'in_footer' => true,
-			'condition' => is_page_template('page-testimonial.php')
-		],
-		[
-			'type' => 'style',
-			'handle' => 'page-tours',
-			'src' => get_theme_file_uri('/template-parts/page-tours/assets/styles.css'),
-			'deps' => [],
-			'ver' => THEME_VERSION,
-			'in_footer' => false,
-			'condition' => is_page_template('page-tours.php')
-		],
-		[
-			'type' => 'script',
-			'handle' => 'page-tours',
-			'src' => get_theme_file_uri('/template-parts/page-tours/assets/scripts.js'),
-			'deps' => [],
-			'ver' => THEME_VERSION,
-			'in_footer' => true,
-			'condition' => is_page_template('page-tours.php')
-		],
-		[
-			'type' => 'style',
-			'handle' => 'single-tours',
-			'src' => get_theme_file_uri('/template-parts/single-tours/assets/styles.css'),
-			'deps' => [],
-			'ver' => THEME_VERSION,
-			'in_footer' => false,
-			'condition' => is_singular('tours')
-		],
-		[
-			'type' => 'script',
-			'handle' => 'single-tours',
-			'src' => get_theme_file_uri('/template-parts/single-tours/assets/scripts.js'),
-			'deps' => [],
-			'ver' => THEME_VERSION,
-			'in_footer' => true,
-			'condition' => is_singular('tours')
-		],
-		[
-			'type' => 'style',
-			'handle' => 'about-us',
-			'src' => get_theme_file_uri('/template-parts/about-us/assets/styles.css'),
-			'deps' => [],
-			'ver' => THEME_VERSION,
-			'in_footer' => false,
-			'condition' => is_page_template('page-about-us.php')
-		],
-		[
-			'type' => 'script',
-			'handle' => 'about-us',
-			'src' => get_theme_file_uri('/template-parts/about-us/assets/scripts.js'),
-			'deps' => [],
-			'ver' => THEME_VERSION,
-			'in_footer' => true,
-			'condition' => is_page_template('page-about-us.php')
-		],
-		[
-			'type' => 'style',
-			'handle' => 'csr-activities',
-			'src' => get_theme_file_uri('/template-parts/csr-activities/assets/styles.css'),
-			'deps' => [],
-			'ver' => THEME_VERSION,
-			'in_footer' => false,
-			'condition' => is_page_template('csr-activities.php')
-		],
-		[
-			'type' => 'script',
-			'handle' => 'csr-activities',
-			'src' => get_theme_file_uri('/template-parts/csr-activities/assets/scripts.js'),
-			'deps' => [],
-			'ver' => THEME_VERSION,
-			'in_footer' => true,
-			'condition' => is_page_template('csr-activities.php')
-		],
+			'condition' => is_page_template('front-page.php')
+		]
+	];
+
+	foreach ($wp_enqueue_mapping as $wp_enqueue) {
+		if (!$wp_enqueue['condition']) {
+			continue;
+		}
+		if ($wp_enqueue['type'] == 'style') {
+			wp_enqueue_style($wp_enqueue['handle'], $wp_enqueue['src'], $wp_enqueue['deps'], $wp_enqueue['ver']);
+		} else {
+			wp_enqueue_script($wp_enqueue['handle'], $wp_enqueue['src'], $wp_enqueue['deps'], $wp_enqueue['ver'], $wp_enqueue['in_footer']);
+		}
+	}
+
+	wp_localize_script('header', 'wpApiSettings', [
+		'nonce' => wp_create_nonce('wp_rest'),
+		'root'  => esc_url_raw(rest_url()),
+	]);
+}
+
+add_action('wp_enqueue_scripts', 'wp_enqueue_local', 1001);
+
+// ============================== wp_enqueue javascript =====================//
+function wp_enqueue_javascript()
+{
+	$wp_enqueue_mapping = [
 	];
 
 	foreach ($wp_enqueue_mapping as $wp_enqueue) {
@@ -251,18 +233,17 @@ function  wp_enqueue_local()
 	}
 }
 
-add_action('wp_enqueue_scripts', 'wp_enqueue_local', 1001);
-
+add_action('wp_enqueue_scripts', 'wp_enqueue_javascript', 1003);
 add_filter('script_loader_tag', 'add_type_attribute', 10, 3);
 
 function add_type_attribute($tag, $handle, $src)
 {
 	// if not your script, do nothing and return original $tag
 	// if ('front-page' !== $handle && 'offcanvas' !== $handle) {
-	$module_handles = ['front-page', 'about-us', 'csr-activities','page-testimonial','page-tours','single-tours'];
-		if (!in_array($handle, $module_handles, true)) {
-				return $tag;
-			}
+	$module_handles = ['home-page'];
+	if (!in_array($handle, $module_handles, true)) {
+		return $tag;
+	}
 
 	// change the script tag by adding type="module" and return it.
 	$tag = '<script type="module" src="' . esc_url($src) . '"></script>';
