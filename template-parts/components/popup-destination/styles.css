@@ -220,9 +220,9 @@
     pointer-events: auto;
     transition: opacity 0.3s ease-out, visibility 0s ease-out 0s;
   }
-  .destinations-popup.destinations-popup--collapsed {
+  /* .destinations-popup.destinations-popup--collapsed {
     max-height: 100vw;
-  }
+  } */
   .destinations-popup-close {
     top: 1rem;
     right: 1rem;
@@ -247,8 +247,32 @@
     text-transform: uppercase;
   }
   .destination-capital__popup-content__description {
-    max-height: 12.375rem;
+    max-height: min(12.375rem, 50vh);
     overflow-y: auto;
+  }
+
+  /* Style scrollbar cho description trên mobile */
+  .destination-capital__popup-content__description::-webkit-scrollbar {
+    width: 0.1875rem;
+  }
+
+  .destination-capital__popup-content__description::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .destination-capital__popup-content__description::-webkit-scrollbar-thumb {
+    background: rgba(46, 46, 46, 0.8);
+    border-radius: 6.25rem;
+  }
+
+  .destination-capital__popup-content__description::-webkit-scrollbar-thumb:hover {
+    background: rgba(46, 46, 46, 0.9);
+  }
+
+  /* Firefox scrollbar */
+  .destination-capital__popup-content__description {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(46, 46, 46, 0.8) transparent;
   }
   .destinations-popup-footer {
     padding: 0.625rem 1.25rem;
@@ -267,9 +291,7 @@
     text-transform: uppercase;
     margin-right: 0;
   }
-  .destinations-popup__link-icon {
-    display: none;
-  }
+  .destinations-popup__link-icon,
   .destination-capital__popup__collapse-btn {
     display: none;
   }

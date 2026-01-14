@@ -167,10 +167,12 @@ export function popupDestinationScripts() {
     popup.classList.add("destinations-popup--active");
 
     // Tính toán và set vị trí popup ở góc trái trên cùng (top: 0, left: 0) của map-wrapper
+    // Chỉ thực hiện trên PC (width >= 640px)
     const mapWrapper = document.querySelector(".destinations-map-wrapper");
     const popupContent = popup.querySelector(".destinations-popup-content");
+    const isDesktop = window.innerWidth >= 640;
 
-    if (mapWrapper && popupContent) {
+    if (mapWrapper && popupContent && isDesktop) {
       // Sử dụng double requestAnimationFrame để đảm bảo DOM đã render xong và có kích thước chính xác
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
@@ -189,6 +191,10 @@ export function popupDestinationScripts() {
           popupContent.style.left = `${distanceFromLeft}px`;
         });
       });
+    } else if (popupContent && !isDesktop) {
+      // Trên mobile, reset về giá trị mặc định hoặc không set position
+      popupContent.style.top = "";
+      popupContent.style.left = "";
     }
   }
 
@@ -258,6 +264,10 @@ export function popupDestinationScripts() {
   function toggleCollapse() {
     if (!popupContent) return;
 
+    // Chỉ thực hiện collapse logic trên PC (width >= 640px)
+    const isDesktop = window.innerWidth >= 640;
+    if (!isDesktop) return;
+
     const isCollapsed = popup.classList.contains("destinations-popup--collapsed");
     const COLLAPSED_HEIGHT = "14.5625rem"; // Chiều cao khi collapsed
     const EXPANDED_PADDING_BOTTOM = "3.0625rem"; // Padding-bottom khi expanded
@@ -306,9 +316,14 @@ export function popupDestinationScripts() {
 
   /**
    * Reset collapse state về mặc định (collapsed) khi mở popup mới
+   * Chỉ thực hiện trên PC (width >= 640px)
    */
   function resetCollapseState() {
     if (!popupContent) return;
+
+    // Chỉ thực hiện collapse logic trên PC (width >= 640px)
+    const isDesktop = window.innerWidth >= 640;
+    if (!isDesktop) return;
 
     const COLLAPSED_HEIGHT = "14.5625rem";
 

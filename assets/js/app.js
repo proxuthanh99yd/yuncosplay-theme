@@ -43,6 +43,8 @@ class App {
   }
 
   handleInitializeLenis() {
+    const isMobile = window.innerWidth < 640;
+    if (isMobile) return;
     if (typeof Lenis === "undefined") return;
 
     this.lenis = new Lenis({
