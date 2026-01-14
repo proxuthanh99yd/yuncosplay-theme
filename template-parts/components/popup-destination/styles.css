@@ -1,0 +1,276 @@
+.destinations-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 100;
+  transition: opacity 0.3s ease-out, visibility 0s ease-out 0.3s;
+}
+.destinations-popup.destinations-popup--active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease-out, visibility 0s ease-out 0s;
+}
+
+.destination-popup-overlay {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+.destinations-popup-content {
+  position: absolute;
+  /* top và left sẽ được set động bằng JavaScript */
+  width: 22.25rem;
+  max-height: 14.5625rem;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  z-index: 1;
+  transition: max-height 0.5s ease, padding-bottom 0.5s ease;
+}
+
+/* Khi popup expanded, cho phép scroll nếu nội dung dài */
+.destinations-popup:not(.destinations-popup--collapsed) .destinations-popup-content {
+  overflow-y: auto;
+}
+/* Ẩn ::after (overlay gradient) khi popup expanded */
+.destinations-popup:not(.destinations-popup--collapsed) .destinations-popup-content::after {
+  opacity: 0;
+  visibility: hidden;
+}
+.destinations-popup-close {
+  position: absolute;
+  top: 0.625rem;
+  right: 0.625rem;
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: 50%;
+  background: rgba(17, 17, 100, 0.1);
+  backdrop-filter: blur(27.182817459106445px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.destinations-popup-close svg {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+.destinations-popup-content::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4.625rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.86) 32.08%, #fff 69.34%);
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+.destinations-popup-header {
+  display: inline-flex;
+  align-items: center;
+  padding-bottom: 1.125rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  margin-bottom: 0.875rem;
+  width: 100%;
+}
+.destination-capital__popup__thumbnail {
+  flex-shrink: 0;
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: 0.25rem;
+  margin-right: 0.875rem;
+}
+.destination-capital__popup__thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+.destination-capital__popup__info {
+  flex: 1 0 0;
+}
+.destination-capital__popup__title {
+  color: #630f3f;
+  font-family: "BHN TAN - MEMORIES";
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 170%;
+  letter-spacing: 0.0625rem;
+  margin-bottom: 0.375rem;
+  height: 1rem;
+}
+.destination-capital__popup__tour-quantity {
+  display: flex;
+  align-items: center;
+}
+.destination-capital__popup__tour-quantity__label {
+  color: rgba(46, 46, 46, 0.8);
+  font-family: "Trip Sans";
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%;
+  margin-right: 0.25rem;
+}
+.destination-capital__popup__tour-quantity__value {
+  color: #630f3f;
+  font-family: "Trip Sans";
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%;
+}
+.destination-capital__popup-content__description {
+  color: rgba(46, 46, 46, 0.8);
+  font-family: "Trip Sans";
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%; /* 1.4rem */
+}
+.destinations-popup-footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.destinations-popup__link {
+  display: inline-flex;
+  padding: 0.875rem 1rem;
+  align-items: center;
+}
+.destinations-popup__link-text {
+  color: #630f3f;
+  text-align: center;
+  font-family: "Trip Sans";
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%;
+  margin-right: 0.625rem;
+}
+.destinations-popup__link-icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+.destination-capital__popup__collapse-btn {
+  position: relative;
+  width: 2.75rem;
+  height: 2.75rem;
+}
+.destination-capital__popup__collapse-btn__icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1rem;
+  height: auto;
+}
+
+.destination-capital__popup__collapse-btn__icon--zoom-out {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.destination-capital__popup__collapse-btn__icon--zoom-in {
+  display: block;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Khi popup expanded (không có class --collapsed), hiển thị zoom-out icon */
+.destinations-popup:not(.destinations-popup--collapsed) .destination-capital__popup__collapse-btn__icon--zoom-out {
+  display: block;
+  opacity: 1;
+}
+.destinations-popup:not(.destinations-popup--collapsed) .destination-capital__popup__collapse-btn__icon--zoom-in {
+  display: none;
+  opacity: 0;
+}
+
+@media screen and (max-width: 639.98px) {
+  .destinations-popup {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    position: fixed;
+  }
+  .destinations-popup.destinations-popup--active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.3s ease-out, visibility 0s ease-out 0s;
+  }
+  .destinations-popup.destinations-popup--collapsed {
+    max-height: 100vw;
+  }
+  .destinations-popup-close {
+    top: 1rem;
+    right: 1rem;
+  }
+  .destinations-popup-content {
+    height: 23.875rem;
+    max-height: initial;
+    width: 21.0625rem;
+    padding: 1.25rem 1.25rem 4.25rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .destinations-popup-content::after {
+    display: none;
+  }
+  .destination-capital__popup__title {
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 130%;
+    text-transform: uppercase;
+  }
+  .destination-capital__popup-content__description {
+    max-height: 12.375rem;
+    overflow-y: auto;
+  }
+  .destinations-popup-footer {
+    padding: 0.625rem 1.25rem;
+  }
+  .destinations-popup__link {
+    width: 100%;
+  }
+  .destinations-popup__link-text {
+    color: #fff;
+    text-align: center;
+    font-family: "Trip Sans";
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 130%;
+    text-transform: uppercase;
+    margin-right: 0;
+  }
+  .destinations-popup__link-icon {
+    display: none;
+  }
+  .destination-capital__popup__collapse-btn {
+    display: none;
+  }
+}

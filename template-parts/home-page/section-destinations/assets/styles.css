@@ -1,0 +1,365 @@
+.destinations {
+  position: relative;
+  width: 100%;
+  height: 64.875rem;
+  padding-top: 21.4375rem;
+}
+.destination-image-decor,
+.destination-image-overlay {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  max-width: 100%;
+  pointer-events: none;
+}
+.destination-image-decor.destination-image-decor--pc,
+.destination-image-overlay.destination-image-overlay--pc {
+  display: block;
+}
+.destination-image-decor.destination-image-decor--mb,
+.destination-image-overlay.destination-image-overlay--mb {
+  display: none;
+}
+.destination-image-decor {
+  top: 0;
+  z-index: 1;
+}
+.destination-image-overlay {
+  top: 16.25rem;
+  z-index: 0;
+}
+.destination-image-decor img,
+.destination-image-overlay img {
+  width: 100%;
+  height: auto;
+}
+.destinations-container {
+  position: relative;
+  margin: 0 auto;
+  max-width: 87.5rem;
+  z-index: 5;
+}
+.destinations-map-wrapper {
+  position: absolute;
+  left: -0.375rem;
+  top: -0.9375rem;
+  width: 32.75rem;
+  height: 37.7596rem;
+  z-index: 1;
+}
+.destinations-map {
+  width: 100%;
+  height: 100%;
+}
+.destinations-map path[data-country] {
+  transition: all 0.3s ease-out;
+}
+.destination-map__capital {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1;
+  opacity: 0;
+  transition: all 0.3s ease-out;
+  cursor: pointer;
+}
+.destination-map__capital.destination-map__capital--active {
+  opacity: 1;
+}
+.destination-map__capital.destination-map__capital--vietnam {
+  top: 2.6875rem;
+  left: 12.25rem;
+}
+.destination-map__capital.destination-map__capital--laos {
+  top: 5.1rem;
+  left: 4.92rem;
+}
+.destination-map__capital.destination-map__capital--cambodia .destinations-popup {
+  top: auto;
+  bottom: 1rem;
+}
+.destination-map__capital.destination-map__capital--cambodia {
+  top: 24.72rem;
+  left: 11.1rem;
+}
+.destination-map__capital-icon--location {
+  width: 1.98869rem;
+  margin-bottom: 0.375rem;
+  filter: drop-shadow(0 3.687px 9.034px 0 rgba(48, 48, 48, 0.6));
+  animation: scalePulse 1.5s ease-in-out infinite;
+}
+.destination-map__capital-icon--star {
+  width: 1.5625rem;
+}
+.destination-map__capital-icon img {
+  width: 100%;
+  height: auto;
+}
+.destinations-content {
+  position: relative;
+  width: 54.6875rem;
+  margin-left: auto;
+  z-index: 0;
+}
+.destinations-content__header.destinations-content__header--desktop {
+  width: 40.875rem;
+  margin-bottom: 2.125rem;
+}
+.destinations-content__header.destinations-content__header--mobile {
+  display: none;
+}
+.destinations-content__title {
+  color: #630f3f;
+  font-family: "BHN TAN - MEMORIES";
+  font-size: 2.625rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 170%;
+  letter-spacing: 0.1575rem;
+  margin-bottom: 0.75rem;
+}
+.destinations-content__description {
+  color: rgba(46, 46, 46, 0.8);
+  font-family: "BHN TAN - MEMORIES";
+  font-size: 0.875rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 220%;
+  letter-spacing: 0.0625rem;
+}
+.destination-content__destinations-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.destination-content__destinations-item {
+  position: relative;
+  grid-column: span 1 / span 1;
+  height: 25.3125rem;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  cursor: pointer;
+}
+.destination-content__destinations-item__thumbnail {
+  width: 100%;
+  height: 100%;
+}
+.destination-content__destinations-item__thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.destination-content__destinations-item__link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+}
+.destination-content__destinations-item__content {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 1.25rem;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.37) 53.37%, rgba(0, 0, 0, 0) 89.42%);
+  height: 5.6875rem;
+  padding-inline: 1.25rem;
+  padding-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+.destination-content__destinations-item__title {
+  color: #fff;
+  font-family: "BHN TAN - MEMORIES";
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 170%;
+  letter-spacing: 0.0625rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  width: 100%;
+  text-align: center;
+}
+
+@keyframes scalePulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .destination-content__destinations-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: all 0.5s ease-out;
+  }
+  .destination-content__destinations-item:hover::before {
+    opacity: 1;
+  }
+}
+@media screen and (min-width: 1920px) {
+  .destinations {
+    padding-top: 24.5rem;
+  }
+}
+
+@media screen and (max-width: 639.98px) {
+  .destinations {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding-top: 9.3125rem;
+  }
+  .destination-image-decor,
+  .destination-image-overlay {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  .destination-image-decor.destination-image-decor--pc,
+  .destination-image-overlay.destination-image-overlay--pc {
+    display: none;
+  }
+  .destination-image-decor.destination-image-decor--mb,
+  .destination-image-overlay.destination-image-overlay--mb {
+    display: block;
+  }
+  .destination-image-decor {
+    top: 0;
+    z-index: 1;
+  }
+  .destination-image-overlay {
+    top: 5rem;
+    z-index: 0;
+  }
+  .destination-image-decor img,
+  .destination-image-overlay img {
+    width: 100%;
+    height: auto;
+  }
+  .destinations-container {
+    padding-inline: 1.25rem;
+  }
+  .destinations-map-wrapper {
+    position: relative;
+    top: unset;
+    left: unset;
+    width: 100%;
+    height: 24.14019rem;
+    margin-bottom: 2.55rem;
+  }
+  .destinations-map {
+    width: 100%;
+    height: 100%;
+  }
+  .destinations-map path[data-country] {
+    transition: all 0.3s ease-out;
+  }
+  .destination-map__capital {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-out;
+    cursor: pointer;
+  }
+  .destination-map__capital.destination-map__capital--active {
+    opacity: 1;
+    visibility: visible;
+  }
+  .destination-map__capital.destination-map__capital--vietnam {
+    top: 0.875rem;
+    left: 7.55rem;
+  }
+  .destination-map__capital.destination-map__capital--laos {
+    top: 2.25rem;
+    left: 3rem;
+  }
+  .destination-map__capital.destination-map__capital--cambodia {
+    top: 14.5rem;
+    left: 6.75rem;
+  }
+  .destination-map__capital-icon--location {
+    width: 1.50863rem;
+    margin-bottom: 0.325rem;
+  }
+  .destination-map__capital-icon--star {
+    width: 1.5625rem;
+  }
+  .destination-map__capital-icon img {
+    width: 100%;
+    height: auto;
+  }
+  .destinations-content {
+    width: 100%;
+    margin-left: auto;
+  }
+  .destinations-content__header.destinations-content__header--desktop {
+    display: none;
+  }
+  .destinations-content__header.destinations-content__header--mobile {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 2.5625rem;
+  }
+  .destinations-content__title {
+    text-align: center;
+    font-size: 1.375rem;
+    line-height: 140%;
+    letter-spacing: 0.0825rem;
+  }
+  .destinations-content__description {
+    text-align: center;
+    font-size: 0.75rem;
+    line-height: 200%;
+  }
+  .destination-content__destinations-list {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+  }
+  .destination-content__destinations-item {
+    height: 9rem;
+    border-radius: 0;
+  }
+  .destination-content__destinations-item__thumbnail {
+    width: 100%;
+    height: 100%;
+  }
+  .destination-content__destinations-item__content {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 7rem;
+    padding-inline: 1.25rem;
+    padding-bottom: 3.375rem;
+    padding-top: 0;
+  }
+  .destination-content__destinations-item__title {
+    letter-spacing: 0.09375rem;
+  }
+}

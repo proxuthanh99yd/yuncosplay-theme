@@ -145,13 +145,7 @@ input[type="checkbox"] {
   width: 100%;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(
-    80deg,
-    #f6ec51 -3.88%,
-    #630f3f 27.57%,
-    #630f3f 70.42%,
-    #f6ec51 102.57%
-  );
+  background: linear-gradient(80deg, #f6ec51 -3.88%, #630f3f 27.57%, #630f3f 70.42%, #f6ec51 102.57%);
   opacity: 0;
   z-index: 1;
 }

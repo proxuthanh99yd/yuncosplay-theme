@@ -38,6 +38,28 @@ function  wp_enqueue_lib()
 		THEME_VERSION,
 		true
 	);
+	// GSAP
+	wp_enqueue_script(
+		'gsap-core',
+		'https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js',
+		[],
+		THEME_VERSION,
+		true
+	);
+	wp_enqueue_script(
+		'gsap-scroll-trigger',
+		'https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollTrigger.min.js',
+		[],
+		THEME_VERSION,
+		true
+	);
+	wp_enqueue_script(
+		'gsap-scroll-smoother',
+		'https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollSmoother.min.js',
+		[],
+		THEME_VERSION,
+		true
+	);
 	// AOS
 	wp_enqueue_style(
 		'aos',

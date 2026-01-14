@@ -1,5 +1,7 @@
 @import url("../section-banner/assets/styles.css");
 @import url("../section-highlights/assets/styles.css");
+@import url("../section-destinations/assets/styles.css");
+@import url("../../components/popup-destination/styles.css");
 
 main {
   background-image: url("/wp-content/uploads/2026/01/background-image-pc-scaled.webp");

@@ -6,9 +6,19 @@ class App {
 
   init() {
     this.handleInitializeLenis();
+    // this.handleInitializeGSAP();
     this.handleInitializeAOS();
   }
-
+  handleInitializeGSAP() {
+    gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+    const smoother = ScrollSmoother.create({
+      wrapper: "#smooth-wrapper",
+      content: "#smooth-content",
+      smooth: 1.5,
+      effects: true,
+      smoothTouch: 0.1,
+    });
+  }
   handleInitializeAOS() {
     AOS.init({
       // Global settings:
@@ -49,5 +59,5 @@ class App {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  new App();
+  window.app = new App();
 });
