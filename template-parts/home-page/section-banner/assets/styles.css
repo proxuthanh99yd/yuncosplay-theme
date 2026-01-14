@@ -13,6 +13,43 @@
   transition-timing-function: ease-out !important;
   z-index: 10;
 }
+.banner-swiper-slide::before,
+.banner-swiper-slide::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+.banner-swiper-slide::before {
+  opacity: 0.4;
+  background: linear-gradient(
+    0deg,
+    #000 0%,
+    rgba(0, 0, 0, 0.75) 19.77%,
+    rgba(0, 0, 0, 0) 44.3%,
+    rgba(0, 0, 0, 0) 70.54%,
+    #000 89.51%
+  );
+}
+.banner-swiper-slide::after {
+  opacity: 0.06;
+  background: linear-gradient(0deg, rgba(15, 15, 15, 0.56) 0%, rgba(152, 152, 152, 0) 100%);
+}
+.banner-swiper-slide__background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 12.25rem;
+  opacity: 0.64;
+  background: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
 .banner-swiper-slide__image {
   position: absolute;
   top: 0;
@@ -160,9 +197,7 @@
   visibility: hidden;
 }
 .banner-swiper-slide__content__search.active
-  .banner-swiper-slide__content__search-input:has(
-    input:not(:placeholder-shown)
-  ) {
+  .banner-swiper-slide__content__search-input:has(input:not(:placeholder-shown)) {
   background: #fff;
   border-radius: 0.25rem 0.25rem 0 0;
 }
@@ -320,16 +355,13 @@
     height: 29.5625rem;
   }
   .banner-swiper-slide::after {
-    content: "";
-    position: absolute;
     top: -2.875rem;
-    left: 0;
-    width: 100%;
     height: 33.625rem;
     opacity: 0.2;
     background: linear-gradient(180deg, #000 21.23%, rgba(0, 0, 0, 0) 57.2%);
-    pointer-events: none;
   }
+  .banner-swiper-slide::before,
+  .banner-swiper-slide__background-overlay,
   .banner-swiper-slide__image.banner-swiper-slide__image--desktop {
     display: none;
   }
@@ -367,8 +399,7 @@
   .banner-swiper-slide__content__search-result {
     padding: 0.5625rem;
   }
-  .banner-swiper-slide__content__search.active
-    .banner-swiper-slide__content__search-result {
+  .banner-swiper-slide__content__search.active .banner-swiper-slide__content__search-result {
     max-height: 8.5rem;
   }
   .banner-swiper-slide__content__search-result__item {

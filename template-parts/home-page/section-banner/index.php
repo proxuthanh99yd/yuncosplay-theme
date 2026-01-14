@@ -29,6 +29,8 @@ $icon_close_id = 1062;
                     }
                 ?>
                     <div class="swiper-slide banner-swiper-slide">
+                        <!-- Background overlay -->
+                        <div class="banner-swiper-slide__background-overlay"></div>
                        <!-- Ảnh desktop  -->
                         <?= wp_get_attachment_image($image_desktop_id, 'full', false, array( 'class' => 'banner-swiper-slide__image banner-swiper-slide__image--desktop')) ?>
 
