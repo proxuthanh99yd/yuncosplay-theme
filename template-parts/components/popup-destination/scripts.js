@@ -2,6 +2,12 @@ export function popupDestinationScripts() {
   const popup = document.querySelector(".destinations-popup");
   if (!popup) return;
 
+  // Ensure popup is a direct child of body to avoid stacking-context issues
+  // (e.g. parents with transform) that can cause it to render under the header/mega-menu.
+  if (popup.parentElement !== document.body) {
+    document.body.appendChild(popup);
+  }
+
   const popupOverlay = popup.querySelector(".destination-popup-overlay");
   const popupCloseBtn = popup.querySelector(".destinations-popup-close");
   const popupTitle = popup.querySelector(".destination-capital__popup__title");
@@ -102,7 +108,7 @@ export function popupDestinationScripts() {
   }
 
   // Hàm mở popup và điền dữ liệu từ window.destinationData
-  function openPopupWithData(country) {
+  function openPopupWithData(country, source = "destinations") {
     if (!country) return;
 
     // Lấy data từ window.destinationData
@@ -166,29 +172,39 @@ export function popupDestinationScripts() {
     // Hiển thị popup trước để có kích thước chính xác
     popup.classList.add("destinations-popup--active");
 
-    // Tính toán và set vị trí popup ở góc trái trên cùng (top: 0, left: 0) của map-wrapper
+    // Tính toán và set vị trí popup
     // Chỉ thực hiện trên PC (width >= 640px)
-    const mapWrapper = document.querySelector(".destinations-map-wrapper");
     const popupContent = popup.querySelector(".destinations-popup-content");
     const isDesktop = window.innerWidth >= 640;
 
-    if (mapWrapper && popupContent && isDesktop) {
+    if (popupContent && isDesktop) {
       // Sử dụng double requestAnimationFrame để đảm bảo DOM đã render xong và có kích thước chính xác
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          // Lấy khoảng cách từ destinations-map-wrapper đến top của viewport
-          // Vì popup có position: fixed (top: 0, left: 0 của viewport)
-          // và popup-content có position: absolute (relative to popup)
-          // nên chỉ cần lấy getBoundingClientRect().top (khoảng cách trong viewport)
-          const mapRect = mapWrapper.getBoundingClientRect();
+          let mapElement = null;
+          
+          // Xác định map element dựa trên source
+          if (source === "header") {
+            // Nếu mở từ header megamenu, sử dụng map trong header
+            mapElement = document.querySelector(".header-mega-menu__map");
+          } else {
+            // Mặc định sử dụng map trong destinations section
+            mapElement = document.querySelector(".destinations-map-wrapper");
+          }
 
-          // Khoảng cách từ map-wrapper đến top của viewport
-          const distanceFromTop = mapRect.top;
-          const distanceFromLeft = mapRect.left;
+          if (mapElement) {
+            const mapRect = mapElement.getBoundingClientRect();
+            const distanceFromTop = mapRect.top;
+            const distanceFromLeft = mapRect.left;
 
-          // Set vị trí cho popup content: top = khoảng cách từ map-wrapper đến top của viewport
-          popupContent.style.top = `${distanceFromTop}px`;
-          popupContent.style.left = `${distanceFromLeft}px`;
+            // Set vị trí cho popup content
+            popupContent.style.top = `${distanceFromTop}px`;
+            popupContent.style.left = `${distanceFromLeft}px`;
+          } else {
+            // Fallback: reset về giá trị mặc định nếu không tìm thấy map
+            popupContent.style.top = "";
+            popupContent.style.left = "";
+          }
         });
       });
     } else if (popupContent && !isDesktop) {
@@ -199,14 +215,14 @@ export function popupDestinationScripts() {
   }
 
   // Export hàm để có thể dùng từ script khác
-  window.openDestinationPopup = function (country) {
+  window.openDestinationPopup = function (country, source = "destinations") {
     if (typeof country === "string") {
-      openPopupWithData(country);
+      openPopupWithData(country, source);
     } else if (country && country.nodeType === Node.ELEMENT_NODE) {
       // Fallback: nếu truyền element, lấy country từ data-country attribute
       const countryFromElement = country.getAttribute("data-country");
       if (countryFromElement) {
-        openPopupWithData(countryFromElement);
+        openPopupWithData(countryFromElement, source);
       }
     }
   };
@@ -303,14 +319,16 @@ export function popupDestinationScripts() {
       });
     } else {
       // Thu gọn (collapse): set max-height về 14.5625rem và reset padding-bottom
-      popupContent.style.maxHeight = COLLAPSED_HEIGHT;
-      popupContent.style.paddingBottom = "1rem"; // Reset về padding mặc định
+      requestAnimationFrame(() => {
+        popupContent.style.maxHeight = COLLAPSED_HEIGHT;
+        popupContent.style.paddingBottom = "1rem"; // Reset về padding mặc định
 
-      // Add collapsed class và toggle icon
-      popup.classList.add("destinations-popup--collapsed");
+        // Add collapsed class và toggle icon
+        popup.classList.add("destinations-popup--collapsed");
 
-      if (zoomInIcon) zoomInIcon.style.display = "block";
-      if (zoomOutIcon) zoomOutIcon.style.display = "none";
+        if (zoomInIcon) zoomInIcon.style.display = "block";
+        if (zoomOutIcon) zoomOutIcon.style.display = "none";
+      });
     }
   }
 
@@ -344,15 +362,23 @@ export function popupDestinationScripts() {
     // Reset collapse state khi đóng popup
     resetCollapseState();
 
-    // Start lại Lenis smooth scroll khi đóng popup
-    const lenisInstance = window.app?.lenis;
-    if (lenisInstance && typeof lenisInstance.start === "function") {
-      lenisInstance.start();
-    }
+    // Kiểm tra xem mega menu có đang mở không
+    const megaMenu = document.querySelector(".header-mega-menu");
+    const isMegaMenuOpen = megaMenu && !megaMenu.classList.contains("header-mega-menu--hidden");
 
-    // Khôi phục scroll body
-    document.body.style.overflow = "";
-    document.documentElement.style.overflow = "";
+    // Chỉ khôi phục scroll nếu mega menu không đang mở
+    // Nếu mega menu đang mở, giữ nguyên scroll bị chặn
+    if (!isMegaMenuOpen) {
+      // Start lại Lenis smooth scroll khi đóng popup
+      const lenisInstance = window.app?.lenis;
+      if (lenisInstance && typeof lenisInstance.start === "function") {
+        lenisInstance.start();
+      }
+
+      // Khôi phục scroll body
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    }
   }
 
   // Đóng popup khi click vào overlay

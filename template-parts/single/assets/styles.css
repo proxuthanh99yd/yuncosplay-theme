@@ -1,0 +1,503 @@
+@import url("../../components/tour-item/styles.css");
+
+@import url(./highlight-section.css);
+@import url(./fullscreen-image.css);
+@import url(./explore-tour.css);
+@import url(../section-banner/assets/styles.css);
+@import url(../section-related-tour/assets/styles.css);
+@import url(../section-related-article/assets/styles.css);
+@import url(../component-socials/assets/styles.css);
+@import url(../../components/section-subscribe/assets/styles.css);
+
+main {
+    position: relative;
+    background-image: url("/wp-content/uploads/backgroundpc.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #fbf9f8;
+}
+
+#ez-toc-container {
+    display: none;
+}
+
+.block-content {
+    position: relative;
+    overflow: hidden;
+}
+
+.gutenberg-editor > p:not([class]):last-child {
+  margin-bottom: 0;
+}
+
+.gutenberg-editor > .wp-block-group:last-child > *:last-child {
+  margin-bottom: 0;
+}
+
+.gutenberg-editor {
+    max-width: 62.5rem;
+    margin: 0 auto;
+    color: var(--Text-Body-80, rgba(46, 46, 46, 0.80));
+
+    /* PC/16/16 - R */
+    font-family: var(--Body---Capture---Button, "Open Sans");
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+    /* 1.6rem */
+}
+
+/* WP Block Columns Layout Styling */
+.gutenberg-editor .wp-block-columns.is-layout-flex {
+    display: flex;
+    gap: 1.25rem;
+    min-height: 29.0625rem;
+}
+
+/* Image Figure Styling */
+.gutenberg-editor .wp-block-columns .wp-block-image {
+    margin: 0;
+    width: 100% !important;
+    height: 100% !important;
+    box-shadow: 0 303px 85px 0 rgba(84, 84, 84, 0.00), 0 194px 77px 0 rgba(84, 84, 84, 0.01), 0 109px 65px 0 rgba(84, 84, 84, 0.05), 0 48px 48px 0 rgba(84, 84, 84, 0.09), 0 12px 27px 0 rgba(84, 84, 84, 0.10);
+}
+
+/* Image Styling */
+.gutenberg-editor .wp-block-columns .wp-block-image img {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+    object-fit: cover;
+
+}
+
+
+.gutenberg-editor figure {
+  height: auto;
+}
+
+.gutenberg-editor figure img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.gutenberg-editor h1,
+.gutenberg-editor h2,
+.gutenberg-editor h3,
+.gutenberg-editor h4,
+.gutenberg-editor h5,
+.gutenberg-editor h6 {
+    color: var(--Text-Body-100, #2E2E2E);
+    /* PC/20/20 - italic */
+    font-family: var(--Title---Italic, "BHN TAN - MEMORIES");
+    line-height: 160%;
+    /* 2rem */
+    letter-spacing: 0.0625em;
+}
+
+.gutenberg-editor strong {
+    font-weight: 600;
+}
+
+.gutenberg-editor em {
+    font-style: italic;
+}
+
+.gutenberg-editor small {
+    font-size: 0.875em;
+}
+
+.gutenberg-editor a:not([class]) {
+    color: var(--color-primary, #0073aa);
+    transition: color 0.2s ease;
+}
+
+.gutenberg-editor a:not([class]):hover {
+    color: var(--color-primary-hover, #005f8a);
+    text-decoration: underline;
+}
+
+.gutenberg-editor ul,
+.gutenberg-editor ol {
+    margin: 1em 0 1em 1.5em;
+    line-height: 1.7;
+}
+
+.gutenberg-editor ul li,
+.gutenberg-editor ol li {
+    margin-bottom: 0.4em;
+}
+
+.gutenberg-editor ul ul,
+.gutenberg-editor ol ol {
+    margin-top: 0.4em;
+}
+
+.gutenberg-editor blockquote {
+    border-left: 4px solid #000;
+    padding-left: 1em;
+    margin: 1em 0;
+}
+
+.gutenberg-editor p:not([class]) {
+    margin-bottom: 1rem;
+}
+
+/*.gutenberg-editor h1 {*/
+/*    font-size: 1.875em;*/
+/*    line-height: 1.25;*/
+/*    font-weight: 600;*/
+/*    margin: 1.6em 0 0.8em;*/
+/*}*/
+
+/*.gutenberg-editor h2 {*/
+/*    font-size: 1.5em;*/
+/*    line-height: 1.3;*/
+/*    font-weight: 600;*/
+/*    margin: 1.33em 0 0.67em;*/
+/*}*/
+
+/*.gutenberg-editor h3 {*/
+/*    font-size: 1.25em;*/
+/*    line-height: 1.35;*/
+/*    font-weight: 600;*/
+/*    margin: 1.33em 0 0.67em;*/
+/*}*/
+
+/*.gutenberg-editor h4 {*/
+/*    font-size: 1.125em;*/
+/*    line-height: 1.4;*/
+/*    font-weight: 600;*/
+/*    margin: 1.25em 0 0.63em;*/
+/*}*/
+
+/*.gutenberg-editor h5 {*/
+/*    font-size: 1em;*/
+/*    line-height: 1.45;*/
+/*    font-weight: 600;*/
+/*    margin: 1.2em 0 0.6em;*/
+/*}*/
+
+/*.gutenberg-editor h6 {*/
+/*    font-size: 0.75em;*/
+/*    line-height: 1.5;*/
+/*    font-weight: 600;*/
+/*    margin: 1.1em 0 0.55em;*/
+/*    text-transform: uppercase;*/
+/*}*/
+
+.gutenberg-editor h1 {
+    font-size: 1.5625rem;
+    line-height: 160%;
+    font-weight: 400;
+    margin: 2.625rem 0 1rem;
+}
+
+.gutenberg-editor h2 {
+    font-size: 1.25rem;
+    line-height: 160%;
+    font-weight: 400;
+    margin: 2.625rem 0 1rem;
+}
+
+.gutenberg-editor h3 {
+    font-size: 1.0417rem;
+    line-height: 160%;
+    font-weight: 400;
+    margin: 2.625rem 0 1rem;
+}
+
+.gutenberg-editor h4 {
+    font-size: 0.9375rem;
+    line-height: 160%;
+    font-weight: 400;
+    margin: 2.625rem 0 1rem;
+}
+
+.gutenberg-editor h5 {
+    font-size: 0.833rem;
+    line-height: 160%;
+    font-weight: 400;
+    margin: 2.625rem 0 1rem;
+}
+
+.gutenberg-editor h6 {
+    font-size: 0.625rem;
+    line-height: 160%;
+    font-weight: 400;
+    margin: 2.625rem 0 1rem;
+    text-transform: uppercase;
+}
+
+/* start head */
+.post__header {
+    width: 100%;
+    max-width: 62.5rem;
+    margin: 0 auto;
+}
+
+/* end heaed */
+
+/* start breadcrumb */
+.breadcrumb {
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.breadcrumb__link {
+    color: rgba(46, 46, 46, 0.50);
+    font-family: "Open Sans";
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb__separator {
+    color: rgba(46, 46, 46, 0.50);
+    font-family: "Open Sans";
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+    margin: 0 0.25rem;
+}
+
+.breadcrumb__link.last-link {
+    color: #2E2E2E;
+    font-family: "Open Sans";
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* end breadcrumb */
+
+/* start title */
+.post-title {
+    color: #2E2E2E;
+    font-family: "BHN TAN - MEMORIES";
+    font-size: 1.625rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 180%;
+    letter-spacing: 0.125rem;
+    max-width: 62.5rem;
+    text-box-edge: cap alphabetic;
+    text-box-trim: trim-both;
+}
+
+/* end title */
+.line-wrapper {
+    margin: 3.25rem auto;
+    max-width: 62.5rem;
+}
+.line {
+    display: block;
+    width: 100%;
+    height: 0.0625rem;
+    background: linear-gradient(94deg, #EEC640 29.81%, #EE9740 100.56%);
+}
+
+.line-wrapper:last-child {
+    margin: 2rem auto;
+}
+
+/* start bottom */
+.post__footer {
+    width: 100%;
+    max-width: 62.5rem;
+    margin: 0 auto;
+}
+
+.bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+}
+
+.post__category {
+    display: flex;
+    align-items: center;
+}
+
+.post__category-label {
+    color: rgba(46, 46, 46, 0.80);
+    font-family: "Open Sans";
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+    /* 1.6rem */
+    margin-right: 0.3125rem;
+}
+
+.post__category-link {
+    color: #2E2E2E;
+    font-family: "Open Sans";
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%;
+}
+
+/* end bottom */
+
+@media (min-width: 1024px) {
+    .post__category-link:hover {
+        text-decoration: underline;
+    }
+    
+    .breadcrumb__link:hover {
+        color: #2e2e2e;
+    }
+}
+
+@media (max-width: 639.98px) {
+    .gutenberg-editor {
+        max-width: 100%;
+        padding: 0 1.25rem;
+        color: var(--Text-Body-80, rgba(46, 46, 46, 0.80));
+        font-family: var(--Body---Capture---Button, "Open Sans");
+        font-size: 0.875rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%;
+    }
+    
+    .gutenberg-editor h1 {
+        font-size: 1.09375rem;
+        line-height: 180%;
+        font-weight: 400;
+        margin: 2rem 0 1rem;
+        text-box-edge: cap alphabetic;
+        text-box-trim: trim-both;
+    }
+
+    .gutenberg-editor h2 {
+        font-size: 0.875rem;
+        line-height: 180%;
+        font-weight: 400;
+        margin: 2rem 0 1rem;
+        text-box-edge: cap alphabetic;
+        text-box-trim: trim-both;
+    }
+
+    .gutenberg-editor h3 {
+        font-size: 0.729rem;
+        line-height: 180%;
+        font-weight: 400;
+        margin: 2rem 0 1rem;
+        text-box-edge: cap alphabetic;
+        text-box-trim: trim-both;
+    }
+
+    .gutenberg-editor h4 {
+        font-size: 0.65625rem;
+        line-height: 180%;
+        font-weight: 400;
+        margin: 2rem 0 1rem;
+        text-box-edge: cap alphabetic;
+        text-box-trim: trim-both;
+    }
+
+    .gutenberg-editor h5 {
+        font-size: 0.583rem;
+        line-height: 180%;
+        font-weight: 600;
+        margin: 2rem 0 1rem;
+        text-box-edge: cap alphabetic;
+        text-box-trim: trim-both;
+    }
+
+    .gutenberg-editor h6 {
+        font-size: 0.4375rem;
+        line-height: 180%;
+        font-weight: 400;
+        margin: 2rem 0 1rem;
+        text-transform: uppercase;
+        text-box-edge: cap alphabetic;
+        text-box-trim: trim-both;
+    }
+    
+    .gutenberg-editor p:not([class]) {
+        margin-bottom: 1rem;
+    }
+    
+    .gutenberg-editor p:not([class]):first-child {
+        margin-bottom: 2rem;
+    }
+    
+    .gutenberg-editor figure {
+      height: 9.8125rem;
+    }
+
+    .gutenberg-editor .wp-block-columns.is-layout-flex {
+        flex-wrap: nowrap !important;
+        min-height: 7.96294rem;
+        gap: 0.34rem;
+    }
+    
+    /*  */
+    .post__header {
+        padding: 2rem 1.25rem 0 1.25rem;
+    }
+
+    .breadcrumb {
+        display: none;
+    }
+
+    .post-title {
+        color: #2E2E2E;
+        font-family: "BHN TAN - MEMORIES";
+        font-size: 0.875rem;
+        letter-spacing: 0.0625rem;
+        max-width: 62.5rem;
+    }
+
+
+    .line-wrapper {
+        max-width: 100%;
+        margin: 1.5rem auto;
+        padding: 0 1.25rem;
+    }
+    .line {
+        width: 100%;
+    }
+
+    .post__footer {
+        padding: 0 1.25rem;
+    }
+
+    .bottom {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .post__category {
+        margin-top: 0.875rem;
+    }
+
+    .post__category-label {
+        font-size: 0.875rem;
+        letter-spacing: normal;
+    }
+
+    .post__category-link {
+        font-size: 1rem;
+        font-weight: 400;
+    }
+}

@@ -1,0 +1,301 @@
+:root {
+  --mission-overlap: 600px;
+}
+
+.section__mission {
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  width: 100%;
+}
+
+.section__mission.is-under {
+  z-index: 0;
+}
+
+.section__mission__container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.section__mission__picture,
+.section__mission__picture__normal {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.section__mission__image,
+.section__mission__image__normal {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.section__mission__picture__normal {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 4;
+}
+
+.section__mission__bird {
+  pointer-events: none;
+  position: absolute;
+  top: 25vh;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 3;
+}
+
+.section__mission__description__first {
+  text-align: center;
+  font-family: "BHN TAN - MEMORIES";
+  font-size: 2.625rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 170%; /* 4.4625rem */
+  letter-spacing: 0.1575rem;
+  background: linear-gradient(94deg, #eec640 29.81%, #ee9740 100.56%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  width: 60.9375rem;
+  padding: 0 1rem;
+  position: absolute;
+  top: 41%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+.section__mission__description__second {
+  background: linear-gradient(94deg, #eec640 29.81%, #ee9740 100.56%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  font-family: "BHN TAN - MEMORIES";
+  font-size: 1.875rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 0.125rem;
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  z-index: 4;
+  width: 53.25rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 8;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+.our__mission__content__container {
+  position: absolute;
+  right: 0;
+  width: 50%;
+  top: 0;
+  z-index: 5;
+  height: 100%;
+  pointer-events: none;
+}
+
+.our__mission__content__container:last-child {
+  position: absolute;
+  left: 0;
+  width: 50%;
+  top: 0;
+  z-index: 5;
+  height: 100%;
+}
+
+.our__mission__content {
+  width: 34.3rem;
+  height: fit-content;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 60%;
+  opacity: 0;
+  z-index: 5;
+}
+
+.our__mission__content__title {
+  color: #fff;
+  text-align: center;
+  font-family: "BHN TAN - MEMORIES";
+  font-size: 2.625rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 170%;
+  letter-spacing: 0.1575rem;
+  margin-bottom: 2rem;
+}
+
+.our__mission__content__description {
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  font-family: "BHN TAN - MEMORIES";
+  font-size: 1.125rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 170%;
+  letter-spacing: 0.0625rem;
+}
+
+.our__mission__image {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  top: -20%;
+  opacity: 0;
+  z-index: 5;
+  pointer-events: none;
+  box-shadow:
+    0 211px 59px 0 rgba(191, 191, 191, 0),
+    0 135px 54px 0 rgba(191, 191, 191, 0.01),
+    0 76px 46px 0 rgba(191, 191, 191, 0.05),
+    0 34px 34px 0 rgba(191, 191, 191, 0.09),
+    0 8px 19px 0 rgba(191, 191, 191, 0.1);
+}
+
+.our__mission__image__first {
+  left: 0;
+}
+
+.our__mission__image__second {
+  right: 0;
+}
+
+@media (min-width: 640px) and (max-width: 1025px) {
+  .section__mission__bird {
+    width: 52rem;
+  }
+
+  .section__mission__description__first {
+    width: 71rem;
+    font-size: 3.5rem;
+  }
+
+  .section__mission__description__second {
+    font-size: 2.8rem;
+    width: 75rem;
+  }
+
+  .our__mission__image {
+    width: 100%;
+    height: 40vh;
+    box-shadow: none;
+  }
+
+  .our__mission__content__container,
+  .our__mission__content__container:last-child {
+    width: 100%;
+  }
+
+  .our__mission__content {
+    width: 75rem;
+  }
+
+  .our__mission__content__title {
+    font-size: 4rem;
+  }
+
+  .our__mission__content__description {
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 639px) {
+  .section__mission {
+    /*padding-top: 5rem;*/
+  }
+
+  .section__mission__picture__normal {
+    display: none;
+  }
+
+  .section__mission__bird {
+    width: 20.2645rem;
+    height: 8.11131rem;
+    object-fit: contain;
+  }
+
+  .section__mission__description__first {
+    width: 16.5rem;
+    font-size: 1.375rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 120%;
+    letter-spacing: 0.0825rem;
+    padding: 1rem 0;
+  }
+
+  .section__mission__description__second {
+    font-size: 1.125rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 170%;
+    letter-spacing: 0.09375rem;
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .our__mission__image {
+    width: 100%;
+    height: 15.7rem;
+    box-shadow: none;
+    max-height: 30vh;
+  }
+
+  .our__mission__content__container,
+  .our__mission__content__container:last-child {
+    width: 100%;
+  }
+
+  .our__mission__content {
+    width: 100%;
+    height: fit-content;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 65%;
+    opacity: 0;
+    z-index: 5;
+    padding: 0 1rem;
+  }
+
+  .our__mission__content__title {
+    font-size: 1.125rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 170%;
+    letter-spacing: 0.0625rem;
+    margin-bottom: 1rem;
+  }
+
+  .our__mission__content__description {
+    font-size: 0.875rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 180%;
+    letter-spacing: 0.0625rem;
+  }
+}

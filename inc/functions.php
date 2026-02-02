@@ -22,10 +22,7 @@ function ration_add_featured_image_html($html)
     $screen = get_current_screen();
 
     $post = [
-        'post' => '<p>Khuyến khích sử dụng ảnh tỉ lệ (347x245).</p>',
-        'san-pham' => '<p>Khuyến khích sử dụng ảnh tỉ lệ (349x278).</p>',
-		'du-an' => '<p>Khuyến khích sử dụng ảnh tỉ lệ (480x512).</p>',
-		'phan-hoi' => '<p>Khuyến khích sử dụng ảnh tỉ lệ (100x100).</p>',
+        'post' => '<p></p>',
     ];
 
     $page = [
@@ -47,3 +44,27 @@ function ration_add_featured_image_html($html)
     return $html;
 }
 add_filter('admin_post_thumbnail_html', 'ration_add_featured_image_html');
+add_filter('big_image_size_threshold', '__return_false');
+
+function validate_phone_number_cf7($result, $tag) {
+  if ($tag->name !== 'phone-number') {
+    return $result;
+  }
+
+  $phone = trim($_POST['phone-number'] ?? '');
+
+  /**
+   * Chấp nhận:
+   *  - Phone numbers with digits, spaces, hyphens, plus, parentheses, 8-20 characters
+   */
+  $pattern = '/^[\d\s\-\+\(\)]{8,20}$/';
+
+  if (!preg_match($pattern, $phone)) {
+    $result->invalidate($tag, __('Invalid phone number', 'textdomain'));
+  }
+
+  return $result;
+}
+
+add_filter('wpcf7_validate_tel*', 'validate_phone_number_cf7', 10, 2);
+add_filter('wpcf7_validate_tel', 'validate_phone_number_cf7', 10, 2);

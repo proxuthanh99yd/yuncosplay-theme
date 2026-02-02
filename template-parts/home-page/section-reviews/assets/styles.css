@@ -1,0 +1,23 @@
+@import url("../../../components/section-reviews/assets/styles.css");
+
+.section-reviews-wrapper {
+	position: relative;
+}
+
+.section-reviews-wrapper-background {
+	position: absolute;
+	left: 0;
+	top: 5.875rem;
+	width: 11.875rem;
+}
+
+.section-reviews-wrapper-background img {
+	width: 100%;
+	height: auto;
+}
+
+@media screen and (max-width: 639.98px) {
+	.section-reviews-wrapper-background {
+		display: none;
+	}
+}

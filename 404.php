@@ -1,26 +1,21 @@
 <?php
 get_header();
 ?>
-<section class="error-page">
-    <div class='error-page__container'>
-        <?= wp_get_attachment_image(IS_MOBILE ? 574 : 573, 'full', false, ['class' => 'error-page__background']) ?>
-        <div class='error-page__content'>
-            <h1 class='error-page__title'>
-                404
-            </h1>
-            <h2 class='error-page__subtitle'>
-                Không tìm thấy trang
-            </h2>
-            <p class='error-page__description'>
-                Chúng tôi xin lỗi. Trang bạn yêu cầu không thể tìm thấy.<br> Vui lòng quay lại trang chủ
-            </p>
-            <a href='<?= esc_url(home_url()) ?>' class='error-page__link'>
-                <span>
-                    Về trang chủ
-                </span>
-                <img src='/wp-content/uploads/2025/10/arrow-right.svg' alt="Arrow Right" class='error-page__icon' data-no-lazy="1" />
-            </a>
+<section id="error-page">
+    <div class="error_page__container">
+        <?= wp_get_attachment_image(2018, 'full', false, array( 'class' => 'error-page__image')) ?>
+        <?= wp_get_attachment_image(2016, 'full', false, array( 'class' => 'error-page__image')) ?>
+        <?= wp_get_attachment_image(2019, 'full', false, array( 'class' => 'error-page__image-mobile')) ?>
+        <div class="error-page__content">
+            <p class="error-page__text">ERROR</p>
+            <h1 class="error-page__title">404</h1>
+            <h2 class="error-page__subtitle">Page Not Found</h2>
+            <p class="error-page__description">The page you’re looking for may have been removed, renamed, or is temporarily unavailable</p>
+            <a href="<?= home_url() ?>" class="error-page__link compound-avian-button"><p>Back to homepage</p></a>
         </div>
     </div>
 </section>
-<?php get_footer(); ?>
+
+<?php
+get_footer('404');
+?>

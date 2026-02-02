@@ -1,0 +1,10 @@
+<?php
+get_template_part('template-parts/aboutus-page/section-banner/index');
+get_template_part('template-parts/aboutus-page/section-about/index');
+get_template_part('template-parts/aboutus-page/section-outstanding-figures/index');
+get_template_part('template-parts/aboutus-page/section-our-way/index');
+get_template_part('template-parts/aboutus-page/section-purpose/index');
+get_template_part('template-parts/aboutus-page/section-video/index');
+get_template_part('template-parts/aboutus-page/section-mission/index');
+get_template_part('template-parts/aboutus-page/section-freedom/index');
+get_template_part('template-parts/aboutus-page/section-journey/index');

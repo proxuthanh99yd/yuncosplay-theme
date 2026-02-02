@@ -1,0 +1,329 @@
+@import url("./breadcrumbs.css");
+
+.ht-banner {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.ht-banner_scrolldown {
+  position: absolute;
+  bottom: 1.6875rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  margin-top: auto;
+  cursor: pointer;
+  z-index: 4;
+}
+
+.ht-banner_scrolldown-icon {
+  width: 2.15669rem;
+  height: 0.85088rem;
+  object-fit: cover;
+  margin-right: 0.25rem;
+  transform: rotate(2.223deg);
+}
+
+.ht-banner_scrolldown-text {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: "Open Sans";
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.6rem;
+  transition: all 0.3s ease-out;
+}
+
+.ht-banner_breadcrumbs.breadcrumbs {
+  position: absolute;
+  top: 7.5rem;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 4;
+}
+
+.ht-banner_img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ht-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 12.25rem;
+  background: linear-gradient(
+    180deg,
+    #000 0%,
+    rgba(0, 0, 0, 0.15) 77.65%,
+    rgba(0, 0, 0, 0) 95.67%
+  );
+  z-index: 1;
+}
+
+.ht-banner_img-mb {
+  display: none;
+}
+
+.ht-banner_container {
+  position: relative;
+  display: flex;
+  width: 49.4375rem;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  white-space: pre-line;
+  z-index: 3;
+}
+
+.ht-banner_title {
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 4px 34.8px #000;
+  font-family: "BHN TAN - MEMORIES";
+  font-size: 2.25rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 4.05rem;
+  letter-spacing: 0.135rem;
+  width: 35.0625rem;
+}
+
+.ht-banner_location {
+  display: flex;
+  position: absolute;
+  bottom: 2.06rem;
+  right: 0;
+  padding: 0.75rem 0.5rem 0.5625rem 0.625rem;
+  border-radius: 6.25rem 0 0 6.25rem;
+  background: rgba(0, 0, 0, 0.3);
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 3.875rem;
+  transform: translateX(4.5rem);
+  transition: all 0.3s ease-out;
+  z-index: 4;
+}
+
+.ht-banner_location-pin-wrapper {
+  display: flex;
+  width: 2.625rem;
+  height: 2.625rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.ht-banner_location-pin {
+  width: 1.43575rem;
+  height: auto;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.ht-banner_location-line {
+  display: block;
+  width: 0.0625rem;
+  height: 2.5625rem;
+  flex-shrink: 0;
+  margin-left: 0.4125rem;
+  margin-right: 0.725rem;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.ht-banner_location-content {
+  flex-grow: 1;
+}
+
+.ht-banner_location-content .text-normal,
+.ht-banner_location-content .text-hover {
+  position: relative;
+  color: #fff;
+  font-family: "BHN TAN - MEMORIES";
+  font-size: 0.875rem;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.0625rem;
+  line-height: 220%;
+  white-space: nowrap;
+  transition: all 0.3s ease-out;
+}
+
+.ht-banner_location-link {
+  padding: 0 0.625rem;
+  display: flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: "Open Sans";
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  transform: translateY(1rem);
+  opacity: 0;
+  transition: all 0.3s ease-out;
+}
+
+.ht-banner_location-link span {
+  display: inline-block;
+  margin-right: 0.25rem;
+}
+
+.ht-banner_location-arrow {
+  width: 0.875rem;
+  height: 0.875rem;
+  object-fit: cover;
+}
+
+.text-normal {
+  opacity: 1;
+  transform: translateY(1.35rem);
+}
+
+.ht-banner_location .text-hover {
+  padding: 0 0.625rem;
+  line-height: 150%;
+  transform: translateY(1.55rem);
+  opacity: 0;
+}
+
+.ht-banner_location-container {
+  padding: 0.25rem 0.625rem 0.4375rem 0.3125rem;
+}
+
+.ht-banner_location:hover {
+  transform: translateX(0);
+}
+
+.ht-banner_location:hover .text-hover {
+  opacity: 1;
+  transform: translateY(-0.875rem);
+}
+
+.ht-banner_location:hover .text-normal {
+  opacity: 0;
+  transform: translateY(0);
+}
+
+.ht-banner_location:hover .ht-banner_location-link {
+  opacity: 1;
+  transform: translateY(-0.875rem);
+}
+
+@media (max-width: 639px) {
+  .ht-banner_scrolldown {
+    display: none;
+  }
+    
+  .ht-banner {
+    height: 31.5rem;
+  }
+
+  .ht-banner::before {
+    height: 30.75rem;
+    background: linear-gradient(180deg, #000 21.23%, rgba(0, 0, 0, 0) 57.2%);
+    opacity: 0.2;
+  }
+
+  .ht-banner_breadcrumbs {
+    display: none;
+  }
+
+  .ht-banner_img {
+    display: none;
+  }
+
+  .ht-banner_img-mb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .ht-banner_container {
+    position: absolute;
+    top: 1.94rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20.625rem;
+    height: 27.5625rem;
+    padding: 0.625rem;
+  }
+
+  .ht-banner_title {
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 1.375rem;
+    line-height: 1.65rem;
+    letter-spacing: 0.0825rem;
+  }
+
+  .ht-banner_location {
+    bottom: 7.625rem;
+    height: 2.75rem;
+    transform: translateX(3.5rem);
+    padding: 0.75rem 0.625rem 0.5625rem 0.9375rem;
+  }
+
+  .ht-banner_location-content .text-normal {
+    transform: translateY(1.125rem);
+    font-size: 0.75rem;
+    line-height: 140%; /* 1.8rem */
+    letter-spacing: 0.0625rem;
+  }
+
+  .ht-banner_location-content .text-hover {
+    font-size: 0.75rem;
+    line-height: 140%; /* 1.8rem */
+    letter-spacing: 0.0625rem;
+    padding: 0;
+  }
+
+  .ht-banner_location:hover {
+    height: 3.875rem;
+  }
+
+  .ht-banner_location:hover .text-hover {
+    transform: translateY(-0.5rem);
+  }
+
+  .ht-banner_location:hover .ht-banner_location-link {
+    transform: translateY(-0.5rem);
+  }
+
+  .ht-banner_location-link {
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    padding: 0;
+  }
+
+  .ht-banner_location-pin-wrapper {
+    display: none;
+  }
+
+  .ht-banner_location-line {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+    .ht-banner_scrolldown:hover .ht-banner_scrolldown-text {
+        color: white;
+    }
+}

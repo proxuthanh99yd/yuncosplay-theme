@@ -58,3 +58,27 @@ function remove_admin_bar()
 {
     show_admin_bar(false);
 }
+add_action('wp_print_styles', function () {
+    global $wp_styles;
+
+    if (! $wp_styles) return;
+
+    foreach ($wp_styles->registered as $handle => $style) {
+        if (
+            str_contains($handle, 'wp-block-') ||
+            str_contains($handle, 'core-block-supports')
+        ) {
+            $wp_styles->remove($handle);
+        }
+    }
+}, 999);
+
+add_action('template_redirect', function () {
+    ob_start(function ($html) {
+        return preg_replace(
+            '#<style id=["\']core-block-supports-inline-css["\'][^>]*>.*?</style>#s',
+            '',
+            $html
+        );
+    });
+});

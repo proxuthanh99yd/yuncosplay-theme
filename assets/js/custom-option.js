@@ -215,7 +215,7 @@ class CustomDropdown extends HTMLElement {
         display: flex;
         align-items: center;
         color: var(--selected-content-color, #2E2E2E);
-        font-family: var(--font-family, "Trip Sans");
+        font-family: var(--font-family, "Open Sans");
         font-size: var(--selected-content-font-size, 1rem);
         font-style: var(--selected-content-font-style, normal);
         font-weight: var(--selected-content-font-weight, 400);

@@ -1,0 +1,640 @@
+.related-tour {
+    position: relative;
+    background: #f6f0ed;
+    padding: 7.5rem 0 5rem;
+}
+
+.related-tour__container {
+    max-width: 75rem;
+    margin: 0 auto;
+}
+
+.related-tour__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2.56rem;
+}
+
+.related-tour__eyebrow {
+    color: #2e2e2e;
+    font-family: "Open Sans";
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    text-transform: uppercase;
+    text-align: right;
+}
+
+.related-tour__title {
+    color: var(--Text-tm, var(--Tm, #630f3f));
+    font-family: var(--Title---Italic, "BHN TAN - MEMORIES");
+    font-size: 2.625rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 170%;
+    letter-spacing: 0.1575rem;
+}
+
+.related-tour__track {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+.tour-item {
+    width: auto;
+}
+.tour-card {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    width: 24.02081rem;
+    height: 30.6875rem;
+    color: #fff;
+    transform: translateZ(0);
+    cursor: pointer;
+}
+
+.tour-card__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.06);
+    transition: transform 900ms ease;
+}
+
+.tour-card--img-1 .tour-card__bg {
+    background-image: url("/wp-content/themes/okhub-theme/template-parts/detail-tour-page/assets/images/d-related-tour-img-1.webp");
+}
+.tour-card--img-2 .tour-card__bg {
+    background-image: url("/wp-content/themes/okhub-theme/template-parts/detail-tour-page/assets/images/d-related-tour-img-2.webp");
+}
+
+.related-tour__contact-us {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    box-shadow:
+        0 211px 59px 0 rgba(191, 191, 191, 0),
+        0 135px 54px 0 rgba(191, 191, 191, 0.01),
+        0 76px 46px 0 rgba(191, 191, 191, 0.05),
+        0 34px 34px 0 rgba(191, 191, 191, 0.09),
+        0 8px 19px 0 rgba(191, 191, 191, 0.1);
+}
+.related-tour__contact-us__background,
+.related-tour__contact-us__background img {
+    width: 100%;
+    height: 100%;
+}
+.related-tour__contact-us__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+.related-tour__contact-us__background img {
+    object-fit: cover;
+}
+.related-tour__contact-us__content {
+    position: relative;
+    display: flex;
+    width: 20rem;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+}
+.related-tour__contact-us__content-title {
+    color: #630f3f;
+    font-family: "Open Sans";
+    font-size: 0.625rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 130%;
+    text-transform: uppercase;
+    margin-bottom: 0.5625rem;
+}
+.related-tour__contact-us__content-subtitle {
+    color: #630f3f;
+    text-align: center;
+    font-family: "BHN TAN - MEMORIES";
+    font-size: 1.25rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 160%;
+    letter-spacing: 0.0625rem;
+    margin-bottom: 0.5rem;
+}
+.related-tour__contact-us__content-description {
+    width: 17.3125rem;
+    color: rgba(46, 46, 46, 0.8);
+    text-align: center;
+    font-family: "Open Sans";
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+    margin-bottom: 1.25rem;
+}
+.related-tour__contact-us__content-link {
+    width: 14.4375rem;
+    height: 3.125rem;
+}
+.compound-avian-button__content {
+    color: #fff;
+    text-align: center;
+    font-family: "Open Sans";
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 130%;
+    text-transform: uppercase;
+}
+
+.tour-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(257deg, rgba(0, 0, 0, 0) 40.04%, #000 131.31%);
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    transition: all 0.6s cubic-bezier(0.48, 0, 0, 1.01);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.tour-card__bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(256deg, rgba(0, 0, 0, 0) 58.41%, #000 129.89%);
+    opacity: 0;
+    transform: translate3d(22px, 0, 0);
+    transition:
+        transform 600ms cubic-bezier(0.48, 0, 0, 1.01),
+        opacity 600ms cubic-bezier(0.48, 0, 0, 1.01);
+    pointer-events: none;
+}
+
+.tour-card__bg {
+    position: absolute;
+    inset: 0;
+}
+
+.tour-card__content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 19.125rem;
+    padding: 6.4375rem 1rem 1.5rem 1rem;
+    transform: translateY(2.1rem);
+    transition: transform 650ms ease;
+    z-index: 2;
+}
+
+.tour-card__name {
+    margin: 0 0 0.31rem;
+    color: var(--White-100, #fff);
+    font-family: var(--Title---Italic, "BHN TAN - MEMORIES");
+    font-size: 1.25rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 160%;
+    letter-spacing: 0.0625rem;
+}
+
+.tour-card__desc {
+    margin: 0 0 0.78rem;
+    color: var(--White-100, #fff);
+    font-family: "Open Sans";
+    font-size: 0.875rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+.tour-card__meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+}
+
+.tour-card__meta > * {
+    margin-right: 1.25rem;
+}
+.tour-card__meta > *:last-child {
+    margin-right: 0;
+}
+
+.tour-card__label {
+    color: var(--White-100, #fff);
+    font-family: var(--Body---Capture---Button, "Open Sans");
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%;
+    margin-bottom: 0.25rem;
+}
+
+.tour-card__value {
+    color: var(--White-100, #fff);
+    font-family: "Open Sans";
+    font-size: 0.875rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+.tour-card__divider {
+    width: 22rem;
+    height: 0.0625rem;
+    height: 0.0625rem;
+    background: radial-gradient(6180.17% 50% at 50% 50%, #fff 0%, rgba(153, 153, 153, 0) 100%);
+    margin-top: 0.75rem;
+}
+
+.tour-card__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.15rem;
+}
+
+.tour-card__icon {
+    display: inline-flex;
+    width: 2.5rem;
+    height: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.tour-card__bottom .tour-card__link {
+    color: var(--White-100, #fff);
+    font-family: var(--Body---Capture---Button, "Open Sans");
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%;
+}
+
+.tour-card__bottom .tour-card__badge {
+    color: var(--White-100, #fff);
+    font-family: var(--Body---Capture---Button, "Open Sans");
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%;
+    display: flex;
+    align-items: center;
+}
+
+.tour-card__badge-dot {
+    width: 0.875rem;
+    height: 0.875rem;
+    margin-left: 0.25rem;
+    background: url("/wp-content/themes/okhub-theme/template-parts/detail-tour-page/assets/icons/d-explore.webp") no-repeat center / contain;
+
+    flex-shrink: 0;
+    display: inline-block;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .tour-card:hover .tour-card__content {
+        transform: translateY(0);
+    }
+
+    .tour-card:hover .tour-card__bg {
+        transform: scale(1.12) translateY(-8px);
+    }
+
+    .tour-card:hover::before {
+        opacity: 0.55;
+    }
+
+    .tour-card:hover::after {
+        transform: translate3d(-22px, 0, 0);
+        opacity: 0;
+    }
+
+    .tour-card:hover .tour-card__bg::after {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+.pc-hidden {
+    display: none;
+}
+.tour-cta {
+    background: #ffffff;
+    height: 30.6875rem;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.12);
+}
+
+.tour-cta::before {
+    content: "";
+    position: absolute;
+    width: 19.25rem;
+    height: 19.25rem;
+    background: url("/wp-content/uploads/Vector.webp") no-repeat center / contain;
+    right: 0rem;
+    bottom: 0rem;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.tour-cta__inner {
+    position: relative;
+    padding: 2rem 1.6rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.tour-cta__small {
+    color: var(--Text-tm, var(--Tm, #630f3f));
+    font-family: var(--Body---Capture---Button, "Open Sans");
+    font-size: 0.625rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 130%;
+    text-transform: uppercase;
+    margin-bottom: 0.56rem;
+    opacity: 0.6;
+    text-align: center;
+}
+
+.tour-cta__headline {
+    color: var(--Text-tm, var(--Tm, #630f3f));
+    text-align: center;
+    font-family: var(--Title---Italic, "BHN TAN - MEMORIES");
+    font-size: 1.25rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 160%;
+    letter-spacing: 0.0625rem;
+    margin-bottom: 0.5rem;
+}
+
+.tour-cta__desc {
+    margin-bottom: 1.25rem;
+    color: var(--Text-Body-80, rgba(46, 46, 46, 0.8));
+    text-align: center;
+    font-family: var(--Body---Capture---Button, "Open Sans");
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+    width: 17.3125rem;
+}
+
+.tour-cta__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    padding: 0 1rem;
+    border-radius: 8px;
+    font-family: var(--Body---Capture---Button, "Open Sans");
+    text-transform: uppercase;
+    background: #630f3f;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.tour-cta__btn span {
+    position: relative;
+    z-index: 3;
+}
+
+.tour-cta__btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 250ms ease;
+    background: linear-gradient(80deg, #f6ec51 -3.88%, #630f3f 27.57%, #630f3f 70.42%, #f6ec51 102.57%);
+    z-index: 1;
+}
+
+.tour-cta__btn::after {
+    content: "";
+    position: absolute;
+    bottom: -11.5rem;
+    width: 14.34944rem;
+    height: 14.34944rem;
+    aspect-ratio: 499.93/499.93;
+    background: url("/wp-content/themes/okhub-theme/template-parts/detail-tour-page/assets/images/d-contact-device.webp") no-repeat center / contain;
+    z-index: 2;
+}
+
+.tour-cta__btn:hover::before {
+    opacity: 1;
+}
+
+@media (max-width: 639.98px) {
+    .tour-card__content {
+        transform: translateY(0) !important;
+        transition: none !important;
+    }
+
+    .tour-card__bg {
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .tour-card::after {
+        transform: none !important;
+        opacity: 1 !important;
+        transition: none !important;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.45) 78%, rgba(0, 0, 0, 0.85) 100%) !important;
+    }
+
+    .tour-card__bg::after {
+        opacity: 0 !important;
+        transition: none !important;
+        transform: none !important;
+    }
+
+    .related-tour {
+        padding: 2rem 0 3rem;
+        background: transparent;
+    }
+
+    .related-tour__header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 1.25rem;
+        margin-bottom: 2rem;
+    }
+
+    .related-tour__eyebrow {
+        font-size: 0.625rem;
+        font-weight: 400;
+        line-height: 150%;
+        text-transform: uppercase;
+        margin-bottom: 0.875rem;
+        text-align: left;
+        order: 1;
+    }
+
+    .related-tour__title {
+        order: 2;
+        margin: 0;
+        font-size: 1.375rem;
+        font-style: italic;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: 0.0825rem;
+    }
+    .related-tour__track {
+        display: flex;
+        align-items: flex-start;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        column-gap: 0.875rem;
+    }
+    .related-tour__track::-webkit-scrollbar {
+        display: none;
+    }
+    .related-tour__track > * {
+        flex-shrink: 0;
+        width: 17.01019rem;
+        height: 21.75rem;
+    }
+    .related-tour__track > *:first-child {
+        margin-left: 1.25rem;
+    }
+    .related-tour__track > *:last-child {
+        margin-right: 1.25rem;
+    }
+    .tour-card,
+    .tour-cta {
+        flex: 0 0 100%;
+        scroll-snap-align: start;
+    }
+
+    .tour-card {
+        max-width: 17.01863rem;
+        width: 17.01863rem;
+        height: 21.75rem;
+        overflow: hidden;
+    }
+
+    .tour-card__content {
+        height: 16.51488rem;
+        padding: 5.34306rem 0.75556rem 1.07938rem 0.75556rem;
+        bottom: 0;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.37) 62.96%, rgba(0, 0, 0, 0.24) 80.13%, rgba(0, 0, 0, 0) 100%);
+    }
+
+    .tour-card__name {
+        color: var(--White-100, #fff);
+        font-family: var(--Title---Italic, "BHN TAN - MEMORIES");
+        font-size: 0.875rem;
+        font-style: italic;
+        font-weight: 400;
+        line-height: 180%;
+        letter-spacing: 0.0625rem;
+        margin-bottom: 0.65rem;
+        letter-spacing: 0.0625rem;
+        margin-top: 1.77rem;
+    }
+
+    .tour-card__desc {
+        display: none;
+    }
+
+    .tour-card__label {
+        color: var(--White-100, #fff);
+        font-family: var(--Body---Capture---Button, "Open Sans");
+        font-size: 0.625rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%;
+        text-transform: uppercase;
+        opacity: 0.6;
+        margin-bottom: 0.5rem;
+    }
+
+    .tour-card__value {
+        color: var(--White-100, #fff);
+        font-family: var(--Body---Capture---Button, "Open Sans");
+        font-size: 0.875rem;
+        font-style: italic;
+        font-weight: 400;
+        line-height: 150%;
+    }
+
+    .tour-card__meta {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: end;
+        margin-top: 0.65rem;
+    }
+
+    .tour-card__meta > * {
+        margin-right: 1.5rem;
+    }
+    .tour-card__meta > *:last-child {
+        margin-right: 0;
+    }
+
+    .tour-card__divider {
+        opacity: 0.2;
+        background: #fff;
+        margin-top: 0.65rem;
+        width: 15.48944rem;
+        height: 0.054rem;
+    }
+
+    .tour-card__bottom {
+        margin-top: 0.65rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .tour-card__bottom .tour-card__link {
+        font-size: 1rem;
+        font-weight: 700;
+        text-transform: none;
+    }
+
+    .tour-card__icon {
+        width: 2.25rem;
+        height: 2.25rem;
+    }
+
+    .mobile-hidden {
+        display: none;
+    }
+
+    .pc-hidden {
+        display: block;
+    }
+
+    .tour-cta {
+        height: 21.75rem;
+    }
+}

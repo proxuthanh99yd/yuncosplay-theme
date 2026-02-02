@@ -1,0 +1,233 @@
+.when-to-go {
+    padding: 7.5rem 12.5rem;
+    user-select: none;
+    overflow: hidden;
+}
+
+.when-to-go::before {
+    content: "";
+    position: absolute;
+    bottom: 2.83rem;
+    right: -2.4rem;
+    width: 12.0625rem;
+    height: 22.5rem;
+
+    background: url("/wp-content/themes/okhub-theme/template-parts/detail-tour-page/assets/images/d-when-to-go-img.webp") no-repeat center / contain;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.when-to-go__heading {
+    margin: 0 0 2rem;
+    color: var(--Text-tm, var(--Tm, #630f3f));
+    font-family: var(--Title---Italic, "BHN TAN - MEMORIES");
+    font-size: 2.625rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 170%;
+    letter-spacing: 0.1575rem;
+}
+
+.when-to-go__months {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.when-to-go__month {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.69rem;
+    padding: 1rem 1.125rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--Tm, #630f3f);
+    background: transparent;
+    color: var(--Text-tm, var(--Tm, #630f3f));
+    font-family: var(--Body---Capture---Button, "Open Sans");
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.when-to-go__month--avg {
+    background: transparent;
+}
+
+.when-to-go__month--good {
+    background: var(--Foundation-Red-red-300, #965e7e);
+    border: none;
+    color: #ffffff;
+}
+
+.when-to-go__month--best {
+    background: #630f3f;
+    border-color: none;
+    color: #ffffff;
+}
+
+.when-to-go__desc {
+    margin: 0 0 2rem;
+    max-width: 75rem;
+    color: var(--Text-Body-80, rgba(46, 46, 46, 0.8));
+    font-family: var(--Body---Capture---Button, "Open Sans");
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+}
+
+.when-to-go__legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.when-to-go__legend-item {
+    display: inline-flex;
+    align-items: center;
+    color: var(--Text-Body-80, rgba(46, 46, 46, 0.8));
+    font-family: var(--Body---Capture---Button, "Open Sans");
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 160%;
+    margin-right: 2.5rem;
+}
+
+.when-to-go__legend-item:last-child {
+    margin-right: 0;
+}
+
+.when-to-go__legend-dot {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.62rem;
+}
+
+.when-to-go__legend-dot--best {
+    background: #630f3f;
+}
+
+.when-to-go__legend-dot--avg {
+    background: transparent;
+    border: 1px solid #630f3f;
+}
+
+.when-to-go__legend-dot--good {
+    background: #965e7e;
+}
+
+@media (max-width: 639.98px) {
+    .detail-tour-bg-wrap__bg {
+        position: absolute;
+        inset: 0;
+        background-color: transparent;
+        z-index: 0;
+        pointer-events: none;
+    }
+    .when-to-go {
+        padding: 2.5rem 0rem 2rem;
+        position: relative;
+        overflow: hidden;
+        z-index: 5;
+    }
+
+    .when-to-go::before {
+        bottom: auto;
+        top: -12rem;
+        right: -2.5rem;
+        width: 10rem;
+        height: 18rem;
+        opacity: 0.35;
+        z-index: 10;
+    }
+
+    .when-to-go__heading {
+        font-size: 1.375rem;
+        font-style: italic;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: 0.0825rem;
+        margin-bottom: 1.75rem;
+        padding: 0rem 1.25rem;
+    }
+
+    .when-to-go__months {
+        flex-wrap: nowrap;
+        display: flex;
+        align-items: center;
+        overflow-x: auto;
+        margin-bottom: 1rem;
+        scrollbar-width: none;
+    }
+    .when-to-go__months::-webkit-scrollbar {
+        display: none;
+    }
+
+    .when-to-go__month {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0;
+        width: 6.25rem;
+        height: 2.1875rem;
+        padding: 0;
+        font-size: 0.875rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%;
+    }
+    .when-to-go__month:not(:last-child) {
+        margin-right: 0.5rem;
+    }
+    .when-to-go__month:first-child {
+        margin-left: 1.25rem;
+    }
+    .when-to-go__month:last-child {
+        margin-right: 1.25rem;
+    }
+
+    .when-to-go__desc {
+        margin: 0 0 1rem;
+        color: var(--Text-Body-80, rgba(46, 46, 46, 0.8));
+        font-family: var(--Body---Capture---Button, "Open Sans");
+        font-size: 0.875rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%;
+        padding: 0rem 1.25rem;
+    }
+    .when-to-go__legend {
+        padding: 0rem 1.25rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .when-to-go__legend-item {
+        margin-right: 0;
+        margin-bottom: 0.875rem;
+        color: rgba(46, 46, 46, 0.8);
+        font-family: "Open Sans";
+        font-size: 0.875rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 180%;
+    }
+
+    .when-to-go__legend-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .when-to-go__legend-dot {
+        width: 1rem;
+        height: 1rem;
+        margin-right: 0.5rem;
+    }
+}

@@ -1,5 +1,6 @@
 export function sectionDestinationsScripts() {
-  const svgDestinationEl = document.querySelector(".destinations-map");
+  const destinationsSection = document.querySelector(".destinations");
+  const svgDestinationEl = destinationsSection?.querySelector(".destinations-map-wrapper .destinations-map") || null;
   if (!svgDestinationEl) return;
 
   const pathDestinationEls = svgDestinationEl.querySelectorAll("path[data-country]");
@@ -15,10 +16,10 @@ export function sectionDestinationsScripts() {
   });
 
   // Lấy tất cả các destination items
-  const destinationItems = document.querySelectorAll(".destination-content__destinations-item[data-country]");
+  const destinationItems = destinationsSection.querySelectorAll(".destination-content__destinations-item[data-country]");
 
   // Lấy tất cả capital elements
-  const capitalElements = document.querySelectorAll(".destination-map__capital[data-country]");
+  const capitalElements = destinationsSection.querySelectorAll(".destination-map__capital[data-country]");
   const capitalCache = new Map();
   capitalElements.forEach((capital) => {
     const country = capital.getAttribute("data-country");

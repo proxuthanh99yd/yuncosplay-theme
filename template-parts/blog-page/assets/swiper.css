@@ -1,0 +1,35 @@
+.swiper-pagination-bullet {
+  width: 0.5rem !important;
+  height: 0.5rem !important;
+  background: #630f3f !important;
+  opacity: 0.5 !important;
+  transition: all 0.3s ease-out !important;
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  width: 2.8125rem !important;
+  border-radius: 0.25rem !important;
+  background: #630f3f !important;
+  opacity: 1 !important;
+}
+
+@media (min-width: 1024px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    transition: all 0.3s ease-out;
+  }
+
+  .swiper-navigation-icon {
+    transition: all 0.3s ease-out;
+  }
+
+  .swiper-button-prev:hover,
+  .swiper-button-next:hover {
+    background: #630f3f !important;
+  }
+
+  .swiper-button-next:hover .swiper-navigation-icon,
+  .swiper-button-prev:hover .swiper-navigation-icon {
+    stroke: white;
+  }
+}

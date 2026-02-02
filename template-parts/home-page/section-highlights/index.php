@@ -29,6 +29,7 @@ $image_decor_id_1 = 1092;
 $image_decor_id_2 = 1093;
 // Ảnh background
 $image_background_farmer_id = 1094;
+$image_background_flower_id = 1971;
 
 if(!empty($highlight_items)) {
     // Gán background vào mảng gốc trước
@@ -45,8 +46,9 @@ if(!empty($highlight_items)) {
 }
 ?>
 
-<section class="highlights">
-    <?= wp_get_attachment_image($image_background_farmer_id, 'full', false, array( 'class' => 'highlights-image__farmer')) ?>
+<section id="highlights" class="highlights">
+    <?= wp_get_attachment_image($image_background_farmer_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'highlights-image__farmer')) ?>
+    <?= wp_get_attachment_image($image_background_flower_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'highlights-image__flower')) ?>
     
     <div class="highlights-container">
 
@@ -72,7 +74,7 @@ if(!empty($highlight_items)) {
             <div class="highlight-column__item">
                 <div data-aos="fade-right" class="highlight-card__item">
                     <div class="highlight-card__item-image">
-                        <?= wp_get_attachment_image($highlight_item_1['background_pc'], 'full', false, array( 'class' => '')) ?>
+                        <?= wp_get_attachment_image($highlight_item_1['background_pc'], 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => '')) ?>
                     </div>
                     <div class="highlight-card__item-content">
                         <h3 class="highlight-card__item-content__title">
@@ -85,7 +87,7 @@ if(!empty($highlight_items)) {
                 </div>
                 <div data-aos="fade-left" class="highlight-card__item">
                     <div class="highlight-card__item-image">
-                        <?= wp_get_attachment_image($highlight_item_2['background_pc'], 'full', false, array( 'class' => '')) ?>
+                        <?= wp_get_attachment_image($highlight_item_2['background_pc'], 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => '')) ?>
                     </div>
                     <div class="highlight-card__item-content">
                         <h3 class="highlight-card__item-content__title">
@@ -96,18 +98,18 @@ if(!empty($highlight_items)) {
                         </p>
                     </div>
                 </div>
-                <?= wp_get_attachment_image($image_decor_id_1, 'full', false, array( 'class' => 'highlight-column__image-decor')) ?>
+                <?= wp_get_attachment_image($image_decor_id_1, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'highlight-column__image-decor')) ?>
             </div>
             <div class="highlight-column__item">
                 <div class="highlight-column__image-decor"></div>
             </div>
             <div class="highlight-column__item">
                 <div data-aos="fade-right" class="highlight-column__image-decor">
-                    <?= wp_get_attachment_image($image_decor_id_2, 'full', false, array( 'class' => '')) ?>
+                    <?= wp_get_attachment_image($image_decor_id_2, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => '')) ?>
                 </div>
                 <div data-aos="fade-left" class="highlight-card__item">
                     <div class="highlight-card__item-image">
-                        <?= wp_get_attachment_image($highlight_item_3['background_pc'], 'full', false, array( 'class' => '')) ?>
+                        <?= wp_get_attachment_image($highlight_item_3['background_pc'], 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => '')) ?>
                     </div>
                     <div class="highlight-card__item-content">
                         <h3 class="highlight-card__item-content__title">
@@ -126,7 +128,7 @@ if(!empty($highlight_items)) {
                     <div class="highlight-column__item">
                         <div class="highlight-card__item">
                             <div class="highlight-card__item-image">
-                                <?= wp_get_attachment_image($highlight_item['background_mb'], 'full', false, array( 'class' => '')) ?>
+                                <?= wp_get_attachment_image($highlight_item['background_mb'], 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => '')) ?>
                             </div>
                              <div class="highlight-card__item-content">
                                 <h3 class="highlight-card__item-content__title">

@@ -1,0 +1,60 @@
+@import url("../../components/tour-item/styles.css");
+@import url("./custom-components/styles.css");
+@import url("../section-banner/assets/styles.css");
+@import url("../section-tour-overview/assets/styles.css");
+@import url("../section-when-to-go/assets/styles.css");
+@import url("../../components/section-reviews/assets/styles.css");
+@import url("../section-client-say/assets/styles.css");
+@import url("../section-related-tour/assets/styles.css");
+@import url("../section-detailed-itinerary/assets/styles.css");
+@import url("../../home-page/section-reason/assets/styles.css");
+
+main {
+    background-image: url("/wp-content/uploads/backgroundpc.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #fbf9f8;
+}
+
+.detail-tour-page {
+    position: relative;
+}
+
+.detail-tour-page>*:not(.cta-nav) {
+    position: relative;
+    z-index: 1;
+}
+
+.detail-tour-bg-wrap {
+    position: relative;
+}
+
+.detail-tour-decor {
+    display: none;
+}
+
+@media screen and (max-width: 639.98px) {
+    main {
+        background-image: url("/wp-content/uploads/backgroundmb.webp");
+    }
+
+    .detail-tour-page::before {
+        content: none;
+        display: none;
+    }
+
+    .detail-tour-decor {
+        display: block;
+        position: absolute;
+        top: -10rem;
+        margin-left: auto;
+        right: 0;
+        width: 7.54681rem;
+        height: 14.066rem;
+        object-fit: cover;
+        object-position: center;
+        z-index: 0;
+    }
+}

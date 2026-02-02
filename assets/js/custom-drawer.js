@@ -164,11 +164,14 @@ class DrawerContent extends HTMLElement {
     // Lấy các phần tử modal (overlay) và content bên trong
     const modal = this.shadowRoot.querySelector(".drawer-content__modal");
     const content = this.shadowRoot.querySelector(".drawer-content__inner");
+    const drawerEl = this.closest("custom-drawer");
+    const drawerContent = drawerEl.querySelector("custom-drawer-content");
+    const isDragContent = (drawerContent.getAttribute('data-drag-content') || 'true') === 'true';
     if (modal) {
       // Click overlay để đóng drawer
       modal.addEventListener("click", this.handleClickModal.bind(this));
     }
-    if (content) {
+    if (content && isDragContent) {
       // Sự kiện kéo trên máy tính
       content.addEventListener("mousedown", (event) => this.handleMouseDown(event, content));
       content.addEventListener("mousemove", (event) => this.handleMouseMove(event, content));
@@ -431,6 +434,9 @@ class DrawerContent extends HTMLElement {
         :host([data-direction="bottom"]) .drawer-content__touch-bar {
           display: flex;
         }
+        :host([data-touch-bar="false"]) .drawer-content__touch-bar {
+          display: none;
+        }
         .drawer-content__touch-bar::before {
           content: "";
           display: block;
@@ -445,7 +451,7 @@ class DrawerContent extends HTMLElement {
           left: 0;
           width: 100%;
           height: 100%;
-          z-index: 50;
+          z-index: var(--drawer-content-z-index, 50);
         }
         .drawer-content__modal {
           position: absolute;
@@ -486,14 +492,14 @@ class DrawerContent extends HTMLElement {
           bottom: 0;
           right: 0;
           left: 0;
-          max-height: 80vh;
+          max-height: var(--drawer-max-height, 80vh);
           transform: translateY(100%);
         }
         :host([data-direction="top"]) .drawer-content__inner {
           top: 0;
           right: 0;
           left: 0;
-          max-height: 80vh;
+          max-height: var(--drawer-max-height, 80vh);
           transform: translateY(-100%);
         }
         :host([data-direction="left"]) .drawer-content__inner {

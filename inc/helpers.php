@@ -103,3 +103,69 @@ add_action('after_setup_theme', 'my_theme_setup');
 add_action('init', function () {
     remove_post_type_support('page', 'editor');
 }, 99);
+
+function okhub_get_destination_data_for_country($country, $destinations)
+{
+    if (empty($destinations) || is_wp_error($destinations) || !is_iterable($destinations)) {
+        return null;
+    }
+
+    foreach ($destinations as $destination) {
+        $country_field = get_field('country', 'destination_' . $destination->term_id);
+        $destination_slug = $destination->slug;
+
+        $destination_country = '';
+        if ($country_field) {
+            $destination_country = strtolower($country_field);
+        } else {
+            $slug_parts = explode('-', $destination_slug);
+            $possible_countries = ['vietnam', 'cambodia', 'laos'];
+            foreach ($possible_countries as $pc) {
+                if (in_array($pc, $slug_parts, true)) {
+                    $destination_country = $pc;
+                    break;
+                }
+            }
+        }
+
+        if ($destination_country !== $country) {
+            continue;
+        }
+
+        $thumbnail_id = get_field('thumbnail', 'destination_' . $destination->term_id);
+        $custom_link = get_field('custom_permalink', 'destination_' . $destination->term_id);
+        $slug_link = $custom_link ?: get_term_link($destination);
+
+        $description = get_field('description', 'destination_' . $destination->term_id);
+        if (empty($description)) {
+            $description = $destination->description ?: '';
+        }
+
+        $thumbnail_url = $thumbnail_id ? wp_get_attachment_image_url($thumbnail_id, 'full') : '';
+
+        $tour_count = get_posts([
+            'post_type' => 'any',
+            'posts_per_page' => -1,
+            'tax_query' => [
+                [
+                    'taxonomy' => 'destination',
+                    'field' => 'term_id',
+                    'terms' => $destination->term_id,
+                ],
+            ],
+            'fields' => 'ids',
+        ]);
+        $tour_quantity = count($tour_count);
+
+        return [
+            'id' => $destination->term_id,
+            'name' => $destination->name,
+            'thumbnail' => $thumbnail_url,
+            'description' => $description,
+            'link' => $slug_link,
+            'tour_count' => $tour_quantity,
+        ];
+    }
+
+    return null;
+}

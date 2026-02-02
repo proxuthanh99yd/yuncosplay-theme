@@ -1,0 +1,330 @@
+.destination-insider {
+  position: relative;
+  background: #f5efec;
+  padding: 7.5rem 0 5rem 0;
+}
+
+.destination-insider_container {
+  display: flex;
+  max-width: 75rem;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.destination-insider_header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.destination-insider_title {
+  color: #630f3f;
+  font-family: "BHN TAN - MEMORIES";
+  font-size: 2.625rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 4.4625rem;
+  letter-spacing: 0.1575rem;
+  transition: all 0.4s ease-out;
+}
+
+.destination-insider_desc {
+  color: #2e2e2e;
+  font-family: "Open Sans";
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.6875rem;
+  text-transform: uppercase;
+  width: 20.6875rem;
+}
+
+.destination-insider_content {
+  width: 100%;
+  position: relative;
+}
+
+.destination-insider_content .swiper-button-prev,
+.destination-insider_content .swiper-button-next {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5625rem;
+  width: 2.375rem;
+  height: 2.375rem;
+  border-radius: 6.25rem;
+  background: rgba(99, 15, 63, 0.1);
+  backdrop-filter: blur(6px);
+}
+
+.destination-insider_content .swiper-button-prev {
+  left: calc(-2.375rem - 0.9375rem);
+  right: auto;
+}
+
+.destination-insider_content .swiper-button-next {
+  right: calc(-2.375rem - 0.9375rem);
+  left: auto;
+}
+
+.destination-insider_content .swiper-navigation-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+  stroke-width: 2px;
+  stroke: #630f3f;
+}
+
+.destination-insider_content .swiper-navigation-icon path {
+  fill: #630f3f;
+}
+
+.destination-insider_cards.swiper {
+  border-radius: 0.25rem;
+}
+
+.destination-insider_cards-mb {
+  display: none;
+}
+
+.destination-insider_cards .swiper-slide {
+  border-radius: 0.25rem;
+  height: 26.6875rem;
+}
+
+.destination-insider_card {
+  display: block;
+  position: relative;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  height: 26.6875rem;
+}
+
+.destination-insider_card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.destination-insider_card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 12.125rem;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 1;
+}
+
+.destination-insider_card-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  z-index: 2;
+}
+
+.destination-insider_card-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.destination-insider_card-type {
+  display: inline-block;
+  text-align: center;
+  font-family: "Open Sans";
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.2rem;
+  text-transform: uppercase;
+  background: linear-gradient(94deg, #eec640 29.81%, #ee9740 100.56%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.destination-insider_card-icon {
+  width: 0.4375rem;
+  height: 0.4375rem;
+}
+
+.destination-insider_card-duration {
+  color: #fff;
+  text-align: center;
+  font-family: "Open Sans";
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.2rem;
+  text-transform: uppercase;
+}
+
+.destination-insider_card-title {
+  position: relative;
+  color: #fff;
+  font-family: "BHN TAN - MEMORIES";
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.7rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.title-normal,
+.title-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0.02, 0, 0.99);
+}
+
+.title-normal {
+  font-family: "BHN TAN - MEMORIES";
+  line-height: 170%;
+}
+
+.title-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  font-family: "Open Sans";
+  opacity: 0;
+  line-height: 160%;
+  transform: translateY(-0.25rem);
+}
+
+@media (min-width: 1024px) {
+  .destination-insider_card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0.02, 0, 0.99);
+  }
+
+  .destination-insider_card:hover::before {
+    opacity: 1;
+  }
+
+  .destination-insider_card:hover .title-normal {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+
+  .destination-insider_card:hover .title-hover {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 639px) {
+  .destination-insider {
+    padding: 3rem 0 3.5rem 0;
+    background: inherit;
+    z-index: 1;
+  }
+
+  .destination-insider_container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.625rem;
+    max-width: 100%;
+  }
+
+  .destination-insider_header {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0 1.25rem;
+    align-items: flex-start;
+  }
+
+  .destination-insider_title {
+    color: var(--tm, #630F3F);
+    font-size: 1.5rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 150%; /* 2.25rem */
+    letter-spacing: 0.09rem;
+    order: 2;
+  }
+
+  .destination-insider_desc {
+    width: 13.125rem;
+    font-size: 0.625rem;
+    line-height: 0.875rem;
+    text-transform: uppercase;
+  }
+
+  .destination-insider_cards.swiper {
+    display: none;
+  }
+
+  .destination-insider_content .swiper-button-prev,
+  .destination-insider_content .swiper-button-next {
+    display: none;
+  }
+
+  .destination-insider_cards-mb {
+    padding: 0 1.25rem;
+    display: flex;
+    overflow-x: auto;
+    gap: 0.875rem;
+    scrollbar-width: none;
+  }
+
+  .destination-insider_card {
+    width: 17rem;
+    height: 21.75625rem;
+    flex-shrink: 0;
+    border-radius: 0.125rem;
+  }
+
+  .destination-insider_card-img {
+  }
+
+  .destination-insider_card-overlay {
+    height: 11.70194rem;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  .destination-insider_card-content {
+    padding: 1.44769rem 0.96513rem;
+    gap: 0.96513rem;
+  }
+
+  .destination-insider_card-top {
+    gap: 0.60319rem;
+  }
+
+  .destination-insider_card-icon {
+    width: 0.42225rem;
+    height: 0.42225rem;
+  }
+
+  .destination-insider_card-title {
+    font-size: 0.875rem;
+    line-height: 1.575rem;
+    letter-spacing: 0.0625rem;
+  }
+}
