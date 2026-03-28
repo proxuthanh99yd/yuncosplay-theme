@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Home Page
+Template Name: Trang chủ
 */
 get_header(); 
 get_template_part('template-parts/home-page/index'); 

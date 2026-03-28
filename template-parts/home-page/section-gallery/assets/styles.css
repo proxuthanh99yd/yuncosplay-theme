@@ -1,0 +1,133 @@
+.gallery__header {
+  width: 100%;
+  max-width: 94rem;
+  margin: 0 auto;
+  display: flex;
+  padding: 0.625rem 0 1.25rem 0;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.75rem;
+}
+
+.gallery__header-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery__header-title-text {
+  color: #f26c59;
+  font-family: Phudu;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%;
+  margin-bottom: 1.5rem;
+}
+
+.gallery__header-title-description {
+  color: #f26c59;
+  font-family: Phudu;
+  font-size: 3.625rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
+}
+
+.gallery__header-socials {
+  display: flex;
+  align-items: center;
+}
+
+.gallery__header-social {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.gallery__header-social:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.gallery__header-social-image {
+  width: 100%;
+  height: 100%;
+}
+
+.gallery__slider {
+  display: flex;
+  width: 100%;
+  height: 32.0625rem;
+  overflow: hidden;
+}
+
+.gallery__slider-track {
+  display: flex;
+  width: max-content;
+  animation: gallery-slider-marquee 15s linear infinite;
+  will-change: transform;
+}
+
+.gallery__slider:hover .gallery__slider-track {
+  animation-play-state: paused;
+}
+
+@keyframes gallery-slider-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery__slider-track {
+    animation: none;
+  }
+}
+
+.gallery__slider-item-image {
+  width: auto;
+  height: 100%;
+  margin-right: 1.25rem;
+}
+
+@media (max-width: 639px) {
+  .gallery__header {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .gallery__header-title {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .gallery__header-title-text {
+    font-size: 0.8125rem;
+    line-height: 110%;
+    margin-bottom: 0.5rem;
+  }
+
+  .gallery__header-title-description {
+    font-size: 1.75rem;
+  }
+
+  .gallery__header-social {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .gallery__header-social:not(:last-child) {
+    margin-right: 0.75rem;
+  }
+
+  .gallery__slider {
+    height: 16.25rem;
+  }
+
+  .gallery__slider-item-image {
+    margin-right: 0.625rem;
+  }
+}

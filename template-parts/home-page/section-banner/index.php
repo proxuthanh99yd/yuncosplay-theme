@@ -1,135 +1,65 @@
-<?php 
-$section_banner = get_field('section_banner');
-$banner_list = $section_banner['banner_items'];
-
-$icon_search_id = 1070;
-$icon_close_id = 1062;
-$icon_discover_id = 1122;
+<?php
+$banner_acf = get_field('banner') ?: [];
 ?>
 
-<section id="banner" class="banner">
-	<!-- Slider main container -->
-	<div class="swiper banner-swiper banner-swiper--hide-pagination">
-		<!-- Additional required wrapper -->
-		<div class="swiper-wrapper banner-swiper-wrapper">
-			<!-- Slides -->
-			<?php if(!empty($banner_list)) : ?>
-			<?php foreach($banner_list as $index => $banner_item) : 
-			$title = $banner_item['title'];    
-			$description = $banner_item['description'];    
-			$link = $banner_item['link'];    
-			$image_desktop_id = $banner_item['image_desktop'];    
-			$image_mobile_id = $banner_item['image_mobile'];
-			$is_first_slide = ($index === 0);
-
-			if($link) {
-				$link_url = $link['url'];
-				$link_title = $link['title'];
-				$link_target = $link['target'] ? $link['target'] : '_self';
-			}
-
-			$img_attr_desktop = $is_first_slide
-				? [
-				'class'         => 'banner-swiper-slide__image banner-swiper-slide__image--desktop',
-				'loading'       => 'eager',
-				'fetchpriority' => 'high',
-				'decoding'      => 'async',
-			]
-				: [
-					'class'    => 'banner-swiper-slide__image banner-swiper-slide__image--desktop',
-					'loading'  => 'lazy',
-					'decoding' => 'async',
-				];
-
-			$img_attr_mobile = $is_first_slide
-				? [
-				'class'         => 'banner-swiper-slide__image banner-swiper-slide__image--mobile',
-				'loading'       => 'eager',
-				'fetchpriority' => 'high',
-				'decoding'      => 'async',
-			]
-				: [
-					'class'    => 'banner-swiper-slide__image banner-swiper-slide__image--mobile',
-					'loading'  => 'lazy',
-					'decoding' => 'async',
-				];
-			?>
-			<div class="swiper-slide banner-swiper-slide">
-				<!-- Background overlay -->
-				<div class="banner-swiper-slide__background-overlay"></div>
-				
-				<!-- Ảnh desktop -->
-				<?= wp_get_attachment_image($image_desktop_id, 'full', false, $img_attr_desktop); ?>
-
-				<!-- Ảnh mobile -->
-				<?= wp_get_attachment_image($image_mobile_id, 'full', false, $img_attr_mobile); ?>
-
-				<?php if($is_first_slide) : ?>
-				<!-- Content banner search: Hiển thị phần search và kết quả tìm kiếm đối với slide 1 -->
-				<div class="banner-swiper-slide__content banner-swiper-slide__content--search">
-					<h1 class="banner-swiper-slide__content__title">
-						<?= $title ?>
-					</h1>
-					<div id="banner-search-container"  class="banner-swiper-slide__content__search">
-						<div class="banner-swiper-slide__content__search-input">
-							<input id="banner-search-input" type="text" name="swiper-search-input" placeholder="<?= IS_MOBILE ? 'Enter search content' : 'Search destinations, experiences or hotels...'?>"/>
-							<button id="banner-search-clear" class="banner-swiper-slide__content__search-input__icon banner-swiper-slide__content__search-input__icon--close">
-								<?= wp_get_attachment_image($icon_close_id, 'full', false, array( 'class' => '')) ?>
-							</button>
-							<label for="banner-search-input" class="banner-swiper-slide__content__search-input__icon banner-swiper-slide__content__search-input__icon--search">
-								<?= wp_get_attachment_image($icon_search_id, 'full', false, array( 'class' => '')) ?>
-							</label>
-						</div>
-						<ul id="banner-search-result" class="banner-swiper-slide__content__search-result" data-lenis-prevent>                                  
-						</ul>
-					</div>
-				</div>
-				<?php else : ?>
-				<!-- Content banner link: Hiển thị content và nút link đến trang khác -->
-				<div class="banner-swiper-slide__content banner-swiper-slide__content--link">
-					<p class="banner-swiper-slide__content__title"><?= $title ?></p>
-					<p class="banner-swiper-slide__content__description"><?= $description ?></p>
-					<?php if(!empty($link) && !empty($link_url)) :?>
-					<a class="banner-swiper-slide__content__link compound-avian-button" href="<?= $link_url ?>" target="<?= $link_target ?>">
-					    <div class="compound-avian-button__content">
-						    <span class="banner-swiper-slide__content__link-text"><?= $link_title ?></span>
-					    </div>
-					</a>
-					<?php endif; ?>
-				</div>
-				<?php endif; ?>
-			</div>
-			<?php endforeach; ?>
-			<?php endif; ?>
-		</div>
-
-		<!-- Pagination -->
-		<div class="swiper-pagination banner-swiper-pagination"></div>
-
-		<!-- Navigation buttons -->
-		<button class="banner-swiper-button-navigation banner-swiper-button-prev">
-			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-				<path d="M13.332 15.834L7.08183 9.43542L13.332 3.33398" stroke="currentColor" stroke-width="2"/>
-			</svg>
-		</button>
-		<button class="banner-swiper-button-navigation banner-swiper-button-next">
-			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-				<path d="M6.66797 15.834L12.9182 9.43542L6.66797 3.33398" stroke="currentColor" stroke-width="2"/>
-			</svg>
-		</button>
-	</div>
-
-	<button class="banner-discover-btn">
-		<span class="banner-discover-btn__icon">
-			<?= wp_get_attachment_image($icon_discover_id, 'full', false, array( 'class' => '')) ?>
-		</span>
-		<span class="banner-discover-btn__text">Discover</span>
-	</button>
+<section id="banner">
+  <div class="banner__container">
+    <div class="banner_overlay"></div>
+    <div class="banner__swiper swiper">
+      <div class="swiper-wrapper">
+        <?php foreach ($banner_acf as $i => $banner): ?>
+          <div class="swiper-slide" data-banner-index="<?= esc_attr($i) ?>">
+            <div class="banner__slide-inner" data-swiper-parallax="70%">
+              <?= wp_get_attachment_image($banner['image_pc'], 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'banner-image')) ?>
+              <?= wp_get_attachment_image($banner['image_mb'], 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'banner-image-mb')) ?>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </div>
+  <div class="banner__content">
+    <div class="banner__content-first">
+      <?php foreach ($banner_acf as $i => $banner): ?>
+        <div class="banner__content-item<?= $i === 0 ? ' is-active' : '' ?>" data-banner-index="<?= esc_attr($i) ?>"
+          aria-hidden="<?= $i === 0 ? 'false' : 'true' ?>">
+          <h2>
+            <a href="<?= esc_url(($banner['link']['url'] ?? '') ?: '#') ?>">
+              <?= esc_html($banner['title'] ?? '') ?>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M19.8571 12L13.3317 18.5244L11.4381 18.4668L14.1647 15.7402C15.004 14.9022 15.772 14.1511 16.4694 13.4883L17.2702 12.7275L16.1647 12.7217L5.40884 12.6709L5.47427 11.2197L16.2653 11.2725L17.3883 11.2773L16.5729 10.5049C15.8914 9.85915 15.1367 9.12137 14.3083 8.29297L11.4889 5.47559L13.2711 5.41699L19.8571 12Z"
+                  fill="white" stroke="white" stroke-width="0.8888" />
+              </svg>
+            </a>
+          </h2>
+          <p><?= wp_kses_post($banner['desc'] ?? '') ?></p>
+        </div>
+      <?php endforeach; ?>
+    </div>
+    <div class="banner__content-second">
+      <?php foreach ($banner_acf as $i => $banner): ?>
+        <a href="<?= esc_url(($banner['link']['url'] ?? '') ?: '#') ?>"
+          class="banner__content-second-item<?= $i === 0 ? ' is-active' : '' ?>" data-banner-index="<?= esc_attr($i) ?>"
+          aria-hidden="<?= $i === 0 ? 'false' : 'true' ?>" tabindex="<?= $i === 0 ? '0' : '-1' ?>">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M19.8569 12L13.3315 18.5244L11.438 18.4668L14.1646 15.7402C15.0038 14.9022 15.7718 14.1511 16.4692 13.4883L17.27 12.7275L16.1646 12.7217L5.40869 12.6709L5.47412 11.2197L16.2651 11.2725L17.3882 11.2773L16.5728 10.5049C15.8912 9.85915 15.1365 9.12137 14.3081 8.29297L11.4888 5.47559L13.271 5.41699L19.8569 12Z"
+              fill="#F26C59" stroke="#F26C59" stroke-width="0.8888" />
+          </svg>
+          <p>
+            <?= esc_html($banner['link']['title'] ?? '') ?>
+            <span>(12)</span>
+          </p>
+        </a>
+      <?php endforeach; ?>
+      <div class="banner__pagination"></div>
+    </div>
+  </div>
+  <div class="banner__nav-container">
+    <button class="banner__nav banner__nav-prev" type="button" aria-label="Previous banner">
+    </button>
+    <button class="banner__nav banner__nav-next" type="button" aria-label="Next banner">
+    </button>
+  </div>
 </section>
-
-<template id="banner-search-result-item">
-	<li class="banner-swiper-slide__content__search-result__item">
-		<span class="banner-swiper-slide__content__search-result__item__text">
-		</span>
-	</li>
-</template>

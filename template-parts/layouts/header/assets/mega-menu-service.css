@@ -1,0 +1,236 @@
+.header__mega-menu-service {
+    padding-top: 0.625rem;
+}
+
+.header__mega-menu-service-wrapper {
+    display: flex;
+    height: 27.5rem;
+    border-top: 1px dashed rgba(29, 29, 29, 0.12);
+}
+
+.header__mega-menu-service-left,
+.header__mega-menu-service-right {
+    max-width: 50%;
+    flex-basis: 50%;
+}
+
+.header__mega-menu-service-left {
+    padding: 0 1rem 0 3rem;
+    height: 27.5rem;
+}
+
+.header__mega-menu-service__service-list {
+    height: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.header__mega-menu-service__service-item {
+    position: relative;
+}
+
+.header__mega-menu-service__service-item:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-top: 1px dashed rgba(29, 29, 29, 0.12);
+}
+
+.header__mega-menu-service__service-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.625rem 2rem 1.625rem 1.125rem;
+}
+
+.header__mega-menu-service__service-link-text {
+    color: #680103;
+    font-family: Phudu;
+    font-size: 1.875rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+    opacity: 0.32;
+    transition: all 0.4s cubic-bezier(0.44, 0, 0.01, 1.01);
+}
+
+.header__mega-menu-service__service-item--active .header__mega-menu-service__service-link-text {
+    opacity: 1;
+}
+
+.header__mega-menu-service__service-link-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.44, 0, 0.01, 1.01);
+}
+
+.header__mega-menu-service__service-item--active .header__mega-menu-service__service-link-icon {
+    opacity: 1;
+    visibility: visible;
+}
+
+.header__mega-menu-service__service-link-icon img {
+    width: 100%;
+    height: auto;
+}
+
+.header__mega-menu-service-right {
+    position: relative;
+    align-self: stretch;
+}
+
+.header__mega-menu-service-right::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    background: linear-gradient(180deg, rgba(106, 0, 2, 0.00) 48.2%, rgba(106, 0, 2, 0.51) 61.88%, rgba(106, 0, 2, 0.80) 74.44%, #6A0002 100%);
+    z-index: 0;
+}
+
+.header__mega-menu-service__banner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.header__mega-menu-service__banner-background,
+.header__mega-menu-service__banner-background img {
+    width: 100%;
+    height: 100%;
+}
+
+.header__mega-menu-service__banner-background img {
+    object-fit: cover;
+}
+
+.header__mega-menu-service__banner-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    z-index: 5;
+}
+
+.header__mega-menu-service__banner-content-left {
+    flex-shrink: 0;
+    width: 29.5rem;
+    padding: 2rem;
+}
+
+.header__mega-menu-service__banner-title {
+    color: #F6F3EA;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Phudu;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+    margin-bottom: 0.75rem;
+}
+
+.header__mega-menu-service__banner-title strong {
+    color: #F26C59;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.header__mega-menu-service__banner-service-list {}
+
+.header__mega-menu-service__banner-service-item {}
+
+.header__mega-menu-service__banner-service-item:not(:last-child) {
+    margin-bottom: 0.5rem;
+}
+
+.header__mega-menu-service__banner-service-link {
+    display: flex;
+}
+
+.header__mega-menu-service__banner-service-item-icon {
+    flex-shrink: 0;
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-top: 0.25rem;
+    margin-right: 0.5rem;
+}
+
+.header__mega-menu-service__banner-service-item-icon img {
+    width: 100%;
+    height: 100%;
+}
+
+.header__mega-menu-service__banner-service-item-text {
+    color: #F7F4EC;
+    font-family: "SF Pro Display";
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+.header__mega-menu-service-banner__content-right {
+    flex-shrink: 0;
+    padding: 2rem;
+}
+
+.header__mega-menu-service-banner__btn-details {
+    display: flex;
+    align-items: center;
+}
+
+.header__mega-menu-service-banner__btn-details-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+    margin-right: 0.5rem;
+    transition: all 0.4s cubic-bezier(0.47, 0, 0.01, 1.01);
+}
+
+.header__mega-menu-service-banner__btn-details-icon img {
+    width: 100%;
+    height: auto;
+}
+
+.header__mega-menu-service-banner__btn-details-text {
+    color: #F7F4EC;
+    font-family: "SF Pro Display";
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1;
+    transition: all 0.4s cubic-bezier(0.47, 0, 0.01, 1.01);
+}
+
+@media screen and (min-width: 1024px) {
+    .header__mega-menu-service__service-item:hover .header__mega-menu-service__service-link-text {
+        opacity: 1;
+        transform: translateX(0.875rem);
+    }
+
+    .header__mega-menu-service__service-item:hover .header__mega-menu-service__service-link-icon {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .header__mega-menu-service-banner__btn-details:hover .header__mega-menu-service-banner__btn-details-icon {
+        transform: translateX(0.3125rem);
+    }
+
+    .header__mega-menu-service-banner__btn-details:hover .header__mega-menu-service-banner__btn-details-text {
+        color: #F26C59;
+    }
+}

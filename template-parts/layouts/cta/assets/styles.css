@@ -1,0 +1,362 @@
+.cta-right {
+    position: fixed;
+    right: 1.125rem;
+    bottom: 5.875rem;
+    z-index: 100;
+}
+
+.cta-right-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.cta-right__btn-contact-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.cta-right__btn-contact-item {
+    position: relative;
+    display: flex;
+    width: 3rem;
+    height: 3rem;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.cta-right__btn-contact-item:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+.cta-right__btn-contact-item.cta-right__btn-contact-item--zalo svg {
+    width: 1.75rem;
+    height: 0.6875rem;
+}
+
+.cta-right__btn-contact-item.cta-right__btn-contact-item--messenger svg {
+    width: 1.75rem;
+    height: 1.75rem;
+}
+
+.cta-right__btn-contact-item.cta-right__btn-contact-item--hotline svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.cta-right__btn-contact-item.cta-right__btn-contact-item--hotline::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    background: #F26C59;
+    backdrop-filter: blur(10px);
+    opacity: 0.16;
+    z-index: -1;
+    animation: cta-hotline-ripple 1s ease-out infinite;
+}
+
+@keyframes cta-hotline-ripple {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+    }
+}
+
+.cta-right__btn-scroll-top {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.cta-right__btn-scroll-top svg {
+    width: 100%;
+    height: 100%;
+}
+
+.cta-bottom,
+.service-drawer-mobile {
+    display: none;
+}
+
+@media screen and (max-width: 639.98px) {
+    .cta-right {
+        right: 0.75rem;
+        bottom: 5rem;
+    }
+
+    .cta-right__btn-contact-list {
+        margin-bottom: 0;
+    }
+
+    .cta-right__btn-contact-item {
+        width: 2.25rem;
+        height: 2.25rem;
+    }
+
+    .cta-right__btn-contact-item.cta-right__btn-contact-item--hotline {
+        display: none;
+    }
+
+    .cta-right__btn-contact-item.cta-right__btn-contact-item--zalo svg {
+        width: 1.3125rem;
+        height: 0.51563rem;
+    }
+
+    .cta-right__btn-contact-item.cta-right__btn-contact-item--messenger svg {
+        width: 1.3125rem;
+        height: 1.3125rem;
+    }
+
+    .cta-right__btn-scroll-top {
+        width: 2.25rem;
+        height: 2.25rem;
+    }
+
+    .cta-bottom {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #fff;
+        z-index: 100;
+    }
+
+    .cta-bottom-container {
+        display: flex;
+        align-items: center;
+        height: 4rem;
+    }
+
+    .cta-bottom__btn-contact-phone {
+        flex-shrink: 0;
+        width: 12.875rem;
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(50% 169.61% at 50% 50%, #CB5140 46.54%, #D8A061 91.01%);
+    }
+
+    .cta-bottom__btn-contact-phone__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.25rem;
+        height: 2.25rem;
+        flex-shrink: 0;
+        margin-right: 0.25rem;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.16);
+    }
+
+    .cta-bottom__btn-contact-phone__icon svg {
+        width: 1.1875rem;
+        height: 1.1875rem;
+    }
+
+    .cta-bottom__btn-contact-phone__title {
+        color: #F7F4EC;
+        font-family: "SF Pro Display";
+        font-size: 0.875rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 150%;
+        margin-bottom: -0.0625rem;
+    }
+
+    .cta-bottom__btn-contact-phone__subtitle {
+        color: #F7F4EC;
+        font-family: "SF Pro Display";
+        font-size: 0.75rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%;
+    }
+
+    .cta-bottom__btn-service,
+    .cta-bottom__btn-product {
+        align-self: stretch;
+        flex: 1 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .cta-bottom__btn-service {
+        border-right: 0.0625rem solid rgba(29, 29, 29, 0.06);
+    }
+
+    .cta-bottom__btn-service__icon,
+    .cta-bottom__btn-product__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 50%;
+        background: rgba(104, 1, 3, 0.04);
+        margin-bottom: 0.125rem;
+    }
+
+    .cta-bottom__btn-service__icon svg {
+        width: 1rem;
+        height: 1rem;
+    }
+
+    .cta-bottom__btn-product__icon svg {
+        width: 1.125rem;
+        height: 1.125rem;
+    }
+
+    .cta-bottom__btn-service__text,
+    .cta-bottom__btn-product__text {
+        color: rgba(29, 29, 29, 0.80);
+        font-family: "SF Pro Display";
+        font-size: 0.625rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 130%;
+    }
+
+    .service-drawer-mobile {
+        display: block;
+    }
+
+
+    .service-drawer-mobile__overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.25);
+        z-index: 9998;
+        transition: all 0.3s ease-out;
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .service-drawer-mobile.service-drawer-mobile--active .service-drawer-mobile__overlay {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .service-drawer-mobile__content {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        height: 22.5rem;
+        max-height: 75vh;
+        width: 100%;
+        background: #fff;
+        box-shadow: -31px -272px 77px 0 rgba(186, 186, 186, 0.00), -20px -174px 70px 0 rgba(186, 186, 186, 0.01), -11px -98px 59px 0 rgba(186, 186, 186, 0.05), -5px -43px 44px 0 rgba(186, 186, 186, 0.09), -1px -11px 24px 0 rgba(186, 186, 186, 0.10);
+        padding-bottom: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        z-index: 9999;
+        transition: all 0.3s ease-out;
+        transform: translateY(100%);
+        visibility: hidden;
+    }
+
+    .service-drawer-mobile.service-drawer-mobile--active .service-drawer-mobile__content {
+        transform: translateY(0);
+        visibility: visible;
+    }
+
+    .service-drawer-mobile__content-header {
+        position: sticky;
+        top: 0;
+        align-self: stretch;
+        height: 3.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 0.75rem;
+        margin-bottom: 1.25rem;
+        box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.08);
+    }
+
+    .service-drawer-mobile__content-title {
+        color: rgba(29, 29, 29, 0.80);
+        text-align: justify;
+        font-family: "SF Pro Display";
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 130%;
+    }
+
+    .service-drawer-mobile__button-close {
+        display: flex;
+        width: 3.75rem;
+        height: 3.75rem;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .service-drawer-mobile__button-close svg {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    .service-drawer-mobile__content-body {
+        flex: 1 0 0;
+        align-self: stretch;
+        overflow-y: auto;
+    }
+
+    .service-drawer-mobile__service-list {
+        padding: 0 0.75rem;
+    }
+
+    .service-drawer-mobile__service-item:not(:last-child) {
+        border-bottom: 1px dashed rgba(29, 29, 29, 0.20);
+    }
+
+    .service-drawer-mobile__service-item__header {
+        display: flex;
+        padding: 0.9375rem 0;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .service-drawer-mobile__service-item__title {
+        color: #680103;
+        text-align: center;
+        font-family: Phudu;
+        font-size: 1.125rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 120%;
+    }
+
+    .service-drawer-mobile__service-item__arrow-icon {
+        display: inline-block;
+        width: 1.125rem;
+        height: 1.125rem;
+    }
+
+    .service-drawer-mobile__service-item__arrow-icon svg {
+        width: 100%;
+        height: 100%;
+    }
+}

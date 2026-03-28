@@ -1,0 +1,271 @@
+.header-service {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 102;
+    background: #fff;
+    transition: all 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.header-service.header-service--active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.header-service__header {
+    position: sticky;
+    top: 0;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 0.75rem;
+    border-bottom: 1px solid rgba(29, 29, 29, 0.06);
+    background: #FFF;
+}
+
+.header-service__title-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.header-service__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    margin-right: 0.3125rem;
+}
+
+.header-service__icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.header-service__title {
+    color: rgba(29, 29, 29, 0.80);
+    text-align: justify;
+    font-family: "SF Pro Display";
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%;
+}
+
+.header-service__close-btn {
+    display: flex;
+    width: 3.75rem;
+    height: 3.75rem;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid rgba(29, 29, 29, 0.06);
+    cursor: pointer;
+}
+
+.header-service__close-btn svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+}
+
+.header-service__content {
+    flex: 1 0 0;
+    position: relative;
+    align-self: stretch;
+    padding: 1.25rem 0 2.5rem;
+    overflow-y: auto;
+}
+
+.header-service__service-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-service__service-item {
+    position: relative;
+    align-self: stretch;
+    opacity: 0.48;
+    transition: all 0.3s ease-out;
+}
+
+.header-service__service-item:not(:last-child)::after {
+    content: "";
+    display: block;
+    width: 21.9375rem;
+    border-bottom: 1px dashed rgba(29, 29, 29, 0.12);
+    margin: 1.25rem auto;
+}
+
+.header-service__service-item.header-service__service-item--active {
+    opacity: 1;
+}
+
+.header-service__service-item__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease-out;
+    padding-inline: 0.875rem;
+}
+
+.header-service__service-item.header-service__service-item--active .header-service__service-item__header {
+    margin-bottom: 0.625rem;
+}
+
+.header-service__service-item.header-service__service-item--active .header-service__service-item__content {
+    padding-bottom: 1.25rem;
+}
+
+.header-service__service-item.header-service__service-item--active:not(:last-child)::after {
+    margin-top: 0;
+}
+
+.header-service__service-item__title {
+    color: #680103;
+    text-align: center;
+    font-family: Phudu;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%;
+}
+
+.header-service__service-item__icon-chevron {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+.header-service__service-item__icon-chevron svg {
+    width: 100%;
+    height: 100%;
+}
+
+.header-service__service-item__content {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: height 0.3s ease-out;
+    padding-inline: 0.875rem;
+}
+
+.header-service__service-item__description {
+    align-self: stretch;
+    color: rgba(29, 29, 29, 0.80);
+    font-family: "SF Pro Display";
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    margin-bottom: 0.625rem;
+}
+
+.header-service__service-item__thumbnail {
+    align-self: stretch;
+    position: relative;
+    width: 100%;
+    height: 11.125rem;
+    margin-bottom: 0.625rem;
+}
+
+.header-service__service-item__thumbnail::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 7.125rem;
+    background: linear-gradient(180deg, rgba(106, 0, 2, 0.00) 28.83%, rgba(106, 0, 2, 0.31) 47.34%, rgba(106, 0, 2, 0.48) 62.52%, rgba(75, 0, 1, 0.60) 83.4%);
+    z-index: 1;
+}
+
+.header-service__service-item__thumbnail-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.header-service__service-item__thumbnail-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.header-service__service-item__thumbnail-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.75rem;
+    z-index: 2;
+}
+
+.header-service__service-item__subtitle {
+    color: rgba(255, 255, 255, 0.26);
+    font-family: Phudu;
+    font-size: 2.25rem;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 120%;
+    text-box-edge: cap alphabetic;
+    text-box-trim: trim-both;
+    margin-bottom: 0.375rem;
+}
+
+.header-service__service-item__offer-title {
+    color: #F7F4EC;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Phudu;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+}
+
+.header-service__service-item__offer-title strong {
+    color: #F26C59;
+    font-weight: 700;
+}
+
+.header-service__service-item__offer-list {
+    align-self: stretch;
+    margin-bottom: 1.125rem;
+}
+
+.header-service__service-item__offer-item {
+    display: flex;
+}
+
+.header-service__service-item__offer-item:not(:last-child) {
+    margin-bottom: 0.5rem;
+}
+
+.header-service__service-item__offer-item__icon {
+    display: block;
+    width: 0.75rem;
+    height: 0.75rem;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+    margin-right: 0.5rem;
+}
+
+.header-service__service-item__offer-item__text {
+    color: rgba(29, 29, 29, 0.80);
+    font-family: "SF Pro Display";
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+.header-service__service-item__link {
+    align-self: flex-end;
+}

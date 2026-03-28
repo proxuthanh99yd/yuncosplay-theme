@@ -1,0 +1,187 @@
+{
+    "success": true,
+    "orders": [
+        {
+            "order_id": "94921",
+            "order_code": null,
+            "customer_id": "104631",
+            "delivery_address_id": 19031,
+            "coupon_id": null,
+            "coupon_code": null,
+            "coupon": {
+                "coupon_code": null,
+                "discount_type_id": null,
+                "discount_value": null,
+                "coupon_number_of_uses": null,
+                "condition_for_coupon_id": null,
+                "coupon_order_cost_from": null,
+                "coupon_description": null,
+                "coupon_status": null,
+                "coupon_start_date": null,
+                "coupon_end_date": null,
+                "allow_use_with_promotion_status": null
+            },
+            "payment_method_id": 3,
+            "payment_method_description": "Thanh toán bằng tiền mặt",
+            "user_id_create": "1",
+            "user_create_username": "haiit",
+            "user_create_email": "ngochaiit257@gmail.com",
+            "user_id_update": "1",
+            "user_update_username": "haiit",
+            "user_update_email": "ngochaiit257@gmail.com",
+            "source_order": "Bán tại cửa hàng",
+            "create_datetime": "2026-02-25 14:05:01",
+            "update_datetime": "2026-02-25 14:05:15",
+            "rental_datetime": "2026-02-25 00:00:00",
+            "return_datetime": "2026-02-26 00:00:00",
+            "deposit_datetime": "2026-02-25 14:05:21",
+            "payment_datetime": null,
+            "deposit_amount": 550000,
+            "cost_of_shipping": 0,
+            "name_of_shipping": null,
+            "discount_amount": 0,
+            "reason_of_promotion": null,
+            "incurred_amount": 0,
+            "reason_of_incurred_amount": null,
+            "temporary_fee": 300000,
+            "payment_status": false,
+            "confirm_order_status": true,
+            "completed_status": null,
+            "draft_status": false,
+            "is_rental_bill": true,
+            "getting_status_id": 2,
+            "getting_status_description": "Đã lấy đồ",
+            "getting_method_description": "",
+            "order_note": null,
+            "list_accessory_note": null,
+            "user_admin_id": null,
+            "number_of_rental_date": 1,
+            "total_price_all_products": 250000,
+            "total_cost_of_order": 250000,
+            "customer": {
+                "customer_id": "104631",
+                "customer_first_name": null,
+                "customer_last_name": "Hoàng Vân Chiều",
+                "customer_email": null,
+                "customer_phone_number": "(035) 363-6683",
+                "marketing_status": false,
+                "country_id": null,
+                "province_id": null,
+                "district_id": null,
+                "ward_id": null,
+                "customer_address": null,
+                "customer_note": null,
+                "customer_birthday": null,
+                "gender_id": null,
+                "black_list_status": false,
+                "customer_user_id": null
+            },
+            "delivery_address": {
+                "delivery_address_id": 19031,
+                "first_name": null,
+                "last_name": null,
+                "phone_number": null,
+                "address_detail": null,
+                "address_zip": null,
+                "province_id": null,
+                "province_name": null,
+                "district_id": null,
+                "district_name": null,
+                "ward_id": null,
+                "ward_name": null
+            },
+            "product_variation_in_orders": [
+                {
+                    "product_vatiation_in_order_id": "109230",
+                    "product_variation_id": "91095",
+                    "product_id": "100746",
+                    "product_name": "Corset trắng cosplay thiên nga",
+                    "product_variation_name": "Default Title",
+                    "product_variation_price": 250000,
+                    "product_variation_price_comparison": null,
+                    "product_variation_rent_cost": null,
+                    "product_variation_rent_cost_comparision": null,
+                    "product_variation_quantity": 1,
+                    "product_variation_quantity_repay": null,
+                    "product_variation_price_repay": null,
+                    "product_variation_image": "https://admin.yuncosplay.vn/Assets/img/product_image/corset đen trắng cosplay thiên nga đen 5.jpg",
+                    "product_variation_weight": null,
+                    "allow_delivery": null,
+                    "unit_name": null
+                }
+            ],
+            "custom_product_in_orders": [],
+            "order_logs": [
+                {
+                    "order_log_id": 57176,
+                    "order_log_description": "<strong>haiit</strong> đã tạo đơn hàng #<strong>94921</strong>",
+                    "order_log_create_datetime": "2026-02-25 14:05:01",
+                    "order_log_type": "create",
+                    "payment_informations": []
+                },
+                {
+                    "order_log_id": 57177,
+                    "order_log_description": "Đơn hàng được xác thực bởi <strong>haiit</strong>",
+                    "order_log_create_datetime": "2026-02-25 14:05:01",
+                    "order_log_type": "confirm",
+                    "payment_informations": []
+                },
+                {
+                    "order_log_id": 57178,
+                    "order_log_description": "Thanh toán <strong>250.000 ₫</strong> đang chờ xử lý",
+                    "order_log_create_datetime": "2026-02-25 14:05:01",
+                    "order_log_type": "payment",
+                    "payment_informations": [
+                        {
+                            "payment_information_id": 16531,
+                            "description": "Trì hoãn Thanh toán khi giao hàng (COD) từ người mua",
+                            "value_money": 250000,
+                            "pay_gate": "Thanh toán khi giao hàng (COD)",
+                            "pay_status": false,
+                            "pay_type": "Chờ xử lý",
+                            "user_id": "1",
+                            "datetime_confirm": "2026-02-25 14:05:01"
+                        }
+                    ]
+                },
+                {
+                    "order_log_id": 57179,
+                    "order_log_description": "Đơn hàng được xác thực bởi <strong>haiit</strong>",
+                    "order_log_create_datetime": "2026-02-25 14:05:15",
+                    "order_log_type": "confirm",
+                    "payment_informations": []
+                },
+                {
+                    "order_log_id": 57180,
+                    "order_log_description": "Đã cập nhật tiền cọc thành <strong>550.000 ₫</strong> bởi <strong>haiit</strong> ",
+                    "order_log_create_datetime": "2026-02-25 14:05:21",
+                    "order_log_type": "comment",
+                    "payment_informations": []
+                },
+                {
+                    "order_log_id": 57181,
+                    "order_log_description": "Đã cập nhật tiền cọc thành <strong>550.000 ₫</strong> bởi <strong>haiit</strong> ",
+                    "order_log_create_datetime": "2026-02-25 14:05:21",
+                    "order_log_type": "comment",
+                    "payment_informations": []
+                },
+                {
+                    "order_log_id": 57182,
+                    "order_log_description": "Đã cập nhật quá trình lấy đồ thành <strong>Đã lấy đồ</strong> bởi <strong>haiit</strong> ",
+                    "order_log_create_datetime": "2026-02-25 14:05:24",
+                    "order_log_type": "update",
+                    "payment_informations": []
+                },
+                {
+                    "order_log_id": 57183,
+                    "order_log_description": "Đã cập nhật tiền thế chân <strong>300.000 ₫</strong> bởi <strong>haiit</strong> ",
+                    "order_log_create_datetime": "2026-02-25 14:05:28",
+                    "order_log_type": "comment",
+                    "payment_informations": []
+                }
+            ],
+            "order_tags": [],
+            "transport": null
+        }
+    ]
+}

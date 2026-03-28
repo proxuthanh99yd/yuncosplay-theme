@@ -1,0 +1,292 @@
+.header-product {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 102;
+    background: #fff;
+    transition: all 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.header-product.header-product--active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.header-product__header {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 0.75rem;
+    border-bottom: 1px solid rgba(29, 29, 29, 0.06);
+    background: #FFF;
+    z-index: 5;
+}
+
+.header-product__title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-product__title-icon {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 0.3125rem;
+}
+
+.header-product__title-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.header-product__title-text {
+    color: rgba(29, 29, 29, 0.80);
+    text-align: justify;
+    font-family: "SF Pro Display";
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%;
+}
+
+.header-product__btn-close {
+    display: flex;
+    width: 3.75rem;
+    height: 3.75rem;
+    align-items: center;
+    justify-content: center;
+    border-left: 0.0625rem solid rgba(29, 29, 29, 0.06);
+    cursor: pointer;
+}
+
+.header-product__btn-close svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.header-product__content {
+    position: relative;
+    flex: 1 0 0;
+    overflow-y: auto;
+}
+
+.header-product__category-mul-level {
+    margin-bottom: 3rem;
+}
+
+.header-product__category-mul-level__parent {
+    position: relative;
+    margin-bottom: 1.125rem;
+    box-shadow: 0 4px 30px 0 rgba(0, 0, 0, 0.08);
+}
+
+.header-product__category-mul-level__parent-swiper-button-nav {
+    position: absolute;
+    top: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5rem;
+    background: #FFF;
+    box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.12);
+    transform: translateY(-50%);
+    z-index: 5;
+}
+
+.header-product__category-mul-level__parent-swiper-button-nav:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.header-product__category-mul-level__parent-swiper-button-nav--prev {
+    left: 0.735rem;
+}
+
+.header-product__category-mul-level__parent-swiper-button-nav--prev img {
+    rotate: 180deg;
+}
+
+.header-product__category-mul-level__parent-swiper-button-nav--next {
+    right: 0.375rem;
+}
+
+.header-product__category-mul-level__parent-swiper {
+    padding: 0 2.125rem;
+}
+
+.header-product__category-mul-level__parent-swiper-slide {
+    position: relative;
+    opacity: 0.5;
+    transition: opacity 0.3s ease-out;
+}
+
+.header-product__category-mul-level__parent-swiper-slide.swiper-slide-thumb-active {
+    opacity: 1;
+}
+
+.header-product__category-mul-level__parent-swiper-slide::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    border-bottom: 4px solid transparent;
+    transition: border 0.3s ease-out;
+}
+
+.header-product__category-mul-level__parent-swiper-slide.swiper-slide-thumb-active::after {
+    border-bottom: 4px solid #680103;
+}
+
+.header-product__category-mul-level__parent-item {
+    position: relative;
+    display: flex;
+    height: 3.125rem;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.header-product__category-mul-level__parent-item__text {
+    color: #680103;
+    font-family: "SF Pro Display";
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    text-transform: uppercase;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.header-product__category-mul-level__child-swiper {
+    padding: 0 0.75rem;
+}
+
+.header-product__category-mul-level__child-swiper-slide {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.header-product__category-mul-level__child-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0.625rem 0;
+    border-bottom: 1px solid rgba(29, 29, 29, 0.06);
+}
+
+
+.header-product__category-mul-level__child-item:nth-child(odd) {
+    padding-right: 0.375rem;
+}
+
+.header-product__category-mul-level__child-item:nth-child(even) {
+    padding-left: 0.375rem;
+}
+
+.header-product__category-mul-level__child-item__thumbnail {
+    width: 2.25rem;
+    height: 2.25rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    margin-right: 0.375rem;
+}
+
+.header-product__category-mul-level__child-item__thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+.header-product__category-mul-level__child-item__content {
+    flex: 1 0 0;
+}
+
+.header-product__category-mul-level__child-item__title {
+    color: #1D1D1D;
+    font-family: "SF Pro Display";
+    font-size: 0.8125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.header-product__category-single-level {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-inline: 0.75rem;
+    padding-bottom: 2.5rem;
+}
+
+.header-product__category-single-level__title {
+    align-self: stretch;
+    color: #680103;
+    text-align: center;
+    font-family: Phudu;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%;
+    margin-bottom: 1.75rem;
+}
+
+.header-product__category-single-level__category-list {
+    align-self: stretch;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 1rem;
+    row-gap: 1.375rem;
+    margin-bottom: 2rem;
+}
+
+.header-product__category-single-level__category-item {
+    grid-column: span 1 / span 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.header-product__category-single-level__category-item__thumbnail {
+    width: 3.375rem;
+    height: 3.375rem;
+    border-radius: 50%;
+    margin-bottom: 0.25rem;
+}
+
+.header-product__category-single-level__category-item__thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+.header-product__category-single-level__category-item__title {
+    color: #680103;
+    text-align: center;
+    font-family: "SF Pro Display";
+    font-size: 0.625rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+}

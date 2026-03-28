@@ -1,6 +1,0 @@
-@import url("./cta-nav-styles.css");
-@import url("./overview-styles.css");
-
-.detail-tour-page > .tour-section-nav {
-    z-index: 2;
-}

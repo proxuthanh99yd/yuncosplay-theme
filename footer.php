@@ -8,6 +8,7 @@ if($show_reviews) {
 }
 ?>
 <?php get_template_part('template-parts/components/popup-destination/index'); ?>
+<?php get_template_part('template-parts/layouts/cta/index'); ?>
 <?php wp_footer(); ?>
 
 </body>

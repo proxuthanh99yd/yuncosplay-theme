@@ -4,8 +4,10 @@
 
 * {
 	box-sizing: border-box;
-	-webkit-tap-highlight-color: transparent; /* Ẩn hiệu ứng trên trình duyệt WebKit (Chrome, Safari) */
-	-webkit-touch-callout: none; /* Vô hiệu menu chọn văn bản trên iOS */
+	-webkit-tap-highlight-color: transparent;
+	/* Ẩn hiệu ứng trên trình duyệt WebKit (Chrome, Safari) */
+	-webkit-touch-callout: none;
+	/* Vô hiệu menu chọn văn bản trên iOS */
 	font-family: "Open Sans", sans-serif;
 	border: 0;
 	outline: 0;
@@ -30,6 +32,7 @@ html::-webkit-scrollbar {
 	:root {
 		--root-font-size: 4.267vw;
 	}
+
 	.container {
 		max-width: 100%;
 		padding-inline: 1.25rem;
@@ -51,11 +54,13 @@ body {
 section {
 	position: relative;
 }
+
 a {
 	text-decoration: none;
 	color: inherit;
 	cursor: pointer;
 }
+
 input[type="checkbox"] {
 	transform: scale(1, 1);
 }
@@ -68,12 +73,12 @@ input[type="checkbox"] {
 	overflow: hidden;
 }
 
-.loading > * {
+.loading>* {
 	position: relative;
 	border-radius: unset !important;
 }
 
-.loading > *::before {
+.loading>*::before {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -85,20 +90,18 @@ input[type="checkbox"] {
 	cursor: progress;
 }
 
-.loading > *::after {
+.loading>*::after {
 	position: absolute;
 	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 0;
 	transform: translateX(-100%);
-	background: linear-gradient(
-		90deg,
-		rgba(255, 255, 255, 0) 0%,
-		rgba(255, 255, 255, 0.2) 20%,
-		rgba(255, 255, 255, 0.5) 60%,
-		rgba(255, 255, 255, 0) 100%
-	);
+	background: linear-gradient(90deg,
+			rgba(255, 255, 255, 0) 0%,
+			rgba(255, 255, 255, 0.2) 20%,
+			rgba(255, 255, 255, 0.5) 60%,
+			rgba(255, 255, 255, 0) 100%);
 	border-radius: 0.75rem;
 	animation: shimmer 5s infinite;
 	content: "";
@@ -125,12 +128,15 @@ input[type="checkbox"] {
 	cursor: pointer;
 
 }
+
 .compound-avian-button.compound-avian-button--md {
 	height: 2.625rem;
 }
+
 .compound-avian-button.compound-avian-button--lg {
 	height: 3.125rem;
 }
+
 .compound-avian-button::before {
 	content: "";
 	position: absolute;
@@ -144,6 +150,7 @@ input[type="checkbox"] {
 	pointer-events: none;
 	z-index: 1;
 }
+
 .compound-avian-button::after {
 	content: "";
 	position: absolute;
@@ -156,6 +163,7 @@ input[type="checkbox"] {
 	opacity: 0;
 	z-index: 0;
 }
+
 .compound-avian-button__content {
 	position: relative;
 	display: inline-flex;
@@ -164,6 +172,7 @@ input[type="checkbox"] {
 	z-index: 2;
 
 }
+
 .compound-avian-button__content-text {
 	color: #fff;
 	font-family: "Open Sans", sans-serif;
@@ -176,6 +185,7 @@ input[type="checkbox"] {
 	text-box-edge: cap alphabetic;
 	text-box-trim: trim-both;
 }
+
 .compound-avian-button__content-icon {
 	width: 1.125rem;
 	height: 1.125rem;
@@ -185,33 +195,107 @@ input[type="checkbox"] {
 	flex-shrink: 0;
 	margin-left: 0.75rem;
 }
+
 @media screen and (min-width: 1024px) {
+
 	.compound-avian-button::after,
 	.compound-avian-button::before {
 		transition: all 0.8s cubic-bezier(0.48, 0, 0, 1.01);
 	}
+
 	.compound-avian-button:hover::after {
 		opacity: 1;
 	}
+
 	.compound-avian-button:hover::before {
 		rotate: 45deg;
 	}
 }
+
 @media screen and (max-width: 639.98px) {
 	.compound-avian-button {
 		padding: 0 1.125rem;
 		border-radius: 0.125rem;
 	}
+
 	.compound-avian-button.compound-avian-button--lg {
 		height: 2.375rem;
 	}
+
 	.compound-avian-button::before {
 		width: 8.883rem;
 		height: 8.883rem;
 	}
+
 	.compound-avian-button__content-text {
 		text-align: center;
 		font-size: 0.75rem;
 		line-height: 130%;
 	}
+}
+
+
+@keyframes up-down {
+	0% {
+		transform: translateY(-1px);
+	}
+
+	10% {
+		transform: translateY(-4px);
+	}
+
+	20% {
+		transform: translateY(-1px);
+	}
+
+	30% {
+		transform: translateY(-2px);
+	}
+
+	40% {
+		transform: translateY(-1px);
+	}
+
+	100% {
+		transform: translateY(-1px);
+	}
+}
+
+@keyframes shine-x {
+	0% {
+		transform: translate(-100%);
+	}
+
+	100% {
+		transform: translate(100%);
+	}
+}
+
+.icon-location {
+	position: relative;
+	width: 0.9375rem;
+	height: 1.125rem;
+}
+
+.icon-location-top,
+.icon-location-bottom {
+	position: absolute;
+	left: 0;
+	width: 100%;
+}
+
+.icon-location-top {
+	top: 0;
+}
+
+.icon-location-bottom {
+	bottom: 0;
+}
+
+.animate-shine-x {
+	animation: 1s linear infinite shine-x;
+}
+
+.animate-up-down {
+	animation: 3s cubic-bezier(0.74, -0.01, 0.27, 0.98) infinite up-down;
 }

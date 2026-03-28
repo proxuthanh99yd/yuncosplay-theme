@@ -1,39 +1,36 @@
-/* Components */
-@import url("../../components/tour-item/styles.css");
+@import "../section-banner/assets/styles.css";
+@import "../section-about/assets/styles.css";
+@import "../section-products/assets/styles.css";
+@import "../section-category/assets/styles.css";
+@import "../section-services/assets/styles.css";
+@import "../section-highlights/assets/styles.css";
+@import "../section-gallery/assets/styles.css";
+@import "../section-events/assets/styles.css";
+@import "../section-blog/assets/styles.css";
 
-@import url("../section-banner/assets/styles.css");
-@import url("../section-highlights/assets/styles.css");
-@import url("../section-destinations/assets/styles.css");
-@import url("../section-inspiring/assets/styles.css");
-@import url("../section-holidaystypes/assets/styles.css");
-@import url("../../components/section-reason/assets/styles.css");
-@import url("../section-reviews/assets/styles.css");
-@import url("../section-travelguide/assets/styles.css");
-@import url("../../components/popup-destination/styles.css");
-
-
-/* Dung co sua o day */
-.destination-reason {
-  background-image: linear-gradient(180deg, #f5efec 9.72%);
+.sections__bottom {
+  position: relative;
+  background-image: url("/wp-content/uploads/2026/02/backgroundimage-4.webp");
+  background-size: cover;
+  background-position: center 24.59rem;
+  background-repeat: no-repeat;
 }
 
 main {
-	position: relative;
-	background-image: url("/wp-content/uploads/backgroundpc.webp");
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-color: #fbf9f8;
-	z-index: 5;
+  position: relative;
+  background-image: url("/wp-content/uploads/2026/02/concept.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-@media screen and (max-width: 639.98px) {
-	main {
-		background-image: url("/wp-content/uploads/backgroundmb.webp");
-	}
-	
-    .destination-reason {
-      background: linear-gradient(180deg, rgba(249, 247, 245, 0.00) 0%, #F9F7F5 55.8%, #F9F7F5 100%);
-    }
+@media (min-width: 1920px) {
+  .sections__bottom {}
+}
+
+@media (max-width: 639px) {
+  .sections__bottom {
+    background-image: url("/wp-content/uploads/2026/02/backgroundimage-5.webp");
+    background-position: center 10.12rem;
+  }
 }

@@ -1,0 +1,191 @@
+.header__mega-menu-product {
+    position: relative;
+    padding-top: 0.3125rem;
+}
+
+.header__mega-menu-product::before {
+    content: "";
+    position: absolute;
+    top: 0.3125rem;
+    left: 0;
+    width: 100%;
+    height: 4.8125rem;
+    background: #FFF;
+    box-shadow: 0 4px 30px 0 rgba(0, 0, 0, 0.08);
+    z-index: -1;
+}
+
+.header__mega-menu-product-wrapper {
+    /* margin: 0 auto;
+    max-width: 85rem; */
+}
+
+
+.header__mega-menu-product__parent-categories-swiper-prev,
+.header__mega-menu-product__parent-categories-swiper-next {
+    position: absolute;
+    top: 1.1875rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: #FFF;
+    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    z-index: 5;
+}
+
+.header__mega-menu-product__parent-categories-swiper-prev {
+    left: 2.625rem;
+    rotate: 180deg;
+}
+
+.header__mega-menu-product__parent-categories-swiper-next {
+    right: 2.625rem;
+}
+
+.header__mega-menu-product__parent-categories-swiper-prev img,
+.header__mega-menu-product__parent-categories-swiper-next img {
+    width: 1.25rem;
+    height: auto;
+}
+
+.header__mega-menu-product__parent-categories-swiper-next {}
+
+.header__mega-menu-product__parent-categories-swiper,
+.header__mega-menu-product__child-categories-swiper {
+    overflow: visible;
+}
+
+.header__mega-menu-product__parent-categories-swiper {
+    margin-bottom: 1.375rem;
+}
+
+.header__mega-menu-product__parent-categories-swiper-wrapper {
+    height: 4.75rem;
+    margin: 0 auto;
+    max-width: 90rem;
+}
+
+.header__mega-menu-product__parent-categories-swiper-slide,
+.header__mega-menu-product__child-categories-swiper-slide {
+    width: 21.25rem !important;
+}
+
+.header__mega-menu-product__parent-categories-swiper-slide {
+    padding: 0.5625rem 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.header__mega-menu-product__parent-category-title {
+    color: #680103;
+    font-family: Phudu;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 125%;
+    text-transform: uppercase;
+}
+
+.header__mega-menu-product__child-categories-swiper {
+    margin-bottom: 2rem;
+    margin-right: 0.6875rem;
+    max-height: 23.25rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #680103 transparent;
+}
+
+/* Cả track và thumb đều nằm trong vùng rộng 0.25rem, không bo góc */
+.header__mega-menu-product__child-categories-swiper::-webkit-scrollbar {
+    width: 0.25rem;
+}
+
+.header__mega-menu-product__child-categories-swiper::-webkit-scrollbar-track {
+    width: 0.25rem;
+    background: rgba(29, 29, 29, 0.06);
+    border-radius: 0;
+}
+
+.header__mega-menu-product__child-categories-swiper::-webkit-scrollbar-thumb {
+    width: 0.25rem;
+    background: #680103;
+    border-radius: 0;
+}
+
+.header__mega-menu-product__child-categories-swiper-wrapper {
+    margin: 0 auto;
+    max-width: 90rem;
+}
+
+.header__mega-menu-product__child-categories-swiper-slide {
+    padding-left: 1.5rem;
+}
+
+.header__mega-menu-product__child-category-list {}
+
+.header__mega-menu-product__child-category-item {}
+
+.header__mega-menu-product__child-category-item {
+    display: flex;
+    align-items: center;
+}
+
+.header__mega-menu-product__child-category-item:not(:last-child) {
+    margin-bottom: 2.25rem;
+}
+
+.header__mega-menu-product__child-category-item__thumbnail {
+    flex-shrink: 0;
+    width: 4.125rem;
+    height: 4.125rem;
+    border-radius: 50%;
+    margin-right: 0.75rem;
+}
+
+.header__mega-menu-product__child-category-item__thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+.header__mega-menu-product__child-category-item__content {
+    flex: 1 0 0;
+    position: relative;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+}
+
+.header__mega-menu-product__child-category-item__content::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: #1D1D1D;
+    opacity: 0.06;
+}
+
+.header__mega-menu-product__child-category-item__title {
+    color: rgba(29, 29, 29, 0.80);
+    font-family: "SF Pro Display";
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+}
+
+.header__mega-menu-product__show-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 1.5rem;
+}

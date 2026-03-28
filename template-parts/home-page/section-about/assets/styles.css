@@ -1,0 +1,582 @@
+.section-about {
+  position: relative;
+  width: 100%;
+  height: 59.3125rem;
+  overflow: hidden;
+}
+
+.section-about__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section-about__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.section-about__building {
+  position: absolute;
+  top: 30.25rem;
+  left: 45.75rem;
+  width: 10.1875rem;
+  height: auto;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.section-about__birds {
+  position: absolute;
+  top: 15.052rem;
+  right: 11.04rem;
+  width: auto;
+  height: 8.875rem;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.section-about__astronaut {
+  position: absolute;
+  top: 18.0625rem;
+  right: 12.875rem;
+  width: 15.5rem;
+  height: auto;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.section-about__sunlight {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 59.6275rem;
+  height: auto;
+  pointer-events: none;
+}
+
+.section-about__wave {
+  position: absolute;
+  top: 18.4376rem;
+  right: 0;
+  width: auto;
+  height: 20.96925rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.section-about__tower {
+  position: absolute;
+  top: 22.5rem;
+  right: 3.75rem;
+  width: 20.8125rem;
+  height: auto;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.section-about__photo {
+  position: absolute;
+  top: 20.75rem;
+  left: 0;
+  width: 13.9375rem;
+  height: auto;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.section-about__tree {
+  position: absolute;
+  top: 19.5625rem;
+  left: 13.75rem;
+  width: 63.0625rem;
+  height: auto;
+  filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.08));
+  z-index: 3;
+  pointer-events: none;
+}
+
+.section-about__mountain-left {
+  position: absolute;
+  top: 24.7498rem;
+  left: 0;
+  width: auto;
+  height: 31.77994rem;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.section-about__zoro {
+  position: absolute;
+  top: 20.5rem;
+  left: 10rem;
+  width: 19.79263rem;
+  height: auto;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.section-about__mountain-right {
+  position: absolute;
+  top: 23.0626rem;
+  right: 0;
+  width: auto;
+  height: 36.083rem;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.section-about__mermaid {
+  position: absolute;
+  top: 28.9375rem;
+  left: 44.3438rem;
+  width: 20.875rem;
+  height: auto;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.section-about__bg-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.section-about__nezuko {
+  position: absolute;
+  top: 24.5625rem;
+  right: 12.62rem;
+  width: 22.875rem;
+  height: auto;
+  z-index: 7;
+  pointer-events: none;
+}
+
+.section-about__cosplay {
+  position: absolute;
+  top: 31.875rem;
+  left: 27.1183rem;
+  width: 18.1875rem;
+  height: auto;
+  z-index: 7;
+  pointer-events: none;
+}
+
+.section-about__spiderman {
+  position: absolute;
+  top: 6.4375rem;
+  right: 0;
+  width: 11.5rem;
+  height: auto;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.section-about__balloon {
+  position: absolute;
+  top: 7rem;
+  left: 0;
+  width: auto;
+  height: 13.5625rem;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* sunshine */
+.outer-rotate {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rotateOuter 20s linear infinite;
+}
+
+@keyframes rotateOuter {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.section-about__sun {
+  position: absolute;
+  top: -2.1445rem;
+  left: -7.3616rem;
+  width: 62.9375rem;
+  height: 62.9375rem;
+  z-index: 2;
+}
+
+.section-about__sun svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* container text */
+.section-about__container {
+  position: relative;
+  width: 100%;
+  max-width: 100rem;
+  margin: 0 auto;
+  z-index: 3;
+}
+
+.section-about__title {
+  position: absolute;
+  top: 8.0625rem;
+  left: 18.8125rem;
+  width: 35.375rem;
+}
+
+
+.section-about__title-small {
+  color: #680103;
+  font-family: Phudu;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%;
+  transform: translateY(-0.625rem);
+  margin-right: 0.5rem;
+  display: inline-block;
+
+}
+
+.section-about__title-big {
+  color: #680103;
+  font-family: Phudu;
+  font-size: 3.625rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
+}
+
+
+.section-about__description {
+  position: absolute;
+  top: 18.0625rem;
+  left: 36.6875rem;
+  display: flex;
+  width: 30.0625rem;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.section-about__description-text {
+  color: rgba(29, 29, 29, 0.80);
+  font-family: "SF Pro Display";
+  font-size: 1.125rem;
+  line-height: 150%;
+  text-align: justify;
+  margin-bottom: 0.9375rem;
+}
+
+.section-about__description-link {
+  display: flex;
+  align-items: center;
+
+  color: #1D1D1D;
+  text-box-edge: cap alphabetic;
+  text-box-trim: trim-both;
+  font-family: "SF Pro Display";
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  transition: all 400ms cubic-bezier(0.47, 0, 0.01, 1.01);
+}
+
+.section-about__description-link-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  margin-right: 0.5rem;
+  transition: all 400ms cubic-bezier(0.47, 0, 0.01, 1.01);
+}
+
+@media (min-width: 1024px) {
+  .section-about__description-link:hover .section-about__description-link-icon {
+    transform: translateX(0.25rem);
+  }
+
+  .section-about__description-link:hover {
+    color: #680103;
+  }
+}
+
+@media (max-width: 639px) {
+  .section-about {
+    height: 48.125rem;
+  }
+
+  .section-about__building {
+    width: 3.33856rem;
+    top: 26.0625rem;
+    left: 14.875rem;
+    z-index: 3;
+  }
+
+  .section-about__birds {
+    display: none;
+  }
+
+  .section-about__tree {
+    top: 22.6882rem;
+    left: 0;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 11.15px rgba(0, 0, 0, 0.08));
+  }
+
+  .section-about__photo {
+    top: 23.9688rem;
+    left: 0;
+    width: 11.125rem;
+    z-index: 4;
+  }
+
+  .section-about__mermaid {
+    top: 24.9375rem;
+    left: 5.5938rem;
+    width: 12.25rem;
+    z-index: 7;
+  }
+
+  .section-about__tower {
+    top: 23.1875rem;
+    left: 16.9611rem;
+    width: 9.875rem;
+    z-index: 4;
+  }
+
+  .section-about__astronaut {
+    top: 26.75rem;
+    right: 0;
+    width: 7.4375rem;
+    z-index: 5;
+  }
+
+  .section-about__wave {
+    top: 25.5rem;
+    right: 0;
+    height: 14.975rem;
+    z-index: 8;
+  }
+
+  .section-about__mountain-left {
+    top: 29.75rem;
+    width: 100%;
+    height: auto;
+    z-index: 9;
+  }
+
+  .section-about__mountain-right {
+    top: 25.5rem;
+    width: 100%;
+    height: auto;
+    z-index: 8;
+  }
+
+  .section-about__zoro {
+    top: 29rem;
+    left: 0;
+    width: 9.9375rem;
+    z-index: 10;
+  }
+
+  .section-about__bg-bottom {
+    bottom: -1rem;
+    z-index: 11;
+  }
+
+  .section-about__spiderman {
+    top: 15.8125rem;
+    width: 6.0625rem;
+    z-index: 3;
+  }
+
+  .section-about__nezuko {
+    top: 30.8125rem;
+    right: 0.62rem;
+    width: 12.1875rem;
+    z-index: 12;
+  }
+
+  .section-about__cosplay {
+    display: none;
+  }
+
+  .section-about__balloon {
+    top: 19.875rem;
+    height: 6.0625rem;
+  }
+
+  .section-about__sunlight {
+    display: none;
+  }
+
+  /* sunshine */
+  .section-about__sun {
+    top: 10.6875rem;
+    left: -8.375rem;
+    width: 31.9375rem;
+    height: 31.9375rem;
+  }
+
+  .outer-rotate {
+    animation: none;
+  }
+
+  /* container text */
+  .section-about__container {
+    padding: 4.4375rem 0.75rem 0 0.75rem;
+  }
+
+  .section-about__title {
+    position: static;
+    width: 100%;
+    font-family: Phudu;
+    margin-bottom: 0.875rem;
+  }
+
+  .section-about__title-small {
+    font-size: 0.8125rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%;
+    transform: translateY(-0.3125rem);
+  }
+
+  .section-about__title-big {
+    font-size: 1.75rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%;
+  }
+
+  .section-about__description {
+    position: static;
+    width: 100%;
+  }
+
+  .section-about__description-text {
+    font-size: 0.875rem;
+    margin-bottom: 0.875rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  .section-about {
+    font-size: 1vw;
+    height: 59.3125em;
+  }
+
+  .section-about__building {
+    top: 30.25em;
+    left: 45.75em;
+    width: 10.1875em;
+  }
+
+  .section-about__birds {
+    top: 15.052em;
+    right: 11.04em;
+    height: 8.875em;
+  }
+
+  .section-about__astronaut {
+    top: 18.0625em;
+    right: 12.875em;
+    width: 15.5em;
+  }
+
+  .section-about__sunlight {
+    width: 59.6275em;
+  }
+
+  .section-about__wave {
+    top: 18.4376em;
+    height: 20.96925em;
+  }
+
+  .section-about__tower {
+    top: 22.5em;
+    right: 3.75em;
+    width: 20.8125em;
+  }
+
+  .section-about__photo {
+    top: 20.75em;
+    width: 13.9375em;
+  }
+
+  .section-about__tree {
+    top: 19.5625em;
+    left: 13.75em;
+    width: 63.0625em;
+  }
+
+  .section-about__mountain-left {
+    top: 24.7498em;
+    height: 31.77994em;
+  }
+
+  .section-about__zoro {
+    top: 20.5em;
+    left: 10em;
+    width: 19.79263em;
+  }
+
+  .section-about__mountain-right {
+    top: 23.0626em;
+    height: 36.083em;
+  }
+
+  .section-about__mermaid {
+    top: 28.9375em;
+    left: 44.3438em;
+    width: 20.875em;
+  }
+
+  .section-about__nezuko {
+    top: 24.5625em;
+    right: 12.62em;
+    width: 22.875em;
+  }
+
+  .section-about__cosplay {
+    top: 31.875em;
+    left: 27.1183em;
+    width: 18.1875em;
+  }
+
+  .section-about__spiderman {
+    top: 6.4375em;
+    width: 11.5em;
+  }
+
+  .section-about__balloon {
+    top: 7em;
+    height: 13.5625em;
+  }
+
+  .section-about__sun {
+    top: -2.1445em;
+    left: -7.3616em;
+    width: 62.9375em;
+    height: 62.9375em;
+  }
+}

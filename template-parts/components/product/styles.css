@@ -1,0 +1,298 @@
+.product {
+  position: relative;
+  height: 37.75rem;
+  cursor: pointer;
+  overflow: hidden;
+  width: 100%;
+}
+
+.product.product--small {
+  height: 28.875rem;
+}
+
+.product__link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.product__img-wrapper {
+  flex-shrink: 0;
+  position: relative;
+  height: 33.125rem;
+}
+
+.product.product--small .product__img-wrapper {
+  height: 25.25rem;
+}
+
+.product__img-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+  background: linear-gradient(0deg, rgba(106, 0, 2, 0.00) 78.88%, rgba(106, 0, 2, 0.14) 82.05%, rgba(106, 0, 2, 0.51) 88.77%, rgba(106, 0, 2, 0.80) 93.03%, #6A0002 100%);
+  z-index: 2;
+}
+
+.product__video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.39, 0, 0, 0.99);
+}
+
+.product__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.4s cubic-bezier(0.39, 0, 0, 0.99);
+
+}
+
+.product__title-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.25rem;
+  z-index: 5;
+}
+
+.product.product--small .product__title-wrapper {
+  padding: 1rem;
+}
+
+.product__title {
+  color: #F6F3EA;
+  font-family: "Phudu";
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+}
+
+.product.product--small .product__title {
+  color: #F6F3EA;
+  font-family: "Phudu";
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+}
+
+.product__content {
+  position: relative;
+  flex: 1 0 0;
+  display: flex;
+  padding: 0.75rem 0.875rem;
+  justify-content: space-between;
+  align-items: flex-end;
+  background: #fff;
+}
+
+.product__content-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.product__content-background-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product__rent {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 1;
+}
+
+.product__rent-label {
+  color: rgba(29, 29, 29, 0.8);
+  font-family: "SF Pro Display";
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+.product.product--small .product__rent-label {
+  font-size: 0.625rem;
+}
+
+.product__rent-price {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  z-index: 1;
+}
+
+.product__rent-price-value {
+  color: #680103;
+  font-family: "Phudu";
+  font-size: 1.375rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 130%;
+}
+
+.product__rent-price-time {
+  display: inline-block;
+  margin-left: 0.1875rem;
+  color: rgba(29, 29, 29, 0.8);
+  font-family: "SF Pro Display";
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  height: 1.375rem;
+}
+
+.product.product--small .product__rent-price-value {
+  font-size: 1.125rem;
+}
+
+.product.product--small .product__rent-price-time {
+  font-size: 0.75rem;
+  margin-left: 0.125rem;
+}
+
+.product__price {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+.product__price-label {
+  display: inline-block;
+  color: #680103;
+  font-family: "SF Pro Display";
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  margin-bottom: 0.125rem;
+}
+
+.product.product--small .product__price-label {
+  font-size: 0.75rem;
+}
+
+.product__price-value {
+  color: #680103;
+  font-family: "SF Pro Display";
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+}
+
+.product.product--small .product__price-value {
+  font-size: 0.875rem;
+}
+
+.product__price-mb {
+  display: none;
+}
+
+@media screen and (min-width: 1024px) {
+  .product:hover .product__video {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .product:hover .product__img {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@media screen and (max-width: 639.98px) {
+
+  .product,
+  .product.product--small {
+    height: 20.3125rem;
+  }
+
+  .product__img-wrapper,
+  .product.product--small .product__img-wrapper {
+    height: 17rem;
+  }
+
+  .product__title-wrapper,
+  .product.product--small .product__title-wrapper {
+    padding: 0.625rem;
+  }
+
+  .product__title,
+  .product.product--small .product__title {
+    font-size: 0.875rem;
+  }
+
+  .product__content,
+  .product.product--small .product__content {
+    padding: 0.5rem;
+    display: block;
+  }
+
+  .product__rent {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 0.25rem;
+  }
+
+  .product__rent-label,
+  .product.product--small .product__rent-label {
+    flex-shrink: 0;
+    font-size: 0.625rem;
+    font-weight: 400;
+  }
+
+  .product__rent-price-value,
+  .product.product--small .product__rent-price-value {
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 130%;
+    margin-left: 0.25rem;
+  }
+
+  .product__rent-price-time,
+  .product.product--small .product__rent-price-time {
+    height: 0.9375rem;
+    font-size: 0.625rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+  }
+
+  .product__price {
+    display: none;
+  }
+
+  .product__price-mb {
+    display: block;
+    color: #680103;
+    font-family: "SF Pro Display";
+    font-size: 0.625rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+  }
+}
