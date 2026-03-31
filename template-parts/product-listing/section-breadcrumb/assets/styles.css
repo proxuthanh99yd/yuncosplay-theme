@@ -1,0 +1,67 @@
+/* =============================================
+   Product Listing — Breadcrumb
+   ============================================= */
+
+.pl-breadcrumb {
+    width: 100%;
+    padding: 1.5rem 4.25rem;
+}
+
+.pl-breadcrumb__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pl-breadcrumb__item {
+    margin-right: 0.5rem;
+}
+
+.pl-breadcrumb__separator {
+    margin-right: 0.5rem;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: rgba(28, 28, 28, 0.4);
+    list-style: none;
+}
+
+.pl-breadcrumb__link {
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: rgba(28, 28, 28, 0.4);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.pl-breadcrumb__link:hover {
+    color: rgba(28, 28, 28, 0.7);
+}
+
+.pl-breadcrumb__current {
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #1c1c1c;
+}
+
+/* ---- Responsive — Mobile ---- */
+
+@media screen and (max-width: 639.98px) {
+    .pl-breadcrumb {
+        padding: 1rem 0.75rem 2rem 0.75rem;
+    }
+
+    .pl-breadcrumb__link,
+    .pl-breadcrumb__separator,
+    .pl-breadcrumb__current {
+        font-size: 0.75rem;
+    }
+}

@@ -14,8 +14,10 @@ custom-drawer:not(:defined) {
  */
 
 html {
-    line-height: 1.15; /* 1 */
-    -webkit-text-size-adjust: 100%; /* 2 */
+    line-height: 1.15;
+    /* 1 */
+    -webkit-text-size-adjust: 100%;
+    /* 2 */
 }
 
 /* Sections
@@ -56,9 +58,12 @@ h1 {
  */
 
 hr {
-    box-sizing: content-box; /* 1 */
-    height: 0; /* 1 */
-    overflow: visible; /* 2 */
+    box-sizing: content-box;
+    /* 1 */
+    height: 0;
+    /* 1 */
+    overflow: visible;
+    /* 2 */
 }
 
 /**
@@ -67,8 +72,10 @@ hr {
  */
 
 pre {
-    font-family: monospace, monospace; /* 1 */
-    font-size: 1em; /* 2 */
+    font-family: monospace, monospace;
+    /* 1 */
+    font-size: 1em;
+    /* 2 */
 }
 
 /* Text-level semantics
@@ -88,9 +95,12 @@ a {
  */
 
 abbr[title] {
-    border-bottom: none; /* 1 */
-    text-decoration: underline; /* 2 */
-    text-decoration: underline dotted; /* 2 */
+    border-bottom: none;
+    /* 1 */
+    text-decoration: underline;
+    /* 2 */
+    text-decoration: underline dotted;
+    /* 2 */
 }
 
 /**
@@ -110,8 +120,10 @@ strong {
 code,
 kbd,
 samp {
-    font-family: monospace, monospace; /* 1 */
-    font-size: 1em; /* 2 */
+    font-family: monospace, monospace;
+    /* 1 */
+    font-size: 1em;
+    /* 2 */
 }
 
 /**
@@ -167,10 +179,14 @@ input,
 optgroup,
 select,
 textarea {
-    font-family: inherit; /* 1 */
-    font-size: 100%; /* 1 */
-    line-height: 1.15; /* 1 */
-    margin: 0; /* 2 */
+    font-family: inherit;
+    /* 1 */
+    font-size: 100%;
+    /* 1 */
+    line-height: 1.15;
+    /* 1 */
+    margin: 0;
+    /* 2 */
 }
 
 /**
@@ -256,12 +272,18 @@ fieldset {
  */
 
 legend {
-    box-sizing: border-box; /* 1 */
-    color: inherit; /* 2 */
-    display: table; /* 1 */
-    max-width: 100%; /* 1 */
-    padding: 0; /* 3 */
-    white-space: normal; /* 1 */
+    box-sizing: border-box;
+    /* 1 */
+    color: inherit;
+    /* 2 */
+    display: table;
+    /* 1 */
+    max-width: 100%;
+    /* 1 */
+    padding: 0;
+    /* 3 */
+    white-space: normal;
+    /* 1 */
 }
 
 /**
@@ -368,6 +390,7 @@ video {
     font: inherit;
     vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -382,17 +405,21 @@ nav,
 section {
     display: block;
 }
+
 body {
     line-height: 1;
 }
+
 ol,
 ul {
     list-style: none;
 }
+
 blockquote,
 q {
     quotes: none;
 }
+
 blockquote:before,
 blockquote:after,
 q:before,
@@ -400,6 +427,7 @@ q:after {
     content: "";
     content: none;
 }
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -412,8 +440,10 @@ table {
 
 [type="checkbox"],
 [type="radio"] {
-    box-sizing: border-box; /* 1 */
-    padding: 0; /* 2 */
+    box-sizing: border-box;
+    /* 1 */
+    padding: 0;
+    /* 2 */
 }
 
 /**
@@ -431,8 +461,10 @@ table {
  */
 
 [type="search"] {
-    -webkit-appearance: textfield; /* 1 */
-    outline-offset: -2px; /* 2 */
+    -webkit-appearance: textfield;
+    /* 1 */
+    outline-offset: -2px;
+    /* 2 */
 }
 
 /**
@@ -449,8 +481,10 @@ table {
  */
 
 ::-webkit-file-upload-button {
-    -webkit-appearance: button; /* 1 */
-    font: inherit; /* 2 */
+    -webkit-appearance: button;
+    /* 1 */
+    font: inherit;
+    /* 2 */
 }
 
 /* Interactive
@@ -638,6 +672,18 @@ input:-webkit-autofill:active {
 /* ===============================
    TYPOGRAPHY (BLOCK EDITOR)
 =============================== */
+.wp-block-editor {
+    color: var(--Text-Body-80, rgba(29, 29, 29, 0.80));
+
+    /* PC/Body/16 - R (Primary) */
+    font-family: "SF Pro Display";
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    /* 1.5rem */
+}
+
 .wp-block-editor h1 {
     font-size: 2.34rem;
     line-height: 1.2;
@@ -695,6 +741,7 @@ input:-webkit-autofill:active {
     color: var(--color-primary, #0073aa);
     transition: color 0.2s ease;
 }
+
 .wp-block-editor a:hover {
     color: var(--color-primary-hover, #005f8a);
     text-decoration: underline;
@@ -704,6 +751,7 @@ input:-webkit-autofill:active {
 .wp-block-editor b {
     font-weight: 600;
 }
+
 .wp-block-editor em,
 .wp-block-editor i {
     font-style: italic;
@@ -817,6 +865,7 @@ input:-webkit-autofill:active {
 }
 
 @media (max-width: 639.98px) {
+
     .alignleft,
     .alignright {
         float: none;
@@ -824,25 +873,32 @@ input:-webkit-autofill:active {
         margin: 0.75rem auto;
         text-align: center;
     }
+
     [class*="wp-image"] {
         max-width: 100%;
         height: auto;
     }
+
     [class*="wp-image"]:not(:last-child) {
         margin-bottom: 1rem;
     }
+
     .wp-block-editor h1 {
         font-size: 2rem;
     }
+
     .wp-block-editor h2 {
         font-size: 1.6rem;
     }
+
     .wp-block-editor h3 {
         font-size: 1.35rem;
     }
+
     .wp-block-editor h4 {
         font-size: 1.1rem;
     }
+
     .wp-block-editor h5 {
         font-size: 0.9rem;
     }

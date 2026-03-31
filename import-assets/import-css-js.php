@@ -259,6 +259,119 @@ function  wp_enqueue_local()
 			'in_footer' => true,
 			'condition' => is_page_template('front-page.php')
 		],
+		// Single Product
+		[
+			'type' => 'style',
+			'handle' => 'single-product',
+			'src' => get_theme_file_uri('/template-parts/single-product/assets/styles.css'),
+			'deps' => [],
+			'ver' => THEME_VERSION,
+			'in_footer' => false,
+			'condition' => is_singular('product')
+		],
+		[
+			'type' => 'script',
+			'handle' => 'single-product',
+			'src' => get_theme_file_uri('/template-parts/single-product/assets/scripts.js'),
+			'deps' => [],
+			'ver' => THEME_VERSION,
+			'in_footer' => true,
+			'condition' => is_singular('product')
+		],
+		// Fancybox (lightbox for product gallery)
+		[
+			'type' => 'style',
+			'handle' => 'fancybox',
+			'src' => get_theme_file_uri('/assets/css/fancybox.css'),
+			'deps' => [],
+			'ver' => THEME_VERSION,
+			'in_footer' => false,
+			'condition' => is_singular('product')
+		],
+		[
+			'type' => 'script',
+			'handle' => 'fancybox',
+			'src' => get_theme_file_uri('/assets/js/fancybox.umd.js'),
+			'deps' => [],
+			'ver' => THEME_VERSION,
+			'in_footer' => true,
+			'condition' => is_singular('product')
+		],
+		// Product Listing (archive/category pages)
+		[
+			'type' => 'style',
+			'handle' => 'nouislider',
+			'src' => get_theme_file_uri('/assets/css/nouislider.min.css'),
+			'deps' => [],
+			'ver' => THEME_VERSION,
+			'in_footer' => false,
+			'condition' => is_shop() || is_product_taxonomy()
+		],
+		[
+			'type' => 'script',
+			'handle' => 'nouislider',
+			'src' => get_theme_file_uri('/assets/js/nouislider.min.js'),
+			'deps' => [],
+			'ver' => THEME_VERSION,
+			'in_footer' => true,
+			'condition' => is_shop() || is_product_taxonomy()
+		],
+		[
+			'type' => 'style',
+			'handle' => 'product-listing',
+			'src' => get_theme_file_uri('/template-parts/product-listing/assets/styles.css'),
+			'deps' => [],
+			'ver' => THEME_VERSION,
+			'in_footer' => false,
+			'condition' => is_shop() || is_product_taxonomy()
+		],
+		[
+			'type' => 'script',
+			'handle' => 'product-listing',
+			'src' => get_theme_file_uri('/template-parts/product-listing/assets/scripts.js'),
+			'deps' => ['nouislider'],
+			'ver' => THEME_VERSION,
+			'in_footer' => true,
+			'condition' => is_shop() || is_product_taxonomy()
+		],
+		// Contact Page
+		[
+			'type' => 'style',
+			'handle' => 'contact-page',
+			'src' => get_theme_file_uri('/template-parts/contact-page/assets/styles.css'),
+			'deps' => [],
+			'ver' => THEME_VERSION,
+			'in_footer' => false,
+			'condition' => is_page_template('page-contact.php')
+		],
+		[
+			'type' => 'script',
+			'handle' => 'contact-page',
+			'src' => get_theme_file_uri('/template-parts/contact-page/assets/scripts.js'),
+			'deps' => [],
+			'ver' => THEME_VERSION,
+			'in_footer' => true,
+			'condition' => is_page_template('page-contact.php')
+		],
+		// Search Page
+		[
+			'type' => 'style',
+			'handle' => 'search-page',
+			'src' => get_theme_file_uri('/template-parts/search-page/assets/styles.css'),
+			'deps' => [],
+			'ver' => THEME_VERSION,
+			'in_footer' => false,
+			'condition' => is_search()
+		],
+		[
+			'type' => 'script',
+			'handle' => 'search-page',
+			'src' => get_theme_file_uri('/template-parts/search-page/assets/scripts.js'),
+			'deps' => [],
+			'ver' => THEME_VERSION,
+			'in_footer' => true,
+			'condition' => is_search()
+		],
 	];
 
 	foreach ($wp_enqueue_mapping as $wp_enqueue) {
@@ -305,7 +418,7 @@ function add_type_attribute($tag, $handle, $src)
 {
 	// if not your script, do nothing and return original $tag
 	// if ('front-page' !== $handle && 'offcanvas' !== $handle) {
-	$module_handles = ['home-page', 'components', 'header'];
+	$module_handles = ['home-page', 'components', 'header', 'single-product', 'product-listing', 'contact-page', 'search-page'];
 	if (!in_array($handle, $module_handles, true)) {
 		return $tag;
 	}

@@ -93,3 +93,18 @@ add_filter('woocommerce_shop_order_search_fields', function ($fields) {
     $fields[] = '_shipping_phone';
     return $fields;
 });
+
+/**
+ * Force search.php template when is_search() is true,
+ * even when post_type=product (WooCommerce overrides with archive-product.php).
+ * Priority 20 to run AFTER WooCommerce's template_loader (priority 10).
+ */
+add_filter('template_include', function ($template) {
+    if (is_search()) {
+        $search_template = locate_template('search.php');
+        if ($search_template) {
+            return $search_template;
+        }
+    }
+    return $template;
+}, 20);

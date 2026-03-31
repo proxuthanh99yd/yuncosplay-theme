@@ -94,11 +94,24 @@ function paginate(array $params)
 function my_theme_setup()
 {
     add_filter('wpcf7_autop_or_not', '__return_false');
-    //     add_filter('use_block_editor_for_post', '__return_false');
+
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
+
+    add_theme_support('woocommerce', [
+        'thumbnail_image_width' => 300,
+        'single_image_width'    => 600,
+        'product_grid' => [
+            'default_rows'    => 3,
+            'min_rows'        => 1,
+            'max_rows'        => 10,
+            'default_columns' => 4,
+            'min_columns'     => 1,
+            'max_columns'     => 6,
+        ],
+    ]);
 }
-add_action('after_setup_theme', 'my_theme_setup');
+add_action('after_setup_theme', 'my_theme_setup', 20);
 
 add_action('init', function () {
     remove_post_type_support('page', 'editor');

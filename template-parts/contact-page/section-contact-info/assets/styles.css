@@ -1,0 +1,251 @@
+/* ===========================================
+   Contact Info Section — Left Column
+   =========================================== */
+
+/* Container */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---- Title (h1) ---- */
+.contact-info__title {
+    font-family: 'Phudu', cursive;
+    font-size: 3.625rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #680103;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+/* ---- Contact Details ---- */
+.contact-info__details {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-info__detail-item {
+    display: flex;
+    align-items: flex-start;
+}
+
+.contact-info__detail-item:not(:last-child) {
+    margin-bottom: 0.875rem;
+}
+
+.contact-info__detail-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    margin-right: 0.5rem;
+    margin-top: 0.125rem;
+}
+
+.contact-info__detail-text {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #1c1c1c;
+}
+
+/* ---- Divider ---- */
+.contact-info__divider {
+    width: 100%;
+    height: 1px;
+    background-color: #e0d8c8;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ---- Social Heading (h2) ---- */
+.contact-info__social-heading {
+    font-family: 'Phudu', cursive;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #680103;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+/* ---- Social Wrapper (slider + arrows) ---- */
+.contact-info__social-wrapper {
+    position: relative;
+}
+
+/* Swiper container */
+.contact-info__social-swiper {
+    overflow: hidden;
+}
+
+/* ---- Social Card (slide) ---- */
+.contact-info__social-slide {
+    width: 13.4375rem;
+}
+
+.contact-info__social-card {
+    display: block;
+    position: relative;
+    width: 13.4375rem;
+    height: 11.8125rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+/* Ảnh nền card */
+.contact-info__social-card-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* PC/MB placeholder toggle */
+.contact-info__social-card-img--mb {
+    display: none;
+}
+
+/* Gradient overlay */
+.contact-info__social-card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+    pointer-events: none;
+}
+
+/* Platform info (icon + name) */
+.contact-info__social-card-info {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+}
+
+.contact-info__social-card-icon {
+    width: 1.625rem;
+    height: 1.625rem;
+    flex-shrink: 0;
+    margin-right: 0.375rem;
+}
+
+.contact-info__social-card-name {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #f7f4ec;
+}
+
+/* ---- Navigation Arrows (PC) ---- */
+.contact-info__social-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    padding: 0;
+    background: none;
+    transition: opacity 0.2s ease;
+}
+
+.contact-info__social-arrow img {
+    width: 2rem;
+    height: 2rem;
+}
+
+.contact-info__social-arrow--prev {
+    left: -2.75rem;
+}
+
+.contact-info__social-arrow--next {
+    right: -2.75rem;
+}
+
+.contact-info__social-arrow.swiper-button-disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+/* ===========================================
+   Mobile (< 640px)
+   =========================================== */
+@media screen and (max-width: 639.98px) {
+
+    /* Title */
+    .contact-info__title {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Details — giữ nguyên font-size 0.875rem */
+    .contact-info__detail-item:not(:last-child) {
+        margin-bottom: 0.625rem;
+    }
+
+    /* Divider */
+    .contact-info__divider {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Social heading */
+    .contact-info__social-heading {
+        font-size: 1.125rem;
+        line-height: 1.22;
+        margin-bottom: 0.75rem;
+    }
+
+    /* Social cards — nhỏ hơn */
+    .contact-info__social-slide {
+        width: 7.125rem;
+    }
+
+    .contact-info__social-card {
+        width: 7.125rem;
+        height: 6.5625rem;
+    }
+
+    /* Hiện ảnh mobile, ẩn ảnh PC */
+    .contact-info__social-card-img--pc {
+        display: none;
+    }
+
+    .contact-info__social-card-img--mb {
+        display: block;
+    }
+
+    /* Icon nhỏ hơn */
+    .contact-info__social-card-icon {
+        width: 0.9375rem;
+        height: 0.9375rem;
+        margin-right: 0.25rem;
+    }
+
+    .contact-info__social-card-name {
+        font-size: 0.625rem;
+    }
+
+    .contact-info__social-card-info {
+        bottom: 0.5rem;
+        left: 0.5rem;
+    }
+
+    /* Ẩn navigation arrows trên mobile */
+    .contact-info__social-arrow {
+        display: none;
+    }
+}

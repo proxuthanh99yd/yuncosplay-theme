@@ -1,0 +1,55 @@
+/* =============================================
+   Contact Page — Page-level Styles
+   ============================================= */
+
+@import "../section-breadcrumb/assets/styles.css";
+@import "../section-contact-info/assets/styles.css";
+@import "../section-contact-form/assets/styles.css";
+
+/* ---- Page Layout ---- */
+.contact-page {
+    background-color: #f7f4ec;
+    padding: 0 4.25rem 4rem;
+}
+
+.contact-page__container {
+    max-width: 90rem;
+    margin-inline: auto;
+    display: flex;
+}
+
+.contact-page__col--left {
+    flex: 0 0 42%;
+    max-width: 42%;
+    padding-right: 2.5rem;
+}
+
+.contact-page__col--right {
+    flex: 0 0 58%;
+    max-width: 58%;
+}
+
+/* ---- Mobile ---- */
+@media screen and (max-width: 639.98px) {
+    .contact-page {
+        padding: 0 1.25rem 0;
+    }
+
+    .contact-page__container {
+        flex-direction: column;
+    }
+
+    .contact-page__col--left {
+        flex: none;
+        max-width: 100%;
+        padding-right: 0;
+        margin-bottom: 1.5rem;
+    }
+
+    .contact-page__col--right {
+        flex: none;
+        max-width: 100%;
+        margin-left: -1.25rem;
+        margin-right: -1.25rem;
+    }
+}

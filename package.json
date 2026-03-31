@@ -1,0 +1,18 @@
+{
+  "name": "okhub-theme-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "test:desktop": "npx playwright test --project=desktop",
+    "test:tablet": "npx playwright test --project=tablet",
+    "test:mobile": "npx playwright test --project=mobile",
+    "test:debug": "npx playwright test --debug",
+    "test:list": "npx playwright test --list"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0"
+  }
+}

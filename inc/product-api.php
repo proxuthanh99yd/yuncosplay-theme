@@ -28,6 +28,36 @@ add_action('rest_api_init', function () {
 				'default' => 1,
 				'sanitize_callback' => 'absint',
 			),
+			'category' => array(
+				'required' => false,
+				'type' => 'string',
+				'sanitize_callback' => 'sanitize_text_field',
+			),
+			'min_price' => array(
+				'required' => false,
+				'type' => 'number',
+				'sanitize_callback' => 'floatval',
+			),
+			'max_price' => array(
+				'required' => false,
+				'type' => 'number',
+				'sanitize_callback' => 'floatval',
+			),
+		),
+	));
+
+	// Product categories endpoint
+	register_rest_route('api/v1', '/product-categories', array(
+		'methods' => 'GET',
+		'callback' => 'rest_product_categories_api',
+		'permission_callback' => '__return_true',
+		'args' => array(
+			'parent' => array(
+				'required' => false,
+				'type' => 'integer',
+				'default' => 0,
+				'sanitize_callback' => 'absint',
+			),
 		),
 	));
 });
@@ -36,6 +66,9 @@ function rest_products_api($request) {
 	$search = sanitize_text_field($request->get_param('search') ?? '');
 	$limit = absint($request->get_param('limit') ?? 12);
 	$page = absint($request->get_param('page') ?? 1);
+	$category = sanitize_text_field($request->get_param('category') ?? '');
+	$min_price = $request->get_param('min_price');
+	$max_price = $request->get_param('max_price');
 
 	if ($limit <= 0) {
 		$limit = 12;
@@ -55,6 +88,39 @@ function rest_products_api($request) {
 		'orderby' => 'date',
 		'order' => 'DESC',
 	);
+
+	// Category filter
+	if (!empty($category)) {
+		$args['tax_query'] = array(
+			array(
+				'taxonomy' => 'product_cat',
+				'field'    => 'slug',
+				'terms'    => explode(',', $category),
+			),
+		);
+	}
+
+	// Price range filter (using meta_query on _price)
+	if ($min_price !== null || $max_price !== null) {
+		$price_meta = array('relation' => 'AND');
+		if ($min_price !== null && $min_price > 0) {
+			$price_meta[] = array(
+				'key'     => '_price',
+				'value'   => floatval($min_price),
+				'compare' => '>=',
+				'type'    => 'NUMERIC',
+			);
+		}
+		if ($max_price !== null && $max_price > 0) {
+			$price_meta[] = array(
+				'key'     => '_price',
+				'value'   => floatval($max_price),
+				'compare' => '<=',
+				'type'    => 'NUMERIC',
+			);
+		}
+		$args['meta_query'] = $price_meta;
+	}
 
 	$where_filter = null;
 	if (!empty($search)) {
@@ -137,7 +203,59 @@ function rest_products_api($request) {
 		),
 		'query' => array(
 			'search' => $search,
+			'category' => $category,
+			'min_price' => $min_price,
+			'max_price' => $max_price,
 		),
+	), 200);
+}
+
+
+/**
+ * REST API: Product categories list
+ * Endpoint: /wp-json/api/v1/product-categories?parent=0
+ */
+function rest_product_categories_api($request) {
+	$parent = absint($request->get_param('parent') ?? 0);
+
+	$terms = get_terms(array(
+		'taxonomy'   => 'product_cat',
+		'hide_empty' => false,
+		'parent'     => $parent,
+		'orderby'    => 'name',
+		'order'      => 'ASC',
+	));
+
+	$items = array();
+
+	if (!is_wp_error($terms)) {
+		foreach ($terms as $term) {
+			$thumbnail_id = get_term_meta($term->term_id, 'thumbnail_id', true);
+			$thumbnail_url = $thumbnail_id ? wp_get_attachment_image_url($thumbnail_id, 'thumbnail') : null;
+
+			$children = get_terms(array(
+				'taxonomy'   => 'product_cat',
+				'hide_empty' => false,
+				'parent'     => $term->term_id,
+				'fields'     => 'ids',
+			));
+
+			$items[] = array(
+				'id'          => $term->term_id,
+				'name'        => $term->name,
+				'slug'        => $term->slug,
+				'description' => $term->description,
+				'count'       => $term->count,
+				'thumbnail'   => $thumbnail_url,
+				'has_children'=> !is_wp_error($children) && count($children) > 0,
+				'children'    => !is_wp_error($children) ? array_values($children) : [],
+			);
+		}
+	}
+
+	return new WP_REST_Response(array(
+		'success' => true,
+		'data'    => $items,
 	), 200);
 }
 

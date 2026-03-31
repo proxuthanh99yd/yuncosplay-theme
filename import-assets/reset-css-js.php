@@ -41,6 +41,13 @@ function custom_dequeue_styles()
     wp_dequeue_style('wp-emoji-styles');
     wp_dequeue_style('dashicons');
     wp_deregister_style('dashicons');
+
+    // Remove WooCommerce styles
+    wp_dequeue_style('woocommerce-general');
+    wp_dequeue_style('woocommerce-layout');
+    wp_dequeue_style('woocommerce-smallscreen');
+    wp_dequeue_style('wc-blocks-style');
+    wp_dequeue_style('wc-blocks-vendors-style');
 }
 
 add_action('wp_enqueue_scripts', 'custom_dequeue_styles', 1000);

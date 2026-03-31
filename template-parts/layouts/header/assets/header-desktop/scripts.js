@@ -4,6 +4,16 @@ class Header {
     constructor() {
         this.headerEl = document.querySelector('.header');
         if (!this.headerEl) return;
+
+        // Chỉ front-page mới có header transparent (scroll-based toggle)
+        // Các page khác luôn dùng header--white
+        this.isFrontPage = document.body.classList.contains('home');
+
+        if (!this.isFrontPage) {
+            this.headerEl.classList.add('header--white');
+            return;
+        }
+
         this.rafScheduled = false;
         this.handleScroll = this.handleScroll.bind(this);
         this.scheduleScrollCheck = this.scheduleScrollCheck.bind(this);

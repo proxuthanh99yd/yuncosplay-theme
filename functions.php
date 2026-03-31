@@ -9,6 +9,7 @@ require get_theme_file_path('/inc/shortcodes.php');
 require get_theme_file_path('/import-order.php');
 require get_theme_file_path('/inc/product-api.php');
 require get_theme_file_path('/inc/blog-api.php');
+require get_theme_file_path('/template-parts/contact-page/acf.php');
 
 // Hook cho sản phẩm đơn giản (simple products)
 add_action(
@@ -516,4 +517,73 @@ function yun_force_pm_option_uri($term_id, $tt_id, $taxonomy)
     flush_rewrite_rules(false);
 
     error_log("PM OPTION SET: {$key} => {$uri}");
+}
+
+// ================================
+// REST API: Strip inline styles from product descriptions
+// POST /wp-json/api/v1/products/strip-styles
+// ================================
+
+// add_action('rest_api_init', function () {
+//     register_rest_route('api/v1', '/products/strip-styles', [
+//         'methods'             => 'GET',
+//         'callback'            => 'cosplay_strip_product_description_styles',
+//         'permission_callback' => '__return_true',
+//     ]);
+// });
+
+function cosplay_strip_product_description_styles($request)
+{
+    $products = wc_get_products([
+        'limit'  => -1,
+        'status' => 'publish',
+        'return' => 'ids',
+    ]);
+
+    if (empty($products)) {
+        return new WP_REST_Response([
+            'success' => true,
+            'message' => 'Không có sản phẩm nào.',
+            'updated' => 0,
+        ], 200);
+    }
+
+    $updated = 0;
+    $errors  = [];
+
+    foreach ($products as $product_id) {
+        $post = get_post($product_id);
+
+        if (!$post) continue;
+
+        $content = $post->post_content;
+
+        if (empty($content)) continue;
+
+        // Xoá tất cả attribute style="..." trong HTML
+        $clean = preg_replace('/\s*style\s*=\s*"[^"]*"/i', '', $content);
+        $clean = preg_replace("/\s*style\s*=\s*'[^']*'/i", '', $clean);
+
+        // Không thay đổi thì skip
+        if ($clean === $content) continue;
+
+        $result = wp_update_post([
+            'ID'           => $product_id,
+            'post_content' => $clean,
+        ], true);
+
+        if (is_wp_error($result)) {
+            $errors[] = $product_id;
+        } else {
+            $updated++;
+        }
+    }
+
+    return new WP_REST_Response([
+        'success' => true,
+        'message' => "Đã cập nhật {$updated} sản phẩm.",
+        'updated' => $updated,
+        'total'   => count($products),
+        'errors'  => $errors,
+    ], 200);
 }

@@ -1,0 +1,462 @@
+/* ========================================
+   Search Page — Styles
+   Figma: "Trang tìm kiếm sản phẩm" + "Trang tìm kiếm blog"
+   ======================================== */
+
+/* ---- Breadcrumb ---- */
+
+.sp-breadcrumb {
+  padding: 1.5rem 0;
+}
+
+.sp-breadcrumb__inner {
+  max-width: 75rem;
+  margin-inline: auto;
+  padding-inline: 7.3125rem;
+}
+
+.sp-breadcrumb__list {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sp-breadcrumb__link {
+  color: rgba(29, 29, 29, 0.4);
+  font-family: "SF Pro Display";
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 150%;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.sp-breadcrumb__link:hover {
+  color: rgba(29, 29, 29, 0.6);
+}
+
+.sp-breadcrumb__separator {
+  width: 0.3125rem;
+  height: 0.3125rem;
+  border-radius: 50%;
+  background: rgba(29, 29, 29, 0.4);
+  list-style: none;
+}
+
+.sp-breadcrumb__current {
+  color: #1D1D1D;
+  font-family: "SF Pro Display";
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+/* ---- Page Title ---- */
+
+.sp-title {
+  padding: 3rem 0;
+}
+
+.sp-title__inner {
+  max-width: 75rem;
+  margin-inline: auto;
+  padding-inline: 7.3125rem;
+}
+
+.sp-title__heading {
+  color: #680103;
+  font-family: "Phudu";
+  font-size: 3.75rem;
+  font-weight: 700;
+  line-height: 122.5%;
+  text-transform: uppercase;
+}
+
+/* ---- Results Section ---- */
+
+.sp-results {
+  width: 100%;
+}
+
+.sp-results__inner {
+  max-width: 75rem;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sp-results__empty {
+  width: 100%;
+  text-align: center;
+  color: rgba(29, 29, 29, 0.6);
+  font-family: "SF Pro Display";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 150%;
+  padding: 3rem 0;
+}
+
+/* ========================================
+   Product Search Results
+   ======================================== */
+
+.sp-results--product .sp-results__inner {
+  padding-inline: 7.3125rem;
+}
+
+/* Product Grid: 5 columns */
+.sp-product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.sp-product-grid .product {
+  width: calc(20% - 1rem);
+  height: 28.875rem;
+}
+
+.sp-product-grid .product .product__img-wrapper {
+  height: 25.25rem;
+}
+
+.sp-product-grid .product .product__title-wrapper {
+  padding: 1rem;
+}
+
+.sp-product-grid .product .product__title {
+  font-size: 1.125rem;
+}
+
+.sp-product-grid .product .product__rent-label {
+  font-size: 0.625rem;
+}
+
+.sp-product-grid .product .product__rent-price-value {
+  font-size: 1.125rem;
+}
+
+.sp-product-grid .product .product__rent-price-time {
+  font-size: 0.75rem;
+  margin-left: 0.125rem;
+}
+
+.sp-product-grid .product .product__price-label {
+  font-size: 0.75rem;
+}
+
+.sp-product-grid .product .product__price-value {
+  font-size: 0.875rem;
+}
+
+/* Infinite Scroll Sentinel */
+.sp-product-sentinel {
+  width: 100%;
+  height: 1px;
+}
+
+/* Infinite Loading Spinner */
+.sp-product-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.1875rem;
+  padding: 2rem 0 5rem;
+  opacity: 0;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease, height 0.3s ease;
+}
+
+.sp-product-loader.is-loading {
+  opacity: 1;
+  visibility: visible;
+  height: auto;
+}
+
+.sp-product-loader__spinner {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 3px solid #f4f4f4;
+  border-top: 3px solid #680103;
+  border-radius: 50%;
+  animation: sp-spin 0.8s linear infinite;
+}
+
+.sp-product-loader__text {
+  color: rgba(29, 29, 29, 0.8);
+  font-family: "Phudu";
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 120%;
+}
+
+@keyframes sp-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========================================
+   Blog Search Results
+   ======================================== */
+
+.sp-results--blog .sp-results__inner {
+  padding-inline: 4.25rem;
+  padding-top: 5rem;
+  padding-bottom: 7.5rem;
+}
+
+/* Blog Grid: 4 columns */
+.sp-blog-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3.5rem 1.5rem;
+  width: 100%;
+}
+
+.sp-blog-grid .blog-item-v2 {
+  width: calc(25% - 1.125rem);
+}
+
+/* ---- Pagination ---- */
+
+.sp-pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 4rem;
+}
+
+.sp-pagination__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.sp-pagination__arrow:hover {
+  opacity: 0.7;
+}
+
+.sp-pagination__pages {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.sp-pagination__page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  color: #1D1D1D;
+  font-family: "SF Pro Display";
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 150%;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.sp-pagination__page:hover {
+  opacity: 0.7;
+}
+
+.sp-pagination__page--active {
+  background: #1D1D1D;
+  color: #F7F4EC;
+}
+
+.sp-pagination__ellipsis {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.333rem;
+  padding: 0 0.25rem;
+  height: 2rem;
+  padding-bottom: 0.5rem;
+}
+
+.sp-pagination__ellipsis span {
+  display: block;
+  width: 0.25rem;
+  height: 0.25rem;
+  border-radius: 50%;
+  background: #1D1D1D;
+}
+
+/* ========================================
+   Responsive — Tablet
+   ======================================== */
+
+@media screen and (max-width: 1023.98px) {
+  .sp-breadcrumb__inner,
+  .sp-title__inner {
+    padding-inline: 2rem;
+  }
+
+  .sp-results--product .sp-results__inner {
+    padding-inline: 2rem;
+  }
+
+  .sp-results--blog .sp-results__inner {
+    padding-inline: 2rem;
+  }
+
+  /* Product Grid: 3 columns on tablet */
+  .sp-product-grid .product {
+    width: calc(33.333% - 0.8333rem);
+  }
+
+  /* Blog Grid: 3 columns on tablet */
+  .sp-blog-grid .blog-item-v2 {
+    width: calc(33.333% - 1rem);
+  }
+}
+
+/* ========================================
+   Responsive — Mobile
+   ======================================== */
+
+@media screen and (max-width: 639.98px) {
+  /* Breadcrumb */
+  .sp-breadcrumb {
+    padding: 1rem 0 0;
+  }
+
+  .sp-breadcrumb__inner {
+    padding-inline: 1.25rem;
+  }
+
+  .sp-breadcrumb__link,
+  .sp-breadcrumb__current {
+    font-size: 0.75rem;
+  }
+
+  .sp-breadcrumb__separator {
+    width: 0.25rem;
+    height: 0.25rem;
+  }
+
+  .sp-breadcrumb__list {
+    gap: 0.5rem;
+  }
+
+  /* Title */
+  .sp-title {
+    padding: 1.5rem 0 1rem;
+  }
+
+  .sp-title__inner {
+    padding-inline: 1.25rem;
+  }
+
+  .sp-title__heading {
+    font-size: 1.75rem;
+    line-height: 120%;
+  }
+
+  /* Product Results */
+  .sp-results--product .sp-results__inner {
+    padding-inline: 0.75rem;
+  }
+
+  .sp-product-grid {
+    gap: 0.375rem;
+  }
+
+  .sp-product-grid .product {
+    width: calc(50% - 0.1875rem);
+    height: 20.3125rem;
+  }
+
+  .sp-product-grid .product .product__img-wrapper {
+    height: 17rem;
+  }
+
+  .sp-product-grid .product .product__title-wrapper {
+    padding: 0.625rem;
+  }
+
+  .sp-product-grid .product .product__title {
+    font-size: 0.875rem;
+  }
+
+  .sp-product-grid .product .product__content {
+    padding: 0.5rem;
+    display: block;
+  }
+
+  .sp-product-grid .product .product__rent-label {
+    font-size: 0.625rem;
+  }
+
+  .sp-product-grid .product .product__rent-price-value {
+    font-size: 0.875rem;
+    margin-left: 0.25rem;
+  }
+
+  .sp-product-grid .product .product__rent-price-time {
+    height: 0.9375rem;
+    font-size: 0.625rem;
+  }
+
+  /* Loader */
+  .sp-product-loader {
+    padding: 1.5rem 0 3rem;
+  }
+
+  .sp-product-loader__spinner {
+    width: 1.875rem;
+    height: 1.875rem;
+  }
+
+  .sp-product-loader__text {
+    font-size: 1rem;
+  }
+
+  /* Blog Results */
+  .sp-results--blog .sp-results__inner {
+    padding-inline: 1.25rem;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+  }
+
+  .sp-blog-grid {
+    gap: 1.5rem 0.75rem;
+  }
+
+  .sp-blog-grid .blog-item-v2 {
+    width: calc(50% - 0.375rem);
+  }
+
+  /* Pagination */
+  .sp-pagination {
+    margin-top: 2rem;
+  }
+
+  .sp-pagination__page,
+  .sp-pagination__arrow {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .sp-pagination__page {
+    font-size: 0.75rem;
+  }
+}
