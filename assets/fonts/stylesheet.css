@@ -1,64 +1,200 @@
 /**
- * SF Pro Display — font chữ body của theme (khai báo ở assets/css/_reset.css).
+ * SF Pro Display — font body của theme (khai báo ở assets/css/_reset.css).
+ *
+ * ĐÃ SUBSET + WOFF2. Nguồn gốc là 6 file .otf ~2.1MB/file (14.823 glyph, 4.656 codepoint —
+ * gồm Cyrillic/Greek/ký hiệu mà site tiếng Việt không bao giờ render). Nay còn 360KB tổng.
+ *
+ * Cách làm giống hệt phudu.css: cắt theo 3 subset + unicode-range ⇒ browser CHỈ tải
+ * subset nó cần. Thực tế trang tiếng Việt tải 2 (vietnamese + latin) ≈ 28KB/weight,
+ * thay vì 2.1MB/weight như bản .otf.
+ *
+ * unicode-range lấy y theo Google Fonts, thêm U+2190-2193 vào `latin` để phủ nốt ← ↑ → ↓
+ * (range gốc của Google chỉ có ↑↓) phòng khi content blog dùng mũi tên dạng text.
+ * Bỏ subset cyrillic-ext — theme không có nội dung Cyrillic.
  *
  * CHỈ khai báo weight mà CSS theme thực sự dùng: 400 / 500 / 600 / 700 / 800.
- * Đã bỏ 100 / 200 / 300 / 900 — không rule nào trong theme gọi tới.
+ * Italic chỉ có 400 (dùng bởi .entry-content em/i, .wp-caption, blockquote);
+ * weight italic khác để browser synthesize oblique.
  *
- * Italic: chỉ giữ 400. Các weight còn lại nếu gặp <em> lồng trong <strong> thì
- * browser tự synthesize oblique — thay vì gánh thêm ~8MB .otf cho case hiếm.
+ * ⚠️ url() ở đây là RELATIVE — bundler.php rewrite khi gộp vào core.css.
+ *    Sửa path phải kiểm tra lại import-assets/bundler.php.
  *
- * ⚠️ Đường dẫn url() ở đây là RELATIVE. bundler.php rewrite lại khi gộp vào core.css
- *    (xem import-assets/bundler.php) — sửa path phải kiểm tra lại chỗ đó.
- *
- * ĐÃ XOÁ khỏi file này (font không còn tồn tại trong repo):
- *   - "Trip Sans"          → không có rule CSS nào dùng.
- *   - "BHN TAN - MEMORIES" → consumer duy nhất là assets/css/404.css, đã bỏ.
+ * TÁI TẠO khi cần thêm weight/glyph: file .otf gốc nằm trong git history
+ * (xem commit xoá .otf). Dùng pyftsubset với đúng unicode-range ở dưới:
+ *    pyftsubset SF-Pro-Display-Regular.otf --output-file=sf-pro-display-400-latin.woff2 \
+ *      --flavor=woff2 --unicodes="<range>" --layout-features='kern,liga,calt'
  */
 
+/* ---- weight 400 ---- */
+
 @font-face {
   font-family: "SF Pro Display";
-  src: url("SF-Pro-Display/SF-Pro-Display-Regular.otf") format("opentype");
-  font-weight: 400;
   font-style: normal;
+  font-weight: 400;
   font-display: swap;
+  src: url("SF-Pro-Display/sf-pro-display-400-vietnamese.woff2") format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
 }
 
 @font-face {
   font-family: "SF Pro Display";
-  src: url("SF-Pro-Display/SF-Pro-Display-RegularItalic.otf") format("opentype");
+  font-style: normal;
   font-weight: 400;
+  font-display: swap;
+  src: url("SF-Pro-Display/sf-pro-display-400-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2190-2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("SF-Pro-Display/sf-pro-display-400-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ---- weight 400 italic ---- */
+
+@font-face {
+  font-family: "SF Pro Display";
   font-style: italic;
+  font-weight: 400;
   font-display: swap;
+  src: url("SF-Pro-Display/sf-pro-display-400i-vietnamese.woff2") format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
 }
 
 @font-face {
   font-family: "SF Pro Display";
-  src: url("SF-Pro-Display/SF-Pro-Display-Medium.otf") format("opentype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("SF-Pro-Display/sf-pro-display-400i-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2190-2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("SF-Pro-Display/sf-pro-display-400i-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ---- weight 500 ---- */
+
+@font-face {
+  font-family: "SF Pro Display";
+  font-style: normal;
   font-weight: 500;
-  font-style: normal;
   font-display: swap;
+  src: url("SF-Pro-Display/sf-pro-display-500-vietnamese.woff2") format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
 }
 
 @font-face {
   font-family: "SF Pro Display";
-  src: url("SF-Pro-Display/SF-Pro-Display-Semibold.otf") format("opentype");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("SF-Pro-Display/sf-pro-display-500-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2190-2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("SF-Pro-Display/sf-pro-display-500-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ---- weight 600 ---- */
+
+@font-face {
+  font-family: "SF Pro Display";
+  font-style: normal;
   font-weight: 600;
-  font-style: normal;
   font-display: swap;
+  src: url("SF-Pro-Display/sf-pro-display-600-vietnamese.woff2") format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
 }
 
 @font-face {
   font-family: "SF Pro Display";
-  src: url("SF-Pro-Display/SF-Pro-Display-Bold.otf") format("opentype");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("SF-Pro-Display/sf-pro-display-600-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2190-2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("SF-Pro-Display/sf-pro-display-600-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ---- weight 700 ---- */
+
+@font-face {
+  font-family: "SF Pro Display";
+  font-style: normal;
   font-weight: 700;
-  font-style: normal;
   font-display: swap;
+  src: url("SF-Pro-Display/sf-pro-display-700-vietnamese.woff2") format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
 }
 
 @font-face {
   font-family: "SF Pro Display";
-  src: url("SF-Pro-Display/SF-Pro-Display-Heavy.otf") format("opentype");
-  font-weight: 800;
   font-style: normal;
+  font-weight: 700;
   font-display: swap;
+  src: url("SF-Pro-Display/sf-pro-display-700-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2190-2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("SF-Pro-Display/sf-pro-display-700-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ---- weight 800 ---- */
+
+@font-face {
+  font-family: "SF Pro Display";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("SF-Pro-Display/sf-pro-display-800-vietnamese.woff2") format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("SF-Pro-Display/sf-pro-display-800-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2190-2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("SF-Pro-Display/sf-pro-display-800-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
