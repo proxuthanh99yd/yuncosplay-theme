@@ -1,102 +1,19 @@
-/* Font trips sans */
-@font-face {
-  font-family: "Trip Sans";
-  src: url("Trip-Sans-Font/trip-sans.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  display: swap;
-}
-
-@font-face {
-  font-family: "Trip Sans";
-  src: url("Trip-Sans-Font/trip-sans-medium.otf") format("opentype");
-  font-weight: 500;
-  font-style: normal;
-  display: swap;
-}
-
-@font-face {
-  font-family: "Trip Sans";
-  src: url("Trip-Sans-Font/trip-sans-bold.otf") format("opentype");
-  font-weight: 700;
-  font-style: normal;
-  display: swap;
-}
-
-@font-face {
-  font-family: "Trip Sans";
-  src: url("Trip-Sans-Font/trip-sans-ultra.otf") format("opentype");
-  font-weight: 900;
-  font-style: normal;
-  display: swap;
-}
-
-/* Font BHN TAN MEMORIES */
-
-@font-face {
-  font-family: "BHN TAN - MEMORIES";
-  src: url("BHN-TAN-MEMORIES-Font/BHN-TAN-MEMORIES-Regular.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  display: swap;
-}
-
-@font-face {
-  font-family: "BHN TAN - MEMORIES";
-  src: url("BHN-TAN-MEMORIES-Font/BHN-TAN-MEMORIES-Italic.otf") format("opentype");
-  font-weight: 400;
-  font-style: italic;
-  display: swap;
-}
-
-/* SF Pro Display Font */
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("SF-Pro-Display/SF-Pro-Display-Ultralight.otf") format("opentype");
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("SF-Pro-Display/SF-Pro-Display-UltralightItalic.otf") format("opentype");
-  font-weight: 200;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("SF-Pro-Display/SF-Pro-Display-Thin.otf") format("opentype");
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("SF-Pro-Display/SF-Pro-Display-ThinItalic.otf") format("opentype");
-  font-weight: 100;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("SF-Pro-Display/SF-Pro-Display-Light.otf") format("opentype");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("SF-Pro-Display/SF-Pro-Display-LightItalic.otf") format("opentype");
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
-}
+/**
+ * SF Pro Display — font chữ body của theme (khai báo ở assets/css/_reset.css).
+ *
+ * CHỈ khai báo weight mà CSS theme thực sự dùng: 400 / 500 / 600 / 700 / 800.
+ * Đã bỏ 100 / 200 / 300 / 900 — không rule nào trong theme gọi tới.
+ *
+ * Italic: chỉ giữ 400. Các weight còn lại nếu gặp <em> lồng trong <strong> thì
+ * browser tự synthesize oblique — thay vì gánh thêm ~8MB .otf cho case hiếm.
+ *
+ * ⚠️ Đường dẫn url() ở đây là RELATIVE. bundler.php rewrite lại khi gộp vào core.css
+ *    (xem import-assets/bundler.php) — sửa path phải kiểm tra lại chỗ đó.
+ *
+ * ĐÃ XOÁ khỏi file này (font không còn tồn tại trong repo):
+ *   - "Trip Sans"          → không có rule CSS nào dùng.
+ *   - "BHN TAN - MEMORIES" → consumer duy nhất là assets/css/404.css, đã bỏ.
+ */
 
 @font-face {
   font-family: "SF Pro Display";
@@ -124,25 +41,9 @@
 
 @font-face {
   font-family: "SF Pro Display";
-  src: url("SF-Pro-Display/SF-Pro-Display-MediumItalic.otf") format("opentype");
-  font-weight: 500;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
   src: url("SF-Pro-Display/SF-Pro-Display-Semibold.otf") format("opentype");
   font-weight: 600;
   font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("SF-Pro-Display/SF-Pro-Display-SemiboldItalic.otf") format("opentype");
-  font-weight: 600;
-  font-style: italic;
   font-display: swap;
 }
 
@@ -156,40 +57,8 @@
 
 @font-face {
   font-family: "SF Pro Display";
-  src: url("SF-Pro-Display/SF-Pro-Display-BoldItalic.otf") format("opentype");
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
   src: url("SF-Pro-Display/SF-Pro-Display-Heavy.otf") format("opentype");
   font-weight: 800;
   font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("SF-Pro-Display/SF-Pro-Display-HeavyItalic.otf") format("opentype");
-  font-weight: 800;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("SF-Pro-Display/SF-Pro-Display-Black.otf") format("opentype");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  src: url("SF-Pro-Display/SF-Pro-Display-BlackItalic.otf") format("opentype");
-  font-weight: 900;
-  font-style: italic;
   font-display: swap;
 }
