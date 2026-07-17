@@ -97,7 +97,11 @@
 @media screen and (max-width: 639.98px) {
     .cta-right {
         right: 0.75rem;
-        bottom: 5rem;
+        bottom: 6.25rem;
+    }
+
+    .cta-right-container {
+        gap: 0.75rem;
     }
 
     .cta-right__btn-contact-list {

@@ -109,7 +109,7 @@
     }
 
     .header__mega-menu-product__parent-categories-swiper {
-        margin-bottom: 1.375rem;
+        margin-bottom: 2rem;
         width: 100%;
         box-sizing: border-box;
         mask-image: linear-gradient(90deg, #d9d9d9 0%, #7d7d7d 88.62%, rgba(117, 117, 117, 0.23) 92.48%, rgba(115, 115, 115, 0) 95.18%);
@@ -145,7 +145,7 @@
 
     .header__mega-menu-product__parent-categories-swiper-slide:first-child,
     .header__mega-menu-product__child-categories-swiper-slide:first-child {
-        margin-left: 4.17rem;
+        margin-left: 5rem;
     }
 
     .header__mega-menu-product__parent-categories-swiper-slide {
@@ -156,11 +156,11 @@
 
     .header__mega-menu-product__parent-category-title {
         color: #680103;
-        font-family: Phudu;
-        font-size: 1.5rem;
+        font-family: "SF Pro Display";
+        font-size: 1.125rem;
         font-style: normal;
-        font-weight: 700;
-        line-height: 125%;
+        font-weight: 600;
+        line-height: 150%;
         text-transform: uppercase;
     }
 
@@ -279,7 +279,8 @@
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        background: radial-gradient(169.61% 50% at 50% 50%, #CB5140 46.54%, #D8A061 91.01%);
+        /*background: radial-gradient(169.61% 50% at 50% 50%, #CB5140 46.54%, #D8A061 91.01%);*/
+        background: radial-gradient(50% 169.61% at 50% 50%, #CB5140 46.54%, #D8A061 91.01%);
         transition: all 0.4s cubic-bezier(0.41, 0.02, 0, 1.01);
         opacity: 0;
     }

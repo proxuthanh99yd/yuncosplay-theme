@@ -59,14 +59,14 @@ $blog_query = new WP_Query($blog_args);
                 <p class="header__mega-menu-search__result-title">
                 Kết quả tìm kiếm 
                 </p>
-                <a href="/" class="header__mega-menu-search__result-contact">
+                <button type="button" class="header__mega-menu-search__result-contact">
                     <span class="header__mega-menu-search__result-contact-icon">
                         <?php echo wp_get_attachment_image($icon_arrow_right_id, 'full', false) ?>
                     </span>
                     <span class="header__mega-menu-search__result-contact-text">
                         Xem thêm
                     </span>
-                </a>
+                </button>
             </div>
             <div class="header__mega-menu-search__result-bottom">
                 <div class="header__mega-menu-search__result-list">
@@ -89,14 +89,14 @@ $blog_query = new WP_Query($blog_args);
                 <p class="header__mega-menu-search__related-blog__title">
                     Tin liên quan
                 </p>
-                <a href="/" class="header__mega-menu-search__related-blog__contact-link">
+                <button type="button" class="header__mega-menu-search__related-blog__contact-link">
                     <span class="header__mega-menu-search__related-blog__contact-link-icon">
                         <?php echo wp_get_attachment_image($icon_arrow_right_id, 'full', false) ?>
                     </span>
                     <span class="header__mega-menu-search__related-blog__contact-link-text">
                         Xem thêm
                     </span>
-                </a>
+                </button>
             </div>
             <div class="header__mega-menu-search__related-blog-bottom">
                 <div class="header__mega-menu-search__related-blog-list">
@@ -130,20 +130,34 @@ $blog_query = new WP_Query($blog_args);
 
 
 <template id="product-search-result-item">
-    <a href="" class="product">
-        <div class="product__img-wrapper">
-            <video src="" playsinline muted loop preload="none" class="product__video"></video>
-            <img src="" alt="" class="product__img">
-            <h3 class="product__title"></h3>
-        </div>
-        <div class="product__content">
-            <div class="product__rent">
-            <span class="product__rent-label">Giá thuê (1 ngày)</span>
-            <span class="product__rent-price"></span>
+    <article class="product">
+        <a href="" class="product__link">
+            <div class="product__img-wrapper">
+                <video src="" playsinline muted loop preload="none" class="product__video"></video>
+                <img src="" alt="" class="product__img">
+                <div class="product__title-wrapper">
+                    <h3 class="product__title"></h3>
+                </div>
             </div>
-            <div class="product__price"></div>
-        </div>
-    </a>
+            <div class="product__content">
+                <div class="product__content-background">
+                    <?= wp_get_attachment_image(9904, 'full', false, [ 'class' => 'product__content-background-img' ]); ?>
+                </div>
+                <div class="product__rent">
+                    <span class="product__rent-label">Giá thuê</span>
+                    <p class="product__rent-price">
+                        <span class="product__rent-price-value"></span>
+                        <span class="product__rent-price-time">/Ngày</span>
+                    </p>
+                </div>
+                <div class="product__price">
+                    <span class="product__price-label">Giá bán:</span>
+                    <p class="product__price-value"></p>
+                </div>
+                <div class="product__price-mb"></div>
+            </div>
+        </a>
+    </article>
 </template>
 
 <template id="blog-search-result-item">

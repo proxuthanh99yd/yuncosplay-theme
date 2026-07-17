@@ -45,7 +45,7 @@
 		position: relative;
 		display: flex;
 		align-items: center;
-		border-radius: 0 6.25rem 6.25rem 0;
+		border-radius: 6.25rem;
 		background: #F4F4F4;
 	}
 
@@ -132,12 +132,21 @@
 		display: flex;
 		align-items: center;
 	}
+	
+	.header__mega-menu-search__result-contact:hover .header__mega-menu-search__result-contact-icon {
+        transform: translateX(0.3125rem);
+	}
+	
+	.header__mega-menu-search__result-contact:hover .header__mega-menu-search__result-contact-text {
+        color: #680103;
+	}
 
 	.header__mega-menu-search__result-contact-icon {
 		width: 1.5rem;
 		height: 1.5rem;
 		flex-shrink: 0;
 		margin-right: 0.5rem;
+		transition: transform 400ms cubic-bezier(0.47, 0, 0.01, 1.01);
 	}
 
 	.header__mega-menu-search__result-contact-icon img {
@@ -154,6 +163,7 @@
 		line-height: 150%;
 		text-box-edge: cap alphabetic;
 		text-box-trim: trim-both;
+    	transition: color 400ms cubic-bezier(0.47, 0, 0.01, 1.01);
 	}
 
 	.header__mega-menu-search__result-list {
@@ -171,6 +181,10 @@
 	.header__mega-menu-search__result-list .product__img-wrapper {
 		height: 25.25rem;
 	}
+	
+	.header__mega-menu-search__result-list .product__title-wrapper {
+	    padding: 1rem;
+	}
 
 	.header__mega-menu-search__result-list .product__title {
 		color: #F6F3EA;
@@ -179,7 +193,7 @@
 		font-style: normal;
 		font-weight: 600;
 		line-height: 120%;
-		margin: 1rem;
+		/*margin: 1rem;*/
 		width: 8.5rem;
 	}
 
@@ -317,11 +331,20 @@
 		display: flex;
 		align-items: center;
 	}
+	
+	.header__mega-menu-search__related-blog__contact-link:hover .header__mega-menu-search__related-blog__contact-link-icon {
+        transform: translateX(0.3125rem);
+	}
+	
+	.header__mega-menu-search__related-blog__contact-link:hover .header__mega-menu-search__related-blog__contact-link-text {
+        color: #680103;
+	}
 
 	.header__mega-menu-search__related-blog__contact-link-icon {
 		width: 1.5rem;
 		height: 1.5rem;
 		flex-shrink: 0;
+		transition: transform 400ms cubic-bezier(0.47, 0, 0.01, 1.01);
 	}
 
 	.header__mega-menu-search__related-blog__contact-link-icon img {
@@ -339,6 +362,7 @@
 		text-box-edge: cap alphabetic;
 		text-box-trim: trim-both;
 		margin-left: 0.5rem;
+		transition: color 400ms cubic-bezier(0.47, 0, 0.01, 1.01);
 	}
 
 	.header__mega-menu-search__related-blog-list {

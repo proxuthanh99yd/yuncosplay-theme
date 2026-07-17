@@ -9,6 +9,11 @@
     justify-content: space-between;
     background: #680103;
     padding-left: 0.75rem;
+    transition: transform 0.3s ease-out;
+}
+
+.header-main.header-main--auto-hidden {
+    transform: translateY(-100%);
 }
 
 .header-main-left {

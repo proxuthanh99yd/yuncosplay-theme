@@ -186,7 +186,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    padding: 0.625rem 0;
+    padding: 0.625rem 0 0.875rem;
     border-bottom: 1px solid rgba(29, 29, 29, 0.06);
 }
 

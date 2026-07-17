@@ -38,6 +38,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: space-between;
 }
 
 .footer-logo {
@@ -246,7 +247,7 @@
 		height: 0;
 		border-top: 0.0625rem dashed rgba(29, 29, 29, 0.12);
 		background: none;
-		margin: 1.25rem 0;
+		margin: 1rem 0;
 	}
 
 	.footer-divider:nth-child(2) {

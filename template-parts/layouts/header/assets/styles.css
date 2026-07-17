@@ -1,5 +1,3 @@
-@import url("./header-desktop/styles.css");
-@import url("./header-mobile/styles.css");
 
 .header.header--mobile {
     display: none;
