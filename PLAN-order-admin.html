@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kế hoạch — Tối ưu Order trong wp-admin (Chi tiết + Tạo đơn)</title>
+<style>
+  :root{
+    --wp-blue:#2271b1; --wp-blue-dark:#135e96;
+    --wp-bg:#f0f0f1; --wp-panel:#fff; --wp-border:#c3c4c7;
+    --wp-text:#1d2327; --wp-muted:#646970; --wp-green:#00a32a;
+    --wp-orange:#dba617; --wp-red:#d63638;
+    --radius:6px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:#eef0f3; color:var(--wp-text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:2.4rem 1.5rem 4rem;}
+
+  /* ---------- Doc header ---------- */
+  .doc-head{
+    background:linear-gradient(135deg,#1d2327,#2c3338);
+    color:#fff; border-radius:12px; padding:2rem 2.2rem;
+  }
+  .doc-head h1{margin:0; font-size:1.6rem;}
+  .doc-head p{margin:.8rem 0 0; color:#c3c4c7; max-width:780px;}
+  .badges{margin-top:1.1rem;}
+  .badge{
+    display:inline-block; background:rgba(255,255,255,.12); color:#fff;
+    border:1px solid rgba(255,255,255,.2);
+    padding:.25rem .7rem; border-radius:999px; font-size:.78rem; margin-right:.5rem; margin-bottom:.4rem;
+  }
+
+  h2.section{
+    font-size:1.18rem; margin:2.8rem 0 1rem; padding-bottom:.5rem;
+    border-bottom:2px solid var(--wp-border);
+  }
+  h2.section .num{
+    display:inline-block; background:var(--wp-blue); color:#fff;
+    width:1.7rem; height:1.7rem; line-height:1.7rem; text-align:center;
+    border-radius:50%; font-size:.85rem; margin-right:.6rem;
+  }
+  .muted{color:var(--wp-muted);}
+  code{background:#eef0f3; border:1px solid var(--wp-border); border-radius:4px; padding:.1rem .35rem; font-size:.85em;}
+
+  /* ---------- Mockup frame ---------- */
+  .mock-note{
+    background:#fff8e5; border:1px solid var(--wp-orange); border-left-width:4px;
+    border-radius:var(--radius); padding:.8rem 1rem; font-size:.88rem; margin-bottom:1.2rem;
+  }
+  .admin{
+    background:var(--wp-bg); border:1px solid var(--wp-border); border-radius:10px;
+    overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,.08);
+  }
+  .admin-bar{
+    background:#1d2327; color:#c3c4c7; font-size:.82rem;
+    padding:.55rem 1rem;
+  }
+  .admin-bar strong{color:#fff;}
+  .admin-body{padding:1.2rem;}
+  .admin-title{font-size:1.35rem; font-weight:600; margin:0 0 1rem;}
+
+  .cols{display:flex; flex-wrap:wrap; margin:0 -0.6rem;}
+  .col-main{flex:1 1 62%; min-width:340px; padding:0 .6rem;}
+  .col-side{flex:1 1 30%; min-width:240px; padding:0 .6rem;}
+
+  /* ---------- Postbox (wp panel) ---------- */
+  .postbox{
+    background:var(--wp-panel); border:1px solid var(--wp-border);
+    border-radius:var(--radius); margin-bottom:1rem;
+  }
+  .postbox > h3{
+    margin:0; font-size:.92rem; font-weight:600;
+    padding:.7rem 1rem; border-bottom:1px solid #e2e3e5;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .postbox > h3 .toggle{color:var(--wp-muted); font-weight:400; font-size:.8rem;}
+  .postbox .inside{padding:1rem;}
+  .postbox.closed > h3{border-bottom:none;}
+  .postbox.closed .inside{display:none;}
+
+  /* highlight the NEW panel */
+  .postbox.feature{border:2px solid var(--wp-blue); box-shadow:0 6px 18px rgba(34,113,177,.18);}
+  .postbox.feature > h3{
+    background:linear-gradient(90deg,#2271b1,#3a93d6); color:#fff; border-bottom:none;
+    border-radius:4px 4px 0 0;
+  }
+  .postbox.feature > h3 .pill{
+    background:rgba(255,255,255,.18); color:#fff; border-radius:999px;
+    padding:.1rem .55rem; font-size:.72rem; font-weight:500; margin-left:.4rem;
+  }
+
+  /* ---------- Cards ---------- */
+  .grid2{display:flex; flex-wrap:wrap; margin:0 -0.5rem;}
+  .grid2 > .card{flex:1 1 45%; min-width:230px; margin:0 .5rem .9rem;}
+  .card{
+    border:1px solid #e2e3e5; border-radius:var(--radius);
+    background:#fafbfc; padding:.85rem .95rem;
+  }
+  .card h4{
+    margin:0 0 .6rem; font-size:.72rem; text-transform:uppercase;
+    letter-spacing:.04em; color:var(--wp-muted);
+  }
+  .cust-name{font-weight:600; font-size:1rem; margin-bottom:.15rem;}
+  .row{margin-bottom:.3rem;}
+  .row .lbl{color:var(--wp-muted); display:inline-block; min-width:84px;}
+  .row .val{font-weight:600;}
+
+  /* buttons */
+  .btns{margin-top:.7rem;}
+  .btn{
+    display:inline-block; border:1px solid var(--wp-blue); color:var(--wp-blue);
+    background:#fff; border-radius:4px; padding:.32rem .7rem; font-size:.82rem;
+    margin:.15rem .3rem .15rem 0; cursor:pointer; text-decoration:none;
+  }
+  .btn:hover{background:#f0f6fc;}
+  .btn.primary{background:var(--wp-blue); color:#fff;}
+  .btn.primary:hover{background:var(--wp-blue-dark);}
+  .btn.ghost{border-color:var(--wp-border); color:var(--wp-text);}
+
+  /* toggle pair */
+  .toggle-line{display:flex; align-items:center; flex-wrap:wrap; margin-bottom:.55rem;}
+  .toggle-line .tl-label{flex:1 1 auto; min-width:150px;}
+  .toggle-line .tl-amount{font-weight:700; margin-right:.6rem;}
+  .seg{display:inline-flex; border:1px solid var(--wp-border); border-radius:999px; overflow:hidden;}
+  .seg span{padding:.28rem .8rem; font-size:.8rem; cursor:pointer; color:var(--wp-muted);}
+  .seg span.on{background:var(--wp-green); color:#fff; font-weight:600;}
+  .seg span.on.warn{background:var(--wp-orange);}
+
+  /* radio status group */
+  .status-group{display:flex; flex-wrap:wrap; margin:0 -0.3rem;}
+  .status-group label{
+    flex:1 1 auto; margin:.3rem; border:1px solid var(--wp-border); border-radius:var(--radius);
+    padding:.5rem .7rem; cursor:pointer; font-size:.85rem; text-align:center;
+    background:#fff; transition:.15s; user-select:none;
+  }
+  .status-group label:hover{border-color:var(--wp-blue);}
+  .status-group input{margin-right:.4rem;}
+  .status-group label.sel{border-color:var(--wp-blue); background:#eaf3fb; font-weight:600;}
+  .status-group label.sel.bad{border-color:var(--wp-red); background:#fcebec;}
+  .saved{color:var(--wp-green); font-size:.82rem; margin-top:.5rem; display:inline-block;}
+  .rg-label{font-size:.72rem; font-weight:700; color:var(--wp-muted); text-transform:uppercase; letter-spacing:.03em; margin:.7rem 0 .25rem;}
+  .rg-label:first-of-type{margin-top:0;}
+
+  /* items (detail) */
+  .item{display:flex; align-items:center; border-bottom:1px solid #eef0f1; padding:.6rem 0;}
+  .item:last-child{border-bottom:none;}
+  .thumb{
+    width:54px; height:54px; border-radius:6px; margin-right:.8rem; flex:0 0 auto;
+    background:linear-gradient(135deg,#dfe6ee,#c4d2e0); display:flex; align-items:center;
+    justify-content:center; font-size:1.4rem;
+  }
+  .item .it-name{flex:1 1 auto; font-weight:600;}
+  .item .it-name small{display:block; color:var(--wp-muted); font-weight:400;}
+  .item .it-qty{color:var(--wp-muted); margin:0 1rem; white-space:nowrap;}
+  .item .it-total{font-weight:700; white-space:nowrap;}
+  .totals{margin-top:.8rem; text-align:right;}
+  .totals .t-row{margin-bottom:.2rem; color:var(--wp-muted);}
+  .totals .t-grand{font-size:1.15rem; font-weight:700; color:var(--wp-text);}
+
+  .actions-bar{margin-top:1rem; padding-top:1rem; border-top:1px dashed var(--wp-border);}
+
+  .side-update{
+    background:var(--wp-blue); color:#fff; text-align:center; padding:.6rem;
+    border-radius:4px; font-weight:600; margin-top:.6rem; cursor:pointer;
+  }
+
+  /* ---------- Form (create order) ---------- */
+  .fld{margin-bottom:.7rem;}
+  .fld > label{display:block; font-size:.78rem; color:var(--wp-muted); margin-bottom:.2rem; font-weight:600;}
+  .fld input, .fld select, .fld textarea{
+    width:100%; padding:.45rem .6rem; border:1px solid var(--wp-border);
+    border-radius:4px; font-size:.9rem; font-family:inherit; background:#fff;
+  }
+  .fld input:focus, .fld select:focus, .fld textarea:focus{outline:2px solid #2271b133; border-color:var(--wp-blue);}
+  .fld .hint{font-size:.74rem; color:var(--wp-muted); margin-top:.2rem;}
+  .fee-row{display:flex; align-items:center;}
+  .fee-row input[type=text]{flex:1 1 auto; width:auto; margin-right:.6rem;}
+  .fee-row .chk{display:flex; align-items:center; white-space:nowrap; font-size:.82rem; font-weight:600; color:var(--wp-green); cursor:pointer;}
+  .fee-row .chk input[type=checkbox]{width:auto; margin:0 .3rem 0 0; padding:0;}
+  .fld.search{position:relative;}
+  .fld.search .find{position:absolute; right:.5rem; top:1.55rem; color:var(--wp-muted);}
+  .two{display:flex; flex-wrap:wrap; margin:0 -0.4rem;}
+  .two > .fld{flex:1 1 45%; min-width:130px; margin:0 .4rem .7rem;}
+
+  .daybadge{
+    display:inline-block; background:#eaf3fb; color:var(--wp-blue-dark);
+    border:1px solid #b8d4ea; border-radius:999px; padding:.2rem .8rem;
+    font-weight:700; font-size:.9rem;
+  }
+
+  /* item builder table */
+  .ibt{width:100%; border-collapse:collapse; font-size:.85rem;}
+  .ibt th{text-align:left; color:var(--wp-muted); font-size:.72rem; text-transform:uppercase; padding:.3rem .4rem; border-bottom:1px solid #e2e3e5;}
+  .ibt td{padding:.5rem .4rem; border-bottom:1px solid #eef0f1; vertical-align:middle;}
+  .ibt .ti-thumb{width:38px; height:38px; border-radius:5px; background:linear-gradient(135deg,#dfe6ee,#c4d2e0); display:flex; align-items:center; justify-content:center;}
+  .ibt input.qty{width:54px; padding:.3rem; text-align:center;}
+  .ibt .rm{color:var(--wp-red); cursor:pointer; font-weight:700;}
+  .ibt .ti-line{font-weight:700; white-space:nowrap;}
+
+  .add-row{margin-top:.7rem; display:flex; align-items:center;}
+  .add-row select{flex:1 1 auto; margin-right:.5rem;}
+
+  /* summary side */
+  .sum .s-row{display:flex; justify-content:space-between; margin-bottom:.35rem; color:var(--wp-muted);}
+  .sum .s-grand{display:flex; justify-content:space-between; font-size:1.25rem; font-weight:700; color:var(--wp-text);
+    border-top:1px dashed var(--wp-border); padding-top:.5rem; margin-top:.3rem;}
+  .create-btn{
+    display:block; width:100%; text-align:center; background:var(--wp-green); color:#fff;
+    border:none; border-radius:6px; padding:.7rem; font-size:1rem; font-weight:700; cursor:pointer; margin-top:.8rem;
+  }
+  .create-btn:hover{filter:brightness(.95);}
+  .draft-btn{display:block; width:100%; text-align:center; background:#fff; color:var(--wp-text);
+    border:1px solid var(--wp-border); border-radius:6px; padding:.5rem; font-size:.88rem; cursor:pointer; margin-top:.5rem;}
+
+  /* legend / file tree */
+  .legend{display:flex; flex-wrap:wrap; margin:0 -0.5rem;}
+  .legend > div{flex:1 1 240px; margin:.5rem; background:#fff; border:1px solid var(--wp-border);
+    border-radius:var(--radius); padding:1rem;}
+  .legend h4{margin:0 0 .5rem; font-size:.95rem;}
+  .legend ul{margin:.3rem 0 0 1rem; padding:0;}
+  pre.tree{
+    background:#1d2327; color:#d6e4f0; border-radius:8px; padding:1.1rem 1.3rem;
+    overflow:auto; font-size:.85rem; line-height:1.5;
+  }
+  pre.tree .c{color:#7c8a99;}
+  footer{margin-top:3rem; color:var(--wp-muted); font-size:.85rem; text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===== HEADER ===== -->
+  <div class="doc-head">
+    <h1>🎭 Tối ưu Order trong wp-admin — Chi tiết đơn &amp; Tạo đơn thuê</h1>
+    <p>Hai màn hình cho nhân viên xử lý đơn cho thuê đồ cosplay, tinh thần <strong>một màn hình · một chạm · đúng nhu cầu</strong>.
+       Khách tự thêm order, nhân viên chỉ cần <em>tạo nhanh</em> và <em>xem/xử lý nhanh</em>.</p>
+    <div class="badges">
+      <span class="badge">WooCommerce HPOS</span>
+      <span class="badge">One screen</span>
+      <span class="badge">One-click</span>
+      <span class="badge">Tự tính tiền theo ngày thuê</span>
+      <span class="badge">Vanilla PHP/CSS/JS</span>
+    </div>
+  </div>
+
+  <!-- ===== MOCKUP 1: DETAIL ===== -->
+  <h2 class="section"><span class="num">1</span>Màn 1 — Chi tiết đơn (tổng quan &amp; xử lý)</h2>
+  <div class="mock-note">
+    👇 Mô phỏng <em>WooCommerce → Orders → (mở 1 đơn)</em> sau khi tối ưu.
+    Bấm thử <strong>radio trạng thái thuê</strong> và nút <strong>Đã thu</strong> để xem tương tác.
+  </div>
+
+  <div class="admin">
+    <div class="admin-bar">WordPress · <strong>WooCommerce</strong> › Orders › Sửa đơn &nbsp;|&nbsp; <strong>#YUN-10482</strong></div>
+    <div class="admin-body">
+      <div class="admin-title">Đơn hàng #YUN-10482 <span class="muted" style="font-size:.8rem;">— Mã Yun: ORD-2026-0610</span></div>
+      <div class="cols">
+        <div class="col-main">
+
+          <div class="postbox feature">
+            <h3>🎭 Đơn thuê — Tổng quan <span class="pill">Panel mới · trên cùng</span></h3>
+            <div class="inside">
+              <div class="grid2">
+                <div class="card">
+                  <h4>Khách hàng &amp; liên hệ</h4>
+                  <div class="cust-name">Nguyễn Thị Hương</div>
+                  <div class="row"><span class="lbl">📞 SĐT</span> <span class="val">0901 234 567</span></div>
+                  <div class="row"><span class="lbl">📍 Giao</span> <span class="val">123 Lê Lợi, Q.1, TP.HCM</span></div>
+                  <div class="btns">
+                    <a class="btn primary" href="#">📞 Gọi</a>
+                    <a class="btn" href="#">💬 Zalo</a>
+                    <span class="btn ghost" onclick="flash(this,'Đã copy SĐT')">📋 Copy SĐT</span>
+                  </div>
+                </div>
+                <div class="card">
+                  <h4>Lịch thuê</h4>
+                  <div class="row"><span class="lbl">Nhận đồ</span> <span class="val">20/06/2026</span></div>
+                  <div class="row"><span class="lbl">Trả đồ</span> <span class="val">23/06/2026</span></div>
+                  <div class="row"><span class="lbl">Số ngày</span> <span class="val">3 ngày</span></div>
+                </div>
+              </div>
+
+              <div class="card" style="margin-bottom:.9rem;">
+                <h4>Trạng thái &amp; nguồn — radio, lưu ngay</h4>
+
+                <div class="rg-label">Trạng thái đơn</div>
+                <div class="status-group">
+                  <label><input type="radio" name="os">Chờ xử lý</label>
+                  <label class="sel"><input type="radio" name="os" checked>Đang xử lý</label>
+                  <label><input type="radio" name="os">Tạm giữ</label>
+                  <label><input type="radio" name="os">Hoàn thành</label>
+                  <label data-bad="1"><input type="radio" name="os">Đã hủy</label>
+                </div>
+
+                <div class="rg-label">Trạng thái giao nhận</div>
+                <div class="status-group">
+                  <label><input type="radio" name="rs">Chờ lấy</label>
+                  <label class="sel"><input type="radio" name="rs" checked>Đã lấy</label>
+                  <label><input type="radio" name="rs">Trả đủ</label>
+                  <label data-bad="1"><input type="radio" name="rs">Trả thiếu</label>
+                  <label data-bad="1"><input type="radio" name="rs">Trả hỏng</label>
+                </div>
+
+                <div class="rg-label">Nguồn đơn <span style="font-weight:400; text-transform:none;">— danh sách tự lấy từ data <code>_yun_source_order</code> đã có (ví dụ)</span></div>
+                <div class="status-group">
+                  <label class="sel"><input type="radio" name="src" checked>Bán tại cửa hàng</label>
+                  <label><input type="radio" name="src">Facebook</label>
+                  <label><input type="radio" name="src">Instagram</label>
+                  <label><input type="radio" name="src">Shopee</label>
+                </div>
+
+                <span class="saved" style="visibility:hidden;">✓ Đã lưu</span>
+              </div>
+
+              <div class="card" style="margin-bottom:.9rem;">
+                <h4>Cọc &amp; phí tạm giữ — bấm để đánh dấu</h4>
+                <div class="toggle-line">
+                  <span class="tl-label">Tiền cọc</span><span class="tl-amount">500.000₫</span>
+                  <span class="seg"><span class="on" onclick="seg(this,true)">✓ Đã thu</span><span onclick="seg(this,false)">Chưa thu</span></span>
+                </div>
+                <div class="toggle-line">
+                  <span class="tl-label">Phí tạm giữ</span><span class="tl-amount">200.000₫</span>
+                  <span class="seg"><span onclick="seg(this,true)">Đã hoàn</span><span class="on warn" onclick="seg(this,false)">Chưa hoàn</span></span>
+                </div>
+              </div>
+
+              <div class="card">
+                <h4>Sản phẩm trong đơn</h4>
+                <div class="item">
+                  <div class="thumb">🥷</div>
+                  <div class="it-name">Cosplay Genshin — Raiden Shogun <small>Size M · thuê 3 ngày</small></div>
+                  <div class="it-qty">×1 · 350.000₫/ngày</div>
+                  <div class="it-total">1.050.000₫</div>
+                </div>
+                <div class="item">
+                  <div class="thumb">💜</div>
+                  <div class="it-name">Wig dài tím <small>thuê 3 ngày</small></div>
+                  <div class="it-qty">×1 · 50.000₫/ngày</div>
+                  <div class="it-total">150.000₫</div>
+                </div>
+                <div class="totals">
+                  <div class="t-row">Tạm tính: 1.200.000₫ &nbsp;·&nbsp; Ship: 30.000₫</div>
+                  <div class="t-grand">Tổng: 1.230.000₫</div>
+                </div>
+              </div>
+
+              <div class="actions-bar">
+                <span class="btn primary" onclick="flash(this,'Mở cửa sổ in…')">🖨 In phiếu</span>
+                <span class="btn ghost" onclick="flash(this,'Đã copy nội dung đơn')">📋 Copy đơn</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="postbox closed"><h3>Order data (WooCommerce gốc) <span class="toggle">▸ thu gọn</span></h3><div class="inside"></div></div>
+          <div class="postbox closed"><h3>Order items (WooCommerce gốc) <span class="toggle">▸ thu gọn — để refund/chỉnh khi cần</span></h3><div class="inside"></div></div>
+          <p class="muted" style="font-size:.82rem;">⨯ <em>Downloads</em> và <em>Custom Fields</em> (đống meta <code>_yun_*</code>) đã ẩn.</p>
+        </div>
+
+        <div class="col-side">
+          <div class="postbox"><h3>Order actions</h3><div class="inside">
+            <p class="muted" style="font-size:.85rem; margin-top:0;">Trạng thái đơn WooCommerce vẫn ở đây.</p>
+            <div class="side-update">Cập nhật đơn</div>
+          </div></div>
+          <div class="postbox"><h3>Order notes</h3><div class="inside">
+            <p class="muted" style="font-size:.82rem; margin:0;">Lịch sử Yun import + ghi chú tự động khi đổi trạng thái/cọc.</p>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MOCKUP 2: CREATE ORDER ===== -->
+  <h2 class="section"><span class="num">2</span>Màn 2 — Tạo đơn thuê mới</h2>
+  <div class="mock-note">
+    👇 Trang riêng <em>WooCommerce → Tạo đơn thuê</em>. Đổi <strong>số lượng</strong> hoặc <strong>ngày nhận/trả</strong>
+    để xem tiền <strong>tự tính lại</strong> (đơn giá × SL × số ngày).
+  </div>
+
+  <div class="admin">
+    <div class="admin-bar">WordPress · <strong>WooCommerce</strong> › <strong>Tạo đơn thuê</strong></div>
+    <div class="admin-body">
+      <div class="admin-title">➕ Tạo đơn thuê mới</div>
+      <div class="cols">
+        <!-- MAIN: customer + products + dates -->
+        <div class="col-main">
+
+          <div class="postbox feature">
+            <h3>📝 Thông tin đơn <span class="pill">1 màn · tạo 1 chạm</span></h3>
+            <div class="inside">
+
+              <!-- customer -->
+              <div class="card" style="margin-bottom:.9rem;">
+                <h4>Khách hàng</h4>
+                <div class="fld search">
+                  <label>Số điện thoại</label>
+                  <input type="text" value="0901 234 567" placeholder="Nhập SĐT để tìm khách cũ…">
+                  <span class="find">🔍</span>
+                  <div class="hint">Gõ SĐT → tự tìm khách cũ (điền sẵn tên/địa chỉ), hoặc nhập mới.</div>
+                </div>
+                <div class="two">
+                  <div class="fld"><label>Họ tên</label><input type="text" value="Nguyễn Thị Hương"></div>
+                  <div class="fld"><label>Địa chỉ giao</label><input type="text" value="123 Lê Lợi, Q.1"></div>
+                </div>
+              </div>
+
+              <!-- source + order status -->
+              <div class="card" style="margin-bottom:.9rem;">
+                <h4>Nguồn &amp; trạng thái đơn</h4>
+                <div class="rg-label">Trạng thái đơn</div>
+                <div class="status-group">
+                  <label><input type="radio" name="cos">Chờ xử lý</label>
+                  <label class="sel"><input type="radio" name="cos" checked>Đang xử lý</label>
+                  <label><input type="radio" name="cos">Tạm giữ</label>
+                  <label><input type="radio" name="cos">Hoàn thành</label>
+                </div>
+                <div class="rg-label">Nguồn đơn <span style="font-weight:400; text-transform:none;">— tự lấy từ data có sẵn (ví dụ)</span></div>
+                <div class="status-group">
+                  <label class="sel"><input type="radio" name="csrc" checked>Bán tại cửa hàng</label>
+                  <label><input type="radio" name="csrc">Facebook</label>
+                  <label><input type="radio" name="csrc">Instagram</label>
+                  <label><input type="radio" name="csrc">Shopee</label>
+                </div>
+              </div>
+
+              <!-- rental dates -->
+              <div class="card" style="margin-bottom:.9rem;">
+                <h4>Thời gian thuê</h4>
+                <div class="two">
+                  <div class="fld"><label>Ngày nhận</label><input type="date" id="dStart" value="2026-06-20"></div>
+                  <div class="fld"><label>Ngày trả</label><input type="date" id="dEnd" value="2026-06-23"></div>
+                </div>
+                <span class="daybadge">Số ngày thuê: <span id="dDays">3</span> ngày</span>
+                <span class="hint" style="margin-left:.5rem;">Tiền = đơn giá × SL × số ngày</span>
+              </div>
+
+              <!-- products -->
+              <div class="card">
+                <h4>Sản phẩm</h4>
+                <table class="ibt" id="ibt">
+                  <thead><tr><th></th><th>Sản phẩm</th><th>Đơn giá/ngày</th><th>SL</th><th>Thành tiền</th><th></th></tr></thead>
+                  <tbody>
+                    <tr data-unit="350000">
+                      <td><div class="ti-thumb">🥷</div></td>
+                      <td>Cosplay Genshin — Raiden <small class="muted">Size M</small></td>
+                      <td>350.000₫</td>
+                      <td><input class="qty" type="number" min="1" value="1"></td>
+                      <td class="ti-line">—</td>
+                      <td><span class="rm" title="Xóa">✕</span></td>
+                    </tr>
+                    <tr data-unit="50000">
+                      <td><div class="ti-thumb">💜</div></td>
+                      <td>Wig dài tím</td>
+                      <td>50.000₫</td>
+                      <td><input class="qty" type="number" min="1" value="1"></td>
+                      <td class="ti-line">—</td>
+                      <td><span class="rm" title="Xóa">✕</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="add-row">
+                  <select><option>+ Tìm &amp; thêm sản phẩm… (gõ tên)</option><option>Cosplay Honkai — Kafka</option><option>Kimono đỏ</option></select>
+                  <span class="btn primary">Thêm</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- SIDE: fees + summary + create -->
+        <div class="col-side">
+          <div class="postbox"><h3>Phụ phí &amp; ghi chú</h3><div class="inside">
+            <div class="fld"><label>Tiền cọc (₫)</label>
+              <div class="fee-row"><input type="text" value="500.000"><label class="chk"><input type="checkbox" checked> Đã thu</label></div>
+            </div>
+            <div class="fld"><label>Phí tạm giữ (₫)</label>
+              <div class="fee-row"><input type="text" value="200.000"><label class="chk"><input type="checkbox"> Đã thu</label></div>
+            </div>
+            <div class="fld"><label>Phí ship (₫)</label><input type="text" id="fShip" value="30000"></div>
+            <div class="fld"><label>Giảm giá (₫)</label><input type="text" id="fDisc" value="0"></div>
+            <div class="fld"><label>Ghi chú đơn</label><textarea rows="2" placeholder="VD: giao trước 9h sáng"></textarea></div>
+          </div></div>
+
+          <div class="postbox feature"><h3>💰 Tổng kết</h3><div class="inside sum">
+            <div class="s-row"><span>Tạm tính</span><span id="sSub">—</span></div>
+            <div class="s-row"><span>Phí ship</span><span id="sShip">30.000₫</span></div>
+            <div class="s-row"><span>Giảm giá</span><span id="sDisc">0₫</span></div>
+            <div class="s-grand"><span>Tổng đơn</span><span id="sGrand">—</span></div>
+            <button class="create-btn" onclick="flash(this,'Đã tạo đơn → mở chi tiết')">✓ Tạo đơn</button>
+            <button class="draft-btn" onclick="flash(this,'Đã lưu nháp')">Lưu nháp</button>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== COMPONENTS ===== -->
+  <h2 class="section"><span class="num">3</span>Thành phần &amp; thao tác</h2>
+  <div class="legend">
+    <div>
+      <h4>📄 Màn chi tiết — hiển thị</h4>
+      <ul>
+        <li>Khách + SĐT + địa chỉ</li>
+        <li>Nguồn đơn (tự lấy từ data)</li>
+        <li>Ngày nhận/trả/số ngày</li>
+        <li>Cọc &amp; phí tạm giữ</li>
+        <li>Sản phẩm + ảnh + tổng tiền</li>
+      </ul>
+    </div>
+    <div>
+      <h4>⚡ Màn chi tiết — one-click</h4>
+      <ul>
+        <li>Gọi / Zalo / Copy SĐT</li>
+        <li>Đánh dấu cọc/phí đã thu (AJAX)</li>
+        <li><strong>Trạng thái đơn</strong> (WC) = radio (lưu ngay)</li>
+        <li><strong>Trạng thái giao nhận</strong> = radio (lưu ngay)</li>
+        <li>In phiếu / Copy đơn</li>
+      </ul>
+    </div>
+    <div>
+      <h4>➕ Màn tạo đơn</h4>
+      <ul>
+        <li>Tìm khách theo SĐT / nhập mới</li>
+        <li>Tìm &amp; thêm sản phẩm + SL</li>
+        <li>Ngày nhận/trả → tự tính số ngày + tiền</li>
+        <li>Cọc / phí / ship / giảm / ghi chú</li>
+        <li><strong>Tạo đơn 1 chạm</strong> → mở luôn màn chi tiết</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== FILES ===== -->
+  <h2 class="section"><span class="num">4</span>Cấu trúc file sẽ tạo</h2>
+  <pre class="tree">inc/admin-order/
+├── index.php              <span class="c"># bootstrap: hook, enqueue, helper screen HPOS</span>
+├── detail.php             <span class="c"># metabox chi tiết + AJAX cập nhật trạng thái/cọc + in phiếu</span>
+├── create.php             <span class="c"># submenu "Tạo đơn thuê" + AJAX tìm khách + tạo đơn</span>
+├── order-builder.php      <span class="c"># okhub_build_rental_order() — dùng chung cho tạo tay & import</span>
+├── views/
+│   ├── panel.php          <span class="c"># markup panel chi tiết</span>
+│   ├── create-form.php    <span class="c"># markup form tạo đơn</span>
+│   └── print.php          <span class="c"># phiếu in gọn</span>
+└── assets/
+    ├── detail.css / detail.js     <span class="c"># radio/toggle → AJAX, call/copy/print</span>
+    └── create.css / create.js     <span class="c"># tìm SP/khách, tự tính tiền theo ngày</span>
+
+functions.php  →  require get_theme_file_path('/inc/admin-order/index.php');</pre>
+
+  <p class="muted">Hook chính — <strong>Chi tiết:</strong> <code>add_meta_boxes</code> (thêm panel + ẩn box thừa),
+     <code>wp_ajax_okhub_update_order_meta</code>, <code>wp_ajax_okhub_print_order</code>.
+     <strong>Tạo đơn:</strong> <code>admin_menu</code> (submenu dưới WooCommerce),
+     <code>wp_ajax_okhub_lookup_customer</code> (tìm khách theo SĐT từ đơn cũ),
+     dùng lại WooCommerce product search (<code>woocommerce_json_search_products_and_variations</code>),
+     <code>wp_ajax_okhub_create_rental_order</code> (tạo đơn → trả URL chi tiết để JS redirect).
+     Tất cả có nonce + kiểm tra <code>manage_woocommerce</code> + whitelist giá trị.</p>
+  <p class="muted">Giá theo ngày &amp; meta thuê (<code>_rental_start_date</code>, <code>_rental_end_date</code>, <code>_rental_days</code>,
+     <code>_rental_status</code>, <code>_deposit_*</code>, <code>_collateral_*</code>) tái dùng đúng schema của
+     <code>import-order.php</code> để màn chi tiết &amp; đơn import nhất quán.</p>
+
+  <!-- ===== TEST ===== -->
+  <h2 class="section"><span class="num">5</span>Kiểm thử</h2>
+  <ul>
+    <li><strong>Chi tiết:</strong> mở 1 đơn đã import → panel trên cùng đủ thông tin; radio trạng thái + toggle cọc lưu ngay (có order note); In/Copy/Gọi/Zalo chạy; box thừa đã ẩn/thu gọn; nút Cập nhật vẫn lưu.</li>
+    <li><strong>Tạo đơn:</strong> vào <em>WooCommerce → Tạo đơn thuê</em>; gõ SĐT khách cũ → điền sẵn; thêm sản phẩm; đổi ngày/SL → tiền tự tính; bấm <strong>Tạo đơn</strong> → tạo WC order đúng tổng + meta thuê, rồi mở thẳng màn chi tiết.</li>
+    <li>Đối chiếu số tiền với công thức <code>đơn giá × SL × số ngày</code> (giống <code>import-order.php</code>).</li>
+  </ul>
+
+  <footer>Bản phác kế hoạch — chờ duyệt trước khi code · OKHUB Theme</footer>
+</div>
+
+<script>
+  function flash(el, msg){ var old=el.textContent; el.textContent='✓ '+msg; setTimeout(function(){el.textContent=old;},1500); }
+  function seg(el,on){ var box=el.parentElement; [].forEach.call(box.children,function(c){c.classList.remove('on','warn');}); el.classList.add('on'); if(!on) el.classList.add('warn'); }
+
+  // detail: radio status (works for every .status-group: order status + giao nhận)
+  [].forEach.call(document.querySelectorAll('.status-group'),function(group){
+    [].forEach.call(group.querySelectorAll('label'),function(lab){
+      lab.addEventListener('click',function(){
+        [].forEach.call(group.querySelectorAll('label'),function(l){l.classList.remove('sel','bad');});
+        lab.classList.add('sel'); if(lab.dataset.bad) lab.classList.add('bad');
+        lab.querySelector('input').checked=true;
+        var card=group.closest('.card'), s=card&&card.querySelector('.saved');
+        if(s){ s.style.visibility='visible'; clearTimeout(s._t); s._t=setTimeout(function(){s.style.visibility='hidden';},1600); }
+      });
+    });
+  });
+
+  // create: auto-calc
+  function vnd(n){ return n.toLocaleString('vi-VN')+'₫'; }
+  function num(v){ return parseInt(String(v).replace(/[^\d]/g,''),10)||0; }
+  function days(){
+    var s=new Date(document.getElementById('dStart').value), e=new Date(document.getElementById('dEnd').value);
+    var d=Math.round((e-s)/86400000); return d>0?d:1;
+  }
+  function recalc(){
+    var d=days(); document.getElementById('dDays').textContent=d;
+    var sub=0;
+    [].forEach.call(document.querySelectorAll('#ibt tbody tr'),function(tr){
+      var unit=num(tr.dataset.unit), qty=num(tr.querySelector('.qty').value), line=unit*qty*d;
+      tr.querySelector('.ti-line').textContent=vnd(line); sub+=line;
+    });
+    var ship=num(document.getElementById('fShip').value), disc=num(document.getElementById('fDisc').value);
+    document.getElementById('sSub').textContent=vnd(sub);
+    document.getElementById('sShip').textContent=vnd(ship);
+    document.getElementById('sDisc').textContent=vnd(disc);
+    document.getElementById('sGrand').textContent=vnd(Math.max(0,sub+ship-disc));
+  }
+  ['dStart','dEnd','fShip','fDisc'].forEach(function(id){ document.getElementById(id).addEventListener('input',recalc); });
+  [].forEach.call(document.querySelectorAll('#ibt .qty'),function(q){ q.addEventListener('input',recalc); });
+  [].forEach.call(document.querySelectorAll('#ibt .rm'),function(x){ x.addEventListener('click',function(){ x.closest('tr').remove(); recalc(); }); });
+  recalc();
+</script>
+</body>
+</html>
