@@ -10,6 +10,7 @@ require get_theme_file_path('/import-order.php');
 require get_theme_file_path('/inc/product-api.php');
 require get_theme_file_path('/inc/blog-api.php');
 require get_theme_file_path('/template-parts/contact-page/acf.php');
+require get_theme_file_path('/inc/schema.php');
 
 // Hook cho sản phẩm đơn giản (simple products)
 add_action(
@@ -525,65 +526,208 @@ function yun_force_pm_option_uri($term_id, $tt_id, $taxonomy)
 // ================================
 
 // add_action('rest_api_init', function () {
-//     register_rest_route('api/v1', '/products/strip-styles', [
+//     register_rest_route('api/v1', '/post/strip-styles', [
 //         'methods'             => 'GET',
-//         'callback'            => 'cosplay_strip_product_description_styles',
+//         'callback'            => 'cosplay_strip_post_content_styles',
 //         'permission_callback' => '__return_true',
 //     ]);
 // });
 
-function cosplay_strip_product_description_styles($request)
+function cosplay_strip_post_content_styles($request)
 {
-    $products = wc_get_products([
-        'limit'  => -1,
-        'status' => 'publish',
-        'return' => 'ids',
+    $page     = max(1, (int) $request->get_param('page'));
+    $per_page = 200;
+
+    $posts = get_posts([
+        'post_type'              => 'post',
+        'post_status'            => 'publish',
+        'posts_per_page'         => $per_page,
+        'paged'                  => $page,
+        'update_post_meta_cache' => false,
+        'update_post_term_cache' => false,
     ]);
 
-    if (empty($products)) {
+    if (empty($posts)) {
         return new WP_REST_Response([
             'success' => true,
-            'message' => 'Không có sản phẩm nào.',
+            'message' => 'Không còn bài viết nào để xử lý.',
             'updated' => 0,
+            'page'    => $page,
         ], 200);
     }
 
     $updated = 0;
     $errors  = [];
 
-    foreach ($products as $product_id) {
-        $post = get_post($product_id);
-
-        if (!$post) continue;
-
+    foreach ($posts as $post) {
         $content = $post->post_content;
 
-        if (empty($content)) continue;
+        if (empty($content)) {
+            continue;
+        }
 
-        // Xoá tất cả attribute style="..." trong HTML
-        $clean = preg_replace('/\s*style\s*=\s*"[^"]*"/i', '', $content);
-        $clean = preg_replace("/\s*style\s*=\s*'[^']*'/i", '', $clean);
+        // remove toàn bộ style=""
+        $clean = preg_replace('/\sstyle\s*=\s*("|\')(.*?)\1/i', '', $content);
 
-        // Không thay đổi thì skip
-        if ($clean === $content) continue;
+        if ($clean === $content) {
+            continue;
+        }
 
         $result = wp_update_post([
-            'ID'           => $product_id,
+            'ID'           => $post->ID,
             'post_content' => $clean,
         ], true);
 
         if (is_wp_error($result)) {
-            $errors[] = $product_id;
-        } else {
-            $updated++;
+            $errors[$post->ID] = $result->get_error_message();
+            continue;
         }
+
+        $updated++;
     }
 
     return new WP_REST_Response([
         'success' => true,
-        'message' => "Đã cập nhật {$updated} sản phẩm.",
+        'message' => "Đã cập nhật {$updated} bài viết.",
         'updated' => $updated,
-        'total'   => count($products),
+        'page'    => $page,
+        'next'    => rest_url('cosplay/v1/strip-post-styles?page=' . ($page + 1)),
         'errors'  => $errors,
     ], 200);
 }
+
+/**
+ * ĐÃ XOÁ: enqueue_featured_news_assets().
+ *
+ * Hàm này hook wp_enqueue_scripts KHÔNG điều kiện nên nạp trùng asset trên MỌI trang:
+ *   - swiper CDN (swiper@11) → Swiper load 2 lần, đã có bản local ở wp_enqueue_lib()
+ *   - app.js (handle 'app-script') → app.js load 2 lần → `new App()` chạy 2 lần
+ *     → 2 instance Lenis + 2 vòng RAF
+ *   - featured-scripts → nạp mọi trang dù chỉ trang blogs cần
+ *
+ * blog-list/featured-section/assets/scripts.js nay nằm trong page-group 'blog-list' của
+ * asset-manifest.php, đứng trước blog-list/assets/scripts.js (file này gọi initAllSwipers).
+ *
+ * @see import-assets/asset-manifest.php → okhub_asset_pages_js()
+ */
+
+
+function ajax_filter_posts()
+{
+    // Lấy dữ liệu từ AJAX
+    $cat_slug = isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '';
+    $paged    = isset($_POST['paged']) ? intval($_POST['paged']) : 1;
+
+    $per_page = wp_is_mobile() ? 9 : 16;
+
+    $args = array(
+        'post_type'      => 'post',
+        'posts_per_page' => $per_page,
+        'paged'          => $paged,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+        'post_status'    => 'publish',
+    );
+
+    if (!empty($cat_slug)) {
+        $args['category_name'] = $cat_slug;
+    }
+
+    $query = new WP_Query($args);
+
+    ob_start();
+?>
+    <div class="list">
+        <?php if ($query->have_posts()) : ?>
+            <?php while ($query->have_posts()) : $query->the_post();
+                $current_cats = get_the_category();
+                $first_cat    = !empty($current_cats) ? $current_cats[0]->name : 'Tin tức';
+                $thumbnail_id = get_post_thumbnail_id();
+            ?>
+                <!-- Đồng bộ Class: post-card img-zoom-on-hover -->
+                <div class="post-card img-zoom-on-hover">
+                    <div class="post-card__media">
+                        <a href="<?php the_permalink(); ?>">
+                            <?php if ($thumbnail_id) : ?>
+                                <?php echo wp_get_attachment_image($thumbnail_id, 'full', false, array(
+                                    'loading'  => 'lazy',
+                                    'decoding' => 'async',
+                                    'class'    => 'post-card__image zoom-image' // Thêm zoom-image ở đây
+                                )); ?>
+                            <?php else : ?>
+                                <?php echo wp_get_attachment_image(168, 'full', false, array(
+                                    'loading'  => 'lazy',
+                                    'decoding' => 'async',
+                                    'class'    => 'post-card__image zoom-image'
+                                )); ?>
+                            <?php endif; ?>
+                            
+                            <img class="post-card__layer" src="<?= get_template_directory_uri(); ?>/assets/images/layer_image.svg" alt="Layer Overlay" />
+                        </a>
+                    </div>
+                    <div class="post-card__content">
+                        <div class="post-card__meta">
+                            <span class="post-card__tag post-card__tag--red"><?= esc_html($first_cat); ?></span>
+                            <time datetime="<?php echo get_the_date('c'); ?>" class="post-card__date">
+                                <?php echo get_the_date('d/m/Y'); ?>
+                            </time>
+                        </div>
+
+                        <h3 class="post-card__title">
+                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                        </h3>
+                    </div>
+                </div>
+            <?php endwhile; wp_reset_postdata(); ?>
+        <?php else : ?>
+            <p>Không tìm thấy bài viết nào phù hợp.</p>
+        <?php endif; ?>
+    </div>
+
+    <?php if ($query->max_num_pages > 1) : ?>
+        <nav class="pagination" aria-label="Page navigation">
+            <ul class="pagination__list">
+                <?php
+                $pages = paginate_links(array(
+                    'total'        => $query->max_num_pages,
+                    'current'      => $paged,
+                    'format'       => '?paged=%#%',
+                    'add_args'     => array('categories' => $cat_slug),
+                    'prev_text'    => '<svg width="7" height="11" viewBox="0 0 7 11" fill="none"><path d="M5.70605 0.353516L0.706873 5.3527L5.70605 10.3519" stroke="#1D1D1D" /></svg>',
+                    'next_text'    => '<svg width="7" height="11" viewBox="0 0 7 11" fill="none"><path d="M0.353516 0.353516L5.3527 5.3527L0.353516 10.3519" stroke="#1D1D1D" /></svg>',
+                    'type'         => 'array',
+                    'prev_next'    => true,
+                ));
+
+                if (is_array($pages)) {
+                    foreach ($pages as $page) {
+                        $is_prev_next = (strpos($page, 'prev') !== false || strpos($page, 'next') !== false);
+                        $is_active    = strpos($page, 'current') !== false;
+
+                        $page = str_replace('page-numbers', 'pagination__link', $page);
+
+                        if ($is_prev_next) {
+                            $page = str_replace('pagination__link', 'pagination__link pagination__link--btn', $page);
+                            $page = str_replace(['prev', 'next'], '', $page);
+                            echo '<li class="pagination__item pagination__item--control">' . $page . '</li>';
+                        } elseif (strpos($page, 'dots') !== false) {
+                            echo '<li class="pagination__item pagination__item--dots"><span class="pagination__dot"></span><span class="pagination__dot"></span><span class="pagination__dot"></span></li>';
+                        } else {
+                            if ($is_active) {
+                                $page = str_replace('current', 'pagination__link--active', $page);
+                            }
+                            echo '<li class="pagination__item">' . $page . '</li>';
+                        }
+                    }
+                }
+                ?>
+            </ul>
+        </nav>
+    <?php endif; ?>
+<?php
+    $output = ob_get_clean();
+    echo $output;
+    wp_die();
+}
+add_action('wp_ajax_filter_posts', 'ajax_filter_posts');
+add_action('wp_ajax_nopriv_filter_posts', 'ajax_filter_posts');

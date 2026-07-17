@@ -1,20 +1,20 @@
 <?php
 // register res api update order
-add_action('rest_api_init', 'register_update_order_api');
-function register_update_order_api()
-{
-    register_rest_route('api/v1', '/orders', array(
-        'methods' => 'POST',
-        'callback' => 'import_orders_handler',
-    ));
-}
+// add_action('rest_api_init', 'register_update_order_api');
+// function register_update_order_api()
+// {
+//     register_rest_route('api/v1', '/orders', array(
+//         'methods' => 'POST',
+//         'callback' => 'import_orders_handler',
+//     ));
+// }
 
 function import_orders_handler($request)
 {
     $limit = intval($request->get_param('limit') ?: 50);
     $page  = intval($request->get_param('page')  ?: 1);
 
-    $api_url  = 'http://localhost:3000/api/orders?limit=' . $limit . '&page=' . $page;
+    $api_url  = 'http://localhost:3535/api/orders?limit=' . $limit . '&page=' . $page;
     $response = wp_remote_get($api_url, ['timeout' => 60]);
 
     if (is_wp_error($response)) {
