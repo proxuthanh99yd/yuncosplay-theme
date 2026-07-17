@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan — Chặn lazy load ảnh banner/viewport (OKHUB Theme)</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1c1e21;
+    --muted: #5c6370;
+    --border: #e3e6ea;
+    --code-bg: #f6f7f9;
+    --accent: #b8412f;
+    --accent-bg: #fdf0ed;
+    --ok: #1a7f4b;
+    --ok-bg: #eaf6ef;
+    --warn: #8a6100;
+    --warn-bg: #fdf5e3;
+    --link: #0b62c4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e8eb;
+      --muted: #9aa2ad;
+      --border: #2c3038;
+      --code-bg: #1e2127;
+      --accent: #ff8b73;
+      --accent-bg: #2c1d1a;
+      --ok: #63d397;
+      --ok-bg: #17291f;
+      --warn: #e5b95c;
+      --warn-bg: #2a2317;
+      --link: #6cb1ff;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.68 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+  h1 {
+    font-size: 2rem;
+    line-height: 1.25;
+    margin: 0 0 .5rem;
+    letter-spacing: -.02em;
+  }
+  .sub { color: var(--muted); margin: 0 0 2.5rem; font-size: .95rem; }
+  h2 {
+    font-size: 1.3rem;
+    margin: 3rem 0 1rem;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: -.01em;
+  }
+  h3 { font-size: 1.05rem; margin: 2rem 0 .75rem; }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1rem; padding-left: 1.4rem; }
+  li { margin-bottom: .5rem; }
+  li > ul, li > ol { margin-top: .5rem; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: .875em;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: .1em .35em;
+    word-break: break-word;
+  }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.1rem;
+    overflow-x: auto;
+    margin: 0 0 1.25rem;
+  }
+  pre code {
+    background: none;
+    border: 0;
+    padding: 0;
+    font-size: .82rem;
+    line-height: 1.6;
+    white-space: pre;
+    word-break: normal;
+  }
+  .table-scroll { overflow-x: auto; margin: 0 0 1.25rem; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+  th, td {
+    border: 1px solid var(--border);
+    padding: .55rem .7rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: var(--code-bg); font-weight: 600; }
+  hr { border: 0; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+  strong { font-weight: 650; }
+  a { color: var(--link); }
+  .callout {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-bg);
+    padding: 1rem 1.1rem;
+    border-radius: 0 8px 8px 0;
+    margin: 0 0 1.5rem;
+  }
+  .callout.ok { border-left-color: var(--ok); background: var(--ok-bg); }
+  .callout.warn { border-left-color: var(--warn); background: var(--warn-bg); }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout-label {
+    display: block;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-bottom: .4rem;
+    color: var(--accent);
+  }
+  .callout.ok .callout-label { color: var(--ok); }
+  .callout.warn .callout-label { color: var(--warn); }
+  .toc {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 2.5rem;
+    background: var(--code-bg);
+  }
+  .toc-title {
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--muted);
+    margin-bottom: .6rem;
+  }
+  .toc ol { margin: 0; padding-left: 1.2rem; }
+  .toc li { margin-bottom: .3rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Chặn lazy load ảnh banner/viewport trên tất cả các trang</h1>
+<p class="sub">OKHUB Theme · đã implement · 17/07/2026</p>
+
+<div class="callout ok">
+  <span class="callout-label">Đã implement — verify 10/10 pass</span>
+  <p>5 trang × 2 thiết bị. Variant hiển thị = <code>src</code> thật + <code>loading="eager"</code> + <code>fetchpriority="high"</code>; variant bị ẩn = Rocket-LAZY (không tải). Đúng 1 ảnh <code>high</code>/trang.</p>
+</div>
+
+<div class="callout warn">
+  <span class="callout-label">Hai chỗ plan này SAI, đã sửa khi implement</span>
+  <p><strong>1. "Không thêm filter" — sai.</strong> Plan lập luận attr tường minh đã thắng core nên không cần filter. Đúng về việc core không <em>ghi đè</em> ta, nhưng bỏ sót việc core <em>thêm</em> <code>fetchpriority="high"</code> cho ảnh <strong>khác</strong>. Sau khi logo nhả cờ ra (<code>fetchpriority="auto"</code>), suất <code>high</code> tự động rơi xuống một ảnh mega-menu (<code>mask-gradient-2.png</code>) render trước hero → 2 ảnh cùng <code>high</code>. Đã thêm filter <code>wp_get_loading_optimization_attributes</code> (<code>okhub_only_explicit_fetchpriority()</code> trong <code>inc/helpers.php</code>) để chỉ ảnh nào theme chỉ định tường minh mới giữ <code>fetchpriority</code>. Gọn hơn nhiều so với sửa ~60 ảnh header.</p>
+  <p><strong>2. Mục "cố ý loại mega-menu khỏi phạm vi" — lập luận sai.</strong> Plan nói Rocket đã trung hoà chúng nên vô hại. Đúng về <em>download</em>, sai về <em>cướp cờ fetchpriority</em>. Filter ở trên xử lý luôn, không cần đụng vào 60 call site đó.</p>
+  <p>Ngoài ra <code>about-us/section-banner</code> cũng là swiper nên cần thêm điều kiện <code>$i === 0</code> (bảng §2 ghi thiếu), và nhánh large-item của gallery product detail cũng dùng chung cờ <code>$hero_img_done</code> thay vì cứng <code>lazy</code>.</p>
+</div>
+
+<div class="toc">
+  <div class="toc-title">Nội dung</div>
+  <ol>
+    <li><a href="#context">Context — thủ phạm thật sự là WP Rocket</a></li>
+    <li><a href="#helper">Helper trong <code>inc/helpers.php</code></a></li>
+    <li><a href="#heroes">Sửa từng hero</a></li>
+    <li><a href="#product">Trang product detail</a></li>
+    <li><a href="#logo">Logo header</a></li>
+    <li><a href="#verify">Verification</a></li>
+    <li><a href="#risk">Rủi ro</a></li>
+    <li><a href="#outscope">Đã cân nhắc và cố ý loại</a></li>
+    <li><a href="#commit">Commit</a></li>
+  </ol>
+</div>
+
+<h2 id="context">Context</h2>
+
+<p>Theme hardcode <code>'loading' =&gt; 'lazy'</code> vào <strong>~129 call site</strong> <code>wp_get_attachment_image()</code> trải trên 44 file — <strong>bao gồm ảnh banner/hero của mọi trang</strong>, tức chính LCP element.</p>
+
+<div class="callout">
+  <span class="callout-label">Thủ phạm thật sự</span>
+  <p>Không phải attr <code>loading</code> native. Project chạy <strong>WP Rocket 3.21.3</strong> với <strong>LazyLoad (JS) đang BẬT</strong>. Rocket rewrite HTML qua output buffer: gỡ <code>loading</code>, thay <code>src</code> bằng SVG placeholder rỗng, đẩy URL thật sang <code>data-lazy-src</code>/<code>data-lazy-srcset</code>. Ảnh chỉ tải sau khi JS chạy.</p>
+</div>
+
+<p>Bằng chứng trong <code>wp-content/cache/wp-rocket/yuncosplay.local/index.html</code>:</p>
+
+<pre><code>&lt;img width="1672" height="941"
+     src="data:image/svg+xml,%3Csvg...%3E"      ← src thật bị thay bằng SVG rỗng
+     class="banner-image" decoding="async"
+     data-lazy-srcset="http://.../cua-hang-cho-thue-do-hoa-trang....jpg 1672w"&gt;</code></pre>
+
+<p>Toàn bộ HTML đã cache: <code>data-lazy-src</code> × 531, <code>loading="eager"</code> × <strong>0</strong>.</p>
+
+<p>Tệ hơn: chỗ <code>fetchpriority="high"</code> <strong>duy nhất</strong> trên homepage lại nằm trên <strong>logo header</strong> (<code>yun_cosplay_logo.webp</code>) — WP core tự gán vì nó là ảnh đầu DOM — <strong>và chính nó cũng bị Rocket lazyload</strong>. Priority hint đang nằm trên một data-URI rỗng.</p>
+
+<h3>Phát hiện quyết định: <code>loading="eager"</code> là chìa khoá</h3>
+
+<p><code>getExcludedAttributes()</code> trong <code>inc/Dependencies/RocketLazyload/Image.php:441</code> — danh sách loại trừ <strong>mặc định</strong> của Rocket đã chứa sẵn:</p>
+
+<pre><code>return apply_filters( 'rocket_lazyload_excluded_attributes', [
+    'data-src=', 'data-no-lazy=', 'data-lazy-src=', ...
+    'loading="eager"',        // ← chính nó
+    'data-skip-lazy', 'skip-lazy', ...
+] );</code></pre>
+
+<p><code>isExcluded()</code> (<code>Image.php:407</code>) khớp bằng <code>strpos()</code> — chuỗi con nguyên văn trên cả thẻ <code>&lt;img ...&gt;</code>. <code>wp_get_attachment_image()</code> xuất đúng <code>loading="eager"</code> dấu nháy kép → khớp chắc chắn.</p>
+
+<div class="callout ok">
+  <span class="callout-label">Hệ quả</span>
+  <p><code>loading="eager"</code> làm <strong>hai việc cùng lúc</strong>: hint native cho browser <em>và</em> kích hoạt luật loại trừ của Rocket. Không cần <code>data-no-lazy</code>, không cần filter, không cần đụng admin — giải pháp đi theo code, không trôi theo config.</p>
+</div>
+
+<p><strong>Đã verify bằng phép thử tự nhiên có sẵn trong repo</strong> — trang faqs vốn đã có <code>loading="eager"</code>:</p>
+
+<div class="table-scroll">
+<table>
+  <thead><tr><th>Hero</th><th>PHP hiện tại</th><th>HTML Rocket cache ra</th></tr></thead>
+  <tbody>
+    <tr><td><code>faq-hero__bg</code> (faqs)</td><td><code>loading="eager"</code></td><td><code>src="...banner.webp"</code> + <code>srcset</code> <strong>nguyên vẹn</strong>, <code>data-lazy</code> = <strong>0/2</strong></td></tr>
+    <tr><td><code>banner-image</code> (home)</td><td><code>loading="lazy"</code></td><td><code>src="data:image/svg+xml,..."</code>, URL thật ở <code>data-lazy-srcset</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Quyết định đã chốt</h3>
+<ul>
+  <li>Cặp desktop/mobile → <strong>gate bằng <code>IS_MOBILE</code></strong>. <strong>An toàn</strong>, vì <code>wp-content/wp-rocket-config/yuncosplay.local.php</code> có <code>$rocket_do_caching_mobile_files = 1</code> (tách file cache mobile) — xác nhận bằng <code>.mobile-active</code> + <code>index-mobile.html</code> trong cache dir.</li>
+  <li>Phạm vi → <strong>hero/banner + LCP thật + logo header</strong>. ~120 call site lazy dưới fold <strong>giữ nguyên</strong>.</li>
+  <li><strong>Không</strong> thêm <code>&lt;link rel="preload"&gt;</code>.</li>
+</ul>
+
+<h3>Bốn sự thật khác đã verify</h3>
+
+<div class="callout warn">
+  <span class="callout-label">Sự thật #0 — quan trọng nhất</span>
+  <p><strong><code>loading</code> là attr load-bearing — không bao giờ được bỏ trống.</strong> Mọi page template ACF (<code>front-page.php</code>, <code>about-us-page.php</code>, <code>service-*-page.php</code>, <code>faqs.php</code>…) chỉ gọi <code>get_header()</code> + <code>get_template_part()</code> + <code>get_footer()</code>, <strong>không bao giờ chạy main loop</strong> → <code>$wp_query-&gt;before_loop</code> giữ nguyên <code>true</code> suốt lượt render.</p>
+</div>
+
+<p><code>wp_get_loading_optimization_attributes()</code> rơi vào nhánh:</p>
+
+<pre><code>} elseif ( $wp_query-&gt;before_loop &amp;&amp; $wp_query-&gt;is_main_query()
+    &amp;&amp; did_action( 'get_header' ) &amp;&amp; ! did_action( 'get_footer' ) ) {
+    $maybe_in_viewport = true;
+}</code></pre>
+
+<p>→ core coi <strong>mọi</strong> ảnh là "trong viewport" và <strong>không bao giờ tự thêm <code>lazy</code></strong>. Đây chính là lý do ~129 chỗ phải hardcode <code>'lazy'</code> — chúng <strong>không phải cargo cult</strong>. Bỏ trống <code>loading</code> = cả trang eager. Helper vì vậy luôn set <code>loading</code> tường minh ở mọi nhánh.</p>
+
+<p><strong>1. 5/6 hero toggle desktop/mobile bằng <code>display: none</code></strong> (không phải opacity). Ảnh <code>display:none</code> + lazy → <strong>không bao giờ tải</strong>; <code>eager</code> + <code>display:none</code> → <strong>vẫn tải</strong>. Nên chỉ variant đang hiện mới được eager → cắt luôn double-download.</p>
+
+<div class="callout warn">
+  <span class="callout-label">Ngoại lệ — home banner có bug CSS tiềm ẩn</span>
+  <p><code>.banner-image-mb</code> <strong>không có một rule CSS nào trong toàn theme</strong> (grep <code>--include="*.css"</code> → 0 file). <code>@media (max-width: 639px)</code> (<code>styles.css:232</code>) chỉ ẩn <code>.banner-image</code>; trên desktop ảnh mobile <strong>vẫn render</strong>, chỉ bị <code>.swiper-slide { overflow: hidden }</code> (<code>:104-106</code>) cắt đi. Nó không tải hôm nay chỉ nhờ clipping làm IntersectionObserver không fire — quá mong manh để xây tiếp lên. Phải bổ sung rule còn thiếu (xem §3).</p>
+</div>
+
+<p><strong>2. Core sẽ cướp priority của hero nếu không chặn.</strong> <code>wp_maybe_add_fetchpriority_high_attr()</code> (<code>wp-includes/media.php:6261</code>):</p>
+
+<pre><code>if ( isset( $attr['fetchpriority'] ) ) {
+    if ( 'high' === $attr['fetchpriority'] ) { ...; wp_high_priority_element_flag( false ); }
+    return $loading_attrs;   // ← giá trị khác 'high': core KHÔNG gán gì
+}</code></pre>
+
+<p>Logo render <strong>trước</strong> hero. Nếu logo chỉ có <code>loading="eager"</code> mà không có <code>fetchpriority</code>, core tự gán <code>high</code> cho nó và tiêu mất flag → 2 ảnh <code>high</code>. Set <code>fetchpriority="auto"</code> tường minh → core return sớm, <strong>không</strong> tiêu flag → hero giữ <code>high</code> duy nhất.</p>
+
+<p><strong>3. Tablet không phải rủi ro.</strong> <code>$rocket_cache_mobile_files_tablet = 'desktop'</code> → tablet ăn cache desktop; breakpoint hero đều ~640px → tablet (768px+) hiển thị đúng ảnh desktop (eager). Khớp nhau.</p>
+
+<hr>
+
+<h2 id="helper">1. Helper trong <code>inc/helpers.php</code></h2>
+
+<p>Theme chưa có image helper nào. Thêm mới, prefix <code>okhub_</code>, docblock tiếng Việt theo style <code>okhub_product_order_clauses()</code>. Không cần file mới → <strong>không đụng thứ tự require ở <code>functions.php:2-13</code></strong> (normative theo <code>CLAUDE.md:248</code>); <code>inc/helpers.php</code> đã require ở dòng 3.</p>
+
+<pre><code>/**
+ * Trả về mảng attr cho wp_get_attachment_image().
+ *
+ * QUAN TRỌNG — loading="eager" ở đây làm ĐỒNG THỜI 2 việc:
+ *   1. Hint native cho browser (đừng hoãn ảnh LCP).
+ *   2. Kích hoạt luật loại trừ của WP Rocket LazyLoad: 'loading="eager"' nằm sẵn
+ *      trong getExcludedAttributes() (Image.php:441) và được khớp bằng strpos()
+ *      trên cả thẻ img. Không có nó, Rocket nuốt src thành SVG rỗng và mọi tối ưu
+ *      ở đây thành vô nghĩa. Đừng đổi 'eager' thành giá trị khác.
+ *
+ * LUÔN set 'loading' ở MỌI nhánh — không bao giờ bỏ trống. Các template ACF của
+ * theme không chạy main loop nên $wp_query-&gt;before_loop luôn true, khiến core coi
+ * mọi ảnh là "trong viewport" và KHÔNG tự thêm lazy (wp-includes/media.php:6131).
+ * Bỏ trống 'loading' = cả trang eager.
+ *
+ * Mỗi hero render cả 2 ảnh desktop + mobile rồi CSS ẩn 1 cái bằng display:none.
+ * Ảnh display:none + lazy sẽ KHÔNG bao giờ tải -&gt; truyền 'lazy' cho variant đang
+ * bị ẩn để cắt double-download. Ngược lại eager + display:none vẫn tải, nên đừng
+ * bao giờ eager cả 2 variant.
+ *
+ * 'eager' (không kèm high) dành cho ảnh trên fold nhưng KHÔNG phải LCP (logo).
+ * fetchpriority='auto' ở đó là cố ý: nó chặn core tự gán 'high' và tiêu mất
+ * wp_high_priority_element_flag() trước khi hero kịp render.
+ *
+ * Cách dùng:
+ *      // variant desktop, slide đầu của swiper
+ *      wp_get_attachment_image($id, 'full', false, okhub_image_attrs(
+ *          ['class' =&gt; 'banner-image'],
+ *          $i === 0 &amp;&amp; !IS_MOBILE ? 'lcp' : 'lazy'
+ *      ));
+ *
+ * @param array  $attrs    Attr riêng của call site (class, alt, ...).
+ * @param string $priority 'lcp' = ảnh LCP | 'eager' = trên fold, không LCP | 'lazy'.
+ * @return array
+ */
+function okhub_image_attrs(array $attrs = [], string $priority = 'lazy'): array
+{
+    $attrs['decoding'] = $attrs['decoding'] ?? 'async';
+
+    if ($priority === 'lcp') {
+        $attrs['loading']       = 'eager';
+        $attrs['fetchpriority'] = 'high';
+        return $attrs;
+    }
+
+    if ($priority === 'eager') {
+        $attrs['loading']       = 'eager';
+        $attrs['fetchpriority'] = 'auto'; // chặn core tự gán 'high' — xem docblock
+        return $attrs;
+    }
+
+    $attrs['loading'] = 'lazy';
+    unset($attrs['fetchpriority']); // lazy + high mâu thuẫn -&gt; core _doing_it_wrong()
+
+    return $attrs;
+}</code></pre>
+
+<h2 id="heroes">2. Sửa từng hero</h2>
+
+<p>Pattern: thay <code>array('loading' =&gt; 'lazy', 'decoding' =&gt; 'async', 'class' =&gt; ...)</code> bằng <code>okhub_image_attrs(['class' =&gt; ...], &lt;đk&gt; ? 'lcp' : 'lazy')</code>.</p>
+
+<div class="table-scroll">
+<table>
+  <thead><tr><th>File</th><th>Điều kiện <code>'lcp'</code></th></tr></thead>
+  <tbody>
+    <tr><td><code>template-parts/home-page/section-banner/index.php:13-14</code></td><td>PC: <code>$i === 0 &amp;&amp; !IS_MOBILE</code> · MB: <code>$i === 0 &amp;&amp; IS_MOBILE</code></td></tr>
+    <tr><td><code>template-parts/about-us/section-banner/index.php:18-29</code></td><td>desktop: <code>!IS_MOBILE</code> · mobile: <code>IS_MOBILE</code></td></tr>
+    <tr><td><code>template-parts/faqs/section-banner/index.php:26-42</code></td><td>desktop: <code>!IS_MOBILE</code> · mobile: <code>IS_MOBILE</code> (bỏ double-high hiện tại)</td></tr>
+    <tr><td><code>template-parts/service-makeup/hero-section/index.php:10-11</code></td><td>desktop: <code>!IS_MOBILE</code> · mobile: <code>IS_MOBILE</code></td></tr>
+    <tr><td><code>template-parts/service-pgpb/hero-section/index.php:10-11</code></td><td>desktop: <code>!IS_MOBILE</code> · mobile: <code>IS_MOBILE</code></td></tr>
+    <tr><td><code>template-parts/service-take-photo-page/section-banner/index.php:11-20</code></td><td>pc: <code>!IS_MOBILE</code> · mb: <code>IS_MOBILE</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>3 file <code>service-*</code> được dùng bởi cả page template riêng <strong>lẫn</strong> <code>single-service.php</code> → sửa 1 lần, cả 2 route cùng hưởng.</p>
+
+<h3>Home banner (Swiper)</h3>
+
+<p>Slide dịch chuyển bằng transform chứ không <code>display:none</code>, slide 1..N nằm ngoài viewport nên lazy hoãn đúng ý. Chỉ slide 0 cần <code>'lcp'</code>:</p>
+
+<pre><code>&lt;?= wp_get_attachment_image($banner['image_pc'], 'full', false, okhub_image_attrs(
+      ['class' =&gt; 'banner-image'], $i === 0 &amp;&amp; !IS_MOBILE ? 'lcp' : 'lazy')) ?&gt;
+&lt;?= wp_get_attachment_image($banner['image_mb'], 'full', false, okhub_image_attrs(
+      ['class' =&gt; 'banner-image-mb'], $i === 0 &amp;&amp; IS_MOBILE ? 'lcp' : 'lazy')) ?&gt;</code></pre>
+
+<p><strong>Kèm theo — vá rule CSS còn thiếu</strong> trong <code>template-parts/home-page/section-banner/assets/styles.css</code>. <code>.banner-image-mb</code> hiện không có rule nào; nó chỉ "ẩn" nhờ bị <code>overflow:hidden</code> cắt. Thêm <code>display:none</code> tường minh để hành vi tải trở nên xác định và đồng bộ với 5 hero còn lại:</p>
+
+<pre><code>/* cạnh rule #banner .banner-image sẵn có */
+#banner .banner-image-mb {
+  display: none;
+}</code></pre>
+
+<pre><code>/* trong @media (max-width: 639px) đã có sẵn ở dòng 232, cạnh rule ẩn .banner-image */
+#banner .banner-image-mb {
+  display: block;
+}</code></pre>
+
+<p>Kết quả hiển thị <strong>giống hệt hiện tại</strong> ở cả 2 breakpoint (ảnh mb vốn đã bị cắt khuất trên desktop) — chỉ có hành vi download trở nên xác định.</p>
+
+<h2 id="product">3. <code>single-product/product-detail/index.php</code></h2>
+
+<p>Story mobile (<code>:105-153</code>) và gallery desktop (<code>:155+</code>) <strong>cùng render</strong>, CSS ẩn 1 cái (<code>styles.css:485-488</code> ẩn story ở desktop, <code>:512-513</code> ẩn gallery ở mobile) → gate được.</p>
+
+<ul>
+  <li><strong>Story mobile (<code>:118-122</code>)</strong> — đã gate <code>$idx === 0</code> nhưng thiếu fetchpriority và vẫn eager cả khi ở desktop (lúc đó story bị ẩn):<br>
+  <code>okhub_image_attrs(['class' =&gt; 'product-detail__story-img'], $idx === 0 &amp;&amp; IS_MOBILE ? 'lcp' : 'lazy')</code></li>
+  <li><strong>Gallery desktop (<code>:189-193</code>)</strong> — hardcode lazy, <strong>đây là LCP desktop</strong>. Cần cờ chạy vì item đầu có thể là video (không nên ăn mất priority). Khai báo cạnh <code>$media_index = 0;</code> (<code>:160</code>):</li>
+</ul>
+
+<pre><code>$hero_img_done = false; // ảnh đầu tiên của gallery desktop là LCP</code></pre>
+
+<p>rồi trong nhánh <code>else</code> non-video (<code>:184</code>):</p>
+
+<pre><code>$is_hero       = !$hero_img_done &amp;&amp; !IS_MOBILE;
+$hero_img_done = true;
+echo wp_get_attachment_image($m['id'], 'large', false, okhub_image_attrs(
+    ['class' =&gt; 'product-detail__gallery-img'], $is_hero ? 'lcp' : 'lazy'));</code></pre>
+
+<p>Thumbnail strip (<code>:144-147</code>) và large-img (<code>:228-233</code>) giữ lazy — chỉ đổi sang gọi helper cho nhất quán.</p>
+
+<h2 id="logo">4. Logo header</h2>
+
+<p><code>template-parts/layouts/header/index.php</code> fork server-side qua <code>isMobileDevice()</code> → chỉ 1 header render. Logo là ảnh <strong>đầu tiên</strong> trong DOM và hiện đang bị Rocket lazyload (hiện placeholder tới khi JS chạy).</p>
+
+<p>Dùng <code>'eager'</code> — <strong>không</strong> <code>'lcp'</code>. Logo nhỏ; <code>fetchpriority="auto"</code> vừa tránh tranh băng thông với hero vừa chặn core tự gán <code>high</code> (xem Context sự thật #2).</p>
+
+<ul>
+  <li><code>template-parts/layouts/header/header-desktop/index.php:172</code> → <code>okhub_image_attrs(['class' =&gt; ''], 'eager')</code></li>
+  <li><code>template-parts/layouts/header/header-mobile/header-main.php:12</code> → <code>okhub_image_attrs(['class' =&gt; 'header-main__logo-image'], 'eager')</code></li>
+</ul>
+
+<hr>
+
+<h2 id="verify">Verification</h2>
+
+<div class="callout">
+  <span class="callout-label">Nguyên tắc</span>
+  <p>Không có test runner. <strong>Nguồn sự thật là HTML Rocket cache ra, không phải PHP</strong> — vì Rocket rewrite sau khi PHP chạy xong.</p>
+</div>
+
+<p><strong>Bước 0 — baseline:</strong> trước khi sửa, chạy <code>performance_start_trace</code> (<code>reload: true, autoStop: true</code>) + <code>performance_analyze_insight</code> insight <code>LCPBreakdown</code> trên homepage để có số đối chiếu.</p>
+
+<p><strong>Bước 1 — purge cache</strong> (bắt buộc, nếu không sẽ verify nhầm HTML cũ): WP Rocket admin → <em>Clear Cache</em>, hoặc <code>wp rocket clean --confirm</code>.</p>
+
+<p><strong>Bước 2 — regenerate rồi soi HTML đã cache</strong> (đây là bằng chứng chốt):</p>
+
+<pre><code>cd wp-content/cache/wp-rocket/yuncosplay.local
+grep -oE '&lt;img[^&gt;]*banner-image[^&gt;]*&gt;' index.html | head -2</code></pre>
+
+<p>Kỳ vọng cho variant <strong>đang hiện</strong> (desktop trong <code>index.html</code>, mobile trong <code>index-mobile.html</code>):</p>
+<ul>
+  <li><code>src="http://..."</code> <strong>thật</strong> — không phải <code>data:image/svg+xml</code></li>
+  <li>có <code>loading="eager"</code> + <code>fetchpriority="high"</code></li>
+  <li><strong>không</strong> có <code>data-lazy-src</code> / <code>data-lazy-srcset</code></li>
+</ul>
+
+<p>Variant <strong>bị ẩn</strong>: ngược lại — phải <strong>có</strong> <code>data-lazy-*</code> (chứng minh nó sẽ không tải).</p>
+
+<p><strong>Bước 3 — đúng 1 <code>fetchpriority="high"</code> mỗi trang:</strong></p>
+
+<pre><code>grep -o 'fetchpriority="high"' index.html | wc -l   # kỳ vọng: 1, và nằm trên hero (không phải logo)</code></pre>
+
+<p><strong>Bước 4 — kiểm cả 2 biến thể cache:</strong> <code>index.html</code> (desktop) và <code>index-mobile.html</code> (mobile UA). Lặp cho: <code>/</code>, <code>/about-us</code>, <code>/faqs</code>, 3 trang service, 1 single-service, 1 single-product.</p>
+
+<p><strong>Bước 5 — Chrome DevTools MCP:</strong> <code>list_network_requests</code> lọc <code>image</code> → file của variant bị ẩn <strong>không</strong> xuất hiện (chứng minh hết double-download). <code>performance_analyze_insight</code> → LCP element = ảnh hero, <em>resource load delay</em> giảm rõ so với baseline. <code>list_console_messages</code> → không có lỗi mới, đặc biệt không có <code>_doing_it_wrong</code> về "lazy-loaded and marked as high priority".</p>
+
+<h2 id="risk">Rủi ro</h2>
+
+<ul>
+  <li><strong>Quên purge cache</strong> → tưởng không ăn thua. Đây là bẫy dễ dính nhất; luôn purge trước khi đo.</li>
+  <li><strong>Phụ thuộc chuỗi <code>'loading="eager"'</code> trong list mặc định của Rocket.</strong> Nó qua filter <code>rocket_lazyload_excluded_attributes</code> nên plugin khác <em>có thể</em> ghi đè list. Rủi ro thấp (không plugin nào trong site làm vậy) nhưng nếu sau này hero lại bị lazyload thì kiểm tra chỗ này trước. Cách chống chắc hơn nếu cần: thêm <code>data-no-lazy="1"</code> vào <code>$attrs</code> khi <code>'lcp'</code> — cũng nằm trong list mặc định, phòng 2 lớp.</li>
+  <li><strong>Nâng cấp WP Rocket</strong> có thể đổi list loại trừ → verify lại bằng Bước 2 sau mỗi lần update.</li>
+  <li><strong>Resize desktop ↔ mobile</strong>: variant vừa hiện sẽ tải tại thời điểm đó, có thể chớp 1 nhịp. Đây đã là hành vi hiện tại, không tệ hơn.</li>
+</ul>
+
+<h2 id="outscope">Đã cân nhắc và cố ý loại khỏi phạm vi</h2>
+
+<ul>
+  <li><strong>Ảnh mega-menu header</strong> (<code>header-desktop/index.php:235,272,276,278,296,313</code>) — không có attr <code>loading</code>, nên theo sự thật #0 core coi chúng là eager. Nghe như phải sửa gấp, <strong>nhưng Rocket đã trung hoà sẵn</strong>: mọi ảnh không mang <code>loading="eager"</code> đều bị rewrite thành <code>data-lazy-src</code>, nên chúng không hề tải sớm và không cạnh tranh với hero. HTML cache xác nhận. Đụng vào là thêm rủi ro mà không đổi được gì.</li>
+  <li><strong>Logo chiếm <code>fetchpriority=high</code></strong> thì có thật và đã nằm trong §4 — HTML cache cho thấy đúng logo (<code>:172</code>) giữ <code>high</code>, không phải mega-menu (<code>:272</code>), vì nó render trước.</li>
+  <li><strong>~120 call site lazy dưới fold</strong> — giữ nguyên, đúng phạm vi đã chốt.</li>
+</ul>
+
+<h2 id="commit">Commit</h2>
+
+<p>Tách theo <code>CLAUDE.md</code> (không gộp nhiều thay đổi vào 1 commit):</p>
+
+<ol>
+  <li><code>feat: thêm okhub_image_attrs() cho ảnh ưu tiên trong viewport</code></li>
+  <li><code>fix: bổ sung rule display cho .banner-image-mb ở home banner</code></li>
+  <li><code>perf: bỏ lazy load ảnh hero ở tất cả page template</code></li>
+  <li><code>perf: ưu tiên ảnh LCP trang product detail</code></li>
+  <li><code>perf: eager load logo header, tránh tranh fetchpriority với hero</code></li>
+</ol>
+
+</div>
+</body>
+</html>
