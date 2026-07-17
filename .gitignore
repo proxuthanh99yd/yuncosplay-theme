@@ -4,6 +4,7 @@ node_modules/
 # OS files
 .DS_Store
 Thumbs.db
+__MACOSX/
 
 # IDE / Editor
 .vscode/
@@ -24,3 +25,7 @@ e2e/test-results/
 
 # MCP artifacts
 .playwright-mcp/
+.mcp.json
+
+# Source archives (giải nén từ design, không cần track)
+*.zip
