@@ -80,71 +80,70 @@ if (!empty($gallery_ids)) {
 }
 
 // Contact info
-$phone_number   = '(+84) 79 409 888';
-$zalo_link      = 'https://zalo.me/0794098888';
-$messenger_link = 'https://m.me/yuncosplay';
-
-$icon_path = '/assets/images/single-product';
+$cta = function_exists('get_field') ? get_field('cta', 'option') : [];
+$cta_zalo      = $cta['link_zalo'] ?? null;
+$cta_messenger = $cta['link_messenger'] ?? null;
+$cta_hotline   = $cta['link_hotline'] ?? null;
 ?>
 
 <section class="product-detail">
     <!-- Mobile Story Gallery -->
     <?php if (!empty($media_items)) : ?>
-        <div class="product-detail__story">
-            <div class="product-detail__story-viewer">
-                <!-- Gradient overlay -->
-                <div class="product-detail__story-gradient" aria-hidden="true"></div>
-                <!-- Progress bars -->
-                <!--<div class="product-detail__story-progress">-->
-                <!--    <?php foreach ($media_items as $idx => $item) : ?>-->
-                <!--        <div class="product-detail__story-bar<?php echo $idx === 0 ? ' is-active' : ''; ?>">-->
-                <!--            <div class="product-detail__story-bar-fill"></div>-->
-                <!--        </div>-->
-                <!--    <?php endforeach; ?>-->
-                <!--</div>-->
-                <!-- Media slides -->
-                <?php foreach ($media_items as $idx => $item) :
+    <div class="product-detail__story">
+        <div class="product-detail__story-viewer">
+            <!-- Gradient overlay -->
+            <div class="product-detail__story-gradient" aria-hidden="true"></div>
+            <!-- Progress bars -->
+            <!--<div class="product-detail__story-progress">-->
+            <!--    <?php foreach ($media_items as $idx => $item) : ?>-->
+            <!--        <div class="product-detail__story-bar<?php echo $idx === 0 ? ' is-active' : ''; ?>">-->
+            <!--            <div class="product-detail__story-bar-fill"></div>-->
+            <!--        </div>-->
+            <!--    <?php endforeach; ?>-->
+            <!--</div>-->
+            <!-- Media slides -->
+            <?php foreach ($media_items as $idx => $item) :
                     if ($item['type'] === 'video') :
                 ?>
-                        <div class="product-detail__story-slide<?php echo $idx === 0 ? ' is-active' : ''; ?>"
-                            data-index="<?php echo esc_attr($idx); ?>" data-type="video">
-                            <video class="product-detail__story-video" data-src="<?php echo esc_url($item['url']); ?>"
-                                <?php if (!empty($item['poster'])) : ?>poster="<?php echo esc_url($item['poster']); ?>"
-                                <?php endif; ?> playsinline muted preload="none"></video>
-                        </div>
-                    <?php else : ?>
-                        <div class="product-detail__story-slide<?php echo $idx === 0 ? ' is-active' : ''; ?>"
-                            data-index="<?php echo esc_attr($idx); ?>" data-type="image">
-                            <?php echo wp_get_attachment_image($item['id'], 'large', false, okhub_image_attrs([
+            <div class="product-detail__story-slide<?php echo $idx === 0 ? ' is-active' : ''; ?>"
+                data-index="<?php echo esc_attr($idx); ?>" data-type="video">
+                <video class="product-detail__story-video" data-src="<?php echo esc_url($item['url']); ?>"
+                    <?php if (!empty($item['poster'])) : ?>poster="<?php echo esc_url($item['poster']); ?>"
+                    <?php endif; ?> playsinline muted preload="none"></video>
+            </div>
+            <?php else : ?>
+            <div class="product-detail__story-slide<?php echo $idx === 0 ? ' is-active' : ''; ?>"
+                data-index="<?php echo esc_attr($idx); ?>" data-type="image">
+                <?php echo wp_get_attachment_image($item['id'], 'large', false, okhub_image_attrs([
                                 'class'    => 'product-detail__story-img',
                             ], $idx === 0 && IS_MOBILE ? 'lcp' : 'lazy')); ?>
-                        </div>
-                <?php endif;
-                endforeach; ?>
             </div>
-            <!-- Thumbnail strip -->
-            <div class="product-detail__story-thumbs">
-                <?php foreach ($media_items as $idx => $item) :
+            <?php endif;
+                endforeach; ?>
+        </div>
+        <!-- Thumbnail strip -->
+        <div class="product-detail__story-thumbs">
+            <?php foreach ($media_items as $idx => $item) :
                     if ($item['type'] === 'video') :
                         $video_thumb = !empty($item['thumb']) ? $item['thumb'] : '';
                 ?>
-                        <button class="product-detail__story-thumb<?php echo $idx === 0 ? ' is-active' : ''; ?>"
-                            data-index="<?php echo esc_attr($idx); ?>" type="button"
-                            aria-label="<?php echo esc_attr(sprintf('Xem video %d', $idx + 1)); ?>">
-                            <?php if ($video_thumb) : ?>
-                                <img src="<?php echo esc_url($video_thumb); ?>" alt="Video" loading="lazy" decoding="async" />
-                            <?php endif; ?>
-                        </button>
-                    <?php else : ?>
-                        <button class="product-detail__story-thumb<?php echo $idx === 0 ? ' is-active' : ''; ?>"
-                            data-index="<?php echo esc_attr($idx); ?>" type="button"
-                            aria-label="<?php echo esc_attr(sprintf('Xem ảnh %d', $idx + 1)); ?>">
-                            <?php echo wp_get_attachment_image($item['id'], 'thumbnail', false, okhub_image_attrs()); ?>
-                        </button>
-                <?php endif;
+            <button class="product-detail__story-thumb<?php echo $idx === 0 ? ' is-active' : ''; ?>"
+                data-index="<?php echo esc_attr($idx); ?>" type="button"
+                aria-label="<?php echo esc_attr(sprintf('Xem video %d', $idx + 1)); ?>">
+                <?php if ($video_thumb) : ?>
+                <img src="<?php echo esc_url($video_thumb); ?>" alt="Video" loading="lazy" decoding="async" />
+                <?php endif; ?>
+            </button>
+            <?php else : ?>
+            <button class="product-detail__story-thumb<?php echo $idx === 0 ? ' is-active' : ''; ?>"
+                data-index="<?php echo esc_attr($idx); ?>" type="button"
+                aria-label="<?php echo esc_attr(sprintf('Xem ảnh %d', $idx + 1)); ?>">
+                <?php echo wp_get_attachment_image($item['id'], 'thumbnail', false, okhub_image_attrs()); ?>
+            </button>
+            <?php endif;
                 endforeach; ?>
-            </div>
         </div>
+    </div>
     <?php endif; ?>
 
     <div class="product-detail__wrapper">
@@ -161,40 +160,40 @@ $icon_path = '/assets/images/single-product';
                 // Gallery row: 2 items side by side
                 if ($media_index + 1 < $total_media) :
             ?>
-                    <div class="product-detail__gallery-row">
-                        <?php for ($i = 0; $i < 2 && ($media_index + $i) < $total_media; $i++) :
+            <div class="product-detail__gallery-row">
+                <?php for ($i = 0; $i < 2 && ($media_index + $i) < $total_media; $i++) :
                             $m = $media_items[$media_index + $i];
                         ?>
-                            <div class="product-detail__gallery-item">
-                                <?php if ($m['type'] === 'video') : ?>
-                                    <div class="product-detail__gallery-link product-detail__gallery-video-wrap" data-video>
-                                        <video class="product-detail__gallery-img" data-src="<?php echo esc_url($m['url']); ?>"
-                                            <?php if (!empty($m['poster'])) : ?>poster="<?php echo esc_url($m['poster']); ?>"
-                                            <?php endif; ?> playsinline muted loop preload="none"></video>
-                                        <button class="product-detail__video-play" type="button" aria-label="Play video">
-                                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.45)" />
-                                                <polygon points="19,14 36,24 19,34" fill="#fff" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                <?php else :
+                <div class="product-detail__gallery-item">
+                    <?php if ($m['type'] === 'video') : ?>
+                    <div class="product-detail__gallery-link product-detail__gallery-video-wrap" data-video>
+                        <video class="product-detail__gallery-img" data-src="<?php echo esc_url($m['url']); ?>"
+                            <?php if (!empty($m['poster'])) : ?>poster="<?php echo esc_url($m['poster']); ?>"
+                            <?php endif; ?> playsinline muted loop preload="none"></video>
+                        <button class="product-detail__video-play" type="button" aria-label="Play video">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.45)" />
+                                <polygon points="19,14 36,24 19,34" fill="#fff" />
+                            </svg>
+                        </button>
+                    </div>
+                    <?php else :
                                     $img_full = wp_get_attachment_image_url($m['id'], 'full');
                                     $is_hero  = !$hero_img_done && !IS_MOBILE;
                                     $hero_img_done = true;
                                 ?>
-                                    <a href="<?php echo esc_url($img_full); ?>" class="product-detail__gallery-link"
-                                        data-lightbox="product-gallery">
-                                        <?php echo wp_get_attachment_image($m['id'], 'large', false, okhub_image_attrs([
+                    <a href="<?php echo esc_url($img_full); ?>" class="product-detail__gallery-link"
+                        data-lightbox="product-gallery">
+                        <?php echo wp_get_attachment_image($m['id'], 'large', false, okhub_image_attrs([
                                             'class'    => 'product-detail__gallery-img',
                                         ], $is_hero ? 'lcp' : 'lazy')); ?>
-                                    </a>
-                                <?php endif; ?>
-                            </div>
-                        <?php endfor; ?>
-                    </div>
-                <?php
+                    </a>
+                    <?php endif; ?>
+                </div>
+                <?php endfor; ?>
+            </div>
+            <?php
                     $media_index += 2;
                 endif;
 
@@ -202,35 +201,35 @@ $icon_path = '/assets/images/single-product';
                 if ($media_index < $total_media) :
                     $m = $media_items[$media_index];
                 ?>
-                    <div class="product-detail__large-image">
-                        <?php if ($m['type'] === 'video') : ?>
-                            <div class="product-detail__gallery-link product-detail__gallery-video-wrap" data-video>
-                                <video class="product-detail__large-img" data-src="<?php echo esc_url($m['url']); ?>"
-                                    <?php if (!empty($m['poster'])) : ?>poster="<?php echo esc_url($m['poster']); ?>"
-                                    <?php endif; ?> playsinline muted loop preload="none"></video>
-                                <button class="product-detail__video-play" type="button" aria-label="Play video">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                                        <path d="M1.28564 0L16.7142 9L1.28564 18V0Z" fill="white" />
-                                    </svg>
-                                </button>
-                            </div>
-                        <?php else :
+            <div class="product-detail__large-image">
+                <?php if ($m['type'] === 'video') : ?>
+                <div class="product-detail__gallery-link product-detail__gallery-video-wrap" data-video>
+                    <video class="product-detail__large-img" data-src="<?php echo esc_url($m['url']); ?>"
+                        <?php if (!empty($m['poster'])) : ?>poster="<?php echo esc_url($m['poster']); ?>"
+                        <?php endif; ?> playsinline muted loop preload="none"></video>
+                    <button class="product-detail__video-play" type="button" aria-label="Play video">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M1.28564 0L16.7142 9L1.28564 18V0Z" fill="white" />
+                        </svg>
+                    </button>
+                </div>
+                <?php else :
                             $img_full    = wp_get_attachment_image_url($m['id'], 'full');
                             $img_caption = wp_get_attachment_caption($m['id']);
                             $is_hero     = !$hero_img_done && !IS_MOBILE;
                             $hero_img_done = true;
                         ?>
-                            <a href="<?php echo esc_url($img_full); ?>" class="product-detail__gallery-link"
-                                data-lightbox="product-gallery">
-                                <?php echo wp_get_attachment_image($m['id'], 'large', false, okhub_image_attrs([
+                <a href="<?php echo esc_url($img_full); ?>" class="product-detail__gallery-link"
+                    data-lightbox="product-gallery">
+                    <?php echo wp_get_attachment_image($m['id'], 'large', false, okhub_image_attrs([
                                     'class'    => 'product-detail__large-img',
                                 ], $is_hero ? 'lcp' : 'lazy')); ?>
-                                <?php if ($img_caption) : ?>
-                                    <span class="product-detail__large-caption"><?php echo esc_html($img_caption); ?></span>
-                                <?php endif; ?>
-                            </a>
-                        <?php endif; ?>
-                    </div>
+                    <?php if ($img_caption) : ?>
+                    <span class="product-detail__large-caption"><?php echo esc_html($img_caption); ?></span>
+                    <?php endif; ?>
+                </a>
+                <?php endif; ?>
+            </div>
             <?php
                     $media_index++;
                 endif;
@@ -245,12 +244,12 @@ $icon_path = '/assets/images/single-product';
                 <div class="product-detail__header">
                     <div class="product-detail__category-row">
                         <?php if ($category_name) : ?>
-                            <span class="product-detail__category"><?php echo esc_html($category_name); ?></span>
+                        <span class="product-detail__category"><?php echo esc_html($category_name); ?></span>
                         <?php endif; ?>
                         <?php if ($stock_qty !== null) : ?>
-                            <span class="product-detail__stock-badge">
-                                <?php echo esc_html(sprintf('Còn %d sản phẩm', $stock_qty)); ?>
-                            </span>
+                        <span class="product-detail__stock-badge">
+                            <?php echo esc_html(sprintf('Còn %d sản phẩm', $stock_qty)); ?>
+                        </span>
                         <?php endif; ?>
                     </div>
                     <h1 class="product-detail__title"><?php echo esc_html($product_title); ?></h1>
@@ -266,7 +265,8 @@ $icon_path = '/assets/images/single-product';
                         </div>
                         <hr class="product-detail__price-divider" />
                         <?php if ($rental_price_description) : ?>
-                            <div class="product-detail__price-desc"><?php echo wp_kses_post($rental_price_description); ?></div>
+                        <div class="product-detail__price-desc"><?php echo wp_kses_post($rental_price_description); ?>
+                        </div>
                         <?php endif; ?>
                     </div>
 
@@ -278,24 +278,38 @@ $icon_path = '/assets/images/single-product';
                         </div>
                         <hr class="product-detail__price-divider" />
                         <?php if ($short_description) : ?>
-                            <div class="product-detail__price-desc"><?php echo wp_kses_post($short_description); ?></div>
+                        <div class="product-detail__price-desc"><?php echo wp_kses_post($short_description); ?></div>
                         <?php endif; ?>
                     </div>
                 </div>
 
                 <!-- CTA -->
                 <div class="product-detail__cta">
-                    <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $phone_number)); ?>"
-                        class="product-detail__cta-btn">
+                    <?php if (!empty($cta_hotline) && !empty($cta_hotline['url'])): ?>
+                    <?php
+                        $cta_hotline_url = $cta_hotline['url'];
+                        $cta_hotline_target = $cta_hotline['target'] ? $cta_hotline['target'] : '_self';
+                        $cta_hotline_title = $cta_hotline['title'];
+                        ?>
+                    <a href="<?php echo esc_url($cta_hotline_url); ?>"
+                        target="<?php echo esc_attr($cta_hotline_target); ?>" class="product-detail__cta-btn">
                         <span class="product-detail__cta-btn-top">
                             <span class="product-detail__cta-btn-text">Thuê đồ ngay</span>
                         </span>
-                        <span class="product-detail__cta-btn-phone">Gọi: <?php echo esc_html($phone_number); ?></span>
+                        <span class="product-detail__cta-btn-phone">Gọi:
+                            <?php echo esc_html($cta_hotline_title); ?></span>
                     </a>
+                    <?php endif; ?>
                     <div class="product-detail__contact">
                         <span class="product-detail__contact-label">Hoặc liên hệ</span>
                         <div class="product-detail__contact-icons">
-                            <a href="<?php echo esc_url($zalo_link); ?>" target="_blank" rel="noopener noreferrer"
+                            <?php if (!empty($cta_zalo) && !empty($cta_zalo['url'])): ?>
+                            <?php
+                                $cta_zalo_url = $cta_zalo['url'];
+                                $cta_zalo_target = $cta_zalo['target'] ? $cta_zalo['target'] : '_self';
+                                ?>
+                            <a href="<?php echo esc_url($cta_zalo_url); ?>"
+                                target="<?php echo esc_attr($cta_zalo_target); ?>" rel="noopener noreferrer"
                                 class="product-detail__contact-icon" aria-label="Zalo">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="33" height="13" viewBox="0 0 33 13"
                                     fill="none">
@@ -312,7 +326,14 @@ $icon_path = '/assets/images/single-product';
                                         fill="#F6F3EA" />
                                 </svg>
                             </a>
-                            <a href="<?php echo esc_url($messenger_link); ?>" target="_blank" rel="noopener noreferrer"
+                            <?php endif; ?>
+                            <?php if (!empty($cta_messenger) && !empty($cta_messenger['url'])): ?>
+                            <?php
+                                $cta_messenger_url = $cta_messenger['url'];
+                                $cta_messenger_target = $cta_messenger['target'] ? $cta_messenger['target'] : '_self';
+                                ?>
+                            <a href="<?php echo esc_url($cta_messenger_url); ?>"
+                                target="<?php echo esc_attr($cta_messenger_target); ?>" rel="noopener noreferrer"
                                 class="product-detail__contact-icon" aria-label="Messenger">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31"
                                     fill="none">
@@ -321,6 +342,7 @@ $icon_path = '/assets/images/single-product';
                                         fill="#F6F3EA" />
                                 </svg>
                             </a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -330,12 +352,12 @@ $icon_path = '/assets/images/single-product';
 
                 <!-- Description Section -->
                 <?php if ($description) : ?>
-                    <div class="product-detail__description">
-                        <h2 class="product-detail__description-title">Mô tả sản phẩm</h2>
-                        <div class="product-detail__description-content wp-block-editor">
-                            <?php echo wp_kses_post($description); ?>
-                        </div>
+                <div class="product-detail__description">
+                    <h2 class="product-detail__description-title">Mô tả sản phẩm</h2>
+                    <div class="product-detail__description-content wp-block-editor">
+                        <?php echo wp_kses_post($description); ?>
                     </div>
+                </div>
                 <?php endif; ?>
             </div>
         </div>
@@ -351,29 +373,19 @@ $icon_path = '/assets/images/single-product';
             <span class="product-detail__sticky-label">Giá bán</span>
             <span class="product-detail__sticky-price"><?php echo esc_html($sale_price); ?>đ</span>
         </div>
-        <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $phone_number)); ?>"
+        <?php if (!empty($cta_hotline) && !empty($cta_hotline['url'])): ?>
+        <?php
+            $cta_hotline_url = $cta_hotline['url'];
+            $cta_hotline_target = $cta_hotline['target'] ? $cta_hotline['target'] : '_self';
+            $cta_hotline_title = $cta_hotline['title'];
+            ?>
+        <a href="<?php echo esc_url($cta_hotline_url); ?>" target="<?php echo esc_attr($cta_hotline_target); ?>"
             class="product-detail__sticky-cta">
             <span class="product-detail__sticky-cta-text">Thuê đồ ngay</span>
-            <span class="product-detail__sticky-cta-phone">Gọi: <?php echo esc_html($phone_number); ?></span>
+            <span class="product-detail__sticky-cta-phone">Gọi: <?php echo esc_html($cta_hotline_title); ?></span>
         </a>
+        <?php endif; ?>
     </div>
 
     <!-- Floating Side Icons (Mobile) -->
-    <div class="product-detail__side-icons">
-        <a href="<?php echo esc_url($zalo_link); ?>" target="_blank" rel="noopener noreferrer"
-            class="product-detail__side-icon" aria-label="Zalo">
-            <img src="<?php echo esc_url(get_theme_file_uri($icon_path . '/ic-zalo.svg')); ?>" alt="" aria-hidden="true"
-                width="20" height="20" />
-        </a>
-        <a href="<?php echo esc_url($messenger_link); ?>" target="_blank" rel="noopener noreferrer"
-            class="product-detail__side-icon" aria-label="Messenger">
-            <img src="<?php echo esc_url(get_theme_file_uri($icon_path . '/ic-messenger.svg')); ?>" alt=""
-                aria-hidden="true" width="20" height="20" />
-        </a>
-        <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $phone_number)); ?>"
-            class="product-detail__side-icon" aria-label="Gọi điện">
-            <img src="<?php echo esc_url(get_theme_file_uri($icon_path . '/ic-phone.svg')); ?>" alt=""
-                aria-hidden="true" width="18" height="18" />
-        </a>
-    </div>
 </section>
