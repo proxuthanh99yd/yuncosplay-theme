@@ -118,11 +118,9 @@ $icon_path = '/assets/images/single-product';
                     <?php else : ?>
                         <div class="product-detail__story-slide<?php echo $idx === 0 ? ' is-active' : ''; ?>"
                             data-index="<?php echo esc_attr($idx); ?>" data-type="image">
-                            <?php echo wp_get_attachment_image($item['id'], 'large', false, [
+                            <?php echo wp_get_attachment_image($item['id'], 'large', false, okhub_image_attrs([
                                 'class'    => 'product-detail__story-img',
-                                'loading'  => $idx === 0 ? 'eager' : 'lazy',
-                                'decoding' => 'async',
-                            ]); ?>
+                            ], $idx === 0 && IS_MOBILE ? 'lcp' : 'lazy')); ?>
                         </div>
                 <?php endif;
                 endforeach; ?>
@@ -144,10 +142,7 @@ $icon_path = '/assets/images/single-product';
                         <button class="product-detail__story-thumb<?php echo $idx === 0 ? ' is-active' : ''; ?>"
                             data-index="<?php echo esc_attr($idx); ?>" type="button"
                             aria-label="<?php echo esc_attr(sprintf('Xem ảnh %d', $idx + 1)); ?>">
-                            <?php echo wp_get_attachment_image($item['id'], 'thumbnail', false, [
-                                'loading'  => 'lazy',
-                                'decoding' => 'async',
-                            ]); ?>
+                            <?php echo wp_get_attachment_image($item['id'], 'thumbnail', false, okhub_image_attrs()); ?>
                         </button>
                 <?php endif;
                 endforeach; ?>
@@ -161,6 +156,9 @@ $icon_path = '/assets/images/single-product';
             <?php
             $total_media  = count($media_items);
             $media_index  = 0;
+            // Ảnh ĐẦU TIÊN của gallery desktop là LCP. Dùng cờ chứ không so index === 0
+            // vì item đầu có thể là video — lúc đó ưu tiên phải rơi vào ảnh kế tiếp.
+            $hero_img_done = false;
 
             while ($media_index < $total_media) :
                 // Gallery row: 2 items side by side
@@ -186,14 +184,14 @@ $icon_path = '/assets/images/single-product';
                                     </div>
                                 <?php else :
                                     $img_full = wp_get_attachment_image_url($m['id'], 'full');
+                                    $is_hero  = !$hero_img_done && !IS_MOBILE;
+                                    $hero_img_done = true;
                                 ?>
                                     <a href="<?php echo esc_url($img_full); ?>" class="product-detail__gallery-link"
                                         data-lightbox="product-gallery">
-                                        <?php echo wp_get_attachment_image($m['id'], 'large', false, [
+                                        <?php echo wp_get_attachment_image($m['id'], 'large', false, okhub_image_attrs([
                                             'class'    => 'product-detail__gallery-img',
-                                            'loading'  => 'lazy',
-                                            'decoding' => 'async',
-                                        ]); ?>
+                                        ], $is_hero ? 'lcp' : 'lazy')); ?>
                                     </a>
                                 <?php endif; ?>
                             </div>
@@ -225,14 +223,14 @@ $icon_path = '/assets/images/single-product';
                         <?php else :
                             $img_full    = wp_get_attachment_image_url($m['id'], 'full');
                             $img_caption = wp_get_attachment_caption($m['id']);
+                            $is_hero     = !$hero_img_done && !IS_MOBILE;
+                            $hero_img_done = true;
                         ?>
                             <a href="<?php echo esc_url($img_full); ?>" class="product-detail__gallery-link"
                                 data-lightbox="product-gallery">
-                                <?php echo wp_get_attachment_image($m['id'], 'large', false, [
+                                <?php echo wp_get_attachment_image($m['id'], 'large', false, okhub_image_attrs([
                                     'class'    => 'product-detail__large-img',
-                                    'loading'  => 'lazy',
-                                    'decoding' => 'async',
-                                ]); ?>
+                                ], $is_hero ? 'lcp' : 'lazy')); ?>
                                 <?php if ($img_caption) : ?>
                                     <span class="product-detail__large-caption"><?php echo esc_html($img_caption); ?></span>
                                 <?php endif; ?>
