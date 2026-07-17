@@ -10,7 +10,7 @@
             <a href="<?= esc_url(home_url('/')); ?>" class="ct-breadcrumb__link">Trang chủ</a>
         </li>
 
-        <li class="ct-breadcrumb__separator" aria-hidden="true">></li>
+        <li class="ct-breadcrumb__separator" aria-hidden="true"></li>
 
         <li class="ct-breadcrumb__item">
             <span class="ct-breadcrumb__current"><?= esc_html(get_the_title()); ?></span>

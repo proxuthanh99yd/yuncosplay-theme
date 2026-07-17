@@ -1,33 +1,39 @@
 /* =============================================
    Contact Page — Breadcrumb
    ============================================= */
+   
+:root {
+    --gap: 0.875rem;
+}
 
 .ct-breadcrumb {
     width: 100%;
-    padding: 1.5rem 4.25rem;
+    padding-top: 1.5rem;
+    padding-bottom: 2.5rem;
+    background: #f7f4ec;
 }
 
 .ct-breadcrumb__list {
+    max-width: 91.5rem;
+    margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     list-style: none;
-    margin: 0;
     padding: 0;
 }
 
 .ct-breadcrumb__item {
-    margin-right: 0.5rem;
+    margin-right: var(--gap);
 }
 
 .ct-breadcrumb__separator {
-    margin-right: 0.5rem;
-    font-family: "SF Pro Display", sans-serif;
-    font-size: 0.875rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: rgba(28, 28, 28, 0.4);
-    list-style: none;
+    margin-right: var(--gap);
+    width: 0.25rem;
+    height: 0.25rem;
+    background: rgba(29, 29, 29, 0.40);
+    border-radius: 50%;
+    flex-shrink: 0;
 }
 
 .ct-breadcrumb__link {
@@ -35,13 +41,13 @@
     font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.5;
-    color: rgba(28, 28, 28, 0.4);
+    color: rgba(29, 29, 29, 0.40);
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 .ct-breadcrumb__link:hover {
-    color: rgba(28, 28, 28, 0.7);
+    color: #1D1D1D;
 }
 
 .ct-breadcrumb__current {
@@ -49,14 +55,19 @@
     font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #1c1c1c;
+    color: #1D1D1D;
 }
 
 /* ---- Responsive — Mobile ---- */
 
 @media screen and (max-width: 639.98px) {
+    :root {
+        --gap: 0.625rem;
+    }
+    
+    
     .ct-breadcrumb {
-        padding: 1rem 0.75rem;
+        padding: 1rem 0.75rem 1.75rem 0.75rem;
     }
 
     .ct-breadcrumb__link,

@@ -2,54 +2,66 @@
    Contact Page — Page-level Styles
    ============================================= */
 
-@import "../section-breadcrumb/assets/styles.css";
-@import "../section-contact-info/assets/styles.css";
-@import "../section-contact-form/assets/styles.css";
+
+main {
+  padding-top: 6.625rem;
+  background: #f7f4ec;
+  position: relative;
+  background-image: url(/wp-content/uploads/2026/04/Chi-tiet-san-pham.webp);
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
 
 /* ---- Page Layout ---- */
 .contact-page {
-    background-color: #f7f4ec;
-    padding: 0 4.25rem 4rem;
+    padding-bottom: 6.25rem;
 }
 
 .contact-page__container {
-    max-width: 90rem;
-    margin-inline: auto;
+    max-width: 91.5rem;
+    margin: 0 auto;
     display: flex;
 }
 
 .contact-page__col--left {
-    flex: 0 0 42%;
-    max-width: 42%;
-    padding-right: 2.5rem;
+    flex: 1;
+    max-width: 42rem;
+    margin-right: 2.5rem;
 }
 
 .contact-page__col--right {
-    flex: 0 0 58%;
-    max-width: 58%;
+    flex: 1;
+    max-width: 47rem;
 }
 
 /* ---- Mobile ---- */
 @media screen and (max-width: 639.98px) {
+    main {
+        padding-top: 3.75rem;
+        background-image: url(/wp-content/uploads/2026/04/MB-Chi-tiet-bai-viet.webp);
+    }
+    
     .contact-page {
-        padding: 0 1.25rem 0;
+        padding-bottom: 4.25rem;
     }
 
     .contact-page__container {
         flex-direction: column;
+        max-width: 100%;
     }
 
     .contact-page__col--left {
         flex: none;
         max-width: 100%;
         padding-right: 0;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
     }
 
     .contact-page__col--right {
         flex: none;
         max-width: 100%;
-        margin-left: -1.25rem;
-        margin-right: -1.25rem;
+        padding: 0 0.75rem 0 0.75rem;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Contact Page - Section Contact Info (Left Column)
  * Hiển thị tiêu đề, thông tin liên hệ, và social media cards
@@ -8,6 +9,7 @@ $contact_title  = get_field('contact_title') ?: 'Liên hệ với chúng tôi';
 $working_hours  = get_field('contact_working_hours') ?: '6h → 20h (Thứ 2 → Thứ 7)';
 $address        = get_field('contact_address') ?: '31 Trần Kim Xuyến, Yên Hoà, Cầu Giấy, Hà Nội, Việt Nam';
 $social_media   = get_field('contact_social_media') ?: [];
+$overlay_item_id = 10101;
 
 // Đường dẫn tới icons
 $ic_clock    = get_theme_file_uri('/template-parts/contact-page/assets/images/ic-clock.svg');
@@ -54,9 +56,6 @@ if (empty($social_media)) {
         </div>
     </div>
 
-    <!-- Đường kẻ phân cách -->
-    <hr class="contact-info__divider">
-
     <!-- Heading social -->
     <h2 class="contact-info__social-heading">Theo dõi chúng tôi</h2>
 
@@ -78,30 +77,32 @@ if (empty($social_media)) {
                 ?>
                     <div class="swiper-slide contact-info__social-slide">
                         <a href="<?= esc_url($url); ?>" target="_blank" rel="noopener noreferrer" class="contact-info__social-card" data-platform="<?= esc_attr($platform); ?>">
-                            <?php if ($has_acf_image) : ?>
-                                <?= wp_get_attachment_image($image_id, 'medium', false, [
-                                    'class'    => 'contact-info__social-card-img',
-                                    'loading'  => 'lazy',
-                                    'decoding' => 'async',
-                                ]); ?>
-                            <?php else : ?>
-                                <!-- PC placeholder -->
-                                <img
-                                    src="<?= esc_url(get_theme_file_uri('/template-parts/contact-page/assets/images/d-social-' . $platform . '.png')); ?>"
-                                    alt="<?= esc_attr($name); ?>"
-                                    class="contact-info__social-card-img contact-info__social-card-img--pc"
-                                    loading="lazy"
-                                    decoding="async"
-                                >
-                                <!-- MB placeholder -->
-                                <img
-                                    src="<?= esc_url(get_theme_file_uri('/template-parts/contact-page/assets/images/m-social-' . $platform . '.png')); ?>"
-                                    alt="<?= esc_attr($name); ?>"
-                                    class="contact-info__social-card-img contact-info__social-card-img--mb"
-                                    loading="lazy"
-                                    decoding="async"
-                                >
-                            <?php endif; ?>
+                            <div class="contact-info__social-card-img-wrap">
+                                <?= wp_get_attachment_image($overlay_item_id, 'full', false, ['class'    => 'contact-info__social-card-img-overlay']); ?>
+
+                                <?php if ($has_acf_image) : ?>
+                                    <?= wp_get_attachment_image($image_id, 'medium', false, [
+                                        'class'    => 'contact-info__social-card-img',
+                                        'loading'  => 'lazy',
+                                        'decoding' => 'async',
+                                    ]); ?>
+                                <?php else : ?>
+                                    <!-- PC placeholder -->
+                                    <img
+                                        src="<?= esc_url(get_theme_file_uri('/template-parts/contact-page/assets/images/d-social-' . $platform . '.png')); ?>"
+                                        alt="<?= esc_attr($name); ?>"
+                                        class="contact-info__social-card-img contact-info__social-card-img--pc"
+                                        loading="lazy"
+                                        decoding="async">
+                                    <!-- MB placeholder -->
+                                    <img
+                                        src="<?= esc_url(get_theme_file_uri('/template-parts/contact-page/assets/images/m-social-' . $platform . '.png')); ?>"
+                                        alt="<?= esc_attr($name); ?>"
+                                        class="contact-info__social-card-img contact-info__social-card-img--mb"
+                                        loading="lazy"
+                                        decoding="async">
+                                <?php endif; ?>
+                            </div>
 
                             <!-- Gradient overlay -->
                             <div class="contact-info__social-card-overlay"></div>
