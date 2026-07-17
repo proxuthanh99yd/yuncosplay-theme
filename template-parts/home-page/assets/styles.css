@@ -1,7 +1,7 @@
 
 .sections__bottom {
   position: relative;
-  background-image: url("/wp-content/uploads/2026/02/backgroundimage-4.webp");
+  background-image: url("/wp-content/uploads/2026/02/backgroundimage-4-1200w.webp");
   background-size: contain;
   background-position: center 24.59rem;
   background-repeat: no-repeat;
@@ -9,7 +9,7 @@
 
 main {
   position: relative;
-  background-image: url("/wp-content/uploads/2026/02/concept.webp");
+  background-image: url("/wp-content/uploads/2026/02/concept-1200w.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -20,6 +20,10 @@ main {
 }
 
 @media (max-width: 639px) {
+  main {
+    background-image: url("/wp-content/uploads/2026/02/concept-600w.webp");
+  }
+
   .sections__bottom {
     background-image: url("/wp-content/uploads/2026/02/backgroundimage-5.webp");
     background-position: center 10.12rem;

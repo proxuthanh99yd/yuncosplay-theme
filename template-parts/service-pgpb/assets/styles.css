@@ -2,8 +2,14 @@
 
 main {
   position: relative;
-  background-image: url("/wp-content/uploads/2026/02/concept.webp");
+  background-image: url("/wp-content/uploads/2026/02/concept-1200w.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+@media (max-width: 639px) {
+  main {
+    background-image: url("/wp-content/uploads/2026/02/concept-600w.webp");
+  }
 }
