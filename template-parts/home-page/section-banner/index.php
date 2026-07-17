@@ -10,8 +10,8 @@ $banner_acf = get_field('banner') ?: [];
         <?php foreach ($banner_acf as $i => $banner): ?>
           <div class="swiper-slide" data-banner-index="<?= esc_attr($i) ?>">
             <div class="banner__slide-inner" data-swiper-parallax="70%">
-              <?= wp_get_attachment_image($banner['image_pc'], 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'banner-image')) ?>
-              <?= wp_get_attachment_image($banner['image_mb'], 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'banner-image-mb')) ?>
+              <?= wp_get_attachment_image($banner['image_pc'], 'full', false, okhub_image_attrs(array('class' => 'banner-image'), $i === 0 && !IS_MOBILE ? 'lcp' : 'lazy')) ?>
+              <?= wp_get_attachment_image($banner['image_mb'], 'full', false, okhub_image_attrs(array('class' => 'banner-image-mb'), $i === 0 && IS_MOBILE ? 'lcp' : 'lazy')) ?>
             </div>
           </div>
         <?php endforeach; ?>
