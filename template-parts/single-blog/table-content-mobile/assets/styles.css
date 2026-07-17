@@ -1,0 +1,181 @@
+.mobile-toc-trigger {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   z-index: 120;
+   width: 100%;
+   padding: 1.25rem 0.75rem;
+   height: 3.75rem;
+   background: white;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.mobile-toc-trigger-text {
+    color: #680103;
+    font-family: Phudu;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%; 
+}
+
+.mobile-toc-trigger-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.mobile-toc-trigger-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.mobile-toc-overlay {
+   position: fixed;
+   inset: 0;
+   z-index: 9997;
+   background: rgba(0, 0, 0, 0.35);
+   opacity: 0;
+   visibility: hidden;
+   pointer-events: none;
+   transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.mobile-toc-overlay.is-open {
+   opacity: 1;
+   visibility: visible;
+   pointer-events: auto;
+}
+
+.mobile-sticky-toc {
+   position: fixed;
+   bottom: 0;
+   left: 50%;
+   transform: translate(-50%, 100%);
+   width: 100%;
+   max-width: 28.125rem;
+   margin: 0 auto;
+   z-index: 9999;
+   background: #ffffff;
+   box-shadow: 0 -0.25rem 1.25rem rgba(0, 0, 0, 0.1);
+   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+   opacity: 0;
+   pointer-events: none;
+}
+
+.mobile-sticky-toc.is-open {
+   transform: translate(-50%, 0);
+   opacity: 1;
+   pointer-events: auto;
+} 
+
+.mobile-sticky-toc .toc-container {
+   padding: 1.25rem 0.75rem;
+   display: flex;
+   flex-direction: column;
+   max-height: 80vh;
+   overflow-y: auto;
+   border-radius: 0.75rem 0.75rem 0 0;
+}
+
+.mobile-sticky-toc .toc-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 100%;
+   cursor: pointer;
+}
+
+.mobile-sticky-toc .toc-header-title {
+   color: #680103;
+   font-family: "Phudu", sans-serif;
+   font-size: 1.125rem;
+   font-weight: 700;
+   line-height: 1.35rem;
+}
+
+.mobile-sticky-toc .toc-header-icon {
+   width: 1.5rem;
+   height: 1.5rem;
+   position: relative;
+}
+
+.mobile-sticky-toc .toc-divider {
+   display: block;
+   width: 100%;
+   height: 0.0625rem;
+   margin: 1.25rem 0;
+}
+
+.mobile-sticky-toc .toc-list-body {
+   display: flex;
+   flex-direction: column;
+   gap: 1.125rem;
+}
+
+.mobile-sticky-toc #ez-toc-container {
+   width: 100% !important;
+   background: transparent !important;
+   border: none !important;
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+.ez-toc-title-container {
+  margin-bottom: 1rem;
+}
+
+div#ez-toc-container .ez-toc-title {
+  color: #680103;
+  font-family: Phudu;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%; 
+}
+
+/*.mobile-sticky-toc #ez-toc-container .ez-toc-title-container {*/
+/*   display: none !important;*/
+/*}*/
+
+.mobile-sticky-toc #ez-toc-container ul.ez-toc-list li {
+   font-family: "SF Pro Display", sans-serif;
+   font-size: 0.875rem !important;
+   line-height: 1.3125rem !important;
+   color: rgba(28, 28, 28, 0.8) !important;
+   list-style: none !important;
+   margin-bottom: 1.125rem !important;
+}
+
+.mobile-sticky-toc #ez-toc-container.toc-mobile-collapsible.toc-mobile-collapsed ul.ez-toc-list > li:nth-child(n + 5) {
+   display: none !important;
+}
+
+.mobile-sticky-toc .toc-mobile-toggle-btn {
+   border: none;
+   background: transparent;
+   padding: 0;
+   color: #386AFF;
+   font-family: "SF Pro Display", sans-serif;
+   font-size: 0.875rem;
+   font-weight: 600;
+   line-height: 1.3125rem;
+   cursor: pointer;
+}
+
+.mobile-sticky-toc .toc-mobile-toggle-btn:hover {
+   text-decoration: underline;
+}
+
+.mobile-sticky-toc .toc-header {
+   padding-bottom: env(safe-area-inset-bottom);
+}
+
+@media (min-width: 638px) {
+   .mobile-toc-trigger,
+   .mobile-toc-overlay,
+   .mobile-sticky-toc {
+      display: none !important;
+   }
+}

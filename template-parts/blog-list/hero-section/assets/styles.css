@@ -1,0 +1,103 @@
+/* ==========================================================================
+   1. HERO SECTION & BREADCRUMB (Mobile First - Mặc định cho Mobile)
+   ========================================================================== */
+
+#hero-section {
+   width: 100%;
+   padding: 3.75rem 0.75rem 1.5rem;
+   max-width: 23.4375rem; /* 375px */
+   margin: 0 auto;
+   box-sizing: border-box;
+}
+
+#hero-section .title {
+   width: 100%;
+   color: #680103;
+   font-family: "Phudu", sans-serif;
+   font-size: 1.875rem; /* 30px */
+   font-weight: 700;
+   line-height: normal;
+   text-transform: uppercase;
+   padding-bottom: 1.5rem;
+   /*border-bottom: 0.0625rem dotted rgba(29, 29, 29, 0.2);*/
+   margin: 0;
+   text-box-edge: cap alphabetic;
+   text-box-trim: trim-both;
+}
+
+#hero-section .hero-section__line {
+    display: block;
+    width: 100%;
+    height: 0.0625rem;
+}
+
+.breadcrumb {
+   display: flex;
+   align-items: center;
+   gap: 0.625rem; /* 10px */
+   padding: 1rem 0 2rem; /* 16px 0 32px */
+   justify-content: flex-start;
+}
+
+.breadcrumb a {
+   color: rgba(28.59, 28.59, 28.59, 0.4);
+   font-size: 0.75rem; /* 12px */
+   font-family: "SF Pro Display", sans-serif;
+   font-weight: 400;
+   line-height: 1.125rem; /* 18px */
+   text-decoration: none;
+   word-wrap: break-word;
+}
+
+.breadcrumb .current {
+   color: #1d1d1d;
+   font-size: 0.75rem; /* 12px */
+   font-family: "SF Pro Display", sans-serif;
+   font-weight: 400;
+   line-height: 1.125rem;
+   word-wrap: break-word;
+}
+
+.breadcrumb .dot {
+   width: 0.25rem; /* 4px */
+   height: 0.25rem; /* 4px */
+   background: rgba(29, 29, 29, 0.40);
+   border-radius: 624.9375rem; /* 9999px */
+   display: block;
+}
+
+/*.breadcrumb .dot.active {*/
+/*   background: #1d1d1d;*/
+/*}*/
+
+@media (min-width: 638px) {
+   #hero-section {
+      padding: 6.625rem 0 3.5rem 0;
+      max-width: 91.5rem;
+   }
+
+   #hero-section .title {
+      font-size: 3.75rem; /* 60px */
+      padding-bottom: 2.88rem;
+   }
+
+   .breadcrumb {
+      gap: 0.875rem; /* 14px */
+      padding: 1.5rem 0 2.5rem;
+   }
+
+   .breadcrumb a,
+   .breadcrumb .current {
+      font-size: 1rem; /* 16px */
+      transition: color 0.2s ease;
+   }
+   
+   .breadcrumb a:hover {
+       color: rgba(28, 28, 28, 0.7);
+   }
+
+   .breadcrumb .dot {
+      width: 0.3125rem; /* 5px */
+      height: 0.3125rem; /* 5px */
+   }
+}
