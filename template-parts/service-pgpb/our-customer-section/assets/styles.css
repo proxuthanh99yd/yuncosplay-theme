@@ -1,0 +1,133 @@
+.customer-section {
+  margin-top: 9.38rem;
+  padding: 0 4.25rem;
+  text-align: center;
+  display: block;
+}
+
+.customer-header {
+  margin-bottom: 3rem;
+  display: block;
+}
+
+.customer-subtitle {
+  color: #680103;
+  font-size: 1.5rem;
+  font-family: "Phudu", sans-serif;
+  font-weight: 600;
+  line-height: 1.65rem;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.customer-title {
+  color: #680103;
+  font-size: 3.625rem;
+  font-family: "Phudu", sans-serif;
+  font-weight: 700;
+  line-height: 3.9875rem;
+  margin: 0;
+  display: block;
+}
+
+.customer-grid {
+  display: block;
+  font-size: 0; /* Remove whitespace between inline-block items */
+  width: 100%;
+}
+
+.customer-item {
+  display: inline-block;
+  vertical-align: top;
+  width: calc((100% - (5 * 2rem)) / 6);
+  margin-right: 2rem;
+  font-size: 1rem;
+}
+
+.customer-item:last-child {
+  margin-right: 0;
+}
+
+.customer-thumb {
+  position: relative;
+  height: 12.1875rem;
+  margin-bottom: 0.875rem;
+  display: block;
+  overflow: hidden;
+}
+
+.customer-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.customer-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0c0c0c;
+  opacity: 0.3;
+}
+
+.customer-item-name {
+  color: #680103;
+  font-size: 1rem;
+  font-family: "SF Pro Display", sans-serif;
+  font-weight: 500;
+  line-height: 1.5rem;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (max-width: 639px) {
+  .customer-section {
+    margin-top: 0;
+    padding: 0 0.75rem;
+  }
+
+  .customer-header {
+    margin-bottom: 2rem;
+  }
+
+  .customer-subtitle {
+    font-size: 0.8125rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .customer-title {
+    font-size: 1.75rem;
+    line-height: 1.1;
+  }
+
+  .customer-item {
+    width: calc((100% - 0.75rem) / 2);
+    margin-right: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .customer-item:nth-child(6n) {
+    margin-right: 0.75rem;
+  }
+
+  .customer-item:nth-child(2n) {
+    margin-right: 0;
+  }
+
+  .customer-thumb {
+    margin-bottom: 0.875rem;
+    width: 10.8125rem;
+    height: 10.8125rem;
+  }
+
+  .customer-item-name {
+    font-size: 0.625rem;
+    line-height: 0.9375rem;
+    font-weight: 700;
+    padding: 0 0.75rem;
+  }
+}

@@ -1,0 +1,491 @@
+/* --- SECTION SERVICES --- */
+.makeup-service.services-section {
+  position: relative;
+  width: 100%;
+  min-height: 67.5625rem; /* 1081px */
+  padding-bottom: 5rem;
+  overflow: hidden;
+}
+
+.makeup-service .services-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/wp-content/uploads/2026/05/banner-service.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center bottom;
+  z-index: 1;
+}
+
+.makeup-service .bg-overlay-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 13.625rem; /* 218px */
+  background: linear-gradient(
+    180deg,
+    rgba(247, 244, 236, 0) 0%,
+    rgba(176, 174, 168, 0.7) 49.34%,
+    rgba(154, 152, 147, 0.91) 78.81%,
+    #918f8b 94.83%
+  );
+  z-index: 2;
+}
+
+.makeup-service .bg-grid-lines {
+  position: absolute;
+  top: 0;
+  left: 3.06rem; /* 49px */
+  width: calc(100% - 6.12rem);
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.makeup-service .bg-grid-lines span {
+  width: 1px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+.makeup-service .services-container {
+  position: relative;
+  z-index: 3;
+  max-width: 100%; /* 1600px */
+  margin: 0 auto;
+  padding: 0 0rem;
+}
+
+/* Features Bar */
+.makeup-service .features-bar {
+  display: flex;
+  flex-wrap: wrap;
+  height: 17rem;
+  padding: 4rem 3.68rem; /* Thay cho cá»‘ Ä‘á»‹nh height Ä‘á»ƒ linh hoáº¡t hÆ¡n */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.makeup-service .feature-item {
+  flex: 1;
+  min-width: 15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1.5rem; /* Thay gap */
+}
+
+.makeup-service .feature-item:last-child {
+  margin-right: 0;
+}
+
+.makeup-service .feature-item .icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-right: 1.5rem;
+}
+
+.makeup-service .feature-text h3 {
+  color: #f7f4ec;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: "Phudu", sans-serif;
+  margin-bottom: 0.125rem;
+  line-height: 120%;
+}
+
+.makeup-service .feature-text p {
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 1rem;
+  color: rgba(247, 244, 236, 0.8);
+  margin: 0;
+}
+
+/* Header Section */
+.makeup-service .services-header {
+  text-align: center;
+  margin-top: 3.8125rem;
+  margin-bottom: 3.625rem;
+}
+
+.makeup-service.services-section .sub-title {
+  display: block;
+  color: #f26c59;
+  font-size: 1.5rem;
+  font-family: "Phudu", sans-serif;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.makeup-service.services-section .main-title {
+  color: #f26c59;
+  font-size: 3.625rem;
+  font-family: "Phudu", sans-serif;
+  font-weight: 700;
+  margin: 0;
+}
+
+.makeup-service .services-grid {
+  display: grid;
+  width: 86.4375rem;
+  margin: 0 auto;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.makeup-service .service-card {
+  position: relative;
+  width: 27.97919rem;
+  height: 18.75rem;
+  overflow: hidden;
+  box-shadow: 0 0.75rem 1.6875rem rgba(0, 0, 0, 0.08);
+  background-color: #000;
+  width: 27.97919rem;
+  height: 18.75rem;
+}
+
+.makeup-service .service-card .post-card__image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.makeup-service .service-card:hover .post-card__image {
+  transform: scale(1.1);
+}
+
+.makeup-service .card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-end;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 0.4) 75%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  transition: background 0.4s ease;
+}
+
+.makeup-service .card-text-window {
+  width: 100%;
+  height: 2.63rem;
+}
+
+.makeup-service .card-text-shift {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.makeup-service .card-title {
+  margin: 0;
+  width: 19rem;
+  /*padding-bottom: 0.5rem;*/
+}
+.makeup-service .service-card:hover .card-overlay {
+  padding: 1rem;
+}
+.makeup-service .card-title span {
+  color: #f7f4ec;
+  font-family: "Phudu", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.makeup-service .card-title li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.makeup-service .card-title li svg {
+  margin-right: 0.5rem;
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.makeup-service .card-title li span {
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 150%;
+  color: #f7f4eccc;
+  text-transform: uppercase;
+  letter-spacing: -0.02rem;
+}
+
+.makeup-service .card-link {
+  display: flex;
+  align-items: center;
+  color: #f7f4ec;
+  text-decoration: none;
+  font-family: "SF Pro Display", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 0.88rem;
+  opacity: 0;
+  border-top: 1px solid transparent;
+  transition: color 0.3s ease, opacity 0.3s ease, border-color 0.4s ease;
+  padding-top: 0.88rem;
+}
+
+.makeup-service .service-card:hover .card-link {
+  border-top-color: #ffffff29;
+}
+
+.makeup-service .card-link:hover {
+  color: #f26c59;
+}
+
+.makeup-service .card-link:hover svg {
+  transform: translateX(0.35rem);
+}
+
+.makeup-service .service-card:hover .card-link {
+  opacity: 1;
+}
+
+.makeup-service .service-card .card-link svg {
+  transform: translateX(-0.35rem);
+}
+
+.makeup-service .service-card:hover .card-link svg {
+  transform: translateX(0);
+  margin-right: 0.34rem;
+}
+
+.makeup-service .service-card .card-link:hover svg {
+  transform: translateX(0.3rem);
+}
+
+.makeup-service .link-arrow {
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: #f26c59;
+  margin-left: 0.5rem;
+  display: inline-block;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z'/%3E%3C/svg%3E")
+    no-repeat center;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z'/%3E%3C/svg%3E")
+    no-repeat center;
+}
+
+.makeup-service .service-card:hover .card-text-shift {
+  transform: translateY(-3.6rem);
+}
+
+.makeup-service .service-card:hover .card-link {
+  opacity: 1;
+}
+
+@media (max-width: 639px) {
+  .makeup-service.services-section {
+    min-height: auto;
+    padding-bottom: 4.25rem;
+    overflow: initial;
+  }
+
+  .makeup-service .bg-grid-lines {
+    display: none;
+  }
+
+  .makeup-service .services-container {
+    padding: 0 0.75rem;
+  }
+
+  .makeup-service.services-section .features-bar {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    height: 10.06rem;
+    padding: 1rem 0;
+    padding-top: 2.12rem;
+    border-bottom: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    position: relative;
+  }
+
+  .services-section.features-bar::before {
+    content: "";
+    position: absolute;
+    height: 0.0625rem;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.16);
+    bottom: -8.06rem;
+    inset-inline: 0;
+  }
+
+  .makeup-service.services-section .feature-item {
+    min-width: 0;
+    margin-right: 0;
+    flex-direction: column;
+    text-align: center;
+    max-width: 100%;
+    height: 100%;
+    padding: 1rem 0;
+    border-bottom: none;
+  }
+
+  .makeup-service.services-section .feature-item .icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .makeup-service.services-section .feature-text h3 {
+    font-size: 1.125rem;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+  }
+
+  .makeup-service.services-section .feature-text p {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  .makeup-service .services-header {
+    margin-top: 9.75rem;
+    margin-bottom: 1.75rem;
+    padding: 0 1rem;
+  }
+
+  .makeup-service.services-section .sub-title {
+    font-size: 0.8125rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .makeup-service.services-section .main-title {
+    font-size: 1.75rem;
+    line-height: 1.1;
+    max-width: 15rem;
+    margin: 0 auto;
+  }
+
+  .makeup-service .services-grid {
+    margin-right: 0;
+    display: block;
+    width: 100%;
+  }
+
+  .makeup-service .service-card {
+    width: 100%;
+    height: 13.875rem;
+    margin-right: 0;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 308px 86px 0 rgba(0, 0, 0, 0),
+      0 197px 79px 0 rgba(0, 0, 0, 0.01), 0 111px 66px 0 rgba(0, 0, 0, 0.05),
+      0 49px 49px 0 rgba(0, 0, 0, 0.09), 0 12px 27px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .makeup-service .card-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.7;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 20%,
+      rgba(0, 0, 0, 0.83) 67%,
+      #000 87%
+    );
+    padding: 0.75rem;
+  }
+  .makeup-service .card-overlay {
+    background: initial;
+    padding: 1rem;
+  }
+  .makeup-service .card-title span {
+    color: var(--Text-inv-100, #f7f4ec);
+
+    /* MB/H4/18 - B */
+    font-family: Phudu;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%; /* 1.35rem */
+  }
+
+  .makeup-service .card-text-window {
+    height: auto;
+  }
+
+  .service-card:hover .card-text-shift,
+  .card-text-shift {
+    transform: initial;
+    z-index: 999;
+    position: relative;
+  }
+
+  .makeup-service .service-card:hover .post-card__image {
+    transform: none;
+  }
+
+  .makeup-service .card-title {
+    padding-bottom: 0rem;
+    margin-bottom: 0rem;
+  }
+
+  .makeup-service .card-title h4 {
+    font-size: 1.125rem;
+    max-width: 100%;
+  }
+
+  .makeup-service .card-title li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .makeup-service .card-title li svg {
+    margin-right: 0.5rem;
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  .makeup-service .card-title li span {
+    font-family: "SF Pro Display";
+    font-size: 0.875rem;
+    text-transform: initial;
+  }
+
+  .makeup-service .card-link {
+    opacity: 1;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    font-size: 0.875rem;
+    margin-top: 0.375rem;
+    padding-top: 0.375rem;
+    color: var(--Text-inv-100, #f7f4ec);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: "SF Pro Display";
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 1.3125rem */
+  }
+
+  .makeup-service .card-link svg {
+    transform: translateX(0) !important;
+    margin-right: 0.34rem;
+  }
+}

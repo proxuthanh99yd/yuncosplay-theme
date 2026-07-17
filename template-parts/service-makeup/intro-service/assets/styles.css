@@ -1,0 +1,272 @@
+.intro {
+   width: 100%;
+   background-color: #ffffff;
+   overflow: hidden;
+   height: 44.375rem;
+   display: flex;
+   align-items: center;
+}
+
+.intro-container {
+   position: relative;
+   width: 100%;
+   max-width: 100rem;
+   margin: 0 auto;
+   display: flex;
+   align-items: center;
+   padding-left: 5.625rem;
+   overflow: hidden;
+}
+
+.intro-bg {
+   position: absolute;
+   inset: 0;
+   z-index: 0;
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   pointer-events: none;
+}
+
+.intro-content {
+   position: relative;
+   z-index: 1;
+   width: 36.9375rem;
+   flex-shrink: 0;
+}
+
+.sub-title {
+   display: block;
+   color: #680103;
+   font-family: "Phudu", sans-serif;
+   font-size: 1.5rem;
+   font-weight: 600;
+   margin-bottom: 1.25rem;
+}
+
+.main-title {
+   color: #680103;
+   font-family: "Phudu", sans-serif;
+   font-size: 3.625rem;
+   font-weight: 700;
+   line-height: 1.1;
+   margin: 0;
+}
+
+.intro-heading {
+   margin-bottom: 2rem;
+}
+
+.intro-features {
+   list-style: none;
+   padding: 0;
+   margin: 0 0 1rem 0;
+   display: flex;
+   flex-direction: column;
+   align-items: start;
+}
+
+.feature-item {
+   display: flex;
+   align-items: center;
+   margin-bottom: 0.875rem;
+}
+
+/*.feature-item:last-child {*/
+/*   margin-bottom: 0;*/
+/*}*/
+
+.feature-text {
+   color: #680103;
+   font-size: 1.25rem;
+   font-family: "SF Pro Display", sans-serif;
+   font-weight: 500;
+   margin-left: 0.5rem;
+}
+
+.intro-divider {
+   width: 100%;
+   height: 0.0625rem;
+   margin-block: 2rem;
+   display: flex;
+   align-items: center;
+}
+
+
+.intro-divider__line_mb {
+   display: none;
+}
+
+.intro-desc {
+   color: #1d1d1d;
+   font-size: 1.125rem;
+   line-height: 1.5;
+   margin: 0;
+}
+
+.intro-visual {
+   position: relative;
+   z-index: 1;
+   width: 54.9375rem;
+   height: 44.375rem;
+   margin-left: 2rem;
+   display: flex;
+   justify-content: flex-end;
+   align-items: flex-end;
+}
+
+.section-about__sun {
+   position: absolute;
+   top: -2.1445rem;
+   left: -7.3616rem;
+   width: 62.9375rem;
+   height: 62.9375rem;
+   z-index: 1;
+}
+
+.section-about__sun svg {
+   width: 100%;
+   height: 100%;
+   opacity: 0.12;
+}
+
+.visual-wrapper {
+   position: relative;
+   z-index: 2;
+   width: 54.9375rem;
+   height: 44.375rem;
+}
+
+.img-concept-main {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   display: block;
+}
+
+.home-services__line {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+@media (max-width: 39.875rem) {
+   .intro {
+      height: auto;
+      padding: 0;
+   }
+
+   .intro-container {
+      flex-direction: column;
+      padding: 0;
+   }
+
+   .intro-content {
+      width: 100%;
+      padding: 0 0.75rem;
+      
+      box-sizing: border-box;
+      margin-top: 5.63rem;
+   }
+
+   .intro-heading {
+      margin-bottom: 1.25rem; 
+   }
+
+   .sub-title {
+      font-size: 0.8125rem;
+      line-height: 1.1;
+      transform: rotate(0); 
+      margin-bottom: 0.5rem;
+      text-align: left;
+   }
+
+   .main-title {
+      font-size: 1.75rem;
+      line-height: 1.1;
+      max-width :16rem;
+   }
+
+   .intro-features {
+      margin-bottom: 0.875rem;
+      display: flex;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+      row-gap: 0.3125rem;
+      column-gap: 0.75rem;
+   }
+
+   .feature-item {
+      margin-bottom: 0;
+      max-width: 100%;
+   }
+
+   .feature-item:nth-child(odd) {
+      justify-self: start;
+   }
+
+   .feature-item:nth-child(even) {
+      justify-self: end;
+   }
+
+   .feature-text {
+      font-size: 1rem;
+      line-height: 1.3;
+      min-width: 0;
+   }
+
+   .intro-divider {
+      margin-bottom: 0.875rem;
+      display: none;
+   }
+
+   .intro-divider__line_mb {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-bottom: 0.875rem;
+   }
+
+   .intro-desc {
+      font-size: 0.875rem;
+      line-height: 1.3125rem;font-family: "SF Pro Display";
+   }
+
+   .intro-visual {
+      width: 100%;
+      height: 17.5rem;
+      margin-left: 0;
+      margin-top: -1rem;
+      order: 2; 
+   }
+
+   .visual-wrapper {
+      width: 100%;
+      height: 17.5rem;
+   }
+
+   .img-concept-main {
+      width: 100%;
+      height: 100%;
+   }
+
+   .section-about__sun {
+      width: 30.9375rem;
+      height: 30.9375rem;
+   }
+}
+
+.outer-rotate {
+   transform-box: fill-box;
+   transform-origin: center;
+   animation: rotateOuter 20s linear infinite;
+}
+
+@keyframes rotateOuter {
+   from {
+      transform: rotate(0deg);
+   }
+   to {
+      transform: rotate(360deg);
+   }
+}

@@ -1,0 +1,10 @@
+
+main {
+  background: #f7f4ec;
+  position: relative;
+  background-image: url(/wp-content/uploads/2026/04/Chi-tiet-san-pham.webp);
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}

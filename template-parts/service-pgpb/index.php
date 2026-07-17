@@ -1,0 +1,9 @@
+<?php
+get_template_part('template-parts/service-pgpb/hero-section/index');
+get_template_part('template-parts/service-pgpb/intro-service/index');
+get_template_part('template-parts/service-pgpb/service-makeups/index');
+get_template_part('template-parts/service-pgpb/our-customer-section/index');
+get_template_part('template-parts/service-pgpb/workflow-section/index');
+get_template_part('template-parts/service-pgpb/feedback/index');
+get_template_part('template-parts/service-pgpb/section-mermaid-banner/index');
+?>

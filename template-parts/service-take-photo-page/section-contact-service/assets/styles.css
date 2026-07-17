@@ -1,0 +1,99 @@
+.section-contact-service {
+  display: flex;
+  padding: 6.3125rem 8.5625rem 6.25rem 8.5rem;
+  justify-content: center;
+  align-items: center;
+  padding-top: 5rem;
+}
+.container-left {
+  margin-right: 1rem;
+  flex: 1;
+}
+.container-left h2 {
+  color: var(--Text-Title---Highlight-100, #680103);
+
+  /* PC/H2/46 - B */
+  font-family: Phudu;
+  font-size: 2.875rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%; /* 3.45rem */
+  padding-bottom: 1rem;
+}
+.container-left p {
+  color: var(--Text-Body-80, rgba(29, 29, 29, 0.8));
+
+  /* PC/Body/18 - R - SF */
+  font-family: "SF Pro Display";
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 1.6875rem */
+  padding-bottom: 1.625rem;
+}
+.container-left__social {
+  display: flex;
+}
+.container-left__social--item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 5.46875rem;
+  /* opacity: 0.12; */
+  background: #6801031f;
+
+  margin-right: 1rem;
+}
+.container-left__social--item img {
+  width: 75%;
+  height: auto;
+  object-fit: cover;
+  z-index: 100;
+}
+.container-left__social--item svg {
+    width: 2.04169rem;
+    height: auto;
+    object-fit: cover;
+    z-index: 100;
+}
+.container-left__social--item:last-child {
+  margin-right: 0;
+}
+@media (max-width: 639.98px) {
+  .section-contact-service {
+    padding: 5.5rem 0.875rem;
+    flex-direction: column;
+  }
+  .container-left {
+    text-align: center;
+  }
+  .container-left h2 {
+    font-size: 1.75rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%;
+    padding-bottom: 0.75rem;
+  }
+  .container-left p {
+    padding-bottom: 0.6875rem;
+    font-size: 0.875rem;
+    width: 16.1875rem;
+    margin: 0 auto;
+  }
+  .container-left__social {
+    justify-content: center;
+    margin-bottom: 0.875rem;
+  }
+  .container-left__social--item {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: 0.875rem;
+  }
+  .container-left__social--item img {
+  }
+  .container-left__social--item svg {
+    width: 1.45831rem;
+  }
+}

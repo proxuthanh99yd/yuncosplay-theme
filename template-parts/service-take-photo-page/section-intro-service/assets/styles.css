@@ -1,0 +1,180 @@
+.section-intro-service {
+  width: 100%;
+  height: 60.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.section-intro-service .intro-bg {
+  width: 100%;
+  height: 100%;
+}
+.section-intro-service .intro-deco--pc {
+  width: 56.375rem;
+  height: 49.375rem;
+  position: absolute;
+  top: 3.19rem;
+  z-index: 2;
+  right: -8rem;
+}
+.section-intro-service .intro-bg--mb {
+  display: none;
+}
+.section-intro-service .section-about__sun {
+  position: absolute;
+  top: -9rem;
+  right: -1rem;
+  width: 62.9375rem;
+  height: 62.9375rem;
+  z-index: 1;
+}
+.section-intro-service .outer-rotate {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rotateOuter 20s linear infinite;
+}
+
+.section-intro-service .intro-content {
+  width: 36.9375rem;
+}
+.section-intro-service .intro-content__title {
+  color: var(--Text-Title---Highlight-100, #680103);
+
+  /* PC/Sub/24 - S - sub H2 */
+  font-family: Phudu;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%; /* 1.65rem */
+  padding-bottom: 1.25rem;
+}
+.section-intro-service .intro-content__subtitle {
+  color: var(--Text-Title---Highlight-100, #680103);
+
+  /* PC/H2/58 - B */
+  font-family: Phudu;
+  font-size: 3.625rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%; /* 3.9875rem */
+  padding-bottom: 2rem;
+}
+.section-intro-service .intro-content__features {
+  padding-bottom: 2rem;
+  border-bottom: 1px dashed #1d1d1d1f;
+}
+.section-intro-service .intro-content__feature--item {
+  display: flex;
+  align-items: center;
+  color: var(--Text-Title---Highlight-100, #680103);
+
+  /* PC/H4/20 - M - SF */
+  font-family: "SF Pro Display";
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 130%; /* 1.625rem */
+  padding-bottom: 0.875rem;
+}
+.section-intro-service .intro-content__feature--item svg {
+  width: 0.875rem;
+  margin-right: 0.5rem;
+  height: 1.625rem;
+}
+.section-intro-service .intro-content__description {
+  padding-top: 2rem;
+  color: var(--Text-Body-100, #1d1d1d);
+
+  /* PC/Body/18 - R - SF */
+  font-family: "SF Pro Display";
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 1.6875rem */
+}
+.section-intro-service .intro-deco--mb {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  top: auto;
+  left: 0;
+  height: 17.47713rem;
+  width: 100%;
+  object-fit: contain;
+}
+@keyframes rotateOuter {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+.section-intro-service .intro-content {
+  position: absolute;
+  top: 8.38rem;
+  left: 5.63rem;
+}
+.section-intro-service .intro-content__feature--item:last-child {
+  padding-bottom: 0;
+}
+@media (max-width: 639px) {
+  .section-intro-service {
+    height: 41.96rem;
+  }
+  .section-intro-service .intro-bg-pc {
+    display: none;
+  }
+  .section-intro-service .intro-bg--mb {
+    display: block;
+  }
+  .section-intro-service .outer-rotate {
+    animation: none;
+  }
+  .section-intro-service .intro-content {
+    width: 100%;
+    padding: 0 0.75rem;
+    top: 4.23rem;
+    left: 0;
+  }
+  .section-intro-service .intro-deco--mb {
+    display: block;
+  }
+  .section-intro-service .intro-deco--pc {
+    display: none;
+  }
+  .section-intro-service .section-about__sun {
+      display: none;
+    }
+  .section-intro-service .intro-content__title {
+    font-size: 0.8125rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 110%;
+    padding-bottom: 0.5rem;
+  }
+  .section-intro-service .intro-content__subtitle {
+    font-size: 1.75rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%;
+    padding-bottom: 1.25rem;
+  }
+  .section-intro-service .intro-content__features {
+    padding-bottom: 0.875rem;
+  }
+  .section-intro-service .intro-content__feature--item {
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%;
+    padding-bottom: 0.3125rem;
+  }
+  .section-intro-service .intro-content__description {
+    padding-top: 0.875rem;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+  }
+}

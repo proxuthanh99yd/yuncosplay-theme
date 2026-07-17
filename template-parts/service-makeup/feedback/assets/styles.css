@@ -1,0 +1,177 @@
+/* 1rem = 16px */
+:root {
+  --primary-red: #680103;
+}
+
+.gallery-section {
+  margin-top: 7rem;
+  width: 100%;
+  padding: 1.75rem 0 0;
+  overflow: hidden;
+}
+
+/* Header Styling */
+.gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0.625rem 4.25rem 1.25rem 4.25rem; /* 10px 68px 20px 68px */
+}
+
+.gallery-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-sub {
+  color: #680103;
+  font-family: "Phudu", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 1.5rem; /* Thay thế gap: 24px */
+}
+
+.gallery-main {
+  color: #680103;
+  font-family: "Phudu", sans-serif;
+  font-size: 3.625rem; /* 58px */
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+}
+
+/* Social Icons Styling */
+.gallery-socials {
+  display: flex;
+  align-items: center;
+}
+
+.social-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem; /* 40px */
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 1px solid var(--primary-red);
+  margin-left: 1rem; /* Thay thế gap: 16px */
+  transition: all 0.3s ease;
+}
+
+.social-icon:first-child {
+  margin-left: 0;
+}
+
+.social-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  display: block;
+}
+
+.gallery-container {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  padding: 2rem 0 0;
+  transform: translateZ(0);
+}
+
+.gallery-container::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-container:hover .gallery-track {
+  animation-play-state: paused;
+}
+
+.gallery-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-animation 50s linear infinite;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+.gallery-item {
+  height: 32.0625rem;
+  flex-shrink: 0;
+  margin-right: 1.25rem; /* Thay cho gap: 20px */
+  contain: layout paint;
+}
+
+.gallery-item img {
+  width: auto;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: translateZ(0);
+  pointer-events: none; /* Tránh việc browser cho phép kéo ảnh ra ngoài */
+}
+
+@keyframes marquee-animation {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-25%, 0, 0);
+  }
+}
+@media (min-width: 639px) {
+  .gallery-track {
+    animation-duration: 36s;
+  }
+}
+
+@media (max-width: 640px) {
+  .gallery-header {
+    flex-direction: column;
+    padding: 1rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .gallery-section {
+    margin-top: 0;
+    padding: 0;
+  }
+  .gallery-item {
+    height: 18.75rem;
+  }
+
+  .gallery-socials {
+    margin-top: 1.5rem;
+  }
+
+  .gallery-sub {
+    font-size: 0.8125rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .gallery-main {
+    font-size: 1.75rem;
+  }
+
+  .gallery-track {
+    padding-left: 0;
+  }
+
+  .gallery-container {
+    padding-left: 1rem;
+  }
+
+  .gallery-item {
+    height: 16.23rem;
+    width: 16.04rem !important;
+  }
+  .gallery-item {
+    margin-right: 0.65rem;
+  }
+  .gallery-item img {
+    width: 100%;
+    max-width: 100%;
+  }
+}
