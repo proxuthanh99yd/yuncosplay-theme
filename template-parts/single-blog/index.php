@@ -1,7 +1,9 @@
 <?php
-$phone_number   = '(+84) 79 409 888';
-$zalo_link      = 'https://zalo.me/0794098888';
-$messenger_link = 'https://m.me/yuncosplay';
+// Contact info
+$cta = function_exists('get_field') ? get_field('cta', 'option') : [];
+$cta_zalo      = $cta['link_zalo'] ?? null;
+$cta_messenger = $cta['link_messenger'] ?? null;
+$cta_hotline   = $cta['link_hotline'] ?? null;
 ?>
 
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
@@ -116,15 +118,25 @@ $messenger_link = 'https://m.me/yuncosplay';
     
                             <div class="blog-post-cta">
                                 <div class="cta-banner-wrapper">
-                                    <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $phone_number)); ?>" class="cta-contact-box">
-                                        <span class="cta-contact-title">Thuê đồ ngay</span>
-                                        <span class="cta-contact-phone">Gọi: <?php echo esc_html($phone_number); ?></span>
-                                    </a>
-    
+                                    <?php if (!empty($cta_hotline) && !empty($cta_hotline['url'])) :
+                                        $cta_hotline_url    = $cta_hotline['url'];
+                                        $cta_hotline_target = $cta_hotline['target'] ? $cta_hotline['target'] : '_self';
+                                        $cta_hotline_title  = $cta_hotline['title'];
+                                    ?>
+                                        <a href="<?php echo esc_url($cta_hotline_url); ?>" target="<?php echo esc_attr($cta_hotline_target); ?>" class="cta-contact-box">
+                                            <span class="cta-contact-title">Thuê đồ ngay</span>
+                                            <span class="cta-contact-phone">Gọi: <?php echo esc_html($cta_hotline_title); ?></span>
+                                        </a>
+                                    <?php endif; ?>
+
                                     <div class="cta-social-wrap">
                                         <span class="cta-social-text">Hoặc liên hệ</span>
                                         <div class="cta-social-icons">
-                                            <a href="<?php echo esc_url($zalo_link); ?>" target="_blank" class="social-icon-item">
+                                            <?php if (!empty($cta_zalo) && !empty($cta_zalo['url'])) :
+                                                $cta_zalo_url    = $cta_zalo['url'];
+                                                $cta_zalo_target = $cta_zalo['target'] ? $cta_zalo['target'] : '_self';
+                                            ?>
+                                            <a href="<?php echo esc_url($cta_zalo_url); ?>" target="<?php echo esc_attr($cta_zalo_target); ?>" rel="noopener noreferrer" class="social-icon-item">
                                                 <div class="icon-bg-overlay"></div>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="33" height="13" viewBox="0 0 33 13" fill="none">
                                                     <path d="M7.21575 2.33978L2.35083 10.3163V10.4936H7.21575V12.6206H0V10.4936L4.89757 2.51703V2.33978H0V0.212707H7.21575V2.33978Z" fill="currentColor" />
@@ -133,12 +145,18 @@ $messenger_link = 'https://m.me/yuncosplay';
                                                     <path d="M23.1001 6.41667C23.1001 4.9159 23.3232 3.69283 23.7694 2.74747C24.2156 1.8021 24.7979 1.1108 25.5162 0.673573C26.2454 0.224524 27.0345 0 27.8834 0C28.7323 0 29.5159 0.224524 30.2342 0.673573C30.9634 1.1108 31.5511 1.8021 31.9973 2.74747C32.4436 3.69283 32.6667 4.9159 32.6667 6.41667C32.6667 7.91743 32.4436 9.1405 31.9973 10.0859C31.5511 11.0312 30.9634 11.7284 30.2342 12.1775C29.5159 12.6147 28.7323 12.8333 27.8834 12.8333C27.0345 12.8333 26.2454 12.6147 25.5162 12.1775C24.7979 11.7284 24.2156 11.0312 23.7694 10.0859C23.3232 9.1405 23.1001 7.91743 23.1001 6.41667ZM25.1734 6.41667C25.1734 7.38567 25.2931 8.18923 25.5325 8.82735C25.772 9.46547 26.093 9.94997 26.4957 10.2808C26.9093 10.5999 27.3664 10.7594 27.867 10.7594C28.3677 10.7594 28.8248 10.5999 29.2384 10.2808C29.6628 9.94997 29.9948 9.46547 30.2342 8.82735C30.4845 8.18923 30.6097 7.38567 30.6097 6.41667C30.6097 5.43585 30.4845 4.62638 30.2342 3.98826C29.9839 3.35014 29.6519 2.87155 29.2384 2.55249C28.8248 2.23343 28.3731 2.07389 27.8834 2.07389C27.3718 2.07389 26.9093 2.23933 26.4957 2.57021C26.093 2.88927 25.772 3.36786 25.5325 4.00599C25.2931 4.64411 25.1734 5.44767 25.1734 6.41667Z" fill="currentColor" />
                                                 </svg>
                                             </a>
-                                            <a href="<?php echo esc_url($messenger_link); ?>" target="_blank" rel="noopener noreferrer"" target=" _blank" class="social-icon-item">
+                                            <?php endif; ?>
+                                            <?php if (!empty($cta_messenger) && !empty($cta_messenger['url'])) :
+                                                $cta_messenger_url    = $cta_messenger['url'];
+                                                $cta_messenger_target = $cta_messenger['target'] ? $cta_messenger['target'] : '_self';
+                                            ?>
+                                            <a href="<?php echo esc_url($cta_messenger_url); ?>" target="<?php echo esc_attr($cta_messenger_target); ?>" rel="noopener noreferrer" class="social-icon-item">
                                                 <div class="icon-bg-overlay"></div>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
                                                     <path d="M15.0267 0C6.72984 0 0 6.27302 0 14.0467C0 18.1632 1.89365 22.0168 5.22667 24.6965V30.4464L10.8464 27.5064C12.2168 27.8968 13.5898 28.027 15.0267 28.027C23.3235 28.027 30.0533 21.7565 30.0533 13.9803C30.0533 6.27302 23.3235 0 15.0267 0ZM16.5298 18.6864L12.74 14.6336L5.68349 18.62L13.5235 10.3232L17.3797 14.1768L24.2397 10.3232L16.5298 18.6864Z" fill="currentColor" />
                                                 </svg>
                                             </a>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
