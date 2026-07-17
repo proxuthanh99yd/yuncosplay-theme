@@ -182,3 +182,68 @@ function okhub_get_destination_data_for_country($country, $destinations)
 
     return null;
 }
+
+/**
+ * Trả về mảng attr cho wp_get_attachment_image().
+ *
+ * QUAN TRỌNG — loading="eager" ở đây làm ĐỒNG THỜI 2 việc:
+ *   1. Hint native cho browser (đừng hoãn ảnh LCP).
+ *   2. Kích hoạt luật loại trừ của WP Rocket LazyLoad: chuỗi 'loading="eager"' nằm
+ *      sẵn trong getExcludedAttributes() (wp-rocket/inc/Dependencies/RocketLazyload/
+ *      Image.php:441) và được khớp bằng strpos() trên cả thẻ img. Không có nó,
+ *      Rocket nuốt src thành SVG placeholder rỗng rồi đẩy URL thật sang
+ *      data-lazy-src -> mọi tối ưu ở đây thành vô nghĩa. Đừng đổi 'eager' sang
+ *      giá trị khác, và sau mỗi lần update WP Rocket nên kiểm lại list đó.
+ *
+ * LUÔN set 'loading' ở MỌI nhánh — không bao giờ bỏ trống. Các page template của
+ * theme chỉ get_header() + get_template_part() chứ không chạy main loop, nên
+ * $wp_query->before_loop luôn true; wp_get_loading_optimization_attributes()
+ * rơi vào nhánh coi MỌI ảnh là "trong viewport" và KHÔNG tự thêm lazy. Bỏ trống
+ * 'loading' = cả trang eager. Đó cũng là lý do ~129 chỗ trong theme hardcode
+ * 'lazy' — chúng load-bearing, không phải thừa.
+ *
+ * Mỗi hero render cả 2 ảnh desktop + mobile rồi CSS ẩn 1 cái bằng display:none.
+ * Ảnh display:none + lazy sẽ KHÔNG bao giờ tải -> truyền 'lazy' cho variant đang
+ * bị ẩn để cắt double-download. Ngược lại eager + display:none vẫn tải, nên đừng
+ * bao giờ eager cả 2 variant.
+ *
+ * 'eager' (không kèm high) dành cho ảnh trên fold nhưng KHÔNG phải LCP (logo).
+ * fetchpriority='auto' ở đó là cố ý: wp_maybe_add_fetchpriority_high_attr() thấy
+ * fetchpriority đã set sẵn thì return sớm mà không hạ wp_high_priority_element_flag(),
+ * nhờ vậy hero render sau vẫn giành được suất 'high' duy nhất của trang.
+ *
+ * Cách dùng:
+ *      // variant desktop, slide đầu của swiper
+ *      wp_get_attachment_image($id, 'full', false, okhub_image_attrs(
+ *          ['class' => 'banner-image'],
+ *          $i === 0 && !IS_MOBILE ? 'lcp' : 'lazy'
+ *      ));
+ *
+ * @param array  $attrs    Attr riêng của call site (class, alt, ...).
+ * @param string $priority 'lcp' = ảnh LCP | 'eager' = trên fold, không LCP | 'lazy'.
+ *
+ * @return array
+ */
+function okhub_image_attrs(array $attrs = [], string $priority = 'lazy'): array
+{
+    $attrs['decoding'] = $attrs['decoding'] ?? 'async';
+
+    if ($priority === 'lcp') {
+        $attrs['loading'] = 'eager';
+        $attrs['fetchpriority'] = 'high';
+
+        return $attrs;
+    }
+
+    if ($priority === 'eager') {
+        $attrs['loading'] = 'eager';
+        $attrs['fetchpriority'] = 'auto';
+
+        return $attrs;
+    }
+
+    $attrs['loading'] = 'lazy';
+    unset($attrs['fetchpriority']);
+
+    return $attrs;
+}
