@@ -1,0 +1,31 @@
+.marquee-component.marquee-images {
+  width: 100%;
+  overflow: hidden;
+}
+
+.marquee-component .marquee-images__track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.marquee-component .marquee-images__img {
+  width: auto;
+  height: 32.0625rem;
+  object-fit: contain;
+  flex: 0 0 auto;
+  display: block;
+  margin-right: 1.25rem;
+}
+
+@media (max-width: 639px) {
+  .marquee-component .marquee-images__track {
+  }
+
+  .marquee-component .marquee-images__img {
+    height: 16.25rem;
+    margin-right: 0.625rem;
+  }
+}

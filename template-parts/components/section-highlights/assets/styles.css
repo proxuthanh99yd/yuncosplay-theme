@@ -1,0 +1,135 @@
+.highlights {
+  margin-bottom: 6.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.highlights__container {
+  width: 100%;
+  max-width: 93.9375rem;
+  margin: 0 auto;
+}
+
+.highlights__list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+  height: 17rem;
+  align-items: center;
+}
+
+.highlights__list-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 0 0;
+  align-self: stretch;
+  position: relative;
+}
+
+.highlights__list-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0.0625rem;
+  height: 114.4375rem;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.highlights__list-item:last-child::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 0.0625rem;
+  height: 114.4375rem;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.highlights__list-item-image {
+  width: 3.5rem;
+  height: auto;
+  margin-right: 1.5rem;
+}
+
+.highlights__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.highlights__content-title {
+  color: #f7f4ec;
+  font-family: Phudu;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+}
+
+.highlights__content-description {
+  color: rgba(247, 244, 236, 0.8);
+  font-family: "SF Pro Display";
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+@media (max-width: 639px) {
+  .highlights {
+    margin-top: 1.25rem;
+    margin-bottom: 4.25rem;
+    border-bottom: none;
+  }
+
+  .highlights__container {
+    padding: 0 0.75rem;
+  }
+
+  .highlights__list {
+    position: relative;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1.5rem;
+    height: auto;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  .highlights__list::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  .highlights__list-item {
+    flex-direction: column;
+    padding: 1rem 0;
+  }
+
+  .highlights__list-item::before,
+  .highlights__list-item:last-child::after {
+    content: none;
+  }
+
+  .highlights__list-item-image {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .highlights__content-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .highlights__content-description {
+    font-size: 0.875rem;
+  }
+}
