@@ -196,9 +196,6 @@ $icon_path = '/assets/images/single-product';
                     </div>
                 <?php
                     $media_index += 2;
-                else :
-                    $media_index++;
-                    continue;
                 endif;
 
                 // Large item (single, full-width)
