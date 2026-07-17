@@ -31,7 +31,8 @@ add_action('rest_api_init', function () {
  * API tìm kiếm: posts, taxonomy destination, post type hotels-and-resorts
  * Trả về tối đa 4 kết quả
  */
-function rest_search_api($request) {
+function rest_search_api($request)
+{
 	$keyword = $request->get_param('keyword');
 
 	if (empty($keyword)) {
@@ -128,7 +129,8 @@ function rest_search_api($request) {
 	), 200);
 }
 
-function rest_mega_menu_journeys_api($request) {
+function rest_mega_menu_journeys_api($request)
+{
 	$taxonomy = sanitize_key($request->get_param('taxonomy'));
 	$term_slug = $request->get_param('term_slug');
 	$posts_per_page = absint($request->get_param('posts_per_page'));
@@ -187,16 +189,16 @@ function rest_mega_menu_journeys_api($request) {
 			$tour_url = get_permalink($tour_id);
 			$tour_thumb_id = get_post_thumbnail_id($tour_id) ?: 1916;
 ?>
-<div class="header-mega-menu__journeys-item-wrapper" data-term="<?= esc_attr($term_slug) ?>">
-	<a class="header-mega-menu__journeys-item" href="<?= esc_url($tour_url) ?>">
-		<?= wp_get_attachment_image($tour_thumb_id, 'full', false, array('class' => '')) ?>
-		<div class="header-mega-menu__journeys-item-content">
-			<span class="header-mega-menu__journeys-item-title">
-				<?= esc_html($tour_title); ?>
-			</span>
-		</div>
-	</a>
-</div>
+			<div class="header-mega-menu__journeys-item-wrapper" data-term="<?= esc_attr($term_slug) ?>">
+				<a class="header-mega-menu__journeys-item" href="<?= esc_url($tour_url) ?>">
+					<?= wp_get_attachment_image($tour_thumb_id, 'full', false, array('class' => '')) ?>
+					<div class="header-mega-menu__journeys-item-content">
+						<span class="header-mega-menu__journeys-item-title">
+							<?= esc_html($tour_title); ?>
+						</span>
+					</div>
+				</a>
+			</div>
 <?php
 		}
 	}
@@ -214,7 +216,8 @@ function rest_mega_menu_journeys_api($request) {
  * Generic get-all endpoint with fallback response for ANY post type
  * /wp-json/api/v1/get-all/{post_type}?limit=10&paged=1&tax=destination,category&destination=laos&orderby=modified
  */
-function getAll($request) {
+function getAll($request)
+{
 	$post_type = isset($request['post_type']) ? sanitize_key($request['post_type']) : 'post';
 	$limit     = isset($request['limit']) ? absint($request['limit']) : 10;
 	$page      = isset($request['paged']) ? absint($request['paged']) : 1;
@@ -272,9 +275,9 @@ function getAll($request) {
 			if (empty($tax_slug)) continue;
 
 			/**
-         * ✅ Nếu truyền cả term cha + term con trong cùng taxonomy:
-         * - Lấy hết term con, bỏ term cha đi (tránh cha kéo toàn bộ con)
-         */
+			 * ✅ Nếu truyền cả term cha + term con trong cùng taxonomy:
+			 * - Lấy hết term con, bỏ term cha đi (tránh cha kéo toàn bộ con)
+			 */
 			$children_terms = array();
 			foreach ($tax_slug as $slug) {
 				$term = get_term_by('slug', $slug, $tax);
@@ -381,4 +384,150 @@ function getAll($request) {
 
 	wp_reset_postdata();
 	return $res;
+}
+
+// ================================
+// [TẠM] Chuẩn hóa số điện thoại khách hàng
+// Ví dụ: "(097) 603-7935" -> "0976037935" (bỏ mọi ký tự không phải số)
+//
+// GET /wp-json/api/v1/normalize-phones?target=orders&page=1&dry=1
+//   - target: orders | users (mặc định orders)
+//   - page:   trang xử lý (mỗi trang 1000 bản ghi)
+//   - dry:    1 = chỉ xem trước, không ghi (mặc định 0 = ghi thật)
+//
+// XÓA route này sau khi chạy xong migration.
+// ================================
+// add_action('rest_api_init', function () {
+// 	register_rest_route('api/v1', '/normalize-phones', array(
+// 		'methods'             => 'GET',
+// 		'callback'            => 'cosplay_normalize_customer_phones',
+// 		// 'permission_callback' => function () {
+// 		// 	return current_user_can('manage_options');
+// 		// },
+// 	));
+// });
+
+/**
+ * Chuẩn hóa số điện thoại về dạng nội địa VN.
+ *  - Bỏ mọi ký tự không phải số: "(097) 603-7935" -> "0976037935"
+ *  - Quy đổi đầu số quốc tế về 0: "+84 976 037 935" / "84976037935" / "0084976037935" -> "0976037935"
+ */
+function cosplay_normalize_phone_value($phone)
+{
+	// Bỏ mọi ký tự không phải số
+	$digits = preg_replace('/\D+/', '', (string) $phone);
+
+	if ($digits === '') {
+		return '';
+	}
+
+	// Tiền tố quay số quốc tế dạng 00 (vd: 0084...) -> bỏ "00"
+	if (strpos($digits, '00') === 0) {
+		$digits = substr($digits, 2);
+	}
+
+	// +84 / 84xxxxxxxxx (84 + 9 số) -> 0xxxxxxxxx
+	if (strpos($digits, '84') === 0 && strlen($digits) === 11) {
+		$digits = '0' . substr($digits, 2);
+	}
+
+	return $digits;
+}
+
+/**
+ * Callback endpoint tạm — chuẩn hóa billing phone theo từng trang.
+ */
+function cosplay_normalize_customer_phones($request)
+{
+	$target   = $request->get_param('target') === 'users' ? 'users' : 'orders';
+	$page     = max(1, (int) $request->get_param('page'));
+	$dry_run  = (int) $request->get_param('dry') === 1;
+	$per_page = 1000;
+
+	$updated = 0;
+	$skipped = 0;
+	$changes = array();
+	$has_more = false;
+
+	if ($target === 'orders') {
+		if (!function_exists('wc_get_orders')) {
+			return new WP_Error('no_woocommerce', 'WooCommerce chưa được kích hoạt.', array('status' => 400));
+		}
+
+		$orders = wc_get_orders(array(
+			'limit'   => $per_page,
+			'page'    => $page,
+			'paginate' => false,
+			'orderby' => 'ID',
+			'order'   => 'ASC',
+			'return'  => 'objects',
+		));
+
+		$has_more = count($orders) === $per_page;
+
+		foreach ($orders as $order) {
+			$old = $order->get_billing_phone();
+			$new = cosplay_normalize_phone_value($old);
+
+			if ($new === '' || $new === $old) {
+				$skipped++;
+				continue;
+			}
+
+			$changes[] = array('id' => $order->get_id(), 'old' => $old, 'new' => $new);
+
+			if (!$dry_run) {
+				$order->set_billing_phone($new);
+				$order->save();
+			}
+			$updated++;
+		}
+	} else {
+		$query = new WP_User_Query(array(
+			'meta_key'     => 'billing_phone',
+			'meta_compare' => 'EXISTS',
+			'number'       => $per_page,
+			'paged'        => $page,
+			'orderby'      => 'ID',
+			'order'        => 'ASC',
+			'fields'       => array('ID'),
+		));
+
+		$users = $query->get_results();
+		$has_more = count($users) === $per_page;
+
+		foreach ($users as $user) {
+			$uid = (int) $user->ID;
+			$old = (string) get_user_meta($uid, 'billing_phone', true);
+			$new = cosplay_normalize_phone_value($old);
+
+			if ($new === '' || $new === $old) {
+				$skipped++;
+				continue;
+			}
+
+			$changes[] = array('id' => $uid, 'old' => $old, 'new' => $new);
+
+			if (!$dry_run) {
+				update_user_meta($uid, 'billing_phone', $new);
+			}
+			$updated++;
+		}
+	}
+
+	return new WP_REST_Response(array(
+		'success' => true,
+		'target'  => $target,
+		'page'    => $page,
+		'dry_run' => $dry_run,
+		'updated' => $updated,
+		'skipped' => $skipped,
+		'changes' => $changes,
+		'next'    => $has_more
+			? add_query_arg(
+				array('target' => $target, 'page' => $page + 1, 'dry' => $dry_run ? 1 : 0),
+				rest_url('api/v1/normalize-phones')
+			)
+			: null,
+	), 200);
 }

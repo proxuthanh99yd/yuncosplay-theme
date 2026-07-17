@@ -1,6 +1,41 @@
 <?php
 
 /**
+ * Trả về closure dùng cho filter 'posts_clauses' để sắp xếp sản phẩm:
+ * order_index số to lên trước, bằng nhau thì bài mới lên trước, chốt bằng ID
+ * để thứ tự ổn định giữa các trang (tránh sản phẩm nhảy/lặp khi phân trang).
+ * Sản phẩm không có order_index coi như 0 — giữ đúng thứ tự đang hiển thị.
+ *
+ * Dùng 1 LEFT JOIN đã lọc sẵn meta_key, thay cho meta_query EXISTS/NOT EXISTS:
+ * cách cũ sinh 2 LEFT JOIN không lọc meta_key nên quét ~580ms/363 sản phẩm.
+ *
+ * Cách dùng:
+ *      $order_clauses = okhub_product_order_clauses();
+ *      add_filter('posts_clauses', $order_clauses, 10, 2);
+ *      $query = new WP_Query($args);
+ *      remove_filter('posts_clauses', $order_clauses, 10);
+ *
+ * @return callable
+ */
+function okhub_product_order_clauses()
+{
+    global $wpdb;
+
+    return function ($clauses, $wp_query) use ($wpdb) {
+        if (!is_object($wp_query) || $wp_query->get('post_type') !== 'product') {
+            return $clauses;
+        }
+
+        $clauses['join'] .= " LEFT JOIN {$wpdb->postmeta} AS okhub_oi"
+            . " ON (okhub_oi.post_id = {$wpdb->posts}.ID AND okhub_oi.meta_key = 'order_index')";
+        $clauses['orderby'] = "COALESCE(CAST(okhub_oi.meta_value AS SIGNED), 0) DESC,"
+            . " {$wpdb->posts}.post_date DESC, {$wpdb->posts}.ID DESC";
+
+        return $clauses;
+    };
+}
+
+/**
  * Generates a pagination array
  *
  * @param array $params

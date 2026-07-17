@@ -33,15 +33,22 @@ add_action('rest_api_init', function () {
 				'type' => 'string',
 				'sanitize_callback' => 'sanitize_text_field',
 			),
+			// Bọc floatval trong closure: REST gọi sanitize_callback với 3 tham số
+			// ($value, $request, $key), mà floatval là hàm internal chỉ nhận đúng
+			// 1 tham số -> ArgumentCountError (fatal, response rỗng) ở PHP 8.
 			'min_price' => array(
 				'required' => false,
 				'type' => 'number',
-				'sanitize_callback' => 'floatval',
+				'sanitize_callback' => function ($value) {
+					return floatval($value);
+				},
 			),
 			'max_price' => array(
 				'required' => false,
 				'type' => 'number',
-				'sanitize_callback' => 'floatval',
+				'sanitize_callback' => function ($value) {
+					return floatval($value);
+				},
 			),
 		),
 	));
@@ -63,12 +70,20 @@ add_action('rest_api_init', function () {
 });
 
 function rest_products_api($request) {
+	global $wpdb;
+
 	$search = sanitize_text_field($request->get_param('search') ?? '');
 	$limit = absint($request->get_param('limit') ?? 12);
 	$page = absint($request->get_param('page') ?? 1);
 	$category = sanitize_text_field($request->get_param('category') ?? '');
+	$min_price = $request->get_param('price_min');
+	if ($min_price === null || $min_price === '') {
 	$min_price = $request->get_param('min_price');
+	}
+	$max_price = $request->get_param('price_max');
+	if ($max_price === null || $max_price === '') {
 	$max_price = $request->get_param('max_price');
+	}
 
 	if ($limit <= 0) {
 		$limit = 12;
@@ -81,13 +96,13 @@ function rest_products_api($request) {
 	}
 
 	$args = array(
-		'post_type' => 'product',
-		'post_status' => 'publish',
+		'post_type'      => 'product',
+		'post_status'    => 'publish',
 		'posts_per_page' => $limit,
-		'paged' => $page,
-		'orderby' => 'date',
-		'order' => 'DESC',
+		'paged'          => $page,
 	);
+
+	$order_clauses = okhub_product_order_clauses();
 
 	// Category filter
 	if (!empty($category)) {
@@ -101,19 +116,22 @@ function rest_products_api($request) {
 	}
 
 	// Price range filter (using meta_query on _price)
-	if ($min_price !== null || $max_price !== null) {
+	if (
+		($min_price !== null && $min_price !== '') ||
+		($max_price !== null && $max_price !== '')
+	) {
 		$price_meta = array('relation' => 'AND');
-		if ($min_price !== null && $min_price > 0) {
+		if ($min_price !== null && $min_price !== '' && $min_price > 0) {
 			$price_meta[] = array(
-				'key'     => '_price',
+				'key'     => '_regular_price',
 				'value'   => floatval($min_price),
 				'compare' => '>=',
 				'type'    => 'NUMERIC',
 			);
 		}
-		if ($max_price !== null && $max_price > 0) {
+		if ($max_price !== null && $max_price !== '' && $max_price > 0) {
 			$price_meta[] = array(
-				'key'     => '_price',
+				'key'     => '_regular_price',
 				'value'   => floatval($max_price),
 				'compare' => '<=',
 				'type'    => 'NUMERIC',
@@ -124,7 +142,6 @@ function rest_products_api($request) {
 
 	$where_filter = null;
 	if (!empty($search)) {
-		global $wpdb;
 		$search_like = '%' . $wpdb->esc_like($search) . '%';
 
 		// Chỉ tìm theo tiêu đề sản phẩm (post_title)
@@ -137,7 +154,9 @@ function rest_products_api($request) {
 		add_filter('posts_where', $where_filter, 10, 2);
 	}
 
+	add_filter('posts_clauses', $order_clauses, 10, 2);
 	$query = new WP_Query($args);
+	remove_filter('posts_clauses', $order_clauses, 10);
 	if ($where_filter) {
 		remove_filter('posts_where', $where_filter, 10);
 	}
@@ -149,15 +168,15 @@ function rest_products_api($request) {
 			$thumbnail_id = get_post_thumbnail_id($product_id);
 			$thumbnail_url = $thumbnail_id ? wp_get_attachment_image_url($thumbnail_id, 'full') : (defined('FALLBACK_IMAGE_URL') ? FALLBACK_IMAGE_URL : null);
 			$video_url = function_exists('get_field') ? (get_field('video', $product_id) ?: null) : null;
-			$rent_price_raw = function_exists('get_field') ? get_field('rent_price', $product_id) : null;
-			$rent_price_number = is_numeric($rent_price_raw) ? (float) $rent_price_raw : 0;
-			$rent_price_formatted = number_format($rent_price_number, 0, ".", ".");
 
 			$price = null;
 			$regular_price = null;
 			$sale_price = null;
 			$currency = null;
 			$sale_price_formatted = null;
+			$rent_price_raw = null;
+			$rent_price_number = 0;
+			$rent_price_formatted = "0";
 
 			if (function_exists('wc_get_product')) {
 				$product = wc_get_product($product_id);
@@ -166,9 +185,15 @@ function rest_products_api($request) {
 					$regular_price = $product->get_regular_price();
 					$sale_price = $product->get_sale_price();
 					$currency = function_exists('get_woocommerce_currency') ? get_woocommerce_currency() : null;
-					$sale_price_formatted = number_format((float) ($product->get_price() ?: 0), 0, ".", ".");
+					$rent_price_raw = $product->get_regular_price();
+					$rent_price_number = is_numeric($rent_price_raw) ? (float) $rent_price_raw : 0;
+					$rent_price_formatted = number_format($rent_price_number, 0, ".", ".");
 				}
 			}
+			
+			// Sale price: from _sale_price_custom (same as PHP render)
+			$sale_price_custom_raw = get_post_meta($product_id, '_sale_price_custom', true);
+			$sale_price_formatted = number_format((float) ($sale_price_custom_raw ?: 0), 0, ".", ".");
 
 			$items[] = array(
 				'id' => $product_id,
@@ -258,4 +283,3 @@ function rest_product_categories_api($request) {
 		'data'    => $items,
 	), 200);
 }
-

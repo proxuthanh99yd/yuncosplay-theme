@@ -108,3 +108,307 @@ add_filter('template_include', function ($template) {
     }
     return $template;
 }, 20);
+
+/**
+ * WooCommerce: không redirect thẳng tới trang sản phẩm khi tìm kiếm chỉ ra 1 kết quả.
+ * (Mặc định WC dùng filter `woocommerce_redirect_single_search_result` = true.)
+ * Trang `search.php` của theme cần hiển thị danh sách + tab, không nhảy permalink.
+ */
+add_filter('woocommerce_redirect_single_search_result', '__return_false');
+
+
+
+
+add_action('admin_footer-post.php', 'okhub_service_category_radio_ui');
+add_action('admin_footer-post-new.php', 'okhub_service_category_radio_ui');
+
+function okhub_service_category_radio_ui() {
+    global $post;
+
+    if (!$post || get_post_type($post) !== 'service') return;
+    ?>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const taxonomy = 'service_category';
+    const taxonomyBox = document.querySelector('#taxonomy-service_category');
+
+    if (!taxonomyBox) return;
+
+    const inputs = taxonomyBox.querySelectorAll('input[type="checkbox"]');
+
+    inputs.forEach(function(input) {
+        input.type = 'radio';
+        input.name = 'tax_input[' + taxonomy + '][]';
+    });
+
+    taxonomyBox.addEventListener('change', function(e) {
+        const current = e.target;
+
+        if (!current.matches('input[type="radio"]')) return;
+
+        const currentValue = current.value;
+
+        taxonomyBox.querySelectorAll('input[type="radio"]').forEach(function(input) {
+            input.checked = input.value === currentValue;
+        });
+    });
+});
+</script>
+
+<style>
+#taxonomy-service_category input[type="radio"] {
+    margin-right: 6px;
+}
+</style>
+<?php
+}
+
+add_action('admin_footer-post.php', 'okhub_required_service_fields_notice');
+add_action('admin_footer-post-new.php', 'okhub_required_service_fields_notice');
+
+function okhub_required_service_fields_notice() {
+    global $post;
+
+    if (!$post || get_post_type($post) !== 'service') return;
+    ?>
+<style>
+.okhub-acf-notice {
+    margin: 10px 0 20px;
+}
+
+.okhub-acf-notice p {
+    margin: 0;
+}
+
+.okhub-acf-notice ul {
+    margin: 8px 0 0 18px;
+    list-style: disc;
+}
+
+.okhub-field-error {
+    border: 2px solid #d63638 !important;
+}
+
+.okhub-taxonomy-error {
+    border: 2px solid #d63638 !important;
+    padding: 8px !important;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const publishBtn = document.querySelector('#publish');
+    const titleInput = document.querySelector('#title');
+    const taxonomyBox = document.querySelector('#taxonomy-service_category');
+
+    if (!publishBtn) return;
+
+    function getSelectedCategory() {
+        if (!taxonomyBox) return null;
+
+        return taxonomyBox.querySelector(
+            'input[name="tax_input[service_category][]"]:checked:not([value="0"])'
+        );
+    }
+
+    function getValidationErrors() {
+        const errors = [];
+
+        const titleValue = titleInput ? titleInput.value.trim() : '';
+
+        if (!titleValue) {
+            errors.push({
+                key: 'title',
+                label: 'Tiêu đề',
+                message: 'Vui lòng nhập tiêu đề.'
+            });
+        }
+
+        if (!getSelectedCategory()) {
+            errors.push({
+                key: 'category',
+                label: 'Service Category',
+                message: 'Vui lòng chọn Service Category.'
+            });
+        }
+
+        return errors;
+    }
+
+    function clearAcfNotice() {
+        document.querySelectorAll('.okhub-acf-notice').forEach(function(el) {
+            el.remove();
+        });
+    }
+
+    function showAcfNotice(errors) {
+        const wrap = document.querySelector('#wpbody-content .wrap');
+
+        if (!wrap) {
+            alert(errors.map(function(error) {
+                return error.message;
+            }).join('\n'));
+            return;
+        }
+
+        clearAcfNotice();
+
+        const notice = document.createElement('div');
+        notice.className = 'acf-notice -error acf-error-message okhub-acf-notice';
+
+        const titleMessage = document.createElement('p');
+        titleMessage.innerHTML = '<strong>Validation failed. Please check:</strong>';
+        notice.appendChild(titleMessage);
+
+        const ul = document.createElement('ul');
+
+        errors.forEach(function(error) {
+            const li = document.createElement('li');
+            li.innerHTML = '<strong>' + error.label + ':</strong> ' + error.message;
+            ul.appendChild(li);
+        });
+
+        notice.appendChild(ul);
+
+        const title = wrap.querySelector('h1');
+
+        if (title) {
+            title.insertAdjacentElement('afterend', notice);
+        } else {
+            wrap.prepend(notice);
+        }
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    function resetPublishBtn() {
+        publishBtn.disabled = false;
+        publishBtn.classList.remove('disabled', 'button-primary-disabled');
+
+        const spinner = document.querySelector('#publishing-action .spinner');
+
+        if (spinner) {
+            spinner.classList.remove('is-active');
+            spinner.style.visibility = 'hidden';
+        }
+    }
+
+    function setTitleError() {
+        if (!titleInput) return;
+        titleInput.classList.add('okhub-field-error');
+    }
+
+    function removeTitleError() {
+        if (!titleInput) return;
+        titleInput.classList.remove('okhub-field-error');
+    }
+
+    function setCategoryError() {
+        if (!taxonomyBox) return;
+        taxonomyBox.classList.add('okhub-taxonomy-error');
+    }
+
+    function removeCategoryError() {
+        if (!taxonomyBox) return;
+        taxonomyBox.classList.remove('okhub-taxonomy-error');
+    }
+
+    function removeNoticeIfValid() {
+        const errors = getValidationErrors();
+
+        if (!errors.length) {
+            clearAcfNotice();
+        }
+    }
+
+    if (titleInput) {
+        titleInput.addEventListener('input', function() {
+            if (titleInput.value.trim()) {
+                removeTitleError();
+                removeNoticeIfValid();
+            }
+        });
+    }
+
+    if (taxonomyBox) {
+        taxonomyBox.addEventListener('change', function() {
+            if (getSelectedCategory()) {
+                removeCategoryError();
+                removeNoticeIfValid();
+            }
+        });
+    }
+
+    publishBtn.addEventListener('click', function(e) {
+        const errors = getValidationErrors();
+
+        if (!errors.length) return true;
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        showAcfNotice(errors);
+
+        const hasTitleError = errors.some(function(error) {
+            return error.key === 'title';
+        });
+
+        const hasCategoryError = errors.some(function(error) {
+            return error.key === 'category';
+        });
+
+        if (hasTitleError) {
+            setTitleError();
+
+            if (titleInput) {
+                titleInput.focus();
+            }
+        } else {
+            removeTitleError();
+        }
+
+        if (hasCategoryError) {
+            setCategoryError();
+
+            if (!hasTitleError && taxonomyBox) {
+                taxonomyBox.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
+        } else {
+            removeCategoryError();
+        }
+
+        resetPublishBtn();
+
+        return false;
+    }, true);
+});
+</script>
+<?php
+}
+
+add_action('save_post_service', 'okhub_limit_one_service_category', 99);
+
+function okhub_limit_one_service_category($post_id) {
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (wp_is_post_revision($post_id)) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    $taxonomy = 'service_category';
+
+    if (empty($_POST['tax_input'][$taxonomy])) return;
+
+    $terms = array_map('absint', (array) $_POST['tax_input'][$taxonomy]);
+    $terms = array_filter($terms);
+    $terms = array_values(array_unique($terms));
+
+    if (count($terms) > 1) {
+        $last_term = end($terms);
+        wp_set_post_terms($post_id, [$last_term], $taxonomy, false);
+    }
+}
