@@ -1,0 +1,244 @@
+.product-faq__container {
+  position: relative;
+  max-width: 91.5rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-faq__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2.875rem;
+}
+
+.product-faq__subtitle {
+  color: #680103;
+  text-align: center;
+  font-family: Phudu;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%;
+  margin-bottom: 1.5rem;
+}
+
+.product-faq__title {
+  color: #680103;
+  text-align: center;
+  font-family: Phudu;
+  font-size: 3.625rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
+}
+
+.product-faq__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-faq__item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+.product-faq__item.is-active .product-faq__item-trigger svg {
+  transform: rotate(180deg);
+}
+
+.product-faq__item:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+
+.product-faq__item-trigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  text-align: left;
+  padding: 1.875rem 2.5rem;
+}
+
+.product-faq__item-question {
+  color: #680103;
+  font-family: Phudu;
+  font-size: 1.875rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+.product-faq__item-trigger svg {
+  width: 2.4375rem;
+  height: 2.4375rem;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.product-faq__item-answer {
+  overflow: hidden;
+  height: 0;
+  transition: height 400ms ease;
+}
+
+.product-faq__item-answer-inner {
+  color: rgba(29, 29, 29, 0.8);
+  font-family: "SF Pro Display";
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  margin: 0 2.5rem 1.875rem;
+}
+
+.product-faq__item-answer-inner > *:first-child {
+  margin-top: 0;
+}
+
+.product-faq__item-answer-inner > *:last-child {
+  margin-bottom: 0;
+}
+
+.product-faq__item-answer-inner h1,
+.product-faq__item-answer-inner h2,
+.product-faq__item-answer-inner h3,
+.product-faq__item-answer-inner h4,
+.product-faq__item-answer-inner h5,
+.product-faq__item-answer-inner h6 {
+  color: #680103;
+  font-weight: 500;
+  margin-top: 1.125rem;
+}
+
+.product-faq__item-answer-inner h1 {
+  font-size: 2.25rem;
+  line-height: 120%;
+}
+.product-faq__item-answer-inner h2 {
+  font-size: 1.875rem;
+  line-height: 125%;
+}
+.product-faq__item-answer-inner h3 {
+  font-size: 1.5rem;
+  line-height: 128%;
+}
+.product-faq__item-answer-inner h4 {
+  font-size: 1.25rem;
+  line-height: 130%;
+}
+.product-faq__item-answer-inner h5 {
+  font-size: 1.125rem;
+  line-height: 140%;
+}
+.product-faq__item-answer-inner h6 {
+  font-size: 1rem;
+  line-height: 145%;
+}
+
+.product-faq__item-answer-inner p {
+  margin-top: 0.5rem;
+}
+
+.product-faq__item-answer-inner ol {
+  list-style: decimal;
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.product-faq__item-answer-inner ul {
+  list-style: disc;
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.product-faq__item.is-hidden {
+  display: none;
+}
+
+.product-faq__button {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.875rem;
+}
+
+@media (max-width: 640px) {
+  .product-faq {
+    padding: 3.4375rem 0.75rem 0;
+  }
+
+  .product-faq__header {
+    margin-bottom: 1.25rem;
+  }
+
+  .product-faq__subtitle {
+    font-size: 0.8125rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .product-faq__title {
+    font-size: 1.75rem;
+    width: 20rem;
+  }
+
+  .product-faq__item-question {
+    font-size: 1.125rem;
+  }
+  
+  .product-faq__item-trigger {
+    padding: 1rem 0.9375rem;
+  }
+
+  .product-faq__item-trigger svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .product-faq__item-answer-inner {
+    font-family: Phudu;
+    font-size: 0.875rem;
+    margin: 0.875rem 0.9375rem 1rem;
+  }
+
+  .product-faq__item-answer-inner h1,
+  .product-faq__item-answer-inner h2,
+  .product-faq__item-answer-inner h3,
+  .product-faq__item-answer-inner h4,
+  .product-faq__item-answer-inner h5,
+  .product-faq__item-answer-inner h6 {
+    font-family: "SF Pro Display";
+  }
+
+  .product-faq__item-answer-inner h1 {
+    font-size: 1.5rem;
+    line-height: 130%;
+  }
+  .product-faq__item-answer-inner h2 {
+    font-size: 1.375rem;
+    line-height: 135%;
+  }
+  .product-faq__item-answer-inner h3 {
+    font-size: 1.25rem;
+    line-height: 140%;
+  }
+  .product-faq__item-answer-inner h4 {
+    font-size: 1rem;
+    line-height: 150%;
+  }
+  .product-faq__item-answer-inner h5 {
+    font-size: 0.9375rem;
+    line-height: 150%;
+  }
+  .product-faq__item-answer-inner h6 {
+    font-size: 0.875rem;
+    line-height: 150%;
+  }
+
+  .product-faq__button {
+    margin-top: 1.25rem;
+  }
+}

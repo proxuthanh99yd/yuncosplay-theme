@@ -1,0 +1,422 @@
+.ez-toc-debug-messages {
+  display: none !important;
+}
+
+.product-fb {
+  padding: 6.25rem 0 10.75rem;
+  margin-bottom: 7.5rem;
+  overflow: hidden;
+}
+
+.product-fb__bg {
+  position: absolute;
+  bottom: 3.78113rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90.3125rem;
+  height: 11.90638rem;
+  object-fit: contain;
+}
+
+.product-fb__container {
+  max-width: 77.5rem;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-fb__title {
+  color: #680103;
+  text-align: center;
+  font-family: Phudu;
+  font-size: 3.625rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
+  margin-bottom: 3rem;
+}
+
+.product-fb__media-swiper {
+  width: 100%;
+  height: 38.75rem;
+}
+
+.product-fb__media-slide {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 22.5rem;
+  height: 38.75rem;
+  transition: transform 0.5s ease-out;
+  transform-origin: top left;
+  will-change: transform;
+  cursor: pointer;
+  user-select: none;
+}
+
+.product-fb__media-slide.no-transition,
+.product-fb__media-slide.no-transition::before {
+  transition: none !important;
+}
+
+.product-fb__media-slide::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: rgba(0, 0, 0, 0.4);
+  transition:
+    opacity 0.5s ease-out,
+    visibility 0.5s ease-out;
+  z-index: 2;
+}
+
+.product-fb__media-slide.swiper-slide-active::before {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.product-fb__media-slide.swiper-slide-active .product-fb__media-play-button {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.product-fb__media-video {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+.product-fb__media-thumbnail {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.product-fb__media-thumbnail::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.product-fb__media-thumbnail-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-fb__media-play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  transform-origin: center;
+  transform: translate3d(-50%, -50%, 0)
+    scale(var(--btn-scale-x, 1), var(--btn-scale-y, 1));
+  width: 3.25rem;
+  height: 3.25rem;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.product-fb__media-play-button svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.product-fb__media-embed {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.product-fb__media-video--playing .product-fb__media-embed {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.product-fb__media-embed iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  aspect-ratio: 9 / 16;
+  border: 0;
+  transform: translate(-50%, -50%);
+}
+
+.product-fb__media-overlay {
+  position: absolute;
+  top: 3.5rem;
+  left: 0.5rem;
+  right: 3rem;
+  bottom: 4.5rem;
+  z-index: 3;
+  display: none;
+  border-radius: inherit;
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.product-fb__media-video--playing .product-fb__media-overlay {
+  display: block;
+}
+
+.product-fb__media-video--loading .product-fb__media-play-button {
+  display: none;
+}
+
+.product-fb__media-video--loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: -1.25rem 0 0 -1.25rem;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: product-fb-spin 0.8s linear infinite;
+  z-index: 10;
+}
+
+@keyframes product-fb-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.product-fb__media-video--playing .product-fb__media-thumbnail,
+.product-fb__media-video--playing .product-fb__media-play-button {
+  display: none;
+}
+
+.product-fb__content-swiper {
+  position: absolute;
+  right: 13.75rem;
+  bottom: 2.12rem;
+  width: 40rem;
+}
+
+.product-fb__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.product-fb__text {
+  color: rgba(66, 66, 66, 0.8);
+  text-align: justify;
+  font-family: "SF Pro Display";
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  margin-bottom: 3.56rem;
+  display: -webkit-box;
+  line-clamp: 4;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-fb__meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 9.75rem;
+  min-height: 3.125rem;
+  flex-shrink: 0;
+}
+
+.product-fb__author {
+  color: #680103;
+  font-family: "SF Pro Display";
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+}
+
+.product-fb__link {
+  color: #424242;
+  font-family: "SF Pro Display";
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+  margin-top: 0.5rem;
+}
+
+.product-fb__pagination {
+  position: absolute;
+  right: 48.12rem;
+  bottom: 2.44rem;
+  display: flex;
+  align-items: center;
+  z-index: 5;
+}
+
+.product-fb__pagination-button {
+  position: relative;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6.25rem;
+  background: #fff;
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.12);
+}
+
+.product-fb__pagination-button svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: filter 400ms cubic-bezier(0.41, 0.02, 0, 1.01);
+}
+
+.product-fb__pagination-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(50% 169.61% at 50% 50%, #cb5140 46.54%, #d8a061 91.01%);
+  opacity: 0;
+  transition: opacity 400ms cubic-bezier(0.41, 0.02, 0, 1.01);
+}
+
+.product-fb__pagination-button:hover::before {
+    opacity: 1;
+}
+
+.product-fb__pagination-button:hover svg {
+  filter: brightness(0) invert(1);
+}
+
+.product-fb__pagination-button--prev {
+  margin-right: 0.625rem;
+}
+
+@media (max-width: 640px) {
+  .product-fb {
+    padding: 3.4375rem 0 0;
+    margin-bottom: 0;
+  }
+
+  .product-fb__bg {
+    bottom: 13.79rem;
+    width: 25.5625rem;
+    height: 3.37006rem;
+    object-fit: contain;
+  }
+
+  .product-fb__title {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .product-fb__media-swiper {
+    height: 37.78125rem;
+    padding: 0 0.75rem;
+  }
+
+  .product-fb__media-slide {
+    width: 21.9375rem;
+    height: 37.78125rem;
+  }
+
+  .product-fb__media-play-button {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .product-fb__media-overlay {
+    position: absolute;
+    top: 5rem;
+    left: 0;
+    right: auto;
+    width: 34%;
+    bottom: 7rem;
+    z-index: 4;
+    touch-action: pan-y;
+  }
+
+  .product-fb__media-video--playing .product-fb__media-overlay {
+    display: block;
+  }
+
+  .product-fb__content-swiper {
+    position: static;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 0 0.75rem;
+    margin-top: 2.89rem;
+  }
+
+  .product-fb__content {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
+
+  .product-fb__text {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    line-clamp: 7;
+    -webkit-line-clamp: 7;
+  }
+
+  .product-fb__meta {
+    min-height: 2.625rem;
+  }
+
+  .product-fb__author {
+    font-size: 0.75rem;
+  }
+
+  .product-fb__link {
+    font-size: 0.75rem;
+    margin-top: 0.375rem;
+  }
+
+  .product-fb__pagination {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 10.19rem;
+  }
+}
