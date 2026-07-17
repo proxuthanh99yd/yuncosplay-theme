@@ -1,0 +1,295 @@
+#about-us-services {
+  padding-bottom: 3.69rem;
+}
+
+#about-us-services .section-services__bg {
+  position: absolute;
+  bottom: 0rem;
+  right: 0;
+  width: 46.875rem;
+  height: 39.3125rem;
+  object-fit: contain;
+}
+
+#about-us-services .section-services__container {
+  position: relative;
+  width: 100%;
+  max-width: 92rem;
+  margin: 0 auto;
+}
+
+#about-us-services .section-services__heading {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2.375rem;
+}
+
+#about-us-services .section-services__description {
+  color: #680103;
+  font-family: Phudu;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%;
+  margin-bottom: 1.4375rem;
+}
+
+#about-us-services .section-services__title {
+  color: #680103;
+  font-family: Phudu;
+  font-size: 3.625rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
+}
+
+#about-us-services .section-services__list {
+  width: 65.9rem;
+  display: flex;
+  align-items: center;
+}
+
+#about-us-services .section-services__slider {
+  width: 100%;
+  height: 100%;
+}
+
+#about-us-services .section-services__slide {
+  width: 19.625rem;
+  height: 25rem;
+}
+
+#about-us-services .section-services__item {
+  width: 100%;
+  height: 100%;
+}
+
+#about-us-services .section-services__image-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#about-us-services .section-services__image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.54;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 48.62%,
+    rgba(0, 0, 0, 0) 65.98%,
+    rgba(0, 0, 0, 0.83) 78.18%,
+    #000 87.37%
+  );
+  z-index: 1;
+  transition: opacity 0.4s ease-out;
+}
+
+#about-us-services .section-services__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#about-us-services .section-services__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem;
+}
+
+#about-us-services .section-services__content-title {
+  color: #f7f4ec;
+  font-family: Phudu;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+}
+
+#about-us-services .section-services__content-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+}
+
+#about-us-services .section-services__content-icon img {
+  width: 100%;
+  height: auto;
+}
+
+.section-services__nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 1.5rem;
+}
+
+.section-services__nav-btn {
+  position: relative;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6.25rem;
+  background: #fff;
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.section-services__nav-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(50% 169.61% at 50% 50%, #cb5140 46.54%, #d8a061 91.01%);
+    opacity: 0;
+    transition: opacity 400ms cubic-bezier(0.41, 0.02, 0, 1.01);
+}
+
+.section-services__nav-btn.section-services__nav-next {
+  margin-bottom: 0.75rem;
+}
+
+.section-services__nav-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: filter 400ms cubic-bezier(0.41, 0.02, 0, 1.01);
+}
+
+.section-services__controls {
+  margin-top: 0.875rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-services__controls .section-services__nav-btn {
+  display: none;
+}
+
+.section-services__pagination .swiper-pagination-current {
+  color: rgba(29, 29, 29, 0.8);
+  font-family: "SF Pro Display";
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+.section-services__pagination .swiper-pagination-total {
+  color: #680103;
+  font-family: "SF Pro Display";
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+@media (min-width: 1024px) {
+  .section-services__nav-btn:hover::before {
+    opacity: 1;
+  }
+  
+  .section-services__nav-btn:hover svg {
+    filter: brightness(0) invert(1);
+  }
+  
+  #about-us-services .section-services__item:hover .section-services__content-icon {
+    opacity: 1;
+  }
+  
+  #about-us-services .section-services__item:hover .section-services__image-overlay {
+    opacity: 0.7;
+  }
+}
+
+@media (max-width: 639px) {
+  #about-us-services {
+    padding-bottom: 4.25rem;
+  }
+
+  #about-us-services .section-services__container {
+    padding: 0 0.75rem;
+    margin-top: -1.25rem;
+  }
+
+  #about-us-services .section-services__bg {
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+
+  #about-us-services .section-services__heading {
+    margin-bottom: 2rem;
+  }
+
+  #about-us-services .section-services__description {
+    text-align: center;
+    font-size: 0.8125rem;
+    margin-bottom: 0.5rem;
+  }
+
+  #about-us-services .section-services__title {
+    text-align: center;
+    font-size: 1.75rem;
+  }
+
+  #about-us-services .section-services__list {
+    width: 100%;
+  }
+
+  #about-us-services .section-services__slide {
+    width: 100%;
+    height: 25rem;
+  }
+
+  #about-us-services .section-services__content-title {
+    font-weight: 700;
+    line-height: 110%;
+  }
+
+  #about-us-services .section-services__content-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    opacity: 1;
+  }
+
+  #about-us-services .section-services__nav {
+    display: none;
+  }
+
+  #about-us-services .section-services__controls .section-services__nav-btn {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  #about-us-services .section-services__controls .section-services__nav-btn.section-services__nav-next {
+    margin-bottom: 0;
+  }
+
+  #about-us-services .section-services__controls .section-services__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

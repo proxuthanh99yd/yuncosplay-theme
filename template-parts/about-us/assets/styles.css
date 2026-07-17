@@ -1,0 +1,36 @@
+
+main {
+  background: #f7f4ec;
+  position: relative;
+  background-image: url(/wp-content/uploads/2026/04/Chi-tiet-san-pham.webp);
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  /* background-attachment: fixed; */
+}
+
+.about-us__sections-bottom {
+  position: relative;
+  background-image: url("/wp-content/uploads/2026/04/Background-Image.webp");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.home__events {
+  padding-top: 0;
+}
+
+.about-us__sections-bottom .home_events-swiper-controls {
+  top: 10.7rem;
+}
+
+@media (max-width: 639px) {
+  main {
+    padding-top: 3.75rem;
+  }
+  
+  .about-us__sections-bottom {
+    background-image: url("/wp-content/uploads/2026/04/Sponsor-Section.webp");
+  }
+}

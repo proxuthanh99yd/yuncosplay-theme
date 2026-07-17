@@ -1,0 +1,340 @@
+#about-us-banner {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+#about-us-banner .about-us-banner__container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#about-us-banner .about-us-banner__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 25.75rem;
+  background: linear-gradient(
+    180deg,
+    rgba(106, 0, 2, 0) 40.28%,
+    rgba(106, 0, 2, 0.36) 59.73%,
+    rgba(106, 0, 2, 0.56) 74.25%,
+    rgba(75, 0, 1, 0.7) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+#about-us-banner .about-us-banner__content {
+  position: absolute;
+  bottom: 3.5rem;
+  left: 5rem;
+  right: 5rem;
+  z-index: 2;
+}
+
+#about-us-banner .about-us-banner__content-first {
+  position: relative;
+}
+
+#about-us-banner .about-us-banner__content-item {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#about-us-banner .about-us-banner__content-item.is-active {
+  display: flex;
+}
+
+@keyframes aboutUsBannerTextIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+    filter: blur(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+#about-us-banner
+  .about-us-banner__content-item.is-active
+  .about-us-banner__title {
+  animation: aboutUsBannerTextIn 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+#about-us-banner
+  .about-us-banner__content-item.is-active
+  .about-us-banner__description {
+  animation: aboutUsBannerTextIn 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: 90ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #about-us-banner
+    .about-us-banner__content-item.is-active
+    .about-us-banner__title,
+  #about-us-banner
+    .about-us-banner__content-item.is-active
+    .about-us-banner__description {
+    animation: none !important;
+    filter: none !important;
+  }
+}
+
+#about-us-banner .about-us-banner__title {
+  width: 46.92769rem;
+  color: #f7f4ec;
+  text-box-edge: cap alphabetic;
+  text-box-trim: trim-both;
+  font-family: Phudu;
+  font-size: 2.875rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+  text-transform: uppercase;
+}
+
+#about-us-banner .about-us-banner__description {
+  width: 19.875rem;
+  color: #f7f4ec;
+  font-family: "SF Pro Display";
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+#about-us-banner .about-us-banner__description > *:first-child {
+  margin-top: 0;
+}
+
+#about-us-banner .about-us-banner__description > *:last-child {
+  margin-bottom: 0;
+}
+
+#about-us-banner .about-us-banner__swiper {
+  width: 100%;
+  height: 100%;
+}
+
+#about-us-banner .about-us-banner__swiper .swiper-slide {
+  position: relative;
+  overflow: hidden;
+}
+
+#about-us-banner .about-us-banner__slide-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+  overflow: hidden;
+}
+
+#about-us-banner .about-us-banner__slide-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+#about-us-banner .about-us-banner__image-mobile {
+  display: none;
+}
+
+#about-us-banner .about-us-banner__pagination {
+  position: static !important;
+  display: flex !important;
+  align-items: center;
+  width: fit-content;
+  gap: 0.1875rem;
+}
+
+#about-us-banner .about-us-banner__pagination .swiper-pagination-bullet {
+  opacity: 0.32;
+  background: #f6f3ea;
+  width: 2.3rem;
+  height: 0.1875rem;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+  border-radius: 0;
+  margin: 0;
+}
+
+#about-us-banner .about-us-banner__pagination .swiper-pagination-bullet-active {
+  opacity: 1;
+  background: #f6f3ea;
+}
+
+#about-us-banner .about-us-banner__content-second {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-top: 0rem;
+}
+
+#about-us-banner .about-us-banner__nav {
+  display: none;
+}
+
+@keyframes aboutUsBannerStoryProgress {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1024px) {
+  #about-us-banner {
+    height: 49.25rem;
+  }
+}
+
+@media (max-width: 639px) {
+  #about-us-banner {
+    height: 36rem;
+    position: relative;
+  }
+
+  #about-us-banner .about-us-banner__image {
+    display: none;
+  }
+
+  #about-us-banner .about-us-banner__image-mobile {
+    display: block;
+  }
+
+  #about-us-banner .about-us-banner__content {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    right: 0.75rem;
+    z-index: 2;
+  }
+
+  #about-us-banner .about-us-banner__overlay {
+    height: 18.1875rem;
+    background: linear-gradient(
+      180deg,
+      rgba(106, 0, 2, 0) 40.28%,
+      rgba(106, 0, 2, 0.31) 59.73%,
+      rgba(106, 0, 2, 0.48) 74.25%,
+      rgba(75, 0, 1, 0.6) 100%
+    );
+  }
+
+  #about-us-banner .about-us-banner__content-item.is-active {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #about-us-banner
+    .about-us-banner__content-item.is-active
+    .about-us-banner__title {
+    width: 100%;
+    color: #f7f4ec;
+    font-family: Phudu;
+    font-size: 1.875rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  #about-us-banner .about-us-banner__description {
+    width: 100%;
+    color: #f7f4ec;
+    font-family: "SF Pro Display";
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+  }
+
+  #about-us-banner .about-us-banner__content-second {
+    margin-top: 1.5rem;
+  }
+
+  #about-us-banner .about-us-banner__pagination {
+    width: 100%;
+    gap: 0.1875rem;
+  }
+
+  #about-us-banner .about-us-banner__pagination .swiper-pagination-bullet {
+    position: relative;
+    flex: 1;
+    width: auto;
+    height: 0.125rem;
+    padding: 0;
+    background: transparent;
+    overflow: hidden;
+    opacity: 1;
+  }
+
+  #about-us-banner
+    .about-us-banner__pagination
+    .swiper-pagination-bullet::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(246, 243, 234, 0.32);
+  }
+
+  #about-us-banner
+    .about-us-banner__pagination
+    .swiper-pagination-bullet::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #f6f3ea;
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+
+  #about-us-banner
+    .about-us-banner__pagination
+    .swiper-pagination-bullet-active::after {
+    animation: aboutUsBannerStoryProgress 5s linear forwards;
+  }
+
+  #about-us-banner .about-us-banner__nav-container {
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  #about-us-banner .about-us-banner__nav-container .about-us-banner__nav {
+    pointer-events: auto;
+  }
+
+  #about-us-banner .about-us-banner__nav-prev,
+  #about-us-banner .about-us-banner__nav-next {
+    height: 15rem;
+    width: 4.5rem;
+    display: block;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+}
