@@ -24,22 +24,19 @@ $category_name = ($categories && !is_wp_error($categories)) ? $categories[0]->na
 $stock_qty = $product->get_stock_quantity();
 
 // Prices
-// Rent price from ACF field 'rent_price' or regular_price
-$rent_price_raw = function_exists('get_field') ? get_field('rent_price', $product_id) : null;
-if (!$rent_price_raw) {
-    $rent_price_raw = $product->get_regular_price();
-}
+// Rent price: ONLY from regular_price (no fallback)
+$rent_price_raw = $product->get_regular_price();
 $rent_price = number_format((float) ($rent_price_raw ?: 0), 0, '.', '.');
 
-// Sale price from _sale_price_custom or WooCommerce price
+// Sale price: ONLY from _sale_price_custom (no fallback)
 $sale_price_raw = get_post_meta($product_id, '_sale_price_custom', true);
-if (!$sale_price_raw) {
-    $sale_price_raw = $product->get_price();
-}
 $sale_price = number_format((float) ($sale_price_raw ?: 0), 0, '.', '.');
 
-// Short description for price cards
+// Short description (sale price card)
 $short_description = $product->get_short_description();
+
+// Rental price card — ACF
+$rental_price_description = function_exists('get_field') ? get_field('rental_price_description', $product_id) : '';
 
 // Full description
 $description = $product->get_description();
@@ -98,13 +95,13 @@ $icon_path = '/assets/images/single-product';
                 <!-- Gradient overlay -->
                 <div class="product-detail__story-gradient" aria-hidden="true"></div>
                 <!-- Progress bars -->
-                <div class="product-detail__story-progress">
-                    <?php foreach ($media_items as $idx => $item) : ?>
-                        <div class="product-detail__story-bar<?php echo $idx === 0 ? ' is-active' : ''; ?>">
-                            <div class="product-detail__story-bar-fill"></div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
+                <!--<div class="product-detail__story-progress">-->
+                <!--    <?php foreach ($media_items as $idx => $item) : ?>-->
+                <!--        <div class="product-detail__story-bar<?php echo $idx === 0 ? ' is-active' : ''; ?>">-->
+                <!--            <div class="product-detail__story-bar-fill"></div>-->
+                <!--        </div>-->
+                <!--    <?php endforeach; ?>-->
+                <!--</div>-->
                 <!-- Media slides -->
                 <?php foreach ($media_items as $idx => $item) :
                     if ($item['type'] === 'video') :
@@ -271,8 +268,8 @@ $icon_path = '/assets/images/single-product';
                             <span class="product-detail__price-value"><?php echo esc_html($rent_price); ?>đ</span>
                         </div>
                         <hr class="product-detail__price-divider" />
-                        <?php if ($short_description) : ?>
-                            <div class="product-detail__price-desc"><?php echo wp_kses_post($short_description); ?></div>
+                        <?php if ($rental_price_description) : ?>
+                            <div class="product-detail__price-desc"><?php echo wp_kses_post($rental_price_description); ?></div>
                         <?php endif; ?>
                     </div>
 

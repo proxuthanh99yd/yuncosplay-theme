@@ -1,2 +1,18 @@
-@import url('../product-detail/assets/styles.css');
-@import url('../related-product/assets/styles.css');
+
+main {
+  padding-top: 6.625rem;
+  position: relative;
+  background-image: url("/wp-content/uploads/2026/04/Chi-tiet-san-pham.webp");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+
+@media (max-width: 638.98px) {
+  main {
+    padding-top: 3.75rem;
+    background-image: url(/wp-content/uploads/2026/04/MB-Chi-tiet-bai-viet.webp);
+  }
+}

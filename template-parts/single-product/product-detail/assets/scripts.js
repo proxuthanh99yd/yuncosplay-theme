@@ -1,4 +1,40 @@
 /**
+ * Product Detail - Sync desktop sticky offset with auto-hidden header
+ */
+
+(function () {
+	const stickyInfo = document.querySelector('.product-detail__info-sticky');
+	const header = document.querySelector('.header');
+	const desktopQuery = window.matchMedia('(min-width: 640px)');
+	const bodyClass = 'product-detail-header-hidden';
+
+	if (!stickyInfo || !header) return;
+
+	function syncStickyOffset() {
+		const isHeaderHidden = header.classList.contains('header--auto-hidden');
+
+		document.body.classList.toggle(
+			bodyClass,
+			desktopQuery.matches && isHeaderHidden
+		);
+	}
+
+	const observer = new MutationObserver(syncStickyOffset);
+	observer.observe(header, {
+		attributes: true,
+		attributeFilter: ['class'],
+	});
+
+	if (typeof desktopQuery.addEventListener === 'function') {
+		desktopQuery.addEventListener('change', syncStickyOffset);
+	} else if (typeof desktopQuery.addListener === 'function') {
+		desktopQuery.addListener(syncStickyOffset);
+	}
+
+	syncStickyOffset();
+})();
+
+/**
  * Product Detail — Image Gallery Lightbox
  * Uses Fancybox if available, otherwise opens image in new tab
  */
@@ -53,7 +89,7 @@
 
 /**
  * Product Detail — Mobile Story Gallery
- * Auto-play like FB/IG Stories: 5s per image, video uses its own duration
+ * Auto-play like FB/IG Stories: 3.5s per image, video advances on ended
  */
 
 (function () {
@@ -71,7 +107,22 @@
 	let currentIndex = 0;
 	let timer = null;
 	let isPaused = false;
-	var IMAGE_DURATION = 5000; // 5 seconds per image
+	var activeVideo = null;
+	var IMAGE_DURATION = 3500; // 3.5 seconds per image
+
+	function scrollThumbIntoCenter(container, item) {
+		if (!container || !item) return;
+
+		const left =
+			item.offsetLeft
+			- container.offsetWidth / 2
+			+ item.offsetWidth / 2;
+
+		container.scrollTo({
+			left,
+			behavior: 'smooth'
+		});
+	}
 
 	function getActiveVideo() {
 		var slide = slides[currentIndex];
@@ -85,12 +136,15 @@
 		story.querySelectorAll('video').forEach(function (v) {
 			v.pause();
 			v.currentTime = 0;
+			v.onended = null;
 		});
+		activeVideo = null;
 	}
 
 	function goTo(index) {
 		if (index < 0 || index >= totalSlides) return;
 
+		stopTimer();
 		stopAllVideos();
 
 		// Update slides
@@ -102,8 +156,10 @@
 		bars.forEach(function (bar, i) {
 			bar.classList.remove('is-active', 'is-playing', 'is-done');
 			var fill = bar.querySelector('.product-detail__story-bar-fill');
-			fill.style.transition = 'none';
-			fill.style.width = '';
+			if (fill) {
+				fill.style.transition = 'none';
+				fill.style.width = '';
+			}
 
 			if (i < index) {
 				bar.classList.add('is-done');
@@ -120,7 +176,11 @@
 		// Auto-scroll active thumbnail into view
 		var activeThumb = thumbs[index];
 		if (activeThumb) {
-			activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+			// activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+			scrollThumbIntoCenter(
+				story.querySelector('.product-detail__story-thumbs'),
+				activeThumb
+			);
 		}
 
 		currentIndex = index;
@@ -134,39 +194,45 @@
 				video.src = dataSrc;
 			}
 			video.currentTime = 0;
-			video.play().catch(function () { });
-			// Wait for video metadata to get duration
-			if (video.readyState >= 1) {
-				startBarAnimation(video.duration * 1000);
-			} else {
-				video.addEventListener('loadedmetadata', function onMeta() {
-					video.removeEventListener('loadedmetadata', onMeta);
-					startBarAnimation(video.duration * 1000);
-				});
-			}
+			activeVideo = video;
+			video.onended = function () {
+				if (activeVideo === video && !isPaused) {
+					next();
+				}
+			};
+			video.play().catch(function () {
+				startSlideTimer(IMAGE_DURATION);
+			});
+			startBarAnimation();
 		} else {
+			startSlideTimer(IMAGE_DURATION);
 			startBarAnimation(IMAGE_DURATION);
 		}
 	}
 
-	function startBarAnimation(duration) {
+	function startSlideTimer(duration) {
 		stopTimer();
+		timer = setTimeout(function () {
+			next();
+		}, duration);
+	}
+
+	function startBarAnimation(duration) {
 		var bar = bars[currentIndex];
 		if (!bar) return;
 		var fill = bar.querySelector('.product-detail__story-bar-fill');
+		if (!fill) return;
+
+		var animationDuration = duration || IMAGE_DURATION;
 
 		// Force reflow
 		fill.style.transition = 'none';
 		fill.style.width = '0';
 		void fill.offsetWidth;
 
-		fill.style.transition = 'width ' + duration + 'ms linear';
+		fill.style.transition = 'width ' + animationDuration + 'ms linear';
 		fill.style.width = '100%';
 		bar.classList.add('is-playing');
-
-		timer = setTimeout(function () {
-			next();
-		}, duration);
 	}
 
 	function next() {
