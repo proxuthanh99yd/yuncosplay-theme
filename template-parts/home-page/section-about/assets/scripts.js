@@ -1,162 +1,188 @@
-function sectionAboutScripts() {
-  if (!window.gsap || !window.ScrollTrigger) return;
+// [selector, y] — di chuyển theo trục dọc
+const VERTICAL_MOVE = [
+  [".section-about__zoro", "11.875rem"],
+  [".section-about__building", "11.25rem"],
+  [".section-about__birds", "16.875rem"],
+  [".section-about__tree", "12.5rem"],
+  [".section-about__mountain-left", "3.7501rem"],
+  [".section-about__mountain-right", "3.75rem"],
+  [".section-about__mermaid", "14.375rem"],
+  [".section-about__bg-bottom", "1.25rem"],
+  [".section-about__sun", "11.875rem"],
+];
 
-  gsap.registerPlugin(ScrollTrigger, CustomEase);
+// [selector, x, y] — di chuyển chéo
+const MOVE_XY = [
+  [".section-about__astronaut", "7.5rem", "6.25rem"],
+  [".section-about__wave", "5.625rem", "5.625rem"],
+  [".section-about__tower", "3.125rem", "8.75rem"],
+  [".section-about__photo", "-5.625rem", "7.5rem"],
+  [".section-about__nezuko", "7.5rem", "6.875rem"],
+  [".section-about__cosplay", "-5.625rem", "5.625rem"],
+];
 
-  if (window.CustomEase && typeof CustomEase.get === "function") {
-    if (!CustomEase.get("explorersEase")) {
-      CustomEase.create("explorersEase", "0.41, 0.02, 0.1, 0.85");
-    }
-  } else {
+// [selector, y] — fade in + di chuyển dọc
+const FADE_VERTICAL = [
+  [".section-about__title", "9.375rem"],
+  [".section-about__description", "11.875rem"],
+];
+
+// [selector, x] — di chuyển ngang
+const HORIZONTAL_MOVE = [
+  [".section-about__spiderman", "8.125rem"],
+  [".section-about__balloon", "-5rem"],
+];
+
+// Ảnh decor là ACF field không bắt buộc — bỏ qua phần tử không tồn tại
+// thay vì huỷ toàn bộ animation.
+function resolveTargets(container, entries) {
+  const resolved = [];
+
+  for (const [selector, ...values] of entries) {
+    const el = container.querySelector(selector);
+    if (el) resolved.push([el, ...values]);
+  }
+
+  return resolved;
+}
+
+function registerExplorersEase() {
+  if (!window.CustomEase) return "power2.inOut";
+
+  gsap.registerPlugin(CustomEase);
+
+  if (typeof CustomEase.get !== "function" || !CustomEase.get("explorersEase")) {
     CustomEase.create("explorersEase", "0.41, 0.02, 0.1, 0.85");
   }
 
-  // Chỉ chạy từ 640px trở lên
-  const mm = gsap.matchMedia();
+  return "explorersEase";
+}
 
-  mm.add("(min-width: 640px)", () => {
-    const container = document.querySelector("#section-about") || document.querySelector(".section-about");
-    if (!container) return;
+// Mặt trời quay vô hạn bằng CSS — chỉ cho chạy khi section trong viewport
+// để không đốt CPU suốt vòng đời trang.
+function initSunRotation(container) {
+  if (!("IntersectionObserver" in window)) return null;
 
-    // Query trong phạm vi section để tránh đụng các section khác
-    const selectors = {
-      building: ".section-about__building",
-      birds: ".section-about__birds",
-      astronaut: ".section-about__astronaut",
-      wave: ".section-about__wave",
-      tower: ".section-about__tower",
-      photo: ".section-about__photo",
-      tree: ".section-about__tree",
-      mountainLeft: ".section-about__mountain-left",
-      zoro: ".section-about__zoro",
-      mountainRight: ".section-about__mountain-right",
-      mermaid: ".section-about__mermaid",
-      bgBottom: ".section-about__bg-bottom",
-      nezuko: ".section-about__nezuko",
-      title: ".section-about__title",
-      description: ".section-about__description",
-      cosplay: ".section-about__cosplay",
-      spiderman: ".section-about__spiderman",
-      balloon: ".section-about__balloon",
-      sun: ".section-about__sun",
-    };
+  container.classList.add("section-about--paused");
 
-    const els = {};
-    for (const [key, selector] of Object.entries(selectors)) {
-      els[key] = container.querySelector(selector);
-      if (!els[key]) return;
-    }
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      container.classList.toggle("section-about--paused", !entry.isIntersecting);
+    },
+    // Bỏ pause sớm để layer kịp raster trước khi section lộ ra
+    { rootMargin: "200px 0px" }
+  );
 
-    const onLenisScroll = () => ScrollTrigger.update();
-    if (window.app?.lenis && typeof window.app.lenis.on === "function") {
-      window.app.lenis.on("scroll", onLenisScroll);
-    }
+  observer.observe(container);
 
-    const tl = gsap.timeline({
-      defaults: {
-        duration: 2,
-        ease: "explorersEase",
-      },
-      scrollTrigger: {
-        trigger: container,
-        start: "top 50%",
-        toggleActions: "play none none none",
-        once: true,
-        invalidateOnRefresh: true,
-      },
-    });
+  return () => observer.disconnect();
+}
 
-    // Animation data (grouped)
-    const verticalMoveAnimations = {
-      targets: [
-        els.zoro,
-        els.building,
-        els.birds,
-        els.tree,
-        els.mountainLeft,
-        els.mountainRight,
-        els.mermaid,
-        els.bgBottom,
-        els.sun,
-      ],
-      yValues: [
-        "11.875rem",
-        "11.25rem",
-        "16.875rem",
-        "12.5rem",
-        "3.7501rem",
-        "3.75rem",
-        "14.375rem",
-        "1.25rem",
-        "11.875rem",
-      ],
-    };
+function initEntranceAnimation(container) {
+  const vertical = resolveTargets(container, VERTICAL_MOVE);
+  const moveXY = resolveTargets(container, MOVE_XY);
+  const fade = resolveTargets(container, FADE_VERTICAL);
+  const horizontal = resolveTargets(container, HORIZONTAL_MOVE);
 
-    const moveXYAnimations = {
-      targets: [els.astronaut, els.wave, els.tower, els.photo, els.nezuko, els.cosplay],
-      xValues: ["7.5rem", "5.625rem", "3.125rem", "-5.625rem", "7.5rem", "-5.625rem"],
-      yValues: ["6.25rem", "5.625rem", "8.75rem", "7.5rem", "6.875rem", "5.625rem"],
-    };
+  const allTargets = [...vertical, ...moveXY, ...fade, ...horizontal].map(([el]) => el);
+  if (!allTargets.length) return null;
 
-    const fadeVerticalAnimations = {
-      targets: [els.title, els.description],
-      yValues: ["9.375rem", "11.875rem"],
-    };
+  const onLenisScroll = () => ScrollTrigger.update();
+  if (typeof window.app?.lenis?.on === "function") {
+    window.app.lenis.on("scroll", onLenisScroll);
+  }
 
-    const horizontalMoveAnimations = {
-      targets: [els.spiderman, els.balloon],
-      xValues: ["8.125rem", "-5rem"],
-    };
+  // Promote layer từ lúc section chạm đáy viewport, animation chạy ở "top 50%"
+  // → GPU có nửa màn hình scroll để raster, không giật frame đầu.
+  const preload = ScrollTrigger.create({
+    trigger: container,
+    start: "top bottom",
+    once: true,
+    onEnter: () => gsap.set(allTargets, { willChange: "transform" }),
+  });
 
-    // Vertical movement
+  const tl = gsap.timeline({
+    defaults: {
+      duration: 2,
+      ease: registerExplorersEase(),
+      force3D: true,
+    },
+    scrollTrigger: {
+      trigger: container,
+      start: "top 50%",
+      once: true,
+      invalidateOnRefresh: true,
+    },
+    // Trả layer về cho browser sau khi animation chạy xong (chỉ chạy 1 lần)
+    onComplete: () => gsap.set(allTargets, { clearProps: "transform,willChange,opacity" }),
+  });
+
+  // Tất cả tween cùng bắt đầu ở vị trí 0 — không dùng "<" vì nếu một nhóm
+  // bị bỏ qua (thiếu ảnh decor) thì các nhóm sau sẽ lệch thời điểm.
+  if (vertical.length) {
     tl.fromTo(
-      verticalMoveAnimations.targets,
-      { y: (i) => verticalMoveAnimations.yValues[i] },
+      vertical.map(([el]) => el),
+      { y: (i) => vertical[i][1] },
       { y: "0rem" },
       0
     );
+  }
 
-    // Move X + Y
+  if (moveXY.length) {
     tl.fromTo(
-      moveXYAnimations.targets,
-      {
-        x: (i) => moveXYAnimations.xValues[i],
-        y: (i) => moveXYAnimations.yValues[i],
-      },
+      moveXY.map(([el]) => el),
+      { x: (i) => moveXY[i][1], y: (i) => moveXY[i][2] },
       { x: "0rem", y: "0rem" },
-      "<"
+      0
     );
+  }
 
-    // Fade in + vertical
+  if (fade.length) {
     tl.fromTo(
-      fadeVerticalAnimations.targets,
-      {
-        y: (i) => fadeVerticalAnimations.yValues[i],
-        opacity: 0,
-      },
+      fade.map(([el]) => el),
+      { y: (i) => fade[i][1], opacity: 0 },
       { y: "0rem", opacity: 1 },
-      "<"
+      0
     );
+  }
 
-    // Horizontal movement
+  if (horizontal.length) {
     tl.fromTo(
-      horizontalMoveAnimations.targets,
-      { x: (i) => horizontalMoveAnimations.xValues[i] },
+      horizontal.map(([el]) => el),
+      { x: (i) => horizontal[i][1] },
       { x: "0rem" },
-      "<"
+      0
     );
+  }
 
-    ScrollTrigger.refresh();
+  return () => {
+    if (typeof window.app?.lenis?.off === "function") {
+      window.app.lenis.off("scroll", onLenisScroll);
+    }
+    preload.kill();
+    tl.scrollTrigger?.kill();
+    tl.kill();
+    gsap.set(allTargets, { clearProps: "transform,willChange,opacity" });
+  };
+}
 
-    // Cleanup khi matchMedia đổi điều kiện (responsive)
-    return () => {
-      if (window.app?.lenis && typeof window.app.lenis.off === "function") {
-        window.app.lenis.off("scroll", onLenisScroll);
-      }
-      tl.scrollTrigger && tl.scrollTrigger.kill();
-      tl.kill();
-    };
-  });
+function sectionAboutScripts() {
+  const container = document.querySelector(".section-about");
+  if (!container) return;
+
+  const stopSunRotation = initSunRotation(container);
+  window.addEventListener("pagehide", () => stopSunRotation?.(), { once: true });
+
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Chỉ chạy từ 640px trở lên, và tôn trọng prefers-reduced-motion —
+  // khi tắt, mọi phần tử giữ nguyên vị trí cuối trong CSS.
+  gsap
+    .matchMedia()
+    .add("(min-width: 640px) and (prefers-reduced-motion: no-preference)", () =>
+      initEntranceAnimation(container)
+    );
 }
 
 document.addEventListener("DOMContentLoaded", () => {

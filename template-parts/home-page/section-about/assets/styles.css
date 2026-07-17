@@ -199,7 +199,23 @@
 .outer-rotate {
   transform-box: fill-box;
   transform-origin: center;
+  /* Tia nắng là SVG lớn có mask + gradient — promote layer để raster 1 lần,
+     compositor lo phần quay thay vì repaint mỗi frame */
+  will-change: transform;
   animation: rotateOuter 20s linear infinite;
+}
+
+/* Section ngoài viewport — trả layer, dừng quay */
+.section-about--paused .outer-rotate {
+  will-change: auto;
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .outer-rotate {
+    will-change: auto;
+    animation: none;
+  }
 }
 
 @keyframes rotateOuter {
@@ -438,6 +454,7 @@
   }
 
   .outer-rotate {
+    will-change: auto;
     animation: none;
   }
 
