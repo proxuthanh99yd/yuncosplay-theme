@@ -1,0 +1,244 @@
+.faq-category {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.faq-category__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  object-fit: cover;
+}
+
+.faq-category__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: 7.5rem 0;
+}
+
+.faq-category__subtitle {
+  margin: 0;
+  color: var(--Text-Title---Highlight-100, #680103);
+  text-align: center;
+  font-family: Phudu, sans-serif;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%;
+}
+
+.faq-category__title {
+  margin: 1.3rem 0 0;
+  color: var(--Text-Title---Highlight-100, #680103);
+  text-align: center;
+  font-family: Phudu, sans-serif;
+  font-size: 3.625rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
+  text-transform: uppercase;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.faq-category__title p {
+  margin: 0;
+  color: var(--Text-Title---Highlight-100, #680103);
+  text-align: center;
+  font-family: Phudu, sans-serif;
+  font-size: 3.625rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
+  text-transform: uppercase;
+}
+
+.faq-category__title strong {
+  display: block;
+  font-weight: 700;
+}
+
+.faq-category__title br {
+  display: block;
+}
+
+.faq-category__list {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 3.875rem;
+}
+
+.faq-category__item {
+  width: 12.15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--Text-Title---Highlight-100, #680103);
+}
+
+.faq-category__icon {
+  width: 5.125rem;
+  height: 5.125rem;
+  flex-shrink: 0;
+  border-radius: 999rem;
+  object-fit: cover;
+}
+
+.faq-category__name {
+  display: block;
+  width: 100%;
+  min-height: 1.6875rem;
+  margin-top: 0.875rem;
+  max-width: 10rem;
+  color: var(--Text-Title---Highlight-100, #680103);
+  text-align: center;
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 639.98px) {
+  .faq-category {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .faq-category__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    object-fit: cover;
+  }
+
+  .faq-category__inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    margin: 0 auto;
+    padding: 4.25rem 0.75rem;
+  }
+
+  .faq-category__subtitle {
+    margin: 0 0 0.5rem;
+    color: var(--Text-Title---Highlight-100, #680103);
+    text-align: center;
+    font-family: Phudu, sans-serif;
+    font-size: 0.8125rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 110%;
+  }
+
+  .faq-category__title {
+    margin: 0;
+    color: var(--Text-Title---Highlight-100, #680103);
+    text-align: center;
+    font-family: Phudu, sans-serif;
+    font-size: 1.75rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%;
+    text-transform: uppercase;
+  }
+
+  .faq-category__title p {
+    margin: 0;
+    color: var(--Text-Title---Highlight-100, #680103);
+    text-align: center;
+    font-family: Phudu, sans-serif;
+    font-size: 1.75rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%;
+    text-transform: uppercase;
+  }
+
+  .faq-category__title strong {
+    display: block;
+    font-weight: 700;
+  }
+
+  .faq-category__title br {
+    display: block;
+  }
+
+  .faq-category__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1.25rem;
+  }
+
+ .faq-category__item {
+  width: 5.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 1.25rem;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  color: var(--Text-Title---Highlight-100, #680103);
+}
+
+/* Nếu mỗi hàng có 3 item */
+.faq-category__item:nth-last-child(-n + 3) {
+  margin-bottom: 0;
+}
+
+  .faq-category__item:nth-child(3n) {
+    margin-right: 0;
+  }
+
+  .faq-category__icon {
+    width: 3.375rem;
+    height: 3.375rem;
+    flex-shrink: 0;
+    border-radius: 999rem;
+    object-fit: cover;
+  }
+
+  .faq-category__name {
+    display: block;
+    width: 100%;
+    min-height: 1.6875rem;
+    margin-top: 0.25rem;
+    color: var(--Text-Title---Highlight-100, #680103);
+    text-align: center;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 0.675rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+}

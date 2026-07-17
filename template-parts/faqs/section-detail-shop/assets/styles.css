@@ -1,0 +1,673 @@
+.store-info {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.store-info__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.store-info__bg--mobile {
+  display: none;
+}
+
+.store-info__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 5.19rem 8.63rem;
+}
+
+.store-info__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.store-info__title {
+  margin: 0;
+  color: var(--Text-inv-100, #f7f4ec);
+  font-family: Phudu, sans-serif;
+  font-size: 3.625rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
+}
+
+.store-info__list {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.store-info__item {
+  width: 100%;
+}
+
+.store-info__item + .store-info__item {
+  margin-top: 1.12rem;
+}
+
+.store-info__question {
+  display: flex;
+  align-items: center;
+  color: var(--Text-inv-100, #f7f4ec);
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 1rem;
+  max-width: 31rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.store-info__spark {
+  display: inline-flex;
+  margin-right: 0.5rem;
+  color: #d97945;
+}
+
+.store-info__spark svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.store-info__answer {
+  margin: 0.25rem 0 0;
+  color: var(--Text-inv-80, rgba(247, 244, 236, 0.8));
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 1rem;
+  max-width: 31rem;
+
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.store-info__answer p {
+  margin: 0;
+}
+
+.store-info__answer strong {
+  display: block;
+  font-weight: 400;
+  color: var(--Text-inv-100, #f7f4ec);
+}
+
+.store-info__answer br {
+  display: block;
+}
+
+.store-info__answer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.store-info__answer--icon {
+  display: flex;
+  align-items: center;
+}
+
+.store-info__answer--icon span {
+  display: inline-flex;
+  margin-right: 0.375rem;
+}
+.store-info__answer-row {
+  display: flex;
+  align-items: center;
+}
+
+.store-info__answer-row + .store-info__answer-row {
+  margin-top: 0.25rem;
+}
+
+.store-info__answer-icon {
+  display: inline-flex;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.62rem;
+
+  flex-shrink: 0;
+}
+
+.store-info__answer-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.store-info__answer-text {
+  display: block;
+
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.store-info__answer-text strong {
+  display: inline;
+  font-weight: 400 !important;
+  color: var(--Text-inv-100, #f7f4ec);
+}
+
+.store-info__answer p {
+  margin: 0;
+}
+.store-info__contact {
+  display: flex;
+  width: 31.19rem;
+  height: 4.5rem;
+  margin-top: 2rem;
+  padding: 0.5rem 0.75rem 0.5rem 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0.5rem;
+  background: var(
+    --Button-Button,
+    radial-gradient(169.61% 50% at 50% 50%, #cb5140 46.54%, #d8a061 91.01%)
+  );
+}
+
+.store-info__call {
+  display: flex;
+  width: 20.1875rem;
+  padding: 0.5rem 1.9375rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 0.375rem;
+  background: var(--Icon---mng-Trng-ng, #f6f3ea);
+  text-decoration: none;
+}
+
+.store-info__call:hover {
+  border-radius: 0.375rem;
+  background: var(--Icon---mng-white, #fff);
+  box-shadow: 0 0 1.875rem 0 #f6f3ea;
+}
+
+.list-store-info__or {
+  display: flex;
+  align-items: center;
+}
+
+.store-info__call span {
+  color: var(--Text-Title---Highlight-100, #680103);
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+}
+
+.store-info__call small {
+  color: var(--Text-Title---Highlight-100, #680103);
+  font-family: Phudu, sans-serif;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+.store-info__or {
+  display: none;
+  margin-right: 0.81rem;
+  color: var(--Text-inv-100, #f7f4ec);
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+}
+
+.store-info__social {
+  display: flex;
+  width: 3.5rem;
+  height: 3.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5.46875rem;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.store-info__social::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: var(--Icon---mng-Trng-ng, #f6f3ea);
+  opacity: 0.2;
+  filter: blur(0);
+  transition:
+    opacity 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.store-info__social svg {
+  position: relative;
+  z-index: 1;
+  width: 2.0625rem;
+  height: 2.0625rem;
+  transition: filter 0.2s ease;
+}
+
+.store-info__social--zalo rect {
+  fill: transparent;
+  opacity: 0;
+}
+
+.store-info__social--zalo svg {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.store-info__social:hover::before {
+  opacity: 1;
+  border-radius: 62.5rem;
+  background: var(--Icon---mng-white, #fff);
+  box-shadow: 0 0 1.875rem 0 #f6f3ea;
+}
+
+.store-info__social:hover svg {
+  filter: brightness(0) saturate(100%) invert(9%) sepia(56%) saturate(3925%)
+    hue-rotate(343deg) brightness(111%) contrast(114%);
+}
+
+.store-info__social + .store-info__social {
+  margin-left: 0.5rem;
+}
+
+.store-info__image-div {
+  display: flex;
+}
+
+.store-info__image {
+  width: 20.75rem;
+  height: 31.125rem;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.store-info__image-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.store-info__image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.store-info__map {
+  position: relative;
+  width: 20.75rem;
+  height: 31.125rem;
+  margin-left: 1rem;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.store-info__map-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.store-info__map-icon {
+  width: 0.9375rem;
+  height: 1.125rem;
+}
+
+.store-info__map-link {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  height: 2.96rem;
+  padding: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  color: #f7f4ec;
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 150%;
+  text-decoration: none;
+  background: radial-gradient(
+    50% 169.61% at 50% 50%,
+    #cb5140 46.54%,
+    #d8a061 91.01%
+  );
+}
+.store-info__image-img--mobile {
+  display: none;
+}
+@media (max-width: 39.9375rem) {
+  .store-info__bg--desktop {
+    display: none;
+  }
+  .store-info__image-img--desktop {
+    display: none;
+  }
+
+  .store-info__image-img--mobile {
+    display: block;
+  }
+  .store-info__bg--mobile {
+    display: block;
+  }
+
+  .store-info__inner {
+    display: flex;
+    flex-direction: column;
+    max-width: none;
+    padding: 2.12rem 0.75rem;
+  }
+
+  .store-info__content {
+    width: 100%;
+  }
+
+  .store-info__title {
+    font-size: 1.75rem;
+    line-height: 110%;
+  }
+  .store-info__answer-icon {
+    display: inline-flex;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.62rem;
+    opacity: 0.8;
+    flex-shrink: 0;
+  }
+  .store-info__list {
+    margin-top: 2rem;
+  }
+
+  .store-info__item + .store-info__item {
+    margin-top: 1rem;
+  }
+
+  .store-info__question {
+    font-size: 1rem;
+  }
+
+  .store-info__answer {
+    font-size: 0.875rem;
+  }
+
+  .store-info__contact {
+    width: 100%;
+    height: 4.5rem;
+    margin-top: 2rem;
+    padding: 0.38rem 0.5rem 0.38rem 0.38rem;
+    border-radius: 0.25rem;
+  }
+
+  .store-info__call {
+    width: auto;
+    padding: 0.5rem 0.72rem;
+  }
+
+  .store-info__call span {
+    font-size: 0.875rem;
+  }
+
+  .store-info__call small {
+    font-size: 0.75rem;
+  }
+
+  .store-info__or {
+    display: block;
+    margin-right: 0.38rem;
+    font-size: 0.875rem;
+  }
+
+  .store-info__social {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .store-info__social + .store-info__social {
+    margin-left: 0.375rem;
+  }
+
+  .store-info__social svg {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .store-info__social--zalo svg {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .store-info__image-div {
+    flex-direction: column;
+  }
+
+  .store-info__image {
+    width: 100%;
+    height: 11.25rem;
+    margin-left: 0;
+    margin-top: 0.62rem;
+  }
+
+  .store-info__map {
+    width: 100%;
+    height: 21.9375rem;
+    margin-left: 0;
+    margin-top: 0.62rem;
+  }
+
+  .store-info__map-link {
+    height: 2.96rem;
+    padding: 0.875rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+
+.product-detail__cta {
+  display: flex;
+  align-items: center;
+  width: 31.185rem;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem 0.5rem 0.5rem;
+  border-radius: 0.5rem;
+  background: radial-gradient(
+    50% 169.61% at 50% 50%,
+    #cb5140 46.54%,
+    #d8a061 91.01%
+  );
+  margin-top: 2rem;
+}
+
+.product-detail__cta-btn {
+  display: flex;
+  flex-direction: column;
+  width: 20.1875rem;
+  align-items: center;
+  padding: 0.5rem 1.9375rem;
+  background-color: #f6f3ea;
+  border-radius: 0.375rem;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.product-detail__cta-btn:hover {
+  background: var(--Icon---mng-white, #fff);
+  box-shadow: 0 0 30px 0 #f6f3ea;
+}
+
+.product-detail__cta-btn-top {
+  display: flex;
+  align-items: center;
+}
+
+.product-detail__cta-btn-top > *:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.product-detail__cta-btn-text {
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #680103;
+}
+
+.product-detail__cta-btn-phone {
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #680103;
+}
+
+.product-detail__contact {
+  display: flex;
+  align-items: center;
+}
+
+.product-detail__contact > *:not(:last-child) {
+  margin-right: 0.8125rem;
+}
+
+.product-detail__contact-label {
+  color: var(--Text-inv-100, #f7f4ec);
+  font-family: "SF Pro Display";
+  font-size: 1rem;
+  display: none;
+  font-weight: 500;
+  line-height: 150%;
+}
+
+.product-detail__contact-icons {
+  display: flex;
+}
+
+.product-detail__contact-icons > *:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.product-detail__contact-icon {
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  padding: 0.6rem;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: 0.2s ease;
+  background: var(--Icon---mng-Trng-ng, #f6f3ea30);
+}
+
+.product-detail__contact-icon:hover {
+  background: var(--Icon---mng-white, #fff);
+  box-shadow: 0 0 30px 0 #f6f3ea;
+}
+
+.product-detail__contact-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.product-detail__contact-icon:hover svg path {
+  fill: var(--Icon---mng-m, #680103);
+}
+
+@media screen and (max-width: 639.98px) {
+  .product-detail__cta {
+    display: flex;
+    width: 100%;
+    height: 4.1875rem;
+  }
+  .product-detail__contact-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  .product-detail__contact-label {
+    display: block;
+    font-size: 0.875rem;
+    margin-right: 0.38rem;
+  }
+  .product-detail__cta-btn-text {
+    font-size: 0.875rem;
+  }
+  .product-detail__cta {
+    padding: 0.38rem 0.5rem 0.38rem 0.38rem;
+  }
+  .product-detail__cta-btn-phone {
+    font-size: 0.75rem;
+  }
+  .product-detail__cta-btn {
+    width: 8.75rem;
+    padding: 0.5rem;
+  }
+  .product-detail__contact-icon {
+    padding: 0.5rem;
+  }
+}
+.store-info__map-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.store-info__map-img--mobile {
+  display: none;
+}
+
+@media (max-width: 39.9375rem) {
+  .store-info__map-img--desktop {
+    display: none;
+  }
+
+  .store-info__map-img--mobile {
+    display: block;
+  }
+}
