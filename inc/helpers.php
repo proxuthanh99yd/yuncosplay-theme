@@ -224,6 +224,36 @@ function okhub_get_destination_data_for_country($country, $destinations)
  *
  * @return array
  */
+/**
+ * Không cho core tự phát fetchpriority="high" — chỉ ảnh nào theme chỉ định
+ * tường minh (okhub_image_attrs(..., 'lcp')) mới được giữ.
+ *
+ * VÌ SAO: wp_maybe_add_fetchpriority_high_attr() tặng 'high' cho ảnh "đủ lớn"
+ * ĐẦU TIÊN mà theme không khai báo fetchpriority. Header render trước hero và
+ * còn ~60 ảnh (icon, mega-menu) chưa khai báo, nên suất 'high' rơi vào một ảnh
+ * mega-menu (mask-gradient) thay vì ảnh hero -> 2 ảnh cùng high, chia băng thông.
+ * Chặn ở đây gọn hơn nhiều so với đi sửa 60 call site, và tự miễn nhiễm với ảnh
+ * header thêm vào sau này.
+ *
+ * Chỉ gỡ khi $attr KHÔNG khai báo fetchpriority: ảnh hero ('high') và logo
+ * ('auto') đều khai báo tường minh nên đi qua nguyên vẹn.
+ *
+ * @param array  $loading_attrs Attr tối ưu do core tính ra.
+ * @param string $tag_name      Tên thẻ.
+ * @param array  $attr          Attr gốc do call site truyền vào.
+ *
+ * @return array
+ */
+function okhub_only_explicit_fetchpriority($loading_attrs, $tag_name, $attr)
+{
+    if (!isset($attr['fetchpriority']) && isset($loading_attrs['fetchpriority'])) {
+        unset($loading_attrs['fetchpriority']);
+    }
+
+    return $loading_attrs;
+}
+add_filter('wp_get_loading_optimization_attributes', 'okhub_only_explicit_fetchpriority', 10, 3);
+
 function okhub_image_attrs(array $attrs = [], string $priority = 'lazy'): array
 {
     $attrs['decoding'] = $attrs['decoding'] ?? 'async';
