@@ -1,4 +1,4 @@
-export function initProduct() {
+function initProduct() {
 	const products = document.querySelectorAll(".product");
 
 	products.forEach((product) => {
@@ -20,3 +20,7 @@ export function initProduct() {
 	  });
 	});
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  initProduct();
+});

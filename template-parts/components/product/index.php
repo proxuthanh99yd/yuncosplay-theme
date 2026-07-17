@@ -22,14 +22,18 @@ $thumb_html = $thumb_id
 	: '';
 
 $video_url = get_field("video");
-// WooCommerce: rent_price lấy từ Regular price.
-$regular_price_raw = $product ? $product->get_regular_price() : 0;
-$regular_price = is_numeric($regular_price_raw) ? (float) $regular_price_raw : 0;
-$rent_price = number_format($regular_price, 0, ".", ".");
 
-$sale_price_raw = $product ? $product->get_price() : 0;
-$sale_price = number_format((is_numeric($sale_price_raw) ? (float) $sale_price_raw : 0), 0, ".", ".");
-$background_content_id = 9885;
+// Prices
+// Rent price: ONLY from regular_price (no fallback)
+$rent_price_raw = $product->get_regular_price();
+$rent_price = number_format((float) ($rent_price_raw ?: 0), 0, '.', '.');
+
+// Sale price: ONLY from _sale_price_custom (no fallback)
+$sale_price_raw = get_post_meta($product_id, '_sale_price_custom', true);
+$sale_price = number_format((float) ($sale_price_raw ?: 0), 0, '.', '.');
+
+// $background_content_id = 9885;
+$background_content_id = 9904;
 ?>
 
 
@@ -55,9 +59,9 @@ $background_content_id = 9885;
       </div>
       <div class="product__price">
         <span class="product__price-label">Giá bán:</span>
-        <p class="product__price-value"><?= $sale_price; ?>đ</p>
+        <p class="product__price-value"><?= esc_html($sale_price); ?>đ</p>
       </div>
-      <div class="product__price-mb">( Giá bán: <?= $sale_price; ?>đ )</div>
+      <div class="product__price-mb">( Giá bán: <?= esc_html($sale_price); ?>đ )</div>
     </div>
   </a>
 </article>

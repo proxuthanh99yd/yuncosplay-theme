@@ -12,6 +12,9 @@
 
 .animated-btn-wrapper {
     position: relative;
+    display: block;
+    color: inherit;
+    text-decoration: none;
 }
 
 .animated-btn__content-hidden {
