@@ -96,7 +96,7 @@ if (!is_front_page()) {
 			<div class="header__navbar-left">
 				<a href="/" class="header__logo">
 					<?php if (! empty($header_logo)) : ?>
-						<?php echo wp_get_attachment_image($header_logo, 'full', false, array('class' => '')); ?>
+						<?php echo wp_get_attachment_image($header_logo, 'full', false, okhub_image_attrs(array('class' => ''), 'eager')); ?>
 					<?php endif; ?>
 				</a>
 				<nav class="header__nav">
