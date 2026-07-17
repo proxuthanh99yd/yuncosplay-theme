@@ -1,4 +1,4 @@
-export function sectionSidebarScripts() {
+function sectionSidebarScripts() {
     const sidebar = document.getElementById("sidebar-filter");
     if (!sidebar) return;
 
@@ -35,19 +35,63 @@ function initOpenPanels(sidebar) {
         el.offsetHeight;
         el.style.transition = "";
     });
+
+    // Position triangle for server-rendered active card
+    const activeCard = sidebar.querySelector(".pl-sidebar__category-card--active");
+    if (activeCard) {
+        const row = activeCard.closest(".pl-sidebar__category-row");
+        if (row) {
+            const triangle = row.querySelector(".pl-sidebar__triangle");
+            if (triangle) {
+                positionTriangle(triangle, activeCard, row);
+            }
+        }
+    }
 }
-/*
- * Expand an element's height from 0 to its scrollHeight
+/**
+ * Position the triangle indicator under the active card's center
  */
-export function expandHeight(el) {
-    el.style.height = el.scrollHeight + "px";
+function positionTriangle(triangle, card) {
+    const triangleRow = triangle.parentElement;
+    if (!triangleRow) return;
+
+    const parentRect = triangleRow.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const triangleHalf = 14; // 0.875rem
+    const cardCenter = cardRect.left + cardRect.width / 2 - parentRect.left;
+    triangle.style.left = (cardCenter - triangleHalf) + "px";
+}
+
+/*
+ * Measure the natural height of an element by cloning it off-screen.
+ * This avoids touching the original element's transition/styles.
+ */
+function measureHeight(el) {
+    const clone = el.cloneNode(true);
+    clone.style.cssText =
+        "height:auto!important;max-height:none!important;overflow:hidden!important;" +
+        "position:absolute!important;visibility:hidden!important;pointer-events:none!important;" +
+        "left:-9999px!important;top:-9999px!important;" +
+        "width:" + el.offsetWidth + "px!important;transition:none!important;";
+    el.parentNode.insertBefore(clone, el);
+    const height = clone.scrollHeight;
+    clone.remove();
+    return height;
+}
+
+/*
+ * Expand an element's height from 0 to its natural height.
+ */
+function expandHeight(el) {
+    const targetHeight = measureHeight(el);
+    el.style.height = targetHeight + "px";
 }
 
 /**
  * Collapse an element's height to 0
  * Uses current computed height as start value so the transition works.
  */
-export function collapseHeight(el) {
+function collapseHeight(el) {
     el.style.height = el.scrollHeight + "px";
     // Force reflow so the browser registers the explicit height
     el.offsetHeight; // eslint-disable-line no-unused-expressions
@@ -56,13 +100,13 @@ export function collapseHeight(el) {
 
 // SVG templates for chip checkbox states
 const CHECKBOX_CHECKED_SVG = `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="18" height="18" rx="4" fill="#CB5140"/>
-  <path d="M4 9L7.5 12.5L14 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>`;
+                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.25 1.5C3.17893 1.5 1.5 3.17893 1.5 5.25V12.75C1.5 14.8211 3.17893 16.5 5.25 16.5H12.75C14.8211 16.5 16.5 14.8211 16.5 12.75V5.25C16.5 3.17893 14.8211 1.5 12.75 1.5H5.25ZM5.625 2.625C3.96815 2.625 2.625 3.96815 2.625 5.625V12.375C2.625 14.0319 3.96815 15.375 5.625 15.375H12.375C14.0319 15.375 15.375 14.0319 15.375 12.375V5.625C15.375 3.96815 14.0319 2.625 12.375 2.625H5.625Z" fill="#CB5140" />
+                                                            <path d="M13.5 5.625L7.3125 11.8125L4.5 9" stroke="#CB5140" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                        </svg>`;
 
 const CHECKBOX_UNCHECKED_SVG = `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="0.5" y="0.5" width="17" height="17" rx="3.5" stroke="#1C1C1C"/>
-</svg>`;
+                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.25 1.5C3.17893 1.5 1.5 3.17893 1.5 5.25V12.75C1.5 14.8211 3.17893 16.5 5.25 16.5H12.75C14.8211 16.5 16.5 14.8211 16.5 12.75V5.25C16.5 3.17893 14.8211 1.5 12.75 1.5H5.25ZM5.625 2.625C3.96815 2.625 2.625 3.96815 2.625 5.625V12.375C2.625 14.0319 3.96815 15.375 5.625 15.375H12.375C14.0319 15.375 15.375 14.0319 15.375 12.375V5.625C15.375 3.96815 14.0319 2.625 12.375 2.625H5.625Z" fill="#1D1D1D" />
+                                                        </svg>`;
 
 /**
  * Price Range Slider (noUiSlider)
@@ -148,6 +192,11 @@ function initCategoryCards(sidebar) {
                                 "pl-sidebar__filter-panel--open"
                             );
                             collapseHeight(p);
+
+                            // Reset tất cả chips trong panel cũ để tránh accumulate category slugs
+                            p.querySelectorAll(".pl-sidebar__chip--active").forEach((chip) => {
+                                setChipState(chip, false);
+                            });
                         }
                     }
                 );
@@ -165,11 +214,28 @@ function initCategoryCards(sidebar) {
                     `.pl-sidebar__filter-panel[data-panel-for="${slug}"]`
                 );
                 if (panel) {
-                    // Expand triangle
+                    // Reset all chips in panel, then activate "Tất cả" chip
+                    panel.querySelectorAll(".pl-sidebar__chip").forEach((c) => {
+                        c.classList.remove("pl-sidebar__chip--active");
+                        const icon = c.querySelector(".pl-sidebar__chip-icon");
+                        if (icon) icon.innerHTML = CHECKBOX_UNCHECKED_SVG;
+                    });
+                    const allChip = panel.querySelector(`.pl-sidebar__chip[data-category-slug="${slug}"]`);
+                    if (allChip) {
+                        allChip.classList.add("pl-sidebar__chip--active");
+                        const icon = allChip.querySelector(".pl-sidebar__chip-icon");
+                        if (icon) icon.innerHTML = CHECKBOX_CHECKED_SVG;
+                    }
+
+                    // Expand triangle and position it under active card
                     const triangleRow = row.querySelector(
                         ".pl-sidebar__triangle-row"
                     );
                     if (triangleRow) {
+                        const triangle = triangleRow.querySelector(".pl-sidebar__triangle");
+                        if (triangle) {
+                            positionTriangle(triangle, card);
+                        }
                         triangleRow.classList.add(
                             "pl-sidebar__triangle-row--visible"
                         );
@@ -177,6 +243,7 @@ function initCategoryCards(sidebar) {
                     }
                     // Expand panel
                     panel.classList.add("pl-sidebar__filter-panel--open");
+                    panel.offsetHeight; // force reflow to pick up new padding
                     expandHeight(panel);
                 }
             }
@@ -188,26 +255,75 @@ function initCategoryCards(sidebar) {
 
 /**
  * Filter Chips — toggle checkbox
+ * - Click chip "Tất cả" → check tất cả con + check "Tất cả"
+ * - Click chip con → uncheck "Tất cả", nếu check full con thì tích lại "Tất cả"
  */
 function initFilterChips(sidebar) {
     const chips = sidebar.querySelectorAll(".pl-sidebar__chip");
 
     chips.forEach((chip) => {
         chip.addEventListener("click", () => {
-            chip.classList.toggle("pl-sidebar__chip--active");
+            const panel = chip.closest(".pl-sidebar__filter-panel");
+            if (!panel) return;
 
-            const iconEl = chip.querySelector(".pl-sidebar__chip-icon");
-            if (iconEl) {
-                if (chip.classList.contains("pl-sidebar__chip--active")) {
-                    iconEl.innerHTML = CHECKBOX_CHECKED_SVG;
+            const allChip = panel.querySelector('.pl-sidebar__chip[data-chip-role="all"]');
+            const childChips = Array.from(
+                panel.querySelectorAll('.pl-sidebar__chip:not([data-chip-role="all"])')
+            );
+
+            if (chip.dataset.chipRole === "all") {
+                // Click "Tất cả" → check tất cả (bao gồm chính nó) + check tất cả con
+                setChipState(allChip, true);
+                childChips.forEach((c) => setChipState(c, true));
+            } else {
+                // Click chip con → toggle nó
+                chip.classList.toggle("pl-sidebar__chip--active");
+                const iconEl = chip.querySelector(".pl-sidebar__chip-icon");
+                if (iconEl) {
+                    iconEl.innerHTML = chip.classList.contains("pl-sidebar__chip--active")
+                        ? CHECKBOX_CHECKED_SVG
+                        : CHECKBOX_UNCHECKED_SVG;
+                }
+
+                // Kiểm tra tất cả con đã check hết chưa
+                const allChildrenChecked = childChips.every((c) =>
+                    c.classList.contains("pl-sidebar__chip--active")
+                );
+                const anyChildChecked = childChips.some((c) =>
+                    c.classList.contains("pl-sidebar__chip--active")
+                );
+
+                if (allChildrenChecked) {
+                    // Full con → tích lại "Tất cả"
+                    setChipState(allChip, true);
+                } else if (anyChildChecked) {
+                    // Có ít nhất 1 con → bỏ "Tất cả"
+                    setChipState(allChip, false);
                 } else {
-                    iconEl.innerHTML = CHECKBOX_UNCHECKED_SVG;
+                    // Không còn con nào → bỏ "Tất cả"
+                    setChipState(allChip, false);
                 }
             }
 
             dispatchFilterChange(sidebar);
         });
     });
+}
+
+/**
+ * Helper: set chip checked/unchecked state
+ */
+function setChipState(chip, active) {
+    if (!chip) return;
+    if (active) {
+        chip.classList.add("pl-sidebar__chip--active");
+    } else {
+        chip.classList.remove("pl-sidebar__chip--active");
+    }
+    const iconEl = chip.querySelector(".pl-sidebar__chip-icon");
+    if (iconEl) {
+        iconEl.innerHTML = active ? CHECKBOX_CHECKED_SVG : CHECKBOX_UNCHECKED_SVG;
+    }
 }
 
 /**
@@ -258,6 +374,12 @@ function initClearButton(sidebar) {
 
         dispatchFilterChange(sidebar);
     });
+
+    // Update button state on filter changes
+    updateClearButtonState(sidebar);
+    sidebar.addEventListener("filterchange", () => {
+        updateClearButtonState(sidebar);
+    });
 }
 
 /**
@@ -276,7 +398,7 @@ function dispatchFilterChange(sidebar) {
 /**
  * Get all active filter values
  */
-export function getActiveFilters(sidebar) {
+function getActiveFilters(sidebar) {
     if (!sidebar) sidebar = document.getElementById("sidebar-filter");
     if (!sidebar)
         return {
@@ -360,6 +482,29 @@ function openDrawer(drawer) {
     // Pause Lenis smooth scroll
     if (window.lenis) {
         window.lenis.stop();
+    }
+}
+
+/**
+ * Update clear button state based on active filters
+ */
+function updateClearButtonState(sidebar) {
+    const clearBtn = sidebar.querySelector(".pl-sidebar__clear-btn");
+    if (!clearBtn) return;
+
+    const filters = getActiveFilters(sidebar);
+    const hasActiveFilters = 
+        filters.category !== "" || 
+        filters.subcategories.length > 0 || 
+        filters.minPrice !== 100000 || 
+        filters.maxPrice !== 10000000;
+
+    if (hasActiveFilters) {
+        clearBtn.disabled = false;
+        clearBtn.removeAttribute("aria-disabled");
+    } else {
+        clearBtn.disabled = true;
+        clearBtn.setAttribute("aria-disabled", "true");
     }
 }
 

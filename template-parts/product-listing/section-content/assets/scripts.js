@@ -1,7 +1,18 @@
-export function sectionContentScripts() {
+
+function sectionContentScripts() {
   initExpandCollapse();
   initInfiniteScroll();
   initFilterListener();
+}
+
+/**
+ * Convert rem to pixels
+ */
+function remToPx(rem) {
+  const rootFontSize = parseFloat(
+    getComputedStyle(document.documentElement).fontSize,
+  );
+  return rem * rootFontSize;
 }
 
 /**
@@ -13,11 +24,10 @@ function initExpandCollapse() {
   const desc = document.getElementById("pl-desc");
   if (!btn || !desc) return;
 
-  // Determine collapsed height based on breakpoint (rem → px)
-  const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+  // Determine collapsed height based on breakpoint
   const isMobile = window.matchMedia("(max-width: 639.98px)").matches;
-  const collapsedRem = isMobile ? 6.5625 : 7.5;
-  const collapsedPx = collapsedRem * rootFontSize;
+  const collapsedRem = isMobile ? 5.0625 : 7.19;
+  const collapsedPx = remToPx(collapsedRem);
 
   // Replace CSS max-height with precise JS height (no transition on init)
   desc.style.transition = "none";
@@ -52,6 +62,10 @@ let currentPage = 1;
 let totalPages = 1;
 let isLoading = false;
 let currentFilters = {};
+let infiniteScrollObserver = null;
+let filterAbortController = null;
+let loadMoreAbortController = null;
+let latestFilterRequestId = 0;
 
 function initInfiniteScroll() {
   const grid = document.getElementById("pl-grid");
@@ -71,7 +85,8 @@ function initInfiniteScroll() {
     subcategories: [],
   };
 
-  const observer = new IntersectionObserver(
+  // Create and store observer
+  infiniteScrollObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && !isLoading && currentPage < totalPages) {
@@ -81,10 +96,26 @@ function initInfiniteScroll() {
     },
     {
       rootMargin: "200px",
-    }
+    },
   );
 
-  observer.observe(sentinel);
+  infiniteScrollObserver.observe(sentinel);
+}
+
+/**
+ * Reconnect infinite scroll observer after filter changes
+ */
+function reconnectInfiniteScrollObserver() {
+  const sentinel = document.getElementById("pl-sentinel");
+
+  if (!infiniteScrollObserver || !sentinel) return;
+
+  infiniteScrollObserver.disconnect();
+
+  // Force reflow to ensure DOM is stable
+  requestAnimationFrame(() => {
+    infiniteScrollObserver.observe(sentinel);
+  });
 }
 
 /**
@@ -96,37 +127,91 @@ function initFilterListener() {
     currentFilters = filters;
     currentPage = 1;
     totalPages = 1;
+    
+    // Reset loading state to prevent blocking
+    isLoading = false;
 
-    // Clear grid and show skeleton loading
     const grid = document.getElementById("pl-grid");
     if (!grid) return;
 
+    // Clear grid and show skeleton loading
     grid.innerHTML = "";
     grid.setAttribute("aria-busy", "true");
     appendSkeletons(grid, 12);
 
-    fetchProducts(1, filters).then((result) => {
+    // Delay scroll to next frame to prevent double trigger
+    requestAnimationFrame(() => {
+      scrollToGrid(grid);
+    });
+
+    const filterRequestId = ++latestFilterRequestId;
+
+    fetchProducts(1, filters, 'filter').then((result) => {
+      // Ignore stale filter responses to prevent mixed UI state
+      if (filterRequestId !== latestFilterRequestId) return;
+
       removeSkeletons(grid);
       grid.setAttribute("aria-busy", "false");
 
       if (result && result.data && result.data.length > 0) {
+        grid.innerHTML = "";
         appendProducts(grid, result.data);
+        initProduct();
         currentPage = result.pagination.page;
         totalPages = result.pagination.total_pages;
 
         grid.dataset.currentPage = currentPage;
         grid.dataset.totalPages = totalPages;
+        
+        // RECONNECT INFINITE SCROLL OBSERVER after filter
+        reconnectInfiniteScrollObserver();
       } else {
-        grid.innerHTML =
-          '<p class="pl-content__no-results">Không tìm thấy sản phẩm nào.</p>';
+        showNoResults(grid);
       }
     });
   });
 }
 
 /**
- * Load more products for infinite scroll
+ * Advanced scroll to grid with Lenis support and reduced motion detection
  */
+function scrollToGrid(grid) {
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+
+  const app = window.app;
+  const lenis = app && app.lenis;
+  const prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (lenis && typeof lenis.scrollTo === "function") {
+    try {
+      if (typeof lenis.stop === "function") lenis.stop();
+      if (typeof lenis.start === "function") lenis.start();
+      lenis.scrollTo(0, {
+        immediate: prefersReducedMotion,
+        duration: prefersReducedMotion ? 0 : 0.8,
+        easing: (t) => 1 - Math.pow(1 - t, 3),
+      });
+    } finally {
+    }
+    return;
+  }
+
+  window.scrollTo({
+    top: 0,
+    behavior: prefersReducedMotion ? "auto" : "smooth",
+  });
+}
+
+/**
+ * Show no results message using template cloning
+ */
+function showNoResults(grid) {
+  const template = document.getElementById("pl-no-results-template");
+  if (!template) return;
+
+  grid.replaceChildren(template.content.cloneNode(true));
+}
+
 async function loadMoreProducts(grid, loader) {
   if (isLoading || currentPage >= totalPages) return;
 
@@ -134,13 +219,14 @@ async function loadMoreProducts(grid, loader) {
   appendSkeletons(grid, 4);
 
   const nextPage = currentPage + 1;
-  const result = await fetchProducts(nextPage, currentFilters);
+  const result = await fetchProducts(nextPage, currentFilters, 'loadMore');
 
   removeSkeletons(grid);
   isLoading = false;
 
   if (result && result.data && result.data.length > 0) {
     appendProducts(grid, result.data);
+    initProduct();
     currentPage = result.pagination.page;
     totalPages = result.pagination.total_pages;
 
@@ -152,7 +238,24 @@ async function loadMoreProducts(grid, loader) {
 /**
  * Fetch products from REST API
  */
-async function fetchProducts(page, filters) {
+async function fetchProducts(page, filters, controllerType = 'filter') {
+  // Use appropriate abort controller based on request type
+  let abortController;
+  
+  if (controllerType === 'filter') {
+    if (filterAbortController) {
+      filterAbortController.abort();
+    }
+    filterAbortController = new AbortController();
+    abortController = filterAbortController;
+  } else {
+    if (loadMoreAbortController) {
+      loadMoreAbortController.abort();
+    }
+    loadMoreAbortController = new AbortController();
+    abortController = loadMoreAbortController;
+  }
+
   const params = new URLSearchParams({
     page: page,
     limit: 12,
@@ -168,16 +271,18 @@ async function fetchProducts(page, filters) {
   }
 
   if (filters.minPrice && filters.minPrice > 100000) {
-    params.set("min_price", filters.minPrice);
+    params.set("price_min", filters.minPrice);
   }
   if (filters.maxPrice && filters.maxPrice < 10000000) {
-    params.set("max_price", filters.maxPrice);
+    params.set("price_max", filters.maxPrice);
   }
 
   try {
     const apiRoot =
       (window.wpApiSettings && window.wpApiSettings.root) || "/wp-json/";
-    const resp = await fetch(`${apiRoot}api/v1/products?${params.toString()}`);
+    const resp = await fetch(`${apiRoot}api/v1/products?${params.toString()}`, {
+      signal: abortController.signal,
+    });
     const json = await resp.json();
 
     if (json.success) {
@@ -185,19 +290,27 @@ async function fetchProducts(page, filters) {
     }
     return null;
   } catch (err) {
-    console.error("Product fetch error:", err);
+    if (err.name !== 'AbortError') {
+      console.error("Product fetch error:", err);
+    }
     return null;
   }
 }
 
 /**
  * Append product cards to the grid from API data
+ * Optimized with DocumentFragment to reduce reflows
  */
 function appendProducts(grid, products) {
+  const fragment = document.createDocumentFragment();
+  const temp = document.createElement("div");
+
   products.forEach((product) => {
-    const card = createProductCard(product);
-    grid.insertAdjacentHTML("beforeend", card);
+    temp.innerHTML = createProductCard(product);
+    fragment.appendChild(temp.firstElementChild);
   });
+
+  grid.appendChild(fragment);
 }
 
 /**
@@ -206,7 +319,7 @@ function appendProducts(grid, products) {
  */
 function createProductCard(product) {
   const thumbnail = product.thumbnail || "";
-  const title = escapeHtml(product.title || "");
+  const title = escapeHtml(decodeHtml(product.title || ""));
   const url = product.url || "#";
   const rentPrice = product.rent_price ? product.rent_price.formatted : "0";
   const salePrice = product.price ? product.price.formatted : "0";
@@ -252,6 +365,15 @@ function escapeHtml(str) {
   const div = document.createElement("div");
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
+}
+
+/**
+ * Decode HTML entities (e.g. &#8211; → –)
+ */
+function decodeHtml(str) {
+  const txt = document.createElement("textarea");
+  txt.innerHTML = str;
+  return txt.value;
 }
 
 /**

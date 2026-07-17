@@ -1,5 +1,3 @@
-import { sectionSidebarScripts, getActiveFilters, expandHeight, collapseHeight } from "../section-sidebar/assets/scripts.js";
-import { sectionContentScripts } from "../section-content/assets/scripts.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   sectionSidebarScripts();
@@ -51,10 +49,11 @@ function initSelectedFilters() {
   if (!mql.matches) return;
 
   // Close circle SVG for chip remove button
-  const CLOSE_CIRCLE_SVG = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="10" cy="10" r="9" stroke="rgba(28,28,28,0.4)" stroke-width="1"/>
-    <path d="M7 7l6 6M13 7l-6 6" stroke="rgba(28,28,28,0.4)" stroke-width="1.2" stroke-linecap="round"/>
-  </svg>`;
+  const CLOSE_CIRCLE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+  <path d="M10.0001 18.3334C14.5834 18.3334 18.3334 14.5834 18.3334 10.0001C18.3334 5.41675 14.5834 1.66675 10.0001 1.66675C5.41675 1.66675 1.66675 5.41675 1.66675 10.0001C1.66675 14.5834 5.41675 18.3334 10.0001 18.3334Z" stroke="#680103" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M7.6416 12.3583L12.3583 7.6416" stroke="#680103" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M12.3583 12.3583L7.6416 7.6416" stroke="#680103" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
 
   // Listen for filter changes
   document.addEventListener("filterchange", (e) => {
@@ -140,7 +139,7 @@ function renderSelectedChips(container, filters, closeSvg, sidebar) {
   const clearBtn = document.createElement("button");
   clearBtn.className = "pl-selected-chip pl-selected-chip--clear";
   clearBtn.type = "button";
-  clearBtn.textContent = "Xoá tất cả";
+  clearBtn.textContent = "Xoá tất cả lựa chọn";
   clearBtn.addEventListener("click", () => {
     const clearAllBtn = sidebar.querySelector(".pl-sidebar__clear-btn");
     if (clearAllBtn) clearAllBtn.click();

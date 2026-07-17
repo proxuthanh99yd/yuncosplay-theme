@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Search Page - Main Template
  *
@@ -16,6 +17,10 @@ $is_product   = ($post_type === 'product');
 $background_content_id  = 9885;
 $background_content_url = wp_get_attachment_image_url($background_content_id, 'full') ?: '';
 
+// Blog card overlay (same as blog-item-v2)
+$blog_overlay_id  = 9833;
+$blog_overlay_url = wp_get_attachment_image_url($blog_overlay_id, 'full') ?: '';
+
 // Breadcrumb text
 $breadcrumb_current = $is_product ? 'Danh sách sản phẩm' : 'Danh sách tin tức';
 
@@ -24,7 +29,7 @@ $page_title = 'kết quả tìm kiếm';
 ?>
 
 <!-- Breadcrumb -->
-<nav class="sp-breadcrumb" aria-label="Breadcrumb">
+<nav class="sp-breadcrumb <?= $is_product ? 'product-page' : 'blog-page'; ?>" aria-label="Breadcrumb">
 	<div class="sp-breadcrumb__inner">
 		<ol class="sp-breadcrumb__list">
 			<li class="sp-breadcrumb__item">
@@ -38,14 +43,23 @@ $page_title = 'kết quả tìm kiếm';
 	</div>
 </nav>
 
+
+
 <!-- Page Title -->
-<section class="sp-title">
+<section class="sp-title <?= $is_product ? 'product-page' : 'blog-page'; ?>">
 	<div class="sp-title__inner">
 		<h1 class="sp-title__heading"><?= esc_html($page_title); ?></h1>
 	</div>
+
 </section>
 
-<?php if ($is_product) : ?>
+<section class="sp-tabs">
+	<div class="sp-tab <?= $is_product ? 'active' : '' ?>" data-value="product">Sản phẩm liên quan</div>
+	<div class="sp-tab <?= $is_product ? '' : 'active' ?>" data-value="blog">Tin tức liên quan</div>
+</section>
+
+
+<div class="sp-results-wrapper" data-type="<?= $is_product ? 'product' : 'blog'; ?>">
 	<?php
 	// === PRODUCT SEARCH RESULTS ===
 	$per_page = 15; // 5 columns x 3 rows
@@ -85,15 +99,14 @@ $page_title = 'kết quả tìm kiếm';
 
 	<section class="sp-results sp-results--product">
 		<div class="sp-results__inner">
-			<!-- Product Grid -->
 			<div
 				class="sp-product-grid"
 				id="sp-product-grid"
 				data-total-pages="<?= esc_attr($total_pages); ?>"
 				data-current-page="<?= esc_attr($paged); ?>"
 				data-search="<?= esc_attr($search_query); ?>"
-				data-bg-url="<?= esc_attr($background_content_url); ?>"
-			>
+				data-limit="<?= esc_attr((string) $per_page); ?>"
+				data-bg-url="<?= esc_attr($background_content_url); ?>">
 				<?php if ($products_query->have_posts()) : ?>
 					<?php while ($products_query->have_posts()) : $products_query->the_post(); ?>
 						<?php get_template_part('template-parts/components/product/index'); ?>
@@ -104,22 +117,22 @@ $page_title = 'kết quả tìm kiếm';
 				<?php endif; ?>
 			</div>
 
-			<!-- Infinite Scroll Sentinel -->
+			<!--Infinite Scroll Sentinel -->
 			<div class="sp-product-sentinel" id="sp-product-sentinel"></div>
 
-			<!-- Loading Spinner (Infinite Loading) -->
+			<!--Loading Spinner (Infinite Loading) -->
 			<div class="sp-product-loader" id="sp-product-loader">
 				<div class="sp-product-loader__spinner"></div>
-				<span class="sp-product-loader__text">Load kiểu Infinite loading</span>
+				<span class="sp-product-loader__text">Loading</span>
 			</div>
 		</div>
 	</section>
 
-<?php else : ?>
+
 	<?php
 	// === BLOG SEARCH RESULTS ===
 	$per_page = 12; // 4 columns x 3 rows per page section
-	$paged    = get_query_var('paged') ? get_query_var('paged') : 1;
+	$paged    = 1;
 
 	$blog_args = [
 		'post_type'      => 'post',
@@ -151,13 +164,18 @@ $page_title = 'kết quả tìm kiếm';
 	}
 
 	$total_pages  = $blog_query->max_num_pages;
-	$total_posts  = $blog_query->found_posts;
 	?>
 
 	<section class="sp-results sp-results--blog">
 		<div class="sp-results__inner">
-			<!-- Blog Grid -->
-			<div class="sp-blog-grid" id="sp-blog-grid">
+			<div
+				class="sp-blog-grid"
+				id="sp-blog-grid"
+				data-total-pages="<?= esc_attr($total_pages); ?>"
+				data-current-page="<?= esc_attr($paged); ?>"
+				data-search="<?= esc_attr($search_query); ?>"
+				data-limit="<?= esc_attr((string) $per_page); ?>"
+				data-overlay-url="<?= esc_attr($blog_overlay_url); ?>">
 				<?php if ($blog_query->have_posts()) : ?>
 					<?php while ($blog_query->have_posts()) : $blog_query->the_post(); ?>
 						<?php get_template_part('template-parts/components/blog-item-v2/index'); ?>
@@ -168,52 +186,12 @@ $page_title = 'kết quả tìm kiếm';
 				<?php endif; ?>
 			</div>
 
-			<!-- Pagination -->
-			<?php if ($total_pages > 1) : ?>
-				<nav class="sp-pagination" aria-label="Pagination">
-					<?php if ($paged > 1) : ?>
-						<a href="<?= esc_url(add_query_arg('paged', $paged - 1)); ?>" class="sp-pagination__arrow sp-pagination__arrow--prev" aria-label="Previous page">
-							<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M6.25 7.5L3.75 5L6.25 2.5" stroke="#1D1D1D" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-							</svg>
-						</a>
-					<?php endif; ?>
+			<div class="sp-blog-sentinel" id="sp-blog-sentinel"></div>
 
-					<div class="sp-pagination__pages">
-						<?php
-						// Show page 1
-						$page_class = ($paged === 1) ? 'sp-pagination__page sp-pagination__page--active' : 'sp-pagination__page';
-						echo '<a href="' . esc_url(add_query_arg('paged', 1)) . '" class="' . $page_class . '">1</a>';
-
-						if ($total_pages > 1) {
-							// Show page 2
-							$page_class = ($paged === 2) ? 'sp-pagination__page sp-pagination__page--active' : 'sp-pagination__page';
-							echo '<a href="' . esc_url(add_query_arg('paged', 2)) . '" class="' . $page_class . '">2</a>';
-						}
-
-						if ($total_pages > 3) {
-							// Ellipsis
-							echo '<span class="sp-pagination__ellipsis"><span></span><span></span><span></span></span>';
-						}
-
-						if ($total_pages > 2) {
-							// Show last page
-							$page_class = ($paged === $total_pages) ? 'sp-pagination__page sp-pagination__page--active' : 'sp-pagination__page';
-							echo '<a href="' . esc_url(add_query_arg('paged', $total_pages)) . '" class="' . $page_class . '">' . $total_pages . '</a>';
-						}
-						?>
-					</div>
-
-					<?php if ($paged < $total_pages) : ?>
-						<a href="<?= esc_url(add_query_arg('paged', $paged + 1)); ?>" class="sp-pagination__arrow sp-pagination__arrow--next" aria-label="Next page">
-							<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M3.75 2.5L6.25 5L3.75 7.5" stroke="#1D1D1D" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-							</svg>
-						</a>
-					<?php endif; ?>
-				</nav>
-			<?php endif; ?>
+			<div class="sp-blog-loader" id="sp-blog-loader">
+				<div class="sp-blog-loader__spinner"></div>
+				<span class="sp-blog-loader__text">Loading</span>
+			</div>
 		</div>
 	</section>
-
-<?php endif; ?>
+</div>
