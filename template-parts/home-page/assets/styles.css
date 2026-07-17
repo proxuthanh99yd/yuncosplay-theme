@@ -1,17 +1,8 @@
-@import "../section-banner/assets/styles.css";
-@import "../section-about/assets/styles.css";
-@import "../section-products/assets/styles.css";
-@import "../section-category/assets/styles.css";
-@import "../section-services/assets/styles.css";
-@import "../section-highlights/assets/styles.css";
-@import "../section-gallery/assets/styles.css";
-@import "../section-events/assets/styles.css";
-@import "../section-blog/assets/styles.css";
 
 .sections__bottom {
   position: relative;
   background-image: url("/wp-content/uploads/2026/02/backgroundimage-4.webp");
-  background-size: cover;
+  background-size: contain;
   background-position: center 24.59rem;
   background-repeat: no-repeat;
 }
@@ -32,5 +23,6 @@ main {
   .sections__bottom {
     background-image: url("/wp-content/uploads/2026/02/backgroundimage-5.webp");
     background-position: center 10.12rem;
+    background-size: cover;
   }
 }

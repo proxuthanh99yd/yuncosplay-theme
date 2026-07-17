@@ -7,13 +7,13 @@ $link = $related_blog_acf['link'] ?? [];
 $link_url = is_array($link) ? ($link['url'] ?? '#') : ($link ?: '#');
 $link_text = is_array($link) ? ($link['title'] ?? '') : '';
 $icon_arrow_right_id = 69;
-
+$bg_image_id = wp_is_mobile() ? 9903 : 5159;
 ?>
 
 <section id="related-blog">
   <div class="related-blog__container">
     <div class="related-blog__image-wrapper">
-      <?= wp_get_attachment_image(5159, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'related-blog__image')) ?>
+      <?= wp_get_attachment_image($bg_image_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'related-blog__image')) ?>
       <div class="related-blog__image-content">
         <h3 class="related-blog__image-content-subtitle">
           <?= $subtitle ?>

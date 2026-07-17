@@ -1,4 +1,4 @@
-export function sectionAboutScripts() {
+function sectionAboutScripts() {
   if (!window.gsap || !window.ScrollTrigger) return;
 
   gsap.registerPlugin(ScrollTrigger, CustomEase);
@@ -158,3 +158,7 @@ export function sectionAboutScripts() {
     };
   });
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  sectionAboutScripts();
+});

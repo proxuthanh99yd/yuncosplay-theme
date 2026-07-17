@@ -1,4 +1,4 @@
-export function sectionBannerScripts() {
+function sectionBannerScripts() {
   const container = document.querySelector('#banner')
   if (!container) return
 
@@ -73,3 +73,7 @@ export function sectionBannerScripts() {
     if (swiper?.autoplay?.running === false) swiper.autoplay.start()
   })
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  sectionBannerScripts();
+});

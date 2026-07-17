@@ -1,4 +1,4 @@
-export function sectionBlogScripts() {
+function sectionBlogScripts() {
 	const AUTOPLAY_DURATION = 5000;
 
 	const SELECTORS = {
@@ -89,3 +89,7 @@ export function sectionBlogScripts() {
 		}
 	});
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  sectionBlogScripts();
+});

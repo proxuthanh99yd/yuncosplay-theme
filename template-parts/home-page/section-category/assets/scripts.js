@@ -1,4 +1,4 @@
-export function sectionCategoryScripts() {
+function sectionCategoryScripts() {
   const itemsEl = document.querySelector(".h-category__items .swiper-slide");
 
   let itemsSwiper;
@@ -46,6 +46,7 @@ export function sectionCategoryScripts() {
         (c) => c.parent.toString() === parentId,
       );
 
+      const n = subCategories.length;
       const itemsHTML = subCategories.map(
         (c, i) => `
        <a href="#" class="h-category__item">
@@ -54,7 +55,7 @@ export function sectionCategoryScripts() {
             <span>${c.name}</span>
           </div>
         </a>
-       ${(i + 1) % 2 === 0 ? '<div class="h-category__line"></div>' : ""}
+       ${(i + 1) % 2 === 0 || i === n - 1 ? '<div class="h-category__line"></div>' : ""}
     `,
       );
 
@@ -69,6 +70,7 @@ export function sectionCategoryScripts() {
         (c) => c.parent.toString() === parentId,
       );
 
+      const n = subCategories.length;
       const itemsHTML = subCategories.map(
         (c, i) => `
        <a href="${c.link}" class="h-category__item">
@@ -77,7 +79,7 @@ export function sectionCategoryScripts() {
             <span>${c.name}</span>
           </div>
         </a>
-        ${(i + 1) % 2 === 0 ? '<div class="h-category__line"></div>' : ""}
+        ${(i + 1) % 2 === 0 || i === n - 1 ? '<div class="h-category__line"></div>' : ""}
     `,
       );
 
@@ -108,3 +110,7 @@ export function sectionCategoryScripts() {
   initItemsSwiper();
   window.addEventListener("resize", handleResize);
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  sectionCategoryScripts();
+});
