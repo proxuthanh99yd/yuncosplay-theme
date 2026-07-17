@@ -125,6 +125,13 @@
   will-change: transform;
 }
 
+/* Ảnh mobile phải display:none hẳn trên desktop, không chỉ dựa vào overflow:hidden
+   của .banner__slide-inner cắt đi. Có display:none thì loading="lazy" mới chắc chắn
+   không tải nó — dựa vào clipping để IntersectionObserver không fire là quá mong manh. */
+#banner .banner-image-mb {
+  display: none;
+}
+
 /* Pagination container (Swiper có thể không thêm .swiper-pagination vào el tùy chỉnh) */
 #banner .banner__pagination {
   position: static !important;
@@ -237,6 +244,10 @@
 
   #banner .banner-image {
     display: none;
+  }
+
+  #banner .banner-image-mb {
+    display: block;
   }
 
   #banner .banner__content {
