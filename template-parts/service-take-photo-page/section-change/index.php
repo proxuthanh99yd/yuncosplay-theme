@@ -1,7 +1,8 @@
 <?php
-$backgound_pc = 10513;
-$backgound_mb = 10515;
 $change_acf = get_field("change");
+// Ảnh nền lấy từ ACF; fallback về ID cũ để không mất ảnh trước khi editor chọn lại.
+$backgound_pc = ($change_acf['background_pc'] ?? '') ?: 10513;
+$backgound_mb = ($change_acf['background_mb'] ?? '') ?: 10515;
 $title = $change_acf['title'];
 $subtitle = $change_acf['subtitle'];
 $steps = $change_acf['step'];
