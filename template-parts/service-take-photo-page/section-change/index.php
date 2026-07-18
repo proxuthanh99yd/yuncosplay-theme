@@ -10,6 +10,7 @@ $link = $change_acf['link'];
 $link = $change_acf['link'] ?? [];
 $url    = !empty($link['url']) ? esc_url($link['url']) : '#';
 $title_cta  = !empty($link['title']) ? esc_html($link['title']) : '';
+$target = !empty($link['target']) ? $link['target'] : '_self';
 
 
 $section_customer_gallery_items= $change_acf['gallery_items'] ?? [];
@@ -28,7 +29,7 @@ if (!empty($section_customer_gallery_items)) {
             <h3><?php echo $title?></h3>
             <h2><?php echo $subtitle?></h2>
         </div>
-        <a href="<?php echo $url; ?>" target="<?php echo $target; ?>" class="button-contact">
+        <a href="<?php echo $url; ?>" target="<?php echo esc_attr($target); ?>" class="button-contact">
             <?php 
             get_template_part(
                 'template-parts/components/animated-button/index',
@@ -97,8 +98,8 @@ if (!empty($section_customer_gallery_items)) {
         <?php endfor; ?>
     </div>
     <div class="button-contact__mb">
-        <a href="<?php echo $url; ?>" target="<?php echo $target; ?>">
-            <?php 
+        <a href="<?php echo $url; ?>" target="<?php echo esc_attr($target); ?>">
+            <?php
             get_template_part(
                 'template-parts/components/animated-button/index',
                 null,
