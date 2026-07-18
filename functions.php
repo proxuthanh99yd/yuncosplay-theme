@@ -1,6 +1,7 @@
 <?php
 require get_theme_file_path('/inc/functions.php');
 require get_theme_file_path('/inc/helpers.php');
+require get_theme_file_path('/inc/theme-images.php');
 require get_theme_file_path('/import-assets/reset-css-js.php');
 require get_theme_file_path('/import-assets/import-css-js.php');
 require get_theme_file_path('/inc/perf-dequeue.php');
