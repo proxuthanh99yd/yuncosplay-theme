@@ -1,0 +1,499 @@
+{
+    "key": "group_site_business_schema",
+    "title": "Site Business Schema",
+    "fields": [
+        {
+            "key": "field_business_name",
+            "label": "Business Name",
+            "name": "business_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Yun Cosplay",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_business_image",
+            "label": "Business Image \/ Logo",
+            "name": "business_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Image used for Organization\/LocalBusiness schema image and logo.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_business_phone",
+            "label": "Business Phone",
+            "name": "business_phone",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Phone number used in LocalBusiness schema.",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_business_address",
+            "label": "Business Address",
+            "name": "business_address",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_business_street_address",
+                    "label": "Street Address",
+                    "name": "street_address",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 2,
+                    "new_lines": "br",
+                    "default_value": "31 Trần Kim Xuyến, Yên Hoà, Cầu Giấy, Hà Nội, Việt Nam",
+                    "maxlength": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_business_address_locality",
+                    "label": "Address Locality",
+                    "name": "address_locality",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Cầu Giấy",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_business_address_region",
+                    "label": "Address Region",
+                    "name": "address_region",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Hà Nội",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_business_postal_code",
+                    "label": "Postal Code",
+                    "name": "postal_code",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 100000,
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_business_address_country",
+                    "label": "Address Country",
+                    "name": "address_country",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "VN": "Việt Nam"
+                    },
+                    "default_value": "VN",
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "create_options": 0,
+                    "save_options": 0
+                }
+            ]
+        },
+        {
+            "key": "field_business_opening_hours",
+            "label": "Business Opening Hours",
+            "name": "business_opening_hours",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "button_label": "Add hours",
+            "min": 0,
+            "max": 0,
+            "rows_per_page": 20,
+            "collapsed": "",
+            "sub_fields": [
+                {
+                    "key": "field_business_opening_days",
+                    "label": "Days",
+                    "name": "days",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "multiple": 1,
+                    "choices": {
+                        "Mo": "Monday",
+                        "Tu": "Tuesday",
+                        "We": "Wednesday",
+                        "Th": "Thursday",
+                        "Fr": "Friday",
+                        "Sa": "Saturday",
+                        "Su": "Sunday"
+                    },
+                    "return_format": "value",
+                    "allow_null": 0,
+                    "default_value": [],
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "create_options": 0,
+                    "save_options": 0,
+                    "parent_repeater": "field_business_opening_hours"
+                },
+                {
+                    "key": "field_business_opening_opens",
+                    "label": "Opens",
+                    "name": "opens",
+                    "aria-label": "",
+                    "type": "time_picker",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "display_format": "H:i",
+                    "return_format": "H:i",
+                    "parent_repeater": "field_business_opening_hours"
+                },
+                {
+                    "key": "field_business_opening_closes",
+                    "label": "Closes",
+                    "name": "closes",
+                    "aria-label": "",
+                    "type": "time_picker",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "display_format": "H:i",
+                    "return_format": "H:i",
+                    "parent_repeater": "field_business_opening_hours"
+                }
+            ]
+        },
+        {
+            "key": "field_business_price_range",
+            "label": "Business Price Range",
+            "name": "business_price_range",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "$$",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_business_area_served",
+            "label": "Area Served",
+            "name": "business_area_served",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Hà Nội",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_business_socials",
+            "label": "Business Socials",
+            "name": "business_socials",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "button_label": "Add social",
+            "min": 0,
+            "max": 0,
+            "rows_per_page": 20,
+            "collapsed": "",
+            "sub_fields": [
+                {
+                    "key": "field_business_social_platform",
+                    "label": "Platform",
+                    "name": "platform",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "facebook": "Facebook",
+                        "tiktok": "TikTok",
+                        "instagram": "Instagram",
+                        "youtube": "YouTube"
+                    },
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "default_value": false,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "create_options": 0,
+                    "save_options": 0,
+                    "parent_repeater": "field_business_socials"
+                },
+                {
+                    "key": "field_business_social_url",
+                    "label": "URL",
+                    "name": "url",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_business_socials"
+                }
+            ]
+        },
+        {
+            "key": "field_business_map_url",
+            "label": "Business Map URL",
+            "name": "business_map_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_business_geo",
+            "label": "Business Geo",
+            "name": "business_geo",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_business_geo_lat",
+                    "label": "Latitude",
+                    "name": "lat",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "step": "any",
+                    "default_value": "",
+                    "min": "",
+                    "max": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_business_geo_lng",
+                    "label": "Longitude",
+                    "name": "lng",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "step": "any",
+                    "default_value": "",
+                    "min": "",
+                    "max": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "site-business-schema"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1784343360
+}
