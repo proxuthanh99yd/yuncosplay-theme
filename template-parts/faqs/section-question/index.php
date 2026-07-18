@@ -1,6 +1,8 @@
 <?php
 $faq_section = get_field('Question');
 $list_question = $faq_section['list_question'] ?? [];
+$faq_title = ($faq_section['title'] ?? '') ?: 'Giải mã mọi thắc mắc về Yun';
+$faq_label = ($faq_section['desc'] ?? '') ?: 'Câu hỏi thường gặp';
 ?>
 
 <?php if (!empty($list_question)) : ?>
@@ -8,10 +10,10 @@ $list_question = $faq_section['list_question'] ?? [];
   <?= okhub_img('common/mermaid-bg', array('class' => 'faq-section__bg', 'extra' => 'aria-hidden="true"')) ?>
 
   <div class="faq-section__container">
-    <p class="faq-section__label">Câu hỏi thường gặp</p>
+    <p class="faq-section__label"><?= esc_html($faq_label); ?></p>
 
     <h2 class="faq-section__title">
-      Giải mã mọi thắc mắc về Yun
+      <?= esc_html($faq_title); ?>
     </h2>
 
     <div class="faq-section__list">
