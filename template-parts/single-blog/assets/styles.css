@@ -246,6 +246,150 @@ div#ez-toc-container ul li a {
   margin: 1.25rem 0 2rem !important;
 }
 
+/* ---- Nội dung từ block editor: bổ sung thẻ còn thiếu + khoảng cách ---- */
+.entry-content > *:first-child {
+  margin-top: 0;
+}
+
+.entry-content > *:last-child {
+  margin-bottom: 0;
+}
+
+.entry-content h1 {
+  color: #680103;
+  font-family: Phudu;
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 120%;
+  margin: 2rem 0 0.75rem;
+}
+
+.entry-content h4 {
+  color: #680103;
+  font-family: Phudu;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 130%;
+  margin: 1.25rem 0 0.5rem;
+}
+
+.entry-content h5,
+.entry-content h6 {
+  color: #680103;
+  font-family: "SF Pro Display";
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 140%;
+  margin: 1rem 0 0.5rem;
+}
+
+.entry-content li {
+  margin-bottom: 0.5rem;
+}
+
+.entry-content li:last-child {
+  margin-bottom: 0;
+}
+
+.entry-content li > ul,
+.entry-content li > ol {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+.entry-content a {
+  color: #680103;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 0.125rem;
+  transition: color 0.2s ease;
+}
+
+.entry-content a:hover {
+  color: #cb5140;
+}
+
+.entry-content blockquote {
+  margin: 1.5rem 0;
+  padding: 0.5rem 0 0.5rem 1rem;
+  border-left: 0.1875rem solid #cb5140;
+  color: var(--text-light);
+  font-style: italic;
+}
+
+.entry-content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.entry-content figure {
+  margin: 1.25rem 0 2rem;
+}
+
+.entry-content figure img {
+  margin: 0 !important;
+}
+
+.entry-content figcaption {
+  margin-top: 0.5rem;
+  color: var(--text-muted);
+  font-family: "SF Pro Display";
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 140%;
+  text-align: center;
+}
+
+.entry-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  font-family: "SF Pro Display";
+  font-size: 0.875rem;
+  color: var(--text-light);
+}
+
+.entry-content th,
+.entry-content td {
+  padding: 0.625rem 0.75rem;
+  border: 1px solid rgba(29, 29, 29, 0.12);
+  text-align: left;
+  line-height: 150%;
+}
+
+.entry-content th {
+  background: var(--bg-tag);
+  color: #680103;
+  font-weight: 600;
+}
+
+.entry-content hr {
+  border: none;
+  border-top: 1px solid rgba(29, 29, 29, 0.12);
+  margin: 2rem 0;
+}
+
+.entry-content code {
+  padding: 0.125rem 0.375rem;
+  background: var(--bg-tag);
+  border-radius: 0.25rem;
+  font-family: monospace;
+  font-size: 0.875em;
+  color: #680103;
+}
+
+.entry-content pre {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: var(--bg-tag);
+  border-radius: 0.375rem;
+  overflow-x: auto;
+}
+
+.entry-content pre code {
+  padding: 0;
+  background: none;
+}
+
 .cta-banner-wrapper {
   display: flex;
   justify-content: space-between;
@@ -705,6 +849,41 @@ div#ez-toc-container ul li a {
     width: 100%;
     height: auto;
     margin: 2.5rem 0 !important;
+  }
+
+  .entry-content h1 {
+    font-family: "Phudu";
+    font-size: 2rem;
+    margin: 2.5rem 0 1rem;
+  }
+
+  .entry-content h4 {
+    font-family: "Phudu";
+    font-size: 1.125rem;
+    margin: 1.5rem 0 0.625rem;
+  }
+
+  .entry-content h5,
+  .entry-content h6 {
+    font-size: 1rem;
+    margin: 1.25rem 0 0.5rem;
+  }
+
+  .entry-content figure {
+    margin: 2.5rem 0;
+  }
+
+  .entry-content figcaption {
+    font-size: 0.875rem;
+  }
+
+  .entry-content blockquote {
+    padding: 0.75rem 0 0.75rem 1.5rem;
+  }
+
+  .entry-content table {
+    font-size: 1rem;
+    margin-bottom: 2rem;
   }
 
   .footer-top-line {
