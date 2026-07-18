@@ -15,7 +15,7 @@ if (!is_array($feature_list)) {
     $feature_list = [];
 }
 
-$intro_bg_id = 10590;
+// nền intro → file tĩnh theme (okhub_img)
 
 /**
  * Validate thumbnail ACF image
@@ -42,20 +42,7 @@ $has_thumbnail = !empty($thumbnail_id) || !empty($thumbnail_url);
 
 <section class="intro">
     <div class="intro-container">
-        <?php
-            $intro_bg = wp_get_attachment_image($intro_bg_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'intro-bg'));
-
-            if (!empty($intro_bg)) {
-                  echo $intro_bg;
-            } else {
-                  $intro_bg_url = wp_get_attachment_url($intro_bg_id);
-                  if (!empty($intro_bg_url)) :
-            ?>
-        <img src="<?= esc_url($intro_bg_url) ?>" alt="" loading="lazy" decoding="async" class="intro-bg">
-        <?php
-                  endif;
-            }
-            ?>
+        <?php echo okhub_img('service/intro-bg', array('class' => 'intro-bg')); ?>
         <div class="intro-content">
             <div class="intro-heading">
                 <span class="sub-title"><?= $title ?></span>
@@ -79,7 +66,7 @@ $has_thumbnail = !empty($thumbnail_id) || !empty($thumbnail_url);
             <?php endif; ?>
 
             <div class="intro-divider">
-                <?= wp_get_attachment_image(10535, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__line')) ?>
+                <?= okhub_img('icons/line-1239', array('class' => 'home-services__line')) ?>
             </div>
             <svg class="intro-divider__line_mb" xmlns="http://www.w3.org/2000/svg" width="351" height="1"
                 viewBox="0 0 351 1" fill="none">

@@ -89,10 +89,9 @@ if (empty($all_faqs)) {
     return;
 }
 
-$icon_plus = 10561;
-$icon_minus = 10560;
-$icon_plus_url  = wp_get_attachment_image_url($icon_plus, 'full');
-$icon_minus_url = wp_get_attachment_image_url($icon_minus, 'full');
+// Icon +/- accordion → file tĩnh theme (okhub_img).
+$icon_plus_url  = okhub_img_url('faq/icon-plus');
+$icon_minus_url = okhub_img_url('faq/icon-minus');
 
 $initial_limit  = 5;
 $load_more_step = 5;
@@ -138,7 +137,7 @@ $load_more_step = 5;
                 aria-expanded="false"
                 data-icon-plus="<?= esc_url($icon_plus_url ?: '') ?>"
                 data-icon-minus="<?= esc_url($icon_minus_url ?: '') ?>">
-                <?php get_template_part('template-parts/components/animated-button/index', null, ['text' => 'Xem thêm', 'icon' => $icon_plus]); ?>
+                <?php get_template_part('template-parts/components/animated-button/index', null, ['text' => 'Xem thêm', 'icon_key' => 'faq/icon-plus']); ?>
             </button>
         </div>
     </div>

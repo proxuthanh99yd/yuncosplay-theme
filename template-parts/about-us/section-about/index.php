@@ -1,7 +1,5 @@
 <?php
-$bg_image_item_id = 10121;
-$bg_icon_item_id = 10149;
-$feature_icon_id = 71;
+// Ảnh trang trí + icon → file tĩnh theme (okhub_img). Ảnh nội dung vẫn từ ACF.
 
 $about = get_field('about_us');
 $title = $about['title'];
@@ -18,13 +16,9 @@ $features = $about['features'];
         <div class="section-about__content">
 
             <!-- decor -->
-            <?= wp_get_attachment_image($bg_image_item_id, 'full', false, [
-                'class' => 'section-about__decor-image'
-            ]); ?>
+            <?= okhub_img('about-us/bg-image', array('class' => 'section-about__decor-image')); ?>
 
-            <?= wp_get_attachment_image($bg_icon_item_id, 'full', false, [
-                'class' => 'section-about__decor-icon'
-            ]); ?>
+            <?= okhub_img('icons/vector', array('class' => 'section-about__decor-icon')); ?>
 
             <!-- heading -->
             <div class="section-about__heading">
@@ -86,9 +80,7 @@ $features = $about['features'];
                     ?>
                         <div class="section-about__feature">
 
-                            <?= wp_get_attachment_image($feature_icon_id, 'full', false, [
-                                'class' => 'section-about__feature-icon'
-                            ]); ?>
+                            <?= okhub_img('icons/icon', array('class' => 'section-about__feature-icon')); ?>
 
                             <p class="section-about__feature-text">
                                 <?= esc_html($text); ?>

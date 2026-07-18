@@ -1,10 +1,6 @@
 <?php
-$image_item_id = 97;
-$overlay_item_id = 10238;
-$overlay_mb_item_id = 10238;
-$icon_star_id = 139;
-$bg_id = 140;
-$line_id = IS_MOBILE ? 10100 : 10099;
+// Ảnh trang trí → file tĩnh theme (okhub_img); thumbnail dịch vụ vẫn từ post.
+$line_key = IS_MOBILE ? 'icons/line-1243' : 'icons/line-1239-3';
 
 $section_service = get_field('service');
 $section_service_title = $section_service['title'] ?? 'dịch vụ chụp ảnh nghệ thuật';
@@ -29,14 +25,14 @@ endforeach;
 
 <section class="home-services">
     <div class="home-services__container">
-        <?= wp_get_attachment_image($bg_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__bg')) ?>
+        <?= okhub_img('services/service-list-container', array('class' => 'home-services__bg')) ?>
 
         <!-- left -->
         <div class="home-services__list-container">
             <h2 class="home-services__title">
                 <?= wp_kses_post($section_service_title) ?>
             </h2>
-            <?= wp_get_attachment_image($line_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__line')) ?>
+            <?= okhub_img($line_key, array('class' => 'home-services__line')) ?>
             <div class="home-services__list" <?= $isMobileDevice  ? '' : 'data-lenis-prevent'; ?>>
                 <?php
         foreach ($section_service_items as $index => $service_item): ?>
@@ -71,7 +67,7 @@ endforeach;
                             <?php if ($service_thumbnail): ?>
                             <?= wp_get_attachment_image($service_thumbnail, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__media-image')) ?>
                             <?php endif; ?>
-                            <?= wp_get_attachment_image($overlay_mb_item_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__media-overlay')) ?>
+                            <?php // overlay (id 10238) đã bị xoá khỏi media library ?>
                             <div class="home-services__accordion-media-content">
                                 <h4 class="home-services__content-title">
                                     <?= wp_kses_post($service_offer_title) ?>
@@ -81,7 +77,7 @@ endforeach;
                         <ul class="home-services__content-list">
                             <?php foreach ($service_offer_items as $service_offer_item): ?>
                             <li class="home-services__content-list-item">
-                                <?= wp_get_attachment_image($icon_star_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__media-icon')) ?>
+                                <?= okhub_img('icons/star', array('class' => 'home-services__media-icon')) ?>
                                 <span class="home-services__content-list-item-text">
                                     <?= wp_kses_post($service_offer_item['desc'] ?? '') ?>
                                 </span>
@@ -93,7 +89,7 @@ endforeach;
                         </a>
                     </div>
                 </div>
-                <?= wp_get_attachment_image($line_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__line')) ?>
+                <?= okhub_img($line_key, array('class' => 'home-services__line')) ?>
                 <?php
         endforeach;
         ?>
@@ -114,7 +110,7 @@ endforeach;
       ?>
             <div class="home-services__media <?= $index === 0 ? 'active' : '' ?>" data-index="<?= esc_attr($index) ?>">
                 <div class="services__panels--overlay">
-                    <?= wp_get_attachment_image(10512, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__media-image')) ?>
+                    <?= okhub_img('service/offer-deco', array('class' => 'home-services__media-image')) ?>
 
                 </div>
                 <div class="home-services__media-gradient"></div>
@@ -122,7 +118,7 @@ endforeach;
                 <?php if ($service_thumbnail): ?>
                 <?= wp_get_attachment_image($service_thumbnail, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__media-image')) ?>
                 <?php endif; ?>
-                <?= wp_get_attachment_image($overlay_item_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__media-overlay')) ?>
+                <?php // overlay (id 10238) đã bị xoá khỏi media library ?>
                 <div class="home-services__content">
                     <h4 class="home-services__content-title">
                         <?= wp_kses_post($service_offer_title) ?>
@@ -130,7 +126,7 @@ endforeach;
                     <ul class="home-services__content-list">
                         <?php foreach ($service_offer_items as $service_offer_item): ?>
                         <li class="home-services__content-list-item">
-                            <?= wp_get_attachment_image($icon_star_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__media-icon')) ?>
+                            <?= okhub_img('icons/star', array('class' => 'home-services__media-icon')) ?>
                             <span class="home-services__content-list-item-text">
                                 <?= wp_kses_post($service_offer_item['desc'] ?? '') ?>
                             </span>

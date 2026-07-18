@@ -42,7 +42,7 @@ function render_no_results() {
 // WP_Query cho initial products
 $paged    = 1;
 $per_page = 12;
-$icon_driver_id = 9908;
+// icon divider → file tĩnh theme (okhub_img)
 
 $query_args = [
     'post_type'      => 'product',
@@ -96,7 +96,7 @@ $has_description = !empty(trim(wp_strip_all_tags($category_description)));
     <div class="pl-content__header">
         <h1 class="pl-content__title pl-content__title--desktop">Danh sách sản phẩm</h1>
 
-        <?= wp_get_attachment_image($icon_driver_id, 'full', false, array('class' => 'pl-content__divider')); ?>
+        <?= okhub_img('icons/line-1240', array('class' => 'pl-content__divider')); ?>
 
         <?php if (!empty($category_name)) : ?>
         <h2 class="pl-content__subtitle"><?php echo esc_html($category_name); ?></h2>

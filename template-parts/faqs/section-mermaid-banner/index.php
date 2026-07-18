@@ -25,12 +25,7 @@ $link_target = is_array($ready_link) ? ($ready_link['target'] ?? '_self') : '_se
 ?>
 
 <section class="faq-cosplay-cta">
-    <?= wp_get_attachment_image(10266, 'full', false, [
-        'class' => 'faq-cosplay-cta__page-bg',
-        'alt' => '',
-        'aria-hidden' => 'true',
-        'loading' => 'lazy',
-    ]) ?>
+    <?= okhub_img('common/mermaid-bg', array('class' => 'faq-cosplay-cta__page-bg', 'extra' => 'aria-hidden="true"')) ?>
 
     <div class="faq-cosplay-cta__container">
         <div class="faq-cosplay-cta__banner">
@@ -77,7 +72,7 @@ $link_target = is_array($ready_link) ? ($ready_link['target'] ?? '_self') : '_se
             </div>
 
             <span class="animated-btn__content-hidden-icon">
-                <?php echo wp_get_attachment_image($icon_arrow_right_id, 'full', false, ['class' => 'animated-btn__icon']) ?>
+                <?php echo okhub_img('icons/arrow', array('class' => 'animated-btn__icon')) ?>
             </span>
         </div>
 

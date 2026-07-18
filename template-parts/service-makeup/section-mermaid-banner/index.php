@@ -13,7 +13,7 @@
 
  ?>
 <section class="faq-cosplay-cta">
-    <?= wp_get_attachment_image(10266, 'full', false, [ 'class' => 'faq-cosplay-cta__page-bg', 'alt' => '', 'aria-hidden' => 'true', 'loading' => 'lazy', ]) ?>
+    <?= okhub_img('common/mermaid-bg', array('class' => 'faq-cosplay-cta__page-bg', 'extra' => 'aria-hidden="true"')) ?>
     <div class="faq-cosplay-cta__container">
         <div class="faq-cosplay-cta__banner"> <?php if (!empty($image_desktop_id)) : ?>
             <?= wp_get_attachment_image($image_desktop_id, 'full', false, [ 'class' => 'faq-cosplay-cta__image faq-cosplay-cta__image--desktop', 'alt' => esc_attr($image_desktop_alt), 'loading' => 'lazy', ]) ?>

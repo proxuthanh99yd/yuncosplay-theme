@@ -7,12 +7,7 @@ $search_quick_items = $search_quick['list_item'] ?? [];
 ?>
 
 <section class="faq-category">
-  <?= wp_get_attachment_image(10266, 'full', false, [
-    'class' => 'faq-category__bg',
-    'alt' => '',
-    'aria-hidden' => 'true',
-    'loading' => 'lazy',
-  ]) ?>
+  <?= okhub_img('common/mermaid-bg', array('class' => 'faq-category__bg', 'extra' => 'aria-hidden="true"')) ?>
 
   <div class="faq-category__inner">
     <p class="faq-category__subtitle">

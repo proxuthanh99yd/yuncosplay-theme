@@ -52,7 +52,7 @@ $show_related_nav = $related_query && $related_query->post_count >= 4;
                                                             <?php if ($thumbnail_id) : ?>
                                                                   <?= wp_get_attachment_image($thumbnail_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'zoom-image')) ?>
                                                             <?php else : ?>
-                                                                  <?= wp_get_attachment_image(168, 'full', false, array('loading' => 'lazy', 'decoding' => 'async')) ?>
+                                                                  <?= okhub_img('common/placeholder') ?>
                                                             <?php endif; ?>
                                                             <img class="post-card__layer" src="<?= get_template_directory_uri(); ?>/assets/images/layer_image.svg" alt="Layer Overlay" />
                                                       </a>

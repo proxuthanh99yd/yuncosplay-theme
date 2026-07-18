@@ -29,7 +29,7 @@
             </div>
 
             <div class="toc-content-wrapper">
-                  <?= wp_get_attachment_image(10058, 'full', false, array('class' => 'toc-divider')) ?>
+                  <?= okhub_img('icons/line-1239-2', array('class' => 'toc-divider')) ?>
                   <div class="toc-list-body">
                         <?php
                         echo do_shortcode('[ez-toc]');

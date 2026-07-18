@@ -4,9 +4,7 @@ $product_id = get_the_ID();
 $product_title = get_the_title();
 $product_link = get_permalink();
 
-$fallback_thumb_id = 86;
-
-$thumb_id = get_post_thumbnail_id($product_id) ? get_post_thumbnail_id($product_id) : $fallback_thumb_id;
+$thumb_id = get_post_thumbnail_id($product_id);
 $thumb_html = $thumb_id
 	? wp_get_attachment_image(
 	$thumb_id,
@@ -32,8 +30,6 @@ $rent_price = number_format((float) ($rent_price_raw ?: 0), 0, '.', '.');
 $sale_price_raw = get_post_meta($product_id, '_sale_price_custom', true);
 $sale_price = number_format((float) ($sale_price_raw ?: 0), 0, '.', '.');
 
-// $background_content_id = 9885;
-$background_content_id = 9904;
 ?>
 
 
@@ -48,7 +44,7 @@ $background_content_id = 9904;
     </div>
     <div class="product__content">
       <div class="product__content-background">
-        <?= wp_get_attachment_image( $background_content_id, 'full', false, [ 'class' => 'product__content-background-img' ]); ?>
+        <?= okhub_img('common/rental-price-container', array('class' => 'product__content-background-img')); ?>
       </div>
       <div class="product__rent">
         <span class="product__rent-label">Giá thuê</span>

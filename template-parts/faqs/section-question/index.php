@@ -5,12 +5,7 @@ $list_question = $faq_section['list_question'] ?? [];
 
 <?php if (!empty($list_question)) : ?>
 <section id="faq-section" class="faq-section">
-  <?= wp_get_attachment_image(10266, 'full', false, [
-    'class' => 'faq-section__bg',
-    'alt' => '',
-    'aria-hidden' => 'true',
-    'loading' => 'lazy',
-  ]) ?>
+  <?= okhub_img('common/mermaid-bg', array('class' => 'faq-section__bg', 'extra' => 'aria-hidden="true"')) ?>
 
   <div class="faq-section__container">
     <p class="faq-section__label">Câu hỏi thường gặp</p>

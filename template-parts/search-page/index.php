@@ -14,12 +14,10 @@ $post_type    = isset($_GET['post_type']) ? sanitize_text_field($_GET['post_type
 $is_product   = ($post_type === 'product');
 
 // Product card background image URL (for JS-rendered cards)
-$background_content_id  = 9885;
-$background_content_url = wp_get_attachment_image_url($background_content_id, 'full') ?: '';
+$background_content_url = okhub_img_url('search/background-product-card');
 
 // Blog card overlay (same as blog-item-v2)
-$blog_overlay_id  = 9833;
-$blog_overlay_url = wp_get_attachment_image_url($blog_overlay_id, 'full') ?: '';
+$blog_overlay_url = ''; // ảnh overlay (id 9833) đã bị xoá khỏi media library
 
 // Breadcrumb text
 $breadcrumb_current = $is_product ? 'Danh sách sản phẩm' : 'Danh sách tin tức';

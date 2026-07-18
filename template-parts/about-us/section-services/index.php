@@ -1,5 +1,5 @@
 <?php
-$icon_id = 73;
+// icon → file tĩnh theme (okhub_img)
 
 $services = get_field('services');
 $sub_title = $services['subtitle'] ?? '';
@@ -57,7 +57,7 @@ $services_query = new WP_Query($args);
                                         </span>
 
                                         <div class="section-services__content-icon">
-                                            <?= wp_get_attachment_image($icon_id, 'full'); ?>
+                                            <?= okhub_img('icons/arrow-right-2'); ?>
                                         </div>
                                     </div>
 

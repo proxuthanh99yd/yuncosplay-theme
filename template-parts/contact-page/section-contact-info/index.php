@@ -9,7 +9,7 @@ $contact_title  = get_field('contact_title') ?: 'Liên hệ với chúng tôi';
 $working_hours  = get_field('contact_working_hours') ?: '6h → 20h (Thứ 2 → Thứ 7)';
 $address        = get_field('contact_address') ?: '31 Trần Kim Xuyến, Yên Hoà, Cầu Giấy, Hà Nội, Việt Nam';
 $social_media   = get_field('contact_social_media') ?: [];
-$overlay_item_id = 10101;
+// overlay card mạng xã hội → file tĩnh theme (okhub_img)
 
 // Đường dẫn tới icons
 $ic_clock    = get_theme_file_uri('/template-parts/contact-page/assets/images/ic-clock.svg');
@@ -78,7 +78,7 @@ if (empty($social_media)) {
                     <div class="swiper-slide contact-info__social-slide">
                         <a href="<?= esc_url($url); ?>" target="_blank" rel="noopener noreferrer" class="contact-info__social-card" data-platform="<?= esc_attr($platform); ?>">
                             <div class="contact-info__social-card-img-wrap">
-                                <?= wp_get_attachment_image($overlay_item_id, 'full', false, ['class'    => 'contact-info__social-card-img-overlay']); ?>
+                                <?= okhub_img('contact/social-media-image', array('class' => 'contact-info__social-card-img-overlay')); ?>
 
                                 <?php if ($has_acf_image) : ?>
                                     <?= wp_get_attachment_image($image_id, 'medium', false, [

@@ -4,11 +4,11 @@ if (! is_array($reviews) || empty($reviews)) {
     return;
 }
 
-$background_id = 10577;
+// nền feedback → file tĩnh theme (okhub_img)
 ?>
 
 <section class="product-fb">
-    <?= wp_get_attachment_image($background_id, 'full', false, array('class' => 'product-fb__bg')) ?>
+    <?= okhub_img('single-product/feedback-bg', array('class' => 'product-fb__bg')) ?>
     <div class="product-fb__container">
 
         <h2 class="product-fb__title">

@@ -1,8 +1,5 @@
 <?php
-$background_pc = 10507;
-$background_mb = 10509;
-$deco_pc = 10508;
-$deco_mb = 10510;
+// Ảnh nền + trang trí intro → file tĩnh theme (okhub_img).
 $intro_acf = get_field('intro') ?: [];  
 $title = $intro_acf['title'] ?? 'Dịch vụ chụp ảnh';
 $subtitle = $intro_acf['subtitle'] ?? 'Chúng tôi cung cấp dịch vụ chụp ảnh chuyên nghiệp để ghi lại những khoảnh khắc đáng nhớ của bạn.';
@@ -11,27 +8,11 @@ $description = $intro_acf['description'] ?? ""
 ?>
 
 <section class="section-intro-service">
-    <?php echo wp_get_attachment_image($background_pc, 'full', false, array(
-        'loading'  => 'lazy',
-        'decoding' => 'async',
-        'class'    => 'intro-bg intro-bg--pc',
-    )); ?>
-    <?php echo wp_get_attachment_image($background_mb, 'full', false, array(
-        'loading'  => 'lazy',
-        'decoding' => 'async',
-        'class'    => 'intro-bg intro-bg--mb',
-    )); ?>
+    <?php echo okhub_img('service-intro/bg', array('class' => 'intro-bg intro-bg--pc')); ?>
+    <?php echo okhub_img('service-intro/bg-m', array('class' => 'intro-bg intro-bg--mb')); ?>
     <!-- Decoration Image -->
-    <?php echo wp_get_attachment_image($deco_pc, 'full', false, array(
-        'loading'  => 'lazy',
-        'decoding' => 'async',
-        'class'    => 'intro-deco intro-deco--pc',
-    )); ?>
-    <?php echo wp_get_attachment_image($deco_mb, 'full', false, array(
-        'loading'  => 'lazy',
-        'decoding' => 'async',
-        'class'    => 'intro-deco intro-deco--mb',
-    )); ?>
+    <?php echo okhub_img('service-intro/deco', array('class' => 'intro-deco intro-deco--pc')); ?>
+    <?php echo okhub_img('service-intro/deco-m', array('class' => 'intro-deco intro-deco--mb')); ?>
     <div class="section-about__sun">
         <svg viewBox="0 0 1007 1007" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g class="outer-rotate" opacity="1">

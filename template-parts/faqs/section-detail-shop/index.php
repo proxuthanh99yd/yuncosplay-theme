@@ -6,9 +6,7 @@ $detail_introduce  = $detail_shop['detail_introduce'] ?? [];
 $contact           = $detail_shop['contact'] ?? [];
 $map               = $detail_shop['map'] ?? [];
 
-$bg_desktop_id     = 10250;
-$bg_mobile_id      = 10256;
-$store_overlay_id  = 10268;
+// Ảnh nền cửa hàng → file tĩnh theme (okhub_img). Ảnh cửa hàng/bản đồ vẫn từ ACF.
 
 $phone_number = $contact['phone'] ?? '';
 $zalo_link    = $contact['zalo'] ?? '#';
@@ -72,23 +70,8 @@ $image_map_mobile_alt = is_array($image_map_mobile)
     : 'Map Yun Cosplay Mobile';
 ?>
 <section class="store-info">
-    <?php if ($bg_desktop_id) : ?>
-        <?= wp_get_attachment_image($bg_desktop_id, 'full', false, [
-            'class' => 'store-info__bg store-info__bg--desktop',
-            'alt' => '',
-            'aria-hidden' => 'true',
-            'loading' => 'lazy',
-        ]) ?>
-    <?php endif; ?>
-
-    <?php if ($bg_mobile_id) : ?>
-        <?= wp_get_attachment_image($bg_mobile_id, 'full', false, [
-            'class' => 'store-info__bg store-info__bg--mobile',
-            'alt' => '',
-            'aria-hidden' => 'true',
-            'loading' => 'lazy',
-        ]) ?>
-    <?php endif; ?>
+    <?= okhub_img('faqs/bg-desktop', array('class' => 'store-info__bg store-info__bg--desktop', 'extra' => 'aria-hidden="true"')) ?>
+    <?= okhub_img('faqs/bg-mobile', array('class' => 'store-info__bg store-info__bg--mobile', 'extra' => 'aria-hidden="true"')) ?>
 
     <div class="store-info__inner">
         <div class="store-info__content">
@@ -206,14 +189,6 @@ $image_map_mobile_alt = is_array($image_map_mobile)
                     ]) ?>
                 <?php endif; ?>
 
-                <?php if (!empty($store_overlay_id)) : ?>
-                    <?= wp_get_attachment_image($store_overlay_id, 'full', false, [
-                        'class' => 'store-info__image-overlay',
-                        'alt' => '',
-                        'aria-hidden' => 'true',
-                        'loading' => 'lazy',
-                    ]) ?>
-                <?php endif; ?>
             </div>
 
             <div class="store-info__map">

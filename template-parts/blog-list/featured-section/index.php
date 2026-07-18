@@ -44,7 +44,7 @@ $featured_news = get_field('featured_news_list');
                                                                   <span>Chi tiết</span>
                                                             </a>
                                                       </div>
-                                                      <?= wp_get_attachment_image(10057, 'full', false, array('class' => 'card_info-line')) ?>
+                                                      <?= okhub_img('icons/line-1239-1', array('class' => 'card_info-line')) ?>
                                                       <h3 class="description">
                                                             <a href="<?= esc_url($link) ?>"><?= wp_trim_words($title, 15, '...') ?></a>
                                                       </h3>
@@ -104,7 +104,7 @@ $featured_news = get_field('featured_news_list');
                                                                   <span>Chi tiết</span>
                                                             </a>
                                                       </div>
-                                                      <?= wp_get_attachment_image(10058, 'full', false, array('class' => 'card_info__line')) ?>
+                                                      <?= okhub_img('icons/line-1239-2', array('class' => 'card_info__line')) ?>
                                                       <h3 class="description">
                                                             <a href="<?= esc_url($link) ?>"><?= wp_trim_words($title, 12, '...') ?></a>
                                                       </h3>

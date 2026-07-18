@@ -107,7 +107,7 @@ $query = new WP_Query($args);
                               <span class="category-drawer__label <?= empty($cat_slug) ? 'is-active' : ''; ?>">Tất cả</span>
                         </a>
 
-                        <?= wp_get_attachment_image(10058, 'full', false, array('class' => 'category-drawer__line')) ?>
+                        <?= okhub_img('icons/line-1239-2', array('class' => 'category-drawer__line')) ?>
 
                         <?php foreach ($list_categories as $index => $item):
                               $is_active = ($cat_slug == $item->slug);
@@ -125,7 +125,7 @@ $query = new WP_Query($args);
                               </a>
 
                               <?php if (!$is_last): ?>
-                                    <?= wp_get_attachment_image(10058, 'full', false, array('class' => 'category-drawer__line')) ?>
+                                    <?= okhub_img('icons/line-1239-2', array('class' => 'category-drawer__line')) ?>
                               <?php endif; ?>
 
                         <?php endforeach; ?>
@@ -148,7 +148,7 @@ $query = new WP_Query($args);
                                                 <?php if ($thumbnail_id) : ?>
                                                       <?= wp_get_attachment_image($thumbnail_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'post-card__image zoom-image')) ?>
                                                 <?php else : ?>
-                                                      <?= wp_get_attachment_image(168, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'post-card__image zoom-image')) ?>
+                                                      <?= okhub_img('common/placeholder', array('class' => 'post-card__image zoom-image')) ?>
                                                 <?php endif; ?>
                                                 <img class="post-card__layer" src="<?= get_template_directory_uri(); ?>/assets/images/layer_image.svg" alt="Layer Overlay" />
                                           </a>

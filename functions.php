@@ -658,11 +658,7 @@ function ajax_filter_posts()
                                     'class'    => 'post-card__image zoom-image' // Thêm zoom-image ở đây
                                 )); ?>
                             <?php else : ?>
-                                <?php echo wp_get_attachment_image(168, 'full', false, array(
-                                    'loading'  => 'lazy',
-                                    'decoding' => 'async',
-                                    'class'    => 'post-card__image zoom-image'
-                                )); ?>
+                                <?php echo okhub_img('common/placeholder', array('class' => 'post-card__image zoom-image')); ?>
                             <?php endif; ?>
                             
                             <img class="post-card__layer" src="<?= get_template_directory_uri(); ?>/assets/images/layer_image.svg" alt="Layer Overlay" />

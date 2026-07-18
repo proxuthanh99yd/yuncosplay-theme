@@ -6,8 +6,7 @@ $subtitle = $intro_data['subtitle'];
 $feature_list = $intro_data['feature_list'];
 $description = $intro_data['description'];
 $thumbnail = $intro_data['thumbnail'];
-$intro_bg_id = 10590;
-$intro_bg_url = wp_get_attachment_url($intro_bg_id);
+$intro_bg_url = okhub_img_url('service/intro-bg');
 $intro_bg_section_style = '';
 $intro_bg_image_style = 'position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none;';
 
@@ -23,19 +22,7 @@ if (!empty($intro_bg_url)) {
 
 <section class="intro" <?= !empty($intro_bg_section_style) ? 'style="' . esc_attr($intro_bg_section_style) . '"' : '' ?>>
       <div class="intro-container" style="position: relative; overflow: hidden;">
-            <?php
-            $intro_bg = wp_get_attachment_image($intro_bg_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'intro-bg', 'style' => $intro_bg_image_style));
-
-            if (!empty($intro_bg)) {
-                  echo $intro_bg;
-            } else {
-                  if (!empty($intro_bg_url)) :
-            ?>
-                        <img src="<?= esc_url($intro_bg_url) ?>" alt="" loading="lazy" decoding="async" class="intro-bg" style="<?= esc_attr($intro_bg_image_style) ?>">
-            <?php
-                  endif;
-            }
-            ?>
+            <?php echo okhub_img('service/intro-bg', array('class' => 'intro-bg', 'style' => $intro_bg_image_style)); ?>
             <div class="intro-content">
                   <div class="intro-heading">
                         <span class="sub-title"><?= $title ?></span>
@@ -57,7 +44,7 @@ if (!empty($intro_bg_url)) {
                   <?php endif; ?>
 
                   <div class="intro-divider">
-                      <?= wp_get_attachment_image(10535, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__line')) ?>
+                      <?= okhub_img('icons/line-1239', array('class' => 'home-services__line')) ?>
                   </div>
 
                   <p class="intro-desc">
