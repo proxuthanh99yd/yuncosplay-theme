@@ -1,6 +1,5 @@
 <?php
-$line_id = 10188;
-$fallback_thumbnail_id = 9763;
+// Line trang trí + thumbnail fallback → file tĩnh theme (okhub_img). Thumbnail term vẫn từ CMS.
 $home_categories = get_field('home_categories');
 $category_title = isset($home_categories['title']) ? $home_categories['title'] : '';
 $category_subtitle = isset($home_categories['subtitle']) ? $home_categories['subtitle'] : '';
@@ -40,7 +39,7 @@ $categories_with_img = [];
 
 foreach ($all_categories as $term) {
   $thumbnail_id = get_term_meta($term->term_id, 'thumbnail_id', true);
-  $img_url = $thumbnail_id ? wp_get_attachment_image_url($thumbnail_id, 'full') : wp_get_attachment_image_url($fallback_thumbnail_id, 'full');
+  $img_url = $thumbnail_id ? wp_get_attachment_image_url($thumbnail_id, 'full') : okhub_img_url('common/thumb-fallback');
 
   $categories_with_img[] = [
     'id'       => $term->term_id,
@@ -108,13 +107,13 @@ $first_category = $categories[0];
               <?php foreach ($subcategories as $index => $subcategory): ?>
                 <?php
                 $thumbnail_id = (int) get_term_meta($subcategory->term_id, 'thumbnail_id', true);
-                $thumbnail_id = $thumbnail_id ? $thumbnail_id : (int) $fallback_thumbnail_id;
+                // không có thumbnail term → fallback ở nhánh empty bên dưới
                 ?>
                 <a href="<?= esc_url(get_term_link($subcategory)); ?>" class="h-category__item">
                   <?php
                   $thumb_html = wp_get_attachment_image($thumbnail_id, 'full', false, array('class' => 'h-category__item-img'));
                   if (empty($thumb_html)) {
-                    $thumb_html = wp_get_attachment_image((int) $fallback_thumbnail_id, 'full', false, array('class' => 'h-category__item-img'));
+                    $thumb_html = okhub_img('common/thumb-fallback', array('class' => 'h-category__item-img'));
                   }
                   echo $thumb_html;
                   ?>
@@ -140,13 +139,13 @@ $first_category = $categories[0];
                 <?php foreach ($subcategories as $subcategory): ?>
                   <?php
                   $thumbnail_id = (int) get_term_meta($subcategory->term_id, 'thumbnail_id', true);
-                  $thumbnail_id = $thumbnail_id ? $thumbnail_id : (int) $fallback_thumbnail_id;
+                  // không có thumbnail term → fallback ở nhánh empty bên dưới
                   ?>
                   <a href="<?= esc_url(get_term_link($subcategory)); ?>" class="h-category__item">
                     <?php
                     $thumb_html = wp_get_attachment_image($thumbnail_id, 'full', false, array('class' => 'h-category__item-img'));
                     if (empty($thumb_html)) {
-                      $thumb_html = wp_get_attachment_image((int) $fallback_thumbnail_id, 'full', false, array('class' => 'h-category__item-img'));
+                      $thumb_html = okhub_img('common/thumb-fallback', array('class' => 'h-category__item-img'));
                     }
                     echo $thumb_html;
                     ?>
@@ -182,10 +181,10 @@ $first_category = $categories[0];
           <a href="<?= esc_url($parent_term_link); ?>" class="h-category__parent-item">
             <div class="h-category__parent-img-wrap">
               <?php
-              $thumb_id = $thumbnail_id ? $thumbnail_id : (int) $fallback_thumbnail_id;
+              $thumb_id = $thumbnail_id;
               $thumb_html = wp_get_attachment_image($thumb_id, 'full', false, array('class' => 'h-category__parent-img'));
               if (empty($thumb_html)) {
-                $thumb_html = wp_get_attachment_image((int) $fallback_thumbnail_id, 'full', false, array('class' => 'h-category__parent-img'));
+                $thumb_html = okhub_img('common/thumb-fallback', array('class' => 'h-category__parent-img'));
               }
               echo $thumb_html;
               ?>
@@ -195,7 +194,7 @@ $first_category = $categories[0];
 
           <?php if (($index + 1) % 6 === 0): ?>
             <div class="h-category__parent-line-wrapper">
-              <?= wp_get_attachment_image($line_id, 'full', false, array('class' => 'h-category__parent-line')); ?>
+              <?= okhub_img('category/line', array('class' => 'h-category__parent-line')); ?>
             </div>
           <?php endif; ?>
         <?php endforeach; ?>

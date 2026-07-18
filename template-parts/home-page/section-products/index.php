@@ -15,7 +15,6 @@ $args = [
 ];
 
 $product_query = new WP_Query($args);
-$icon_arrow_right_id = 69;
 
 ?>
 

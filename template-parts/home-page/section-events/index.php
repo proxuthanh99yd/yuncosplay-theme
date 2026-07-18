@@ -1,9 +1,5 @@
 <?php
-$bg_item_id = 159;
-$overlay_item_id = 160;
-$bg_item_content_id = 161;
-$mirror_item_content_id = 162;
-$icon_left_id = 166;
+// Ảnh trang trí thuộc theme → file tĩnh qua okhub_img(); ảnh chương trình vẫn lấy từ post.
 
 $section_sponsored_program = get_field('sponsored_program');
 $section_sponsored_program_title = $section_sponsored_program['title'];
@@ -36,8 +32,8 @@ $section_sponsored_program_items = $section_sponsored_program['sponsored_program
         ?>
         <div class="swiper-slide">
           <div class="home_events-swiper-item">
-            <?= wp_get_attachment_image($bg_item_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home_events-swiper-item-image')) ?>
-            <?= wp_get_attachment_image($overlay_item_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home_events-swiper-item-overlay')) ?>
+            <?= okhub_img('events/container', array('class' => 'home_events-swiper-item-image')) ?>
+            <?= okhub_img('events/background', array('class' => 'home_events-swiper-item-overlay')) ?>
 
             <div class="home_events-swiper-item-wrapper">
               <h3 class="home_events-swiper-item-title">
@@ -45,8 +41,8 @@ $section_sponsored_program_items = $section_sponsored_program['sponsored_program
               </h3>
 
               <a href="<?= $sponsored_program_item_link_url; ?>" target="<?= $sponsored_program_item_link_target; ?>" class="home_events-swiper-image">
-                <?= wp_get_attachment_image($bg_item_content_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home_events-swiper-image-image')) ?>
-                <?= wp_get_attachment_image($mirror_item_content_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home_events-swiper-image-mirror')) ?>
+                <?= okhub_img('events/content-bg', array('class' => 'home_events-swiper-image-image')) ?>
+                <?= okhub_img('events/mirror', array('class' => 'home_events-swiper-image-mirror')) ?>
                 <div class="home_events-swiper-image-overlay"></div>
                 <?php if (!empty($sponsored_program_item_thumbnail)) : ?>
                 <?= wp_get_attachment_image($sponsored_program_item_thumbnail, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home_events-swiper-image-main')) ?>
@@ -71,10 +67,10 @@ $section_sponsored_program_items = $section_sponsored_program['sponsored_program
   </div>
   <div class="home_events-swiper-controls">
     <button class="home_events-swiper-button home_events-swiper-button--prev" type="button" aria-label="Previous slide">
-      <?= wp_get_attachment_image($icon_left_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home_events-swiper-button-left')) ?>
+      <?= okhub_img('icons/muiten', array('class' => 'home_events-swiper-button-left')) ?>
     </button>
     <button class="home_events-swiper-button home_events-swiper-button--next" type="button" aria-label="Next slide">
-      <?= wp_get_attachment_image($icon_left_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home_events-swiper-button-right')) ?>
+      <?= okhub_img('icons/muiten', array('class' => 'home_events-swiper-button-right')) ?>
     </button>
   </div>
 </section>

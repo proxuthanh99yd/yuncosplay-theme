@@ -23,6 +23,15 @@ if (!function_exists('okhub_img_map')) {
 	}
 }
 
+if (!function_exists('okhub_img_url')) {
+	/** URL của ảnh theme (bản lớn nhất) — dùng khi cần src thô thay vì thẻ <img>. */
+	function okhub_img_url($key) {
+		$map = okhub_img_map();
+		if (empty($map[$key]['src'])) return '';
+		return get_theme_file_uri('/assets/images/' . $map[$key]['src']);
+	}
+}
+
 if (!function_exists('okhub_img')) {
 	function okhub_img($key, $args = array()) {
 		$map = okhub_img_map();

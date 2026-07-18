@@ -1,14 +1,5 @@
 <?php
-$icon_youtube_id = 152;
-$icon_instagram_id = 154;
-$icon_facebook_id = 153;
-$icon_tiktok_id = 155;
-
-$slider_item_1_id = 158;
-$slider_item_2_id = 157;
-$slider_item_3_id = 72;
-$slider_item_4_id = 156;
-
+// Icon mạng xã hội & ảnh slider lấy từ ACF (social_items / gallery_items) — bỏ ID hardcode không dùng.
 $section_customer_gallery = get_field('customer_gallery');
 $section_customer_gallery_title = $section_customer_gallery['title'];
 $section_customer_gallery_subtitle = $section_customer_gallery['subtitle'];

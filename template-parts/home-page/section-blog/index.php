@@ -6,14 +6,14 @@ $desc = $related_blog_acf['desc'] ?? '';
 $link = $related_blog_acf['link'] ?? [];
 $link_url = is_array($link) ? ($link['url'] ?? '#') : ($link ?: '#');
 $link_text = is_array($link) ? ($link['title'] ?? '') : '';
-$icon_arrow_right_id = 69;
-$bg_image_id = wp_is_mobile() ? 9903 : 5159;
+// Ảnh news nền + mũi tên → file tĩnh theme (okhub_img).
+$news_key = wp_is_mobile() ? 'blog/news-mobile' : 'blog/news-desktop';
 ?>
 
 <section id="related-blog">
   <div class="related-blog__container">
     <div class="related-blog__image-wrapper">
-      <?= wp_get_attachment_image($bg_image_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'related-blog__image')) ?>
+      <?= okhub_img($news_key, array('class' => 'related-blog__image')) ?>
       <div class="related-blog__image-content">
         <h3 class="related-blog__image-content-subtitle">
           <?= $subtitle ?>
@@ -29,7 +29,7 @@ $bg_image_id = wp_is_mobile() ? 9903 : 5159;
             <a href="<?= esc_url($link_url) ?>" class="animated-btn__content-hidden">
               <div class="animated-btn__content-hidden-text"><?= $link_text ?></div>
               <span class="animated-btn__content-hidden-icon">
-                <?= wp_get_attachment_image($icon_arrow_right_id, 'full', false, array('class' => 'animated-btn__icon')) ?>
+                <?= okhub_img('icons/arrow', array('class' => 'animated-btn__icon')) ?>
               </span>
             </a>
             <a href="<?= esc_url($link_url) ?>" class="animated-btn__content-visible">
@@ -37,7 +37,7 @@ $bg_image_id = wp_is_mobile() ? 9903 : 5159;
                 <?= $link_text ?>
               </div>
               <span class="animated-btn__content-visible-icon">
-                <?= wp_get_attachment_image($icon_arrow_right_id, 'full', false, array('class' => 'animated-btn__icon')) ?>
+                <?= okhub_img('icons/arrow', array('class' => 'animated-btn__icon')) ?>
               </span>
             </a>
           </div>
@@ -75,7 +75,6 @@ $bg_image_id = wp_is_mobile() ? 9903 : 5159;
                       'decoding' => 'async',
                     ]) ?>
                   <?php endif; ?>
-                  <?= wp_get_attachment_image(5157, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'related-blog__slide-overlay-image')) ?>
                   <div class="related-blog__slide-overlay"></div>
                   <div class="related-blog__slide-content">
                     <?php

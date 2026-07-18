@@ -1,10 +1,6 @@
 <?php
-$image_item_id = 97;
-$overlay_item_id = 127;
-$overlay_mb_item_id = 141;
-$icon_star_id = 139;
-$bg_id = 140;
-$line_id = IS_MOBILE ? 10100 : 10099;
+// Ảnh trang trí thuộc theme → file tĩnh qua okhub_img(); thumbnail dịch vụ vẫn lấy từ post.
+$line_key = IS_MOBILE ? 'icons/line-1243' : 'icons/line-1239-3';
 
 $section_service = get_field('service');
 $section_service_title = $section_service['title'] ?? '';
@@ -43,14 +39,14 @@ $isMobileDevice = isMobileDevice() || wp_is_mobile();
 
 <section class="home-services">
     <div class="home-services__container">
-        <?= wp_get_attachment_image($bg_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__bg')) ?>
+        <?= okhub_img('services/service-list-container', array('class' => 'home-services__bg')) ?>
 
         <!-- left -->
         <div class="home-services__list-container">
             <h2 class="home-services__title">
                 <?= wp_kses_post($section_service_title) ?>
             </h2>
-            <?= wp_get_attachment_image($line_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__line')) ?>
+            <?= okhub_img($line_key, array('class' => 'home-services__line')) ?>
             <div class="home-services__list" <?= $isMobileDevice  ? '' : 'data-lenis-prevent'; ?>>
                 <?php
         foreach ($section_service_items as $index => $service_item): ?>
@@ -88,7 +84,7 @@ $isMobileDevice = isMobileDevice() || wp_is_mobile();
                             <?php if ($service_thumbnail): ?>
                             <?= wp_get_attachment_image($service_thumbnail, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__media-image')) ?>
                             <?php endif; ?>
-                            <?= wp_get_attachment_image($overlay_mb_item_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__media-overlay')) ?>
+                            <?= okhub_img('services/offer-mobile', array('class' => 'home-services__media-overlay')) ?>
                             <div class="home-services__accordion-media-content">
                                 <div class="home-services__decor-text">
                                     <?= wp_kses_post($service_offer_subtitle) ?>
@@ -101,7 +97,7 @@ $isMobileDevice = isMobileDevice() || wp_is_mobile();
                         <ul class="home-services__content-list">
                             <?php foreach ($service_offer_items as $service_offer_item): ?>
                             <li class="home-services__content-list-item">
-                                <?= wp_get_attachment_image($icon_star_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__media-icon')) ?>
+                                <?= okhub_img('icons/star', array('class' => 'home-services__media-icon')) ?>
                                 <span class="home-services__content-list-item-text">
                                     <?= wp_kses_post($service_offer_item['offer_item'] ?? '') ?>
                                 </span>
@@ -113,7 +109,7 @@ $isMobileDevice = isMobileDevice() || wp_is_mobile();
                         </a>
                     </div>
                 </div>
-                <?= wp_get_attachment_image($line_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__line')) ?>
+                <?= okhub_img($line_key, array('class' => 'home-services__line')) ?>
                 <?php
         endforeach;
         ?>
@@ -138,7 +134,7 @@ $isMobileDevice = isMobileDevice() || wp_is_mobile();
                 <?php if ($service_thumbnail): ?>
                 <?= wp_get_attachment_image($service_thumbnail, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__media-image')) ?>
                 <?php endif; ?>
-                <?= wp_get_attachment_image($overlay_item_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__media-overlay')) ?>
+                <?= okhub_img('services/overlay', array('class' => 'home-services__media-overlay')) ?>
                 <div class="home-services__content">
                     <h4 class="home-services__content-title">
                         <?= wp_kses_post($service_offer_title) ?>
@@ -146,7 +142,7 @@ $isMobileDevice = isMobileDevice() || wp_is_mobile();
                     <ul class="home-services__content-list">
                         <?php foreach ($service_offer_items as $service_offer_item): ?>
                         <li class="home-services__content-list-item">
-                            <?= wp_get_attachment_image($icon_star_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'home-services__media-icon')) ?>
+                            <?= okhub_img('icons/star', array('class' => 'home-services__media-icon')) ?>
                             <span class="home-services__content-list-item-text">
                                 <?= wp_kses_post($service_offer_item['offer_item'] ?? '') ?>
                             </span>
