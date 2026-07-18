@@ -1,6 +1,5 @@
 <?php
-$image_mask_gradient_2_id = 245;
-$icon_arrow_right_id = 69;
+// Icon + mask gradient → file tĩnh theme (okhub_img). Thumbnail danh mục vẫn từ CMS.
 
 $parent_categories = get_terms([
     'taxonomy'   => 'product_cat',
@@ -16,9 +15,8 @@ $all_categories = get_terms([
 ]);
 
 $children_by_parent = [];
-$fallback_thumbnail_id = 9763;
 foreach ($all_categories as $term) {
-    $thumbnail_id = (int) get_term_meta($term->term_id, 'thumbnail_id', true) ?? $fallback_thumbnail_id;
+    $thumbnail_id = (int) get_term_meta($term->term_id, 'thumbnail_id', true);
     $children_by_parent[ $term->parent ][] = [
         'name'         => $term->name,
         'link'         => get_term_link($term),
@@ -34,10 +32,10 @@ if (! is_array($parent_categories)) {
 <div data-mega-menu-content="mega-menu-product" class="header__mega-menu-product header__mega-menu-item">
     <div class="header__mega-menu-product-wrapper">
         <button class="header__mega-menu-product__parent-categories-swiper-prev">
-            <?php echo wp_get_attachment_image($icon_arrow_right_id, 'full', false, array( 'class' => '')) ?>
+            <?php echo okhub_img('icons/arrow') ?>
         </button>
         <button class="header__mega-menu-product__parent-categories-swiper-next">
-            <?php echo wp_get_attachment_image($icon_arrow_right_id, 'full', false, array( 'class' => '')) ?>
+            <?php echo okhub_img('icons/arrow') ?>
         </button>
         <div class="swiper header__mega-menu-product__parent-categories-swiper">
             <div class="swiper-wrapper header__mega-menu-product__parent-categories-swiper-wrapper">
@@ -51,7 +49,7 @@ if (! is_array($parent_categories)) {
             </div>
         </div>
         <div class="header__mega-menu-product__child-categories-swiper-container">
-            <?php echo wp_get_attachment_image($image_mask_gradient_2_id, 'full', false, array( 'class' => 'header__mega-menu-product__child-categories-swiper-mask')) ?>
+            <?php echo okhub_img('header/mask-gradient', array('class' => 'header__mega-menu-product__child-categories-swiper-mask')) ?>
             <div class="header__mega-menu-product__child-categories-swiper-scrollbar">
                 <div class="header__mega-menu-product__child-categories-swiper-scrollbar-inner"></div>
             </div>
@@ -96,13 +94,13 @@ if (! is_array($parent_categories)) {
                     <div class="animated-btn__content-hidden">
                         <div class="animated-btn__content-hidden-text">Xem tất cả sản phẩm</div>
                         <span class="animated-btn__content-hidden-icon">
-                            <?php echo wp_get_attachment_image($icon_arrow_right_id, 'full', false, array( 'class' => 'animated-btn__icon')) ?>
+                            <?php echo okhub_img('icons/arrow', array('class' => 'animated-btn__icon')) ?>
                         </span>
                     </div>
                     <div class="animated-btn__content-visible">
                         <div class="animated-btn__content-visible-text">Xem tất cả sản phẩm</div>
                         <span class="animated-btn__content-visible-icon">
-                            <?php echo wp_get_attachment_image($icon_arrow_right_id, 'full', false, array( 'class' => 'animated-btn__icon')) ?>
+                            <?php echo okhub_img('icons/arrow', array('class' => 'animated-btn__icon')) ?>
                         </span>
                     </div>
                 </div>

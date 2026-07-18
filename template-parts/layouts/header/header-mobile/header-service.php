@@ -1,7 +1,5 @@
 <?php 
-$icon_list_disc_id = 71;
-$offer_image_id = 9762;
-$overlay_thumbnail_mobile_id = 9829;
+// Icon + ảnh offer → file tĩnh theme (okhub_img).
 
 $service_items_args = [
     'post_type' => 'service',
@@ -77,8 +75,7 @@ if ($service_items_query->have_posts()) {
                         <?= $service_description ?>
                     </p>
                     <div class="header-service__service-item__thumbnail">
-                        <?php echo wp_get_attachment_image($overlay_thumbnail_mobile_id, 'full', false, array( 'class' => 'header-service__service-item__thumbnail-overlay')) ?>
-                        <?php echo wp_get_attachment_image($offer_image_id, 'full', false, array( 'class' => 'header-service__service-item__thumbnail-image')) ?>
+                        <?php echo okhub_img('header/offer-image', array('class' => 'header-service__service-item__thumbnail-image')) ?>
                         <div class="header-service__service-item__thumbnail-content">
                             <h4 class="header-service__service-item__subtitle">
                                 <?= $service_offer_subtitle ?>
@@ -93,7 +90,7 @@ if ($service_items_query->have_posts()) {
                         <?php foreach ($service_offer_items as $service_offer_item): ?>
                             <li class="header-service__service-item__offer-item">
                             <span class="header-service__service-item__offer-item__icon">
-                                <?php echo wp_get_attachment_image($icon_list_disc_id, 'full', false, array( 'class' => '')) ?>
+                                <?php echo okhub_img('icons/icon') ?>
                             </span>
                             <p class="header-service__service-item__offer-item__text">
                                 <?= $service_offer_item['offer_item'] ?? '' ?>

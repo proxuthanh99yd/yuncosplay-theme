@@ -1,7 +1,5 @@
 <?php 
-$background_search_no_result_id = 9817;
-$icon_arrow_right_id = 69;
-$icon_search_id = 66;
+// Icon + nền "không kết quả" → file tĩnh theme (okhub_img). Logo vẫn từ CMS.
 
 // Field Header
 $header = function_exists('get_field') ? get_field('header', 'option') : [];
@@ -41,7 +39,7 @@ $blog_query = new WP_Query($blog_args);
             <div class="header__mega-menu-navbar__searchbar">
                 <input type="text" name="search-product" class="header__mega-menu-navbar__searchbar-input" placeholder="Cao bồi, Cướp biển hải tặc"/>
                 <button class="header__mega-menu-navbar__searchbar-btn">
-                    <?php echo wp_get_attachment_image($icon_search_id, 'full', false, array( 'class' => '')) ?>
+                    <?php echo okhub_img('icons/search-normal') ?>
                 </button>
             </div>
         </div>
@@ -61,7 +59,7 @@ $blog_query = new WP_Query($blog_args);
                 </p>
                 <button type="button" class="header__mega-menu-search__result-contact">
                     <span class="header__mega-menu-search__result-contact-icon">
-                        <?php echo wp_get_attachment_image($icon_arrow_right_id, 'full', false) ?>
+                        <?php echo okhub_img('icons/arrow') ?>
                     </span>
                     <span class="header__mega-menu-search__result-contact-text">
                         Xem thêm
@@ -91,7 +89,7 @@ $blog_query = new WP_Query($blog_args);
                 </p>
                 <button type="button" class="header__mega-menu-search__related-blog__contact-link">
                     <span class="header__mega-menu-search__related-blog__contact-link-icon">
-                        <?php echo wp_get_attachment_image($icon_arrow_right_id, 'full', false) ?>
+                        <?php echo okhub_img('icons/arrow') ?>
                     </span>
                     <span class="header__mega-menu-search__related-blog__contact-link-text">
                         Xem thêm
@@ -115,7 +113,7 @@ $blog_query = new WP_Query($blog_args);
             </div>
         </div>
         <div style="display: none;" class="header__mega-menu-search__no-result">
-            <?php echo wp_get_attachment_image($background_search_no_result_id, 'full', false, ['class' => 'header__mega-menu-search__no-result__background']) ?>
+            <?php echo okhub_img('header/no-result-bg', array('class' => 'header__mega-menu-search__no-result__background')) ?>
             <div class="header__mega-menu-search__no-result__content">
                 <p class="header__mega-menu-search__no-result__title">
                 Không có kết quả tìm kiếm phù hợp
@@ -141,7 +139,7 @@ $blog_query = new WP_Query($blog_args);
             </div>
             <div class="product__content">
                 <div class="product__content-background">
-                    <?= wp_get_attachment_image(9904, 'full', false, [ 'class' => 'product__content-background-img' ]); ?>
+                    <?= okhub_img('common/rental-price-container', array('class' => 'product__content-background-img')); ?>
                 </div>
                 <div class="product__rent">
                     <span class="product__rent-label">Giá thuê</span>

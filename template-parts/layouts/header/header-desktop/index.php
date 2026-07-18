@@ -1,10 +1,6 @@
 <?php
 // Icon ids
-$icon_phone_id = 64;
-$icon_email_id = 65;
-$icon_arrow_down_id = 68;
-$icon_search_id = 66;
-$icon_arrow_right_id = 69;
+// Icon header → file tĩnh theme (okhub_img). Logo/thumbnail vẫn lấy từ CMS.
 
 
 // Field Header (fallback to array to avoid PHP warnings when ACF option is empty)
@@ -110,7 +106,7 @@ if (!$is_transparent_header_page) {
                 <a href="<?= $contact_phone['url'] ?>" target="<?= $contact_phone['target'] ?? '_self'; ?>"
                     class="header__phone">
                     <span class="header__phone-icon">
-                        <?php echo wp_get_attachment_image($icon_phone_id, 'full', false, array('class' => '')) ?>
+                        <?php echo okhub_img('icons/call') ?>
                     </span>
                     <span class="header__phone-text"><?= $contact_phone['title'] ?? '' ?></span>
                 </a>
@@ -120,7 +116,7 @@ if (!$is_transparent_header_page) {
                 <a href="<?= $contact_email['url'] ?>" target="<?= $contact_email['target'] ?? '_self'; ?>"
                     class="header__email">
                     <span class="header__email-icon">
-                        <?php echo wp_get_attachment_image($icon_email_id, 'full', false, array('class' => '')) ?>
+                        <?php echo okhub_img('icons/sms') ?>
                     </span>
                     <span class="header__email-text"><?= $contact_email['title'] ?? '' ?></span>
                 </a>
@@ -204,7 +200,7 @@ if (!$is_transparent_header_page) {
                             <a href="<?= $url; ?>" target="<?= $target; ?>" class="header__nav-link">
                                 <span class="header__nav-link-text"><?= esc_html($label); ?></span>
                                 <span class="header__nav-link-icon">
-                                    <?php echo wp_get_attachment_image($icon_arrow_down_id, 'full', false, array('class' => '')); ?>
+                                    <?php echo okhub_img('icons/arrow-down'); ?>
                                 </span>
                             </a>
                             <?php if ($has_link_mega) : ?>
@@ -239,7 +235,7 @@ if (!$is_transparent_header_page) {
                                                             class="header__mega-menu-service__service-link-text"><?= esc_html($dropdown_label); ?></span>
                                                     </span>
                                                     <span class="header__mega-menu-service__service-link-icon">
-                                                        <?php echo wp_get_attachment_image($icon_arrow_right_id, 'full', false); ?>
+                                                        <?php echo okhub_img('icons/arrow'); ?>
                                                     </span>
                                                 </a>
                                             </li>
@@ -268,14 +264,12 @@ if (!$is_transparent_header_page) {
                                         <article data-service-target-index="<?= esc_attr($mega_link_index); ?>"
                                             class="header__mega-menu-service-item <?= $mega_link_index === 0 ? 'header__mega-menu-service-item--active' : ''; ?>">
                                             <div class="header__mega-menu-service__banner">
-                                                <div class="header__mega-menu-service__banner-overlay">
-                                                    <?= wp_get_attachment_image(9828, 'full', false); ?>
-                                                </div>
+                                                <div class="header__mega-menu-service__banner-overlay"></div>
                                                 <div class="header__mega-menu-service__banner-background">
                                                     <?php if (! empty($service_image)) : ?>
                                                     <?= wp_get_attachment_image($service_image, 'full', false); ?>
                                                     <?php else : ?>
-                                                    <?= wp_get_attachment_image(9763, 'full', false); ?>
+                                                    <?= okhub_img('common/thumb-fallback'); ?>
                                                     <?php endif; ?>
                                                 </div>
                                                 <div class="header__mega-menu-service__banner-content">
@@ -293,7 +287,7 @@ if (!$is_transparent_header_page) {
                                                                     class="header__mega-menu-service__banner-service-content">
                                                                     <span
                                                                         class="header__mega-menu-service__banner-service-item-icon">
-                                                                        <?php echo wp_get_attachment_image(71, 'full', false, ['class' => '']); ?>
+                                                                        <?php echo okhub_img('icons/icon'); ?>
                                                                     </span>
                                                                     <span
                                                                         class="header__mega-menu-service__banner-service-item-text">
@@ -310,7 +304,7 @@ if (!$is_transparent_header_page) {
                                                             class="header__mega-menu-service-banner__btn-details">
                                                             <span
                                                                 class="header__mega-menu-service-banner__btn-details-icon">
-                                                                <?php echo wp_get_attachment_image(73, 'full', false); ?>
+                                                                <?php echo okhub_img('icons/arrow-right-2'); ?>
                                                             </span>
                                                             <span
                                                                 class="header__mega-menu-service-banner__btn-details-text">Xem
@@ -344,7 +338,7 @@ if (!$is_transparent_header_page) {
             <div class="header__navbar-right">
                 <div class="header__search-input-wrapper">
                     <input class="header__search-input" type="text" placeholder="Nhập từ khoá tìm kiếm" readonly />
-                    <?php echo wp_get_attachment_image($icon_search_id, 'full', false, array('class' => '')) ?>
+                    <?php echo okhub_img('icons/search-normal') ?>
                 </div>
 
                 <?php if (!empty($contact_now) && !empty($contact_now['url'])) : ?>

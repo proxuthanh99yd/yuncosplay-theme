@@ -1,6 +1,5 @@
 <?php
-$icon_arrow_right_id = 69;
-$fallback_thumb_id = 9763;
+// Icon + thumbnail fallback → file tĩnh theme (okhub_img). Thumbnail danh mục vẫn từ CMS.
 
 $parent_categories = [];
 $children_by_parent = [];
@@ -57,10 +56,10 @@ if ( taxonomy_exists( 'product_cat' ) ) {
                 <div class="swiper header-product__category-mul-level__parent-swiper">
                     <div class="header-product__category-mul-level__parent-swiper-button-nav-wrapper">
                         <button class="header-product__category-mul-level__parent-swiper-button-nav header-product__category-mul-level__parent-swiper-button-nav--prev">
-                            <?php echo wp_get_attachment_image($icon_arrow_right_id, 'full', false, array( 'class' => '')) ?>
+                            <?php echo okhub_img('icons/arrow') ?>
                         </button>
                         <button class="header-product__category-mul-level__parent-swiper-button-nav header-product__category-mul-level__parent-swiper-button-nav--next">
-                            <?php echo wp_get_attachment_image($icon_arrow_right_id, 'full', false, array( 'class' => '')) ?>
+                            <?php echo okhub_img('icons/arrow') ?>
                         </button>
                     </div>
                     <div class="swiper-wrapper header-product__category-mul-level__parent-swiper-wrapper">
@@ -81,10 +80,10 @@ if ( taxonomy_exists( 'product_cat' ) ) {
                             <?php $children = isset( $children_by_parent[ $parent->term_id ] ) ? $children_by_parent[ $parent->term_id ] : []; ?>
                             <div class="swiper-slide header-product__category-mul-level__child-swiper-slide">
                                 <?php foreach ( $children as $child ) : ?>
-                                    <?php $child_thumb_id = ! empty( $child['thumbnail_id'] ) ? (int) $child['thumbnail_id'] : $fallback_thumb_id; ?>
+                                    <?php $child_thumb_id = ! empty( $child['thumbnail_id'] ) ? (int) $child['thumbnail_id'] : 0; ?>
                                     <a href="<?php echo esc_url( $child['link'] ); ?>" class="header-product__category-mul-level__child-item">
                                         <div class="header-product__category-mul-level__child-item__thumbnail">
-                                            <?php echo wp_get_attachment_image( $child_thumb_id, 'full', false, array( 'class' => '' ) ); ?>
+                                            <?php echo $child_thumb_id ? wp_get_attachment_image( $child_thumb_id, 'full', false, array( 'class' => '' ) ) : okhub_img('common/thumb-fallback'); ?>
                                         </div>
                                         <div class="header-product__category-mul-level__child-item__content">
                                             <h3 class="header-product__category-mul-level__child-item__title"><?php echo esc_html( $child['name'] ); ?></h3>
@@ -104,7 +103,7 @@ if ( taxonomy_exists( 'product_cat' ) ) {
                 $list_categories = isset( $level1_categories ) && is_array( $level1_categories ) ? $level1_categories : [];
                 foreach ( $list_categories as $term ) :
                     $thumb_id = (int) get_term_meta( $term->term_id, 'thumbnail_id', true );
-                    $thumb_id = $thumb_id ? $thumb_id : $fallback_thumb_id;
+                    $thumb_id = $thumb_id ?: 0;
                     $term_link = get_term_link( $term );
                     if ( is_wp_error( $term_link ) ) {
                         $term_link = '#';
@@ -112,7 +111,7 @@ if ( taxonomy_exists( 'product_cat' ) ) {
                     ?>
                     <a href="<?php echo esc_url( $term_link ); ?>" class="header-product__category-single-level__category-item">
                         <div class="header-product__category-single-level__category-item__thumbnail">
-                            <?php echo wp_get_attachment_image( $thumb_id, 'full', false, array( 'class' => '' ) ); ?>
+                            <?php echo $thumb_id ? wp_get_attachment_image( $thumb_id, 'full', false, array( 'class' => '' ) ) : okhub_img('common/thumb-fallback'); ?>
                         </div>
                         <div class="header-product__category-single-level__category-item__title"><?php echo esc_html( $term->name ); ?></div>
                     </a>

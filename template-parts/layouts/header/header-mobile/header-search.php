@@ -1,6 +1,6 @@
 <?php 
+// Ảnh overlay kết quả tìm kiếm → file tĩnh theme (okhub_img).
 $search_overlay_id = 9843;
-$blog_thumbnail_overlay_id = 9833;
 $product_args = [
 	'post_type'      => 'product',
 	'post_status'    => 'publish',
@@ -36,7 +36,7 @@ $blog_query = new WP_Query($blog_args);
         </button>
     </div>
     <div class="header-search__result-list-wrapper">
-        <?= wp_get_attachment_image($search_overlay_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'header-search__result-list-overlay')) ?>
+        <?= okhub_img('header/search-overlay', array('class' => 'header-search__result-list-overlay')) ?>
         <div class="header-search__result-list">
             <p class="header-search__result-list__title">
                 Kết quả tìm kiếm
@@ -97,7 +97,7 @@ $blog_query = new WP_Query($blog_args);
     <article class="blog-item-v2">
         <a href="" class="blog-item-v2__link">
             <div class="blog-item-v2__thumbnail">
-                <?= wp_get_attachment_image($blog_thumbnail_overlay_id, 'full', false, ['loading' => 'lazy', 'decoding' => 'async', 'class' => 'blog-item-v2__thumbnail-overlay']); ?>
+                <?php // ảnh overlay (id 9833) đã bị xoá khỏi media library ?>
                 <img src="" alt="" class="blog-item-v2__thumbnail-image" loading="lazy" decoding="async">
             </div>
             <div class="blog-item-v2__content">

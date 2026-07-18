@@ -1,9 +1,5 @@
 <?php 
-$icon_list_disc_id = 71;
-$icon_arrow_right_id = 69;
-$image_service_banner_id = 72;
-$icon_arrow_right_orange_id = 73;
-$overlay_service_thumbnail_id = 9828;
+// Icon mega-menu → file tĩnh theme (okhub_img). Thumbnail dịch vụ vẫn từ CMS.
 
 $service_items_args = [
     'post_type' => 'service',
@@ -14,7 +10,7 @@ $service_items_args = [
 ];
 $section_service_items = [];
 $service_items_query = new WP_Query($service_items_args);
-$fallback_thumbnail_id = 9763;
+// thumbnail fallback → okhub_img('common/thumb-fallback')
 if ($service_items_query->have_posts()) {
     while ($service_items_query->have_posts()) {
         $service_items_query->the_post();
@@ -23,7 +19,7 @@ if ($service_items_query->have_posts()) {
         $section_service_items[] = [
             'service_title' => get_the_title() ?? '',
             'service_description' => get_the_excerpt() ?? '',
-            'service_thumbnail' => get_post_thumbnail_id() ?? $fallback_thumbnail_id,
+            'service_thumbnail' => get_post_thumbnail_id() ?: 0,
             'service_link' => get_the_permalink() ?? '',
             'service_offer_title' => $service_offer['title'] ?? '',
             'service_offer_subtitle' => $service_offer['subtitle'] ?? null,
@@ -49,7 +45,7 @@ if ($service_items_query->have_posts()) {
                             <?= $service_title ?>
                         </span>
                         <span class="header__mega-menu-service__service-link-icon">
-                            <?php echo wp_get_attachment_image($icon_arrow_right_id, 'full', false) ?>
+                            <?php echo okhub_img('icons/arrow') ?>
                         </span>
                     </a>
                 </li>
@@ -67,11 +63,9 @@ if ($service_items_query->have_posts()) {
             ?>
             <article data-service-target-index="<?= $index ?>" class="header__mega-menu-service-item <?= $index === 0 ? 'header__mega-menu-service-item--active' : '' ?>">
                 <div class="header__mega-menu-service__banner">
-                    <div class="header__mega-menu-service__banner-overlay">
-                        <?= wp_get_attachment_image($overlay_service_thumbnail_id, 'full', false) ?>
-                    </div>
+                    <div class="header__mega-menu-service__banner-overlay"></div>
                     <div class="header__mega-menu-service__banner-background">
-                        <?php echo wp_get_attachment_image($service_thumbnail, 'full', false) ?>
+                        <?php echo $service_thumbnail ? wp_get_attachment_image($service_thumbnail, 'full', false) : okhub_img('common/thumb-fallback'); ?>
                     </div>
                     <div class="header__mega-menu-service__banner-content">
                         <div class="header__mega-menu-service__banner-content-left">
@@ -83,7 +77,7 @@ if ($service_items_query->have_posts()) {
                                 <li class="header__mega-menu-service__banner-service-item">
                                     <p class="header__mega-menu-service__banner-service-content">
                                         <span class="header__mega-menu-service__banner-service-item-icon">
-                                            <?php echo wp_get_attachment_image($icon_list_disc_id, 'full', false, array( 'class' => '')) ?>
+                                            <?php echo okhub_img('icons/icon') ?>
                                         </span>
                                         <span class="header__mega-menu-service__banner-service-item-text">
                                             <?= $service_offer_item['offer_item'] ?? '' ?>
@@ -96,7 +90,7 @@ if ($service_items_query->have_posts()) {
                         <div class="header__mega-menu-service-banner__content-right">
                             <a href="<?= $service_link ?>" class="header__mega-menu-service-banner__btn-details">
                                 <span class="header__mega-menu-service-banner__btn-details-icon">
-                                    <?php echo wp_get_attachment_image($icon_arrow_right_orange_id, 'full', false) ?>
+                                    <?php echo okhub_img('icons/arrow-right-2') ?>
                                 </span>
                                 <span class="header__mega-menu-service-banner__btn-details-text">Xem chi tiết</span>
                             </a>

@@ -29,6 +29,7 @@ return array(
   'faqs/bg-mobile' => array('src'=>'faqs/bg-mobile-375.webp', 'w'=>375, 'h'=>1054,),
   'category/line' => array('src'=>'category/line-1536.webp', 'w'=>1536, 'h'=>1,),
   'common/placeholder' => array('src'=>'common/placeholder-266.jpg', 'w'=>266, 'h'=>170,),
+  'header/mask-gradient' => array('src'=>'header/mask-gradient-338.png', 'w'=>338, 'h'=>804,),
   'services/offer' => array('src'=>'services/offer-2009.webp', 'srcset'=>"services/offer-150.webp 150w, services/offer-294.webp 294w, services/offer-768.webp 768w, services/offer-1004.webp 1004w, services/offer-1507.webp 1507w, services/offer-2009.webp 2009w", 'w'=>2009, 'h'=>2048, 'sizes'=>"(max-width: 2009px) 100vw, 2009px",),
   'services/overlay' => array('src'=>'services/overlay-1432.webp', 'srcset'=>"services/overlay-150.webp 150w, services/overlay-294.webp 294w, services/overlay-768.webp 768w, services/overlay-1004.webp 1004w, services/overlay-1432.webp 1432w", 'w'=>1432, 'h'=>1460, 'sizes'=>"(max-width: 1432px) 100vw, 1432px",),
   'services/service-list-container' => array('src'=>'services/service-list-container-2048.webp', 'srcset'=>"services/service-list-container-300.webp 300w, services/service-list-container-768.webp 768w, services/service-list-container-1024.webp 1024w, services/service-list-container-1536.webp 1536w, services/service-list-container-2048.webp 2048w", 'w'=>2048, 'h'=>1021, 'sizes'=>"(max-width: 2048px) 100vw, 2048px",),

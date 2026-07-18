@@ -6,9 +6,8 @@ $header_menu = isset( $header['menu'] ) && is_array( $header['menu'] ) ? $header
 $header_outstanding_products = isset( $header['outstanding_products'] ) && is_array( $header['outstanding_products'] ) ? $header['outstanding_products'] : [];
 $header_contact = isset( $header['contact'] ) && is_array( $header['contact'] ) ? $header['contact'] : [];
 $contact_socials = $header_contact['contact_socials'] ?? [];
+// Icon menu → file tĩnh theme (okhub_img). Logo/thumbnail vẫn từ CMS.
 $icon_list_disc_id = 71;
-$offer_image_id = 9762;
-$overlay_thumbnail_mobile_id = 9829;
 
 if (! function_exists('okhub_header_get_first_related_post_id')) {
 	function okhub_header_get_first_related_post_id($value) {
@@ -155,7 +154,6 @@ if (! function_exists('okhub_header_get_first_related_post_id')) {
                                                         <?= $service_description ?? ""; ?>
                                                     </div>
                                                     <div class="header-service__service-item__thumbnail">
-                                                        <?php echo wp_get_attachment_image($overlay_thumbnail_mobile_id, 'full', false, array( 'class' => 'header-service__service-item__thumbnail-overlay')) ?>
                                                         <?php echo wp_get_attachment_image($service_thumbnail, 'full', false, array( 'class' => 'header-service__service-item__thumbnail-image')) ?>
                                                         <div class="header-service__service-item__thumbnail-content">
                                                             <h4 class="header-service__service-item__subtitle">
@@ -171,7 +169,7 @@ if (! function_exists('okhub_header_get_first_related_post_id')) {
                                                         <?php foreach ($service_offer_items as $service_offer_item): ?>
                                                             <li class="header-service__service-item__offer-item">
                                                             <span class="header-service__service-item__offer-item__icon">
-                                                                <?php echo wp_get_attachment_image($icon_list_disc_id, 'full', false, array( 'class' => '')) ?>
+                                                                <?php echo okhub_img('icons/icon') ?>
                                                             </span>
                                                             <div class="header-service__service-item__offer-item__text">
                                                                 <?= $service_offer_item['offer_item'] ?? '' ?>
