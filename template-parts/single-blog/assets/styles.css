@@ -297,6 +297,15 @@ div#ez-toc-container ul li a {
   margin-bottom: 0;
 }
 
+/* Block editor bọc nội dung li trong <p> — bỏ margin p để li tự quyết khoảng cách */
+.entry-content li > p {
+  margin-bottom: 0;
+}
+
+.entry-content li > p:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+
 .entry-content a {
   color: #680103;
   font-weight: 500;
