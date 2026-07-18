@@ -1,0 +1,51 @@
+/* Cột "Thứ tự" trong danh sách sản phẩm wp-admin */
+
+.column-okhub_order_index {
+    width: 90px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.okhub-oi-input {
+    width: 58px;
+    padding: 3px 6px;
+    text-align: center;
+    -moz-appearance: textfield;
+}
+
+.okhub-oi-input::-webkit-outer-spin-button,
+.okhub-oi-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.okhub-oi-input.is-saving {
+    opacity: 0.6;
+}
+
+.okhub-oi-input.is-saved {
+    border-color: #46b450;
+    box-shadow: 0 0 0 1px #46b450;
+}
+
+.okhub-oi-input.is-error {
+    border-color: #dc3232;
+    box-shadow: 0 0 0 1px #dc3232;
+}
+
+.okhub-oi-status {
+    display: inline-block;
+    width: 14px;
+    margin-left: 4px;
+    font-weight: 700;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.okhub-oi-status--saved {
+    color: #46b450;
+}
+
+.okhub-oi-status--error {
+    color: #dc3232;
+}

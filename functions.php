@@ -10,6 +10,7 @@ require get_theme_file_path('/inc/shortcodes.php');
 require get_theme_file_path('/import-order.php');
 require get_theme_file_path('/inc/product-api.php');
 require get_theme_file_path('/inc/blog-api.php');
+require get_theme_file_path('/inc/admin-product-order/index.php');
 require get_theme_file_path('/template-parts/contact-page/acf.php');
 require get_theme_file_path('/inc/schema.php');
 
