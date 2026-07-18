@@ -223,7 +223,7 @@ $cta_hotline   = $cta['link_hotline'] ?? null;
                                                 <?php if (has_post_thumbnail()) : ?>
                                                     <?php the_post_thumbnail('medium'); ?>
                                                 <?php else : ?>
-                                                    <img src="https://placehold.co/78x137" alt="product">
+                                                    <?= okhub_img('common/placeholder') ?>
                                                 <?php endif; ?>
                                             </a>
                                             <div class="product-info">
