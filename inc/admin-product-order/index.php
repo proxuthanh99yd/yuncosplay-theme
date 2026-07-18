@@ -26,6 +26,7 @@ const OKHUB_ORDER_INDEX_COL  = 'okhub_order_index';
 
 /**
  * Đọc order_index của 1 SP. Trả về '' nếu chưa ghim (trống hoặc <= 0).
+ * order_index lớn = ưu tiên cao (lên đầu trang danh mục).
  *
  * @param int $product_id
  * @return string Chuỗi số nguyên >= 1, hoặc '' khi chưa ghim.
@@ -109,8 +110,9 @@ add_filter('manage_edit-product_sortable_columns', function ($columns) {
 });
 
 /**
- * Khi bấm sort cột "Thứ tự": SP đã ghip (order_index >= 1) đứng nhóm trên, sắp theo
- * số; SP chưa ghim xuống dưới. Dùng LEFT JOIN để không loại SP thiếu meta.
+ * Khi bấm sort cột "Thứ tự": sắp theo order_index (index lớn = ưu tiên cao); SP
+ * chưa ghim (trống) coi như 0, xuống cuối. Dùng LEFT JOIN để không loại SP thiếu
+ * meta. Hướng ASC/DESC theo toggle của cột.
  */
 add_action('pre_get_posts', function ($query) {
     if (!is_admin() || !$query->is_main_query()) {
@@ -123,7 +125,7 @@ add_action('pre_get_posts', function ($query) {
         return;
     }
 
-    $dir = strtoupper($query->get('order')) === 'DESC' ? 'DESC' : 'ASC';
+    $dir = strtoupper($query->get('order')) === 'ASC' ? 'ASC' : 'DESC';
 
     // Giới hạn đúng query đang chạy (so khớp object) để không đụng query phụ khác.
     add_filter('posts_clauses', function ($clauses, $wp_query) use ($dir, $query) {
@@ -134,8 +136,7 @@ add_action('pre_get_posts', function ($query) {
         $clauses['join'] .= " LEFT JOIN {$wpdb->postmeta} AS okhub_oi_admin"
             . " ON (okhub_oi_admin.post_id = {$wpdb->posts}.ID AND okhub_oi_admin.meta_key = '" . OKHUB_ORDER_INDEX_META . "')";
         $clauses['orderby'] =
-            "CASE WHEN okhub_oi_admin.meta_value IS NULL OR CAST(okhub_oi_admin.meta_value AS SIGNED) < 1 THEN 1 ELSE 0 END ASC,"
-            . " CAST(okhub_oi_admin.meta_value AS SIGNED) {$dir},"
+            "COALESCE(CAST(okhub_oi_admin.meta_value AS SIGNED), 0) {$dir},"
             . " {$wpdb->posts}.post_date DESC";
         return $clauses;
     }, 10, 2);
@@ -153,7 +154,7 @@ add_action('woocommerce_product_options_advanced', function () {
         'type'              => 'number',
         'custom_attributes' => ['step' => '1', 'min' => '1'],
         'desc_tip'          => true,
-        'description'       => 'Số nhỏ hiển thị trước ở trang danh mục (1 = đầu tiên). '
+        'description'       => 'Số càng lớn càng lên đầu trang danh mục (ưu tiên cao hơn). '
             . 'Để trống = không ghim, xếp sau theo sản phẩm mới nhất.',
         'value'             => okhub_get_order_index(get_the_ID()),
     ]);
