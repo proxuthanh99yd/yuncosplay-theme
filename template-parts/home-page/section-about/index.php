@@ -1,19 +1,6 @@
 <?php
-$image_bg_id = IS_MOBILE ? 170 : 172;
-$image_bg_overlay_id = IS_MOBILE ? 169 : 171;
-$image_building_id = 188;
-$image_birds_id = 187;
-$image_sunlight_id = 185;
-$image_wave_id = IS_MOBILE ? 233 : 184;
-$image_tower_id = 183;
-$image_photo_id = 182;
-$image_tree_id = 231;
-$image_mountain_left_id = IS_MOBILE ? 234 : 180;
-$image_mountain_right_id = IS_MOBILE ? 235 : 179;
-$image_bg_bottom_id = IS_MOBILE ? 236 : 177;
-$image_balloon_id = 173;
-$image_sun_id = 150;
-$image_sunshine_id = 151;
+// Ảnh nền trang trí thuộc về theme đã chuyển sang file tĩnh (assets/images/about)
+// kèm srcset thủ công — xem $about_imgs bên dưới. Ảnh decor_image_* vẫn lấy từ ACF.
 
 $section_about_us = get_field('about_us');
 $section_about_us_title = $section_about_us['title'];
@@ -26,61 +13,188 @@ $decor_image_3 = $section_about_us_decor_image_list['decor_image_3'] ?? '';
 $decor_image_4 = $section_about_us_decor_image_list['decor_image_4'] ?? '';
 $decor_image_5 = $section_about_us_decor_image_list['decor_image_5'] ?? '';
 $decor_image_6 = $section_about_us_decor_image_list['decor_image_6'] ?? '';
+
+/**
+ * sizes khớp bề ngang hiển thị thật của từng ảnh.
+ *
+ * Không khai báo thì WP fallback về "100vw" (=1920px), nên ảnh chỉ hiện 380px
+ * vẫn bị decode ở bản 1920px — hơn 100MB bitmap thừa, decode ngay lúc animation
+ * chạy làm rớt frame trên máy yếu. (sizes="auto" của WP không cứu được vì
+ * WP Rocket gỡ loading="lazy", mà auto chỉ hợp lệ khi có lazy.)
+ *
+ * Mốc theo CSS: >=1920px section dùng font-size:1vw nên width scale theo vw;
+ * 640-1919px dùng rem (16px); <640px là layout mobile.
+ */
+$about_img_sizes = array(
+	'bg'             => '100vw',
+	'overlay'        => '100vw',
+	'bg-bottom'      => '100vw',
+	'building'       => '(min-width: 1920px) 10.19vw, (min-width: 640px) 163px, 53px',
+	'birds'          => '(min-width: 1920px) 17.12vw, 274px',
+	'astronaut'      => '(min-width: 1920px) 15.5vw, (min-width: 640px) 248px, 119px',
+	'sunlight'       => '(min-width: 1920px) 59.63vw, 954px',
+	'wave'           => '(min-width: 1920px) 24.55vw, (min-width: 640px) 393px, 281px',
+	'tower'          => '(min-width: 1920px) 20.81vw, (min-width: 640px) 333px, 158px',
+	'photo'          => '(min-width: 1920px) 13.94vw, (min-width: 640px) 223px, 178px',
+	'tree'           => '(min-width: 1920px) 63.06vw, (min-width: 640px) 1009px, 100vw',
+	'mountain-left'  => '(min-width: 1920px) 71.65vw, (min-width: 640px) 1147px, 100vw',
+	'zoro'           => '(min-width: 1920px) 19.79vw, (min-width: 640px) 317px, 159px',
+	'mountain-right' => '(min-width: 1920px) 60.58vw, (min-width: 640px) 969px, 100vw',
+	'mermaid'        => '(min-width: 1920px) 20.88vw, (min-width: 640px) 334px, 196px',
+	'nezuko'         => '(min-width: 1920px) 22.88vw, (min-width: 640px) 366px, 195px',
+	'cosplay'        => '(min-width: 1920px) 18.19vw, 291px',
+	'spiderman'      => '(min-width: 1920px) 11.5vw, (min-width: 640px) 184px, 97px',
+	'balloon'        => '(min-width: 1920px) 6.5vw, (min-width: 640px) 104px, 47px',
+);
+
+if (!function_exists('okhub_about_img')) {
+	function okhub_about_img($id, $name, $sizes_map) {
+		return wp_get_attachment_image($id, 'full', false, array(
+			'loading'  => 'lazy',
+			'decoding' => 'async',
+			'class'    => 'section-about__' . $name,
+			'sizes'    => $sizes_map[$name],
+		));
+	}
+}
+?>
+<?php
+// Ảnh nền trang trí thuộc theme → file tĩnh (assets/images/about) + srcset thủ công.
+// Sinh sẵn từ các bản resize của WP; giữ tách desktop/mobile theo IS_MOBILE.
+$about_imgs = array(
+  'bg' => array(
+    'sizes'   => "100vw",
+    'desktop' => array('src'=>'bg-2048.webp', 'w'=>2048, 'h'=>1044, 'srcset'=>"bg-300.webp 300w, bg-768.webp 768w, bg-1024.webp 1024w, bg-1536.webp 1536w, bg-2048.webp 2048w"),
+    'mobile' => array('src'=>'bg-m-750.webp', 'w'=>750, 'h'=>1540, 'srcset'=>"bg-m-146.webp 146w, bg-m-499.webp 499w, bg-m-748.webp 748w, bg-m-750.webp 750w"),
+  ),
+  'overlay' => array(
+    'sizes'   => "100vw",
+    'desktop' => array('src'=>'overlay-1600.webp', 'w'=>1600, 'h'=>878, 'srcset'=>"overlay-300.webp 300w, overlay-768.webp 768w, overlay-1024.webp 1024w, overlay-1536.webp 1536w, overlay-1600.webp 1600w"),
+    'mobile' => array('src'=>'overlay-m-750.webp', 'w'=>750, 'h'=>1540, 'srcset'=>"overlay-m-146.webp 146w, overlay-m-499.webp 499w, overlay-m-748.webp 748w, overlay-m-750.webp 750w"),
+  ),
+  'building' => array(
+    'sizes'   => "(min-width: 1920px) 10.19vw, (min-width: 640px) 163px, 53px",
+    'desktop' => array('src'=>'building-489.webp', 'w'=>489, 'h'=>687, 'srcset'=>"building-214.webp 214w, building-489.webp 489w"),
+  ),
+  'birds' => array(
+    'sizes'   => "(min-width: 1920px) 17.12vw, 274px",
+    'desktop' => array('src'=>'birds-818.webp', 'w'=>818, 'h'=>424, 'srcset'=>"birds-300.webp 300w, birds-768.webp 768w, birds-818.webp 818w"),
+  ),
+  'sunlight' => array(
+    'sizes'   => "(min-width: 1920px) 59.63vw, 954px",
+    'desktop' => array('src'=>'sunlight-2048.webp', 'w'=>2048, 'h'=>721, 'srcset'=>"sunlight-300.webp 300w, sunlight-768.webp 768w, sunlight-1024.webp 1024w, sunlight-1536.webp 1536w, sunlight-2048.webp 2048w"),
+  ),
+  'wave' => array(
+    'sizes'   => "(min-width: 1920px) 24.55vw, (min-width: 640px) 393px, 281px",
+    'desktop' => array('src'=>'wave-1179.webp', 'w'=>1179, 'h'=>1007, 'srcset'=>"wave-300.webp 300w, wave-768.webp 768w, wave-1024.webp 1024w, wave-1179.webp 1179w"),
+    'mobile' => array('src'=>'wave-m-410.webp', 'w'=>410, 'h'=>487, 'srcset'=>"wave-m-253.webp 253w, wave-m-410.webp 410w"),
+  ),
+  'tower' => array(
+    'sizes'   => "(min-width: 1920px) 20.81vw, (min-width: 640px) 333px, 158px",
+    'desktop' => array('src'=>'tower-999.webp', 'w'=>999, 'h'=>999, 'srcset'=>"tower-300.webp 300w, tower-768.webp 768w, tower-999.webp 999w"),
+  ),
+  'photo' => array(
+    'sizes'   => "(min-width: 1920px) 13.94vw, (min-width: 640px) 223px, 178px",
+    'desktop' => array('src'=>'photo-669.webp', 'w'=>669, 'h'=>669, 'srcset'=>"photo-300.webp 300w, photo-669.webp 669w"),
+  ),
+  'tree' => array(
+    'sizes'   => "(min-width: 1920px) 63.06vw, (min-width: 640px) 1009px, 100vw",
+    'desktop' => array('src'=>'tree-2048.webp', 'w'=>2048, 'h'=>1189, 'srcset'=>"tree-300.webp 300w, tree-600.webp 600w, tree-768.webp 768w, tree-1024.webp 1024w, tree-1536.webp 1536w, tree-2048.webp 2048w"),
+  ),
+  'mountain-left' => array(
+    'sizes'   => "(min-width: 1920px) 71.65vw, (min-width: 640px) 1147px, 100vw",
+    'desktop' => array('src'=>'mountain-left-2048.webp', 'w'=>2048, 'h'=>908, 'srcset'=>"mountain-left-300.webp 300w, mountain-left-768.webp 768w, mountain-left-1024.webp 1024w, mountain-left-1536.webp 1536w, mountain-left-2048.webp 2048w"),
+    'mobile' => array('src'=>'mountain-left-m-750.webp', 'w'=>750, 'h'=>514, 'srcset'=>"mountain-left-m-300.webp 300w, mountain-left-m-600.webp 600w, mountain-left-m-750.webp 750w"),
+  ),
+  'mountain-right' => array(
+    'sizes'   => "(min-width: 1920px) 60.58vw, (min-width: 640px) 969px, 100vw",
+    'desktop' => array('src'=>'mountain-right-2048.webp', 'w'=>2048, 'h'=>1220, 'srcset'=>"mountain-right-300.webp 300w, mountain-right-768.webp 768w, mountain-right-1024.webp 1024w, mountain-right-1536.webp 1536w, mountain-right-2048.webp 2048w"),
+    'mobile' => array('src'=>'mountain-right-m-750.webp', 'w'=>750, 'h'=>726, 'srcset'=>"mountain-right-m-300.webp 300w, mountain-right-m-600.webp 600w, mountain-right-m-750.webp 750w"),
+  ),
+  'bg-bottom' => array(
+    'sizes'   => "100vw",
+    'desktop' => array('src'=>'bg-bottom-2048.webp', 'w'=>2048, 'h'=>446, 'srcset'=>"bg-bottom-300.webp 300w, bg-bottom-768.webp 768w, bg-bottom-1024.webp 1024w, bg-bottom-1536.webp 1536w, bg-bottom-2048.webp 2048w"),
+    'mobile' => array('src'=>'bg-bottom-m-750.webp', 'w'=>750, 'h'=>397, 'srcset'=>"bg-bottom-m-300.webp 300w, bg-bottom-m-600.webp 600w, bg-bottom-m-750.webp 750w"),
+  ),
+  'balloon' => array(
+    'sizes'   => "(min-width: 1920px) 6.5vw, (min-width: 640px) 104px, 47px",
+    'desktop' => array('src'=>'balloon-312.webp', 'w'=>312, 'h'=>651, 'srcset'=>"balloon-144.webp 144w, balloon-312.webp 312w"),
+  ),
+);
+$about_base = get_theme_file_uri('/assets/images/about/');
+if (!function_exists('okhub_about_static')) {
+	function okhub_about_static($imgs, $role, $base) {
+		if (empty($imgs[$role])) return;
+		$c = $imgs[$role];
+		$v = (defined('IS_MOBILE') && IS_MOBILE && !empty($c['mobile'])) ? $c['mobile'] : $c['desktop'];
+		if (empty($v)) return;
+		$srcset = implode(', ', array_map(function ($piece) use ($base) {
+			$piece = trim($piece);
+			$sp = strrpos($piece, ' ');
+			return esc_url($base . substr($piece, 0, $sp)) . ' ' . substr($piece, $sp + 1);
+		}, explode(',', $v['srcset'])));
+		printf(
+			'<img class="section-about__%s" src="%s" srcset="%s" sizes="%s" width="%d" height="%d" alt="" loading="lazy" decoding="async">',
+			esc_attr($role), esc_url($base . $v['src']), esc_attr($srcset),
+			esc_attr($c['sizes']), (int) $v['w'], (int) $v['h']
+		);
+	}
+}
 ?>
 
 <section class="section-about">
-  <?= wp_get_attachment_image($image_bg_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'section-about__bg')) ?>
-  <?= wp_get_attachment_image($image_bg_overlay_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'section-about__overlay')) ?>
-  <?= wp_get_attachment_image($image_building_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'section-about__building')) ?>
-  <?= wp_get_attachment_image($image_birds_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'section-about__birds')) ?>
+  <?php okhub_about_static($about_imgs, 'bg', $about_base) ?>
+  <?php okhub_about_static($about_imgs, 'overlay', $about_base) ?>
+  <?php okhub_about_static($about_imgs, 'building', $about_base) ?>
+  <?php okhub_about_static($about_imgs, 'birds', $about_base) ?>
   
   <!-- Start: Ảnh decor 5 -->
   <?php if(!empty($decor_image_5)): ?>
-  <?= wp_get_attachment_image($decor_image_5, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'section-about__astronaut')) ?>
+  <?= okhub_about_img($decor_image_5, 'astronaut', $about_img_sizes) ?>
   <?php endif; ?>
   <!-- End: Ảnh decor 5 -->
 
-  <?= wp_get_attachment_image($image_sunlight_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'section-about__sunlight')) ?>
-  <?= wp_get_attachment_image($image_wave_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'section-about__wave')) ?>
-  <?= wp_get_attachment_image($image_tower_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'section-about__tower')) ?>
-  <?= wp_get_attachment_image($image_photo_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'section-about__photo')) ?>
-  <?= wp_get_attachment_image($image_tree_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'section-about__tree')) ?>
-  <?= wp_get_attachment_image($image_mountain_left_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'section-about__mountain-left')) ?>
+  <?php okhub_about_static($about_imgs, 'sunlight', $about_base) ?>
+  <?php okhub_about_static($about_imgs, 'wave', $about_base) ?>
+  <?php okhub_about_static($about_imgs, 'tower', $about_base) ?>
+  <?php okhub_about_static($about_imgs, 'photo', $about_base) ?>
+  <?php okhub_about_static($about_imgs, 'tree', $about_base) ?>
+  <?php okhub_about_static($about_imgs, 'mountain-left', $about_base) ?>
   <!-- Start: Ảnh decor 1 -->
   <?php if(!empty($decor_image_1)): ?>
-  <?= wp_get_attachment_image($decor_image_1, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'section-about__zoro')) ?>
+  <?= okhub_about_img($decor_image_1, 'zoro', $about_img_sizes) ?>
   <?php endif; ?>
   <!-- End: Ảnh decor 1 -->
 
-  <?= wp_get_attachment_image($image_mountain_right_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'section-about__mountain-right')) ?>
+  <?php okhub_about_static($about_imgs, 'mountain-right', $about_base) ?>
 
   <!-- Start: Ảnh decor 3 -->
   <?php if(!empty($decor_image_3)): ?>
-  <?= wp_get_attachment_image($decor_image_3, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'section-about__mermaid')) ?>
+  <?= okhub_about_img($decor_image_3, 'mermaid', $about_img_sizes) ?>
   <?php endif; ?>
   <!-- End: Ảnh decor 3 -->  
 
-  <?= wp_get_attachment_image($image_bg_bottom_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'section-about__bg-bottom')) ?>
+  <?php okhub_about_static($about_imgs, 'bg-bottom', $about_base) ?>
 
   <!-- Start: Ảnh decor 4 -->
   <?php if(!empty($decor_image_4)): ?>
-  <?= wp_get_attachment_image($decor_image_4, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'section-about__nezuko')) ?>
+  <?= okhub_about_img($decor_image_4, 'nezuko', $about_img_sizes) ?>
   <?php endif; ?>
   <!-- End: Ảnh decor 4 -->  
 
   <!-- Start: Ảnh decor 2 -->
   <?php if(!empty($decor_image_2)): ?>
-  <?= wp_get_attachment_image($decor_image_2, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'section-about__cosplay')) ?>
+  <?= okhub_about_img($decor_image_2, 'cosplay', $about_img_sizes) ?>
   <?php endif; ?>
   <!-- End: Ảnh decor 2 -->
 
   <!-- Start: Ảnh decor 6 -->
   <?php if(!empty($decor_image_6)): ?>
-  <?= wp_get_attachment_image($decor_image_6, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'section-about__spiderman')) ?>
+  <?= okhub_about_img($decor_image_6, 'spiderman', $about_img_sizes) ?>
   <?php endif; ?>
   <!-- End: Ảnh decor 6 -->
 
-  <?= wp_get_attachment_image($image_balloon_id, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'section-about__balloon')) ?>
+  <?php okhub_about_static($about_imgs, 'balloon', $about_base) ?>
   <div class="section-about__sun">
     <svg viewBox="0 0 1007 1007" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g class="outer-rotate" opacity="1">
