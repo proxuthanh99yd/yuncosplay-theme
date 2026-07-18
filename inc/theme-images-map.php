@@ -49,4 +49,6 @@ return array(
   'service-intro/deco-m' => array('src'=>'service-intro/deco-m-1125.webp', 'srcset'=>"service-intro/deco-m-300.webp 300w, service-intro/deco-m-600.webp 600w, service-intro/deco-m-768.webp 768w, service-intro/deco-m-1024.webp 1024w, service-intro/deco-m-1125.webp 1125w", 'w'=>1125, 'h'=>839, 'sizes'=>"(max-width: 1125px) 100vw, 1125px",),
   'faq/icon-plus' => array('src'=>'faq/icon-plus.svg',),
   'faq/icon-minus' => array('src'=>'faq/icon-minus.svg',),
+  'blog/top-line-pc' => array('src'=>'blog/top-line-pc.svg',),
+  'blog/top-line-mb' => array('src'=>'blog/top-line-mb.svg',),
 );
