@@ -27,8 +27,6 @@ $image_mobile_alt = is_array($image_mobile)
           'class' => 'faq-hero__bg faq-hero__bg--desktop',
           'alt' => esc_attr($image_desktop_alt),
         ], !IS_MOBILE ? 'lcp' : 'lazy')); ?>
-      <?php else : ?>
-        <div class="faq-hero__debug">Không có ảnh desktop trong ACF: image_desktop</div>
       <?php endif; ?>
 
       <?php if (!empty($image_mobile_id)) : ?>
@@ -36,8 +34,6 @@ $image_mobile_alt = is_array($image_mobile)
           'class' => 'faq-hero__bg faq-hero__bg--mobile',
           'alt' => esc_attr($image_mobile_alt),
         ], IS_MOBILE ? 'lcp' : 'lazy')); ?>
-      <?php else : ?>
-        <div class="faq-hero__debug">Không có ảnh mobile trong ACF: image_mobile</div>
       <?php endif; ?>
 
       <div class="faq-hero__overlay"></div>
@@ -51,16 +47,12 @@ $image_mobile_alt = is_array($image_mobile)
             <div class="faq-hero__title">
               <?= wp_kses_post($title); ?>
             </div>
-          <?php else : ?>
-            <div class="faq-hero__debug">Không có title trong ACF</div>
           <?php endif; ?>
 
           <?php if (!empty($desc)) : ?>
             <p class="faq-hero__desc">
               <?= esc_html($desc); ?>
             </p>
-          <?php else : ?>
-            <div class="faq-hero__debug">Không có desc trong ACF</div>
           <?php endif; ?>
 
         </div>
@@ -82,6 +74,4 @@ $image_mobile_alt = is_array($image_mobile)
       </div>
     </div>
   </section>
-<?php else : ?>
-  <div class="faq-hero__debug">Không có dữ liệu ACF field: banner</div>
 <?php endif; ?>

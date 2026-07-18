@@ -21,9 +21,9 @@
         attributes: {
             image: { type: 'number', default: 0 },
             imageUrl: { type: 'string', default: '' },
-            title: { type: 'string', default: 'Explore the tour in Cao Bang' },
-            content: { type: 'string', default: 'Sign up for weekly travel inspiration straight to your inbox – all lovingly packed by our team of Travel Experts.' },
-            buttonText: { type: 'string', default: 'Explore' },
+            title: { type: 'string', default: '' },
+            content: { type: 'string', default: '' },
+            buttonText: { type: 'string', default: 'Xem thêm' },
             buttonUrl: { type: 'string', default: '' },
             background: { type: 'string', default: '#f3efee' },
             textColor: { type: 'string', default: '#6b0b3a' },
