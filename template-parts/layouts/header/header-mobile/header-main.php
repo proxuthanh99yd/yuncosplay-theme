@@ -9,7 +9,7 @@ $header_logo = $header['logo_image'] ?? null;
     <div class="header-main-left">
         <a href="<?php echo esc_url(home_url('/')); ?>" class="header-main__logo">
             <?php if (! empty($header_logo)) : ?>
-                <?php echo wp_get_attachment_image($header_logo, 'full', false, okhub_image_attrs(array('class' => 'header-main__logo-image'), 'eager')); ?>
+                <?php echo wp_get_attachment_image($header_logo, 'medium', false, okhub_image_attrs(array('class' => 'header-main__logo-image', 'sizes' => '40px'), 'eager')); ?>
             <?php endif; ?>
         </a>
     </div>

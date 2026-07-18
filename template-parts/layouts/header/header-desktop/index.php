@@ -169,7 +169,7 @@ if (!$is_transparent_header_page) {
             <div class="header__navbar-left">
                 <a href="/" class="header__logo">
                     <?php if (! empty($header_logo)) : ?>
-                    <?php echo wp_get_attachment_image($header_logo, 'full', false, okhub_image_attrs(array('class' => ''), 'eager')); ?>
+                    <?php echo wp_get_attachment_image($header_logo, 'medium', false, okhub_image_attrs(array('class' => '', 'sizes' => '52px'), 'eager')); ?>
                     <?php endif; ?>
                 </a>
                 <nav class="header__nav">
