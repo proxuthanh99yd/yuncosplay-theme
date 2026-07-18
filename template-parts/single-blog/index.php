@@ -87,7 +87,8 @@ $cta_hotline   = $cta['link_hotline'] ?? null;
                         </div>
     
                         <footer class="entry-footer">
-                            <?= wp_get_attachment_image(IS_MOBILE ? 10058 : 10056, 'full', false, ['class' => 'footer-top-line']); ?>
+                            <?php $blog_line_id = IS_MOBILE ? (get_field('blog_line_mb', 'option') ?: 10058) : (get_field('blog_line_pc', 'option') ?: 10056); ?>
+                            <?= wp_get_attachment_image($blog_line_id, 'full', false, ['class' => 'footer-top-line']); ?>
                             <div class="meta-row">
                                 <div class="author-info">
                                     Viết bởi: <strong><?php the_author(); ?></strong>
