@@ -14,30 +14,6 @@ $social_media   = get_field('contact_social_media') ?: [];
 // Đường dẫn tới icons
 $ic_clock    = get_theme_file_uri('/template-parts/contact-page/assets/images/ic-clock.svg');
 $ic_location = get_theme_file_uri('/template-parts/contact-page/assets/images/ic-location.svg');
-
-// Default social media data nếu ACF trống
-if (empty($social_media)) {
-    $social_media = [
-        [
-            'platform' => 'facebook',
-            'name'     => 'Facebook',
-            'url'      => '#',
-            'image'    => null,
-        ],
-        [
-            'platform' => 'tiktok',
-            'name'     => 'TikTok',
-            'url'      => '#',
-            'image'    => null,
-        ],
-        [
-            'platform' => 'instagram',
-            'name'     => 'Instagram',
-            'url'      => '#',
-            'image'    => null,
-        ],
-    ];
-}
 ?>
 
 <div class="contact-info">
@@ -56,6 +32,7 @@ if (empty($social_media)) {
         </div>
     </div>
 
+    <?php if (!empty($social_media)) : ?>
     <!-- Heading social -->
     <h2 class="contact-info__social-heading">Theo dõi chúng tôi</h2>
 
@@ -126,4 +103,5 @@ if (empty($social_media)) {
             <img src="<?= esc_url(get_theme_file_uri('/template-parts/contact-page/assets/images/ic-arrow-right.svg')); ?>" alt="" width="32" height="32" loading="lazy" decoding="async">
         </button>
     </div>
+    <?php endif; ?>
 </div>
