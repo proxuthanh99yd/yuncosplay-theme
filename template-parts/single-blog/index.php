@@ -66,7 +66,7 @@ $cta_hotline   = $cta['link_hotline'] ?? null;
                         <nav class="breadcrumb">
                             <a href="/">Trang chủ</a>
                             <span class="dot"></span>
-                            <a href="/blogs">Danh sách bài viết</a>
+                            <a href="<?= okhub_page_url('blogs') ?>">Danh sách bài viết</a>
                             <span class="dot active"></span>
                             <span class="current">Chi tiết bài viết</span>
                         </nav>
@@ -249,7 +249,7 @@ $cta_hotline   = $cta['link_hotline'] ?? null;
                             </div>
     
                             <?= okhub_img('icons/line-1239-2', array('class' => 'title-divider')) ?>
-                            <a href="/shop" class="view-all-link">
+                            <a href="<?= okhub_page_url('shop') ?>" class="view-all-link">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                     <path d="M19.8574 12L13.332 18.5244L11.4385 18.4668L14.165 15.7402C15.0043 14.9022 15.7723 14.1511 16.4697 13.4883L17.2705 12.7275L16.165 12.7217L5.40918 12.6709L5.47461 11.2197L16.2656 11.2725L17.3887 11.2773L16.5732 10.5049C15.8917 9.85915 15.137 9.12137 14.3086 8.29297L11.4893 5.47559L13.2715 5.41699L19.8574 12Z" fill="#680103" stroke="#680103" stroke-width="0.8888" />
                                 </svg>

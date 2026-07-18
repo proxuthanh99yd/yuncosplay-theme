@@ -57,7 +57,7 @@
                                 </span>
                             </h4>
 
-                            <a href="/lien-he" class="card-link">
+                            <a href="<?= okhub_page_url('lien-he') ?>" class="card-link">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10"
                                     fill="none">
                                     <path

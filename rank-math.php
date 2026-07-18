@@ -55,6 +55,20 @@ add_filter('rank_math/frontend/breadcrumb/items', function ($crumbs, $class) {
 }, 10, 2);
 
 
+/**
+ * Trang cha breadcrumb — lấy động thay vì hardcode ID.
+ * (ID cũ 448/629/72 đã trỏ nhầm sang attachment sau khi re-import media.)
+ */
+function okhub_shop_page_id()
+{
+    return function_exists('wc_get_page_id') ? wc_get_page_id('shop') : (int) get_option('woocommerce_shop_page_id');
+}
+function okhub_blog_page_id()
+{
+    $page = get_page_by_path('blogs');
+    return $page ? $page->ID : (int) get_option('page_for_posts');
+}
+
 function get_product_crumbs($crumbs)
 {
     $crumbs = [
@@ -64,8 +78,8 @@ function get_product_crumbs($crumbs)
             'hide_in_schema' => '',
         ],
         [
-            0 => get_the_title(448),
-            1 => get_permalink(448),
+            0 => get_the_title(okhub_shop_page_id()),
+            1 => get_permalink(okhub_shop_page_id()),
             'hide_in_schema' => '',
         ],
     ];
@@ -87,8 +101,8 @@ function get_categories_crumbs($crumbs)
             'hide_in_schema' => '',
         ],
         [
-            0 => get_the_title(448),
-            1 => get_permalink(448),
+            0 => get_the_title(okhub_shop_page_id()),
+            1 => get_permalink(okhub_shop_page_id()),
             'hide_in_schema' => '',
         ],
         [
@@ -109,8 +123,8 @@ function get_du_an_crumbs($crumbs)
             'hide_in_schema' => '',
         ],
         [
-            0 => get_the_title(629),
-            1 => get_permalink(629),
+            0 => (get_post_type_object('du-an') ? get_post_type_object('du-an')->labels->name : 'Dự án'),
+            1 => (get_post_type_archive_link('du-an') ?: home_url()),
             'hide_in_schema' => '',
         ],
     ];
@@ -131,8 +145,8 @@ function get_post_crumbs($crumbs)
             'hide_in_schema' => '',
         ],
         [
-            0 => get_the_title(72),
-            1 => get_permalink(72),
+            0 => get_the_title(okhub_blog_page_id()),
+            1 => get_permalink(okhub_blog_page_id()),
             'hide_in_schema' => '',
         ],
     ];

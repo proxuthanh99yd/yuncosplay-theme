@@ -18,7 +18,7 @@
                   <h2 class="main-title"><?= $subtitle ?></h2>
             </div>
 
-            <a href="/lien-he" class="btn-link-desktop">
+            <a href="<?= okhub_page_url('lien-he') ?>" class="btn-link-desktop">
                   <?php get_template_part('template-parts/components/animated-button/index', null, ['text' => 'Đặt lịch chụp ngay' ?? '']); ?>
             </a>
       </div>
@@ -41,7 +41,7 @@
       <?php endif; ?>
 
       <div class="btn-link-mobile">
-            <a href="/lien-he" class="">
+            <a href="<?= okhub_page_url('lien-he') ?>" class="">
                   <?php get_template_part('template-parts/components/animated-button/index', null, ['text' => 'Đặt lịch chụp ngay' ?? '']); ?>
             </a>
       </div>

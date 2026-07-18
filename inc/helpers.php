@@ -1,6 +1,18 @@
 <?php
 
 /**
+ * URL của một page theo slug — dùng thay cho hardcode "/lien-he", "/shop"...
+ * để link không vỡ khi slug/permalink đổi. Fallback về "/slug" nếu không tìm thấy.
+ */
+if (!function_exists('okhub_page_url')) {
+    function okhub_page_url($slug)
+    {
+        $page = get_page_by_path($slug);
+        return $page ? get_permalink($page->ID) : home_url('/' . ltrim($slug, '/'));
+    }
+}
+
+/**
  * Trả về closure dùng cho filter 'posts_clauses' để sắp xếp sản phẩm:
  * order_index là "thứ tự hiển thị" do admin đặt — SỐ TO LÊN TRƯỚC (index lớn =
  * ưu tiên cao = lên đầu), bằng nhau thì bài mới lên trước, chốt bằng ID để thứ tự

@@ -24,7 +24,7 @@
                               <?= $subtitle ?>
                         </p>
 
-                        <a href="/lien-he" class="">
+                        <a href="<?= okhub_page_url('lien-he') ?>" class="">
                               <?php get_template_part('template-parts/components/animated-button/index', null, ['text' => 'Đặt lịch makeup ngay' ?? '']); ?>
                         </a>
                   </div>
