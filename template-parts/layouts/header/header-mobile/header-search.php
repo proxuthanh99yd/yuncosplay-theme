@@ -1,6 +1,5 @@
 <?php 
 // Ảnh overlay kết quả tìm kiếm → file tĩnh theme (okhub_img).
-$search_overlay_id = 9843;
 $product_args = [
 	'post_type'      => 'product',
 	'post_status'    => 'publish',
