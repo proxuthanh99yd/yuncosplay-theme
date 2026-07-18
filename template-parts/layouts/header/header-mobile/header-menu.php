@@ -226,7 +226,8 @@ if (! function_exists('okhub_header_get_first_related_post_id')) {
             </div>
         </div>
         <?php endif; ?>
-        <a href="/" class="header-menu__direction-btn">
+        <?php $direction_url = $header_contact['contact_address']['url'] ?? ''; ?>
+        <a href="<?php echo esc_url($direction_url ?: '#'); ?>" target="_blank" rel="noopener noreferrer" class="header-menu__direction-btn">
             <?php get_template_part('template-parts/components/animated-button/index', null, array('text' => 'Chỉ đường đến cửa hàng')); ?>
         </a>
         <div class="header-menu__social-list-wrapper">
