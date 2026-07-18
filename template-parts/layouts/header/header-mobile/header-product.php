@@ -117,7 +117,7 @@ if ( taxonomy_exists( 'product_cat' ) ) {
                     </a>
                 <?php endforeach; ?>
             </div>
-            <a href="/" class="header-product__category-single-level__view-all">
+            <a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="header-product__category-single-level__view-all">
                 <?php get_template_part( 'template-parts/components/animated-button/index', null, array( 'text' => 'Xem tất cả sản phẩm' ) ); ?>
             </a>
         </div>
