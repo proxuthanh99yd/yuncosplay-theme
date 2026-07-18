@@ -172,16 +172,42 @@ div#ez-toc-container ul li a {
 }
 
 .entry-content {
+  /* Hệ khoảng cách nội dung: 2 biến duy nhất cho toàn bộ block editor */
+  --flow: 1.25rem;        /* giữa các khối: đoạn, tiêu đề, list, ảnh, bảng... */
+  --flow-tight: 0.5rem;   /* nội dung lồng: mục list, đoạn trong list/quote, caption */
   padding: 0 0.75rem;
 }
 
+/* ===== Một rule khoảng cách duy nhất =====
+   Mọi thẻ bỏ margin riêng; khoảng cách do "flow" quyết định. */
+.entry-content > * {
+  margin: 0;
+}
+
+.entry-content > * + * {
+  margin-top: var(--flow);
+}
+
+.entry-content li > *,
+.entry-content blockquote > *,
+.entry-content figure > * {
+  margin: 0;
+}
+
+.entry-content li + li,
+.entry-content li > * + *,
+.entry-content blockquote > * + *,
+.entry-content figure > * + * {
+  margin-top: var(--flow-tight);
+}
+
+/* ===== Typography theo thẻ (không chứa margin) ===== */
 .entry-content h2 {
   color: #680103;
   font-family: Phudu;
   font-size: 1.125rem;
   font-weight: 700;
   line-height: 120%;
-  margin: 2rem 0 0.75rem;
 }
 
 .entry-content h3 {
@@ -189,7 +215,6 @@ div#ez-toc-container ul li a {
   font-size: 1rem;
   font-weight: 600;
   line-height: 130%;
-  margin: 1.5rem 0 0.5rem;
 }
 
 .entry-content p {
@@ -198,29 +223,19 @@ div#ez-toc-container ul li a {
   font-size: 1rem;
   font-weight: 400;
   line-height: 150%;
-  margin-bottom: 0.75rem;
 }
 
 .entry-content ul {
   list-style-type: disc;
   padding-left: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.entry-content ul li {
-  color: var(--text-light);
-  font-family: "SF Pro Display";
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 150%;
 }
 
 .entry-content ol {
   list-style-type: decimal;
   padding-left: 1.5rem;
-  margin-bottom: 1rem;
 }
 
+.entry-content ul li,
 .entry-content ol li {
   color: var(--text-light);
   font-family: "SF Pro Display";
@@ -243,16 +258,6 @@ div#ez-toc-container ul li a {
 .entry-content img {
   width: 100%;
   height: auto;
-  margin: 1.25rem 0 2rem !important;
-}
-
-/* ---- Nội dung từ block editor: bổ sung thẻ còn thiếu + khoảng cách ---- */
-.entry-content > *:first-child {
-  margin-top: 0;
-}
-
-.entry-content > *:last-child {
-  margin-bottom: 0;
 }
 
 .entry-content h1 {
@@ -261,7 +266,6 @@ div#ez-toc-container ul li a {
   font-size: 1.375rem;
   font-weight: 700;
   line-height: 120%;
-  margin: 2rem 0 0.75rem;
 }
 
 .entry-content h4 {
@@ -270,7 +274,6 @@ div#ez-toc-container ul li a {
   font-size: 0.9375rem;
   font-weight: 600;
   line-height: 130%;
-  margin: 1.25rem 0 0.5rem;
 }
 
 .entry-content h5,
@@ -280,30 +283,6 @@ div#ez-toc-container ul li a {
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 140%;
-  margin: 1rem 0 0.5rem;
-}
-
-.entry-content li {
-  margin-bottom: 0.5rem;
-}
-
-.entry-content li:last-child {
-  margin-bottom: 0;
-}
-
-.entry-content li > ul,
-.entry-content li > ol {
-  margin-top: 0.5rem;
-  margin-bottom: 0;
-}
-
-/* Block editor bọc nội dung li trong <p> — bỏ margin p để li tự quyết khoảng cách */
-.entry-content li > p {
-  margin-bottom: 0;
-}
-
-.entry-content li > p:not(:last-child) {
-  margin-bottom: 0.5rem;
 }
 
 .entry-content a {
@@ -319,27 +298,13 @@ div#ez-toc-container ul li a {
 }
 
 .entry-content blockquote {
-  margin: 1.5rem 0;
   padding: 0.5rem 0 0.5rem 1rem;
   border-left: 0.1875rem solid #cb5140;
   color: var(--text-light);
   font-style: italic;
 }
 
-.entry-content blockquote p:last-child {
-  margin-bottom: 0;
-}
-
-.entry-content figure {
-  margin: 1.25rem 0 2rem;
-}
-
-.entry-content figure img {
-  margin: 0 !important;
-}
-
 .entry-content figcaption {
-  margin-top: 0.5rem;
   color: var(--text-muted);
   font-family: "SF Pro Display";
   font-size: 0.8125rem;
@@ -351,7 +316,6 @@ div#ez-toc-container ul li a {
 .entry-content table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 1.5rem;
   font-family: "SF Pro Display";
   font-size: 0.875rem;
   color: var(--text-light);
@@ -374,7 +338,6 @@ div#ez-toc-container ul li a {
 .entry-content hr {
   border: none;
   border-top: 1px solid rgba(29, 29, 29, 0.12);
-  margin: 2rem 0;
 }
 
 .entry-content code {
@@ -387,7 +350,6 @@ div#ez-toc-container ul li a {
 }
 
 .entry-content pre {
-  margin: 1.5rem 0;
   padding: 1rem;
   background: var(--bg-tag);
   border-radius: 0.375rem;
@@ -775,7 +737,6 @@ div#ez-toc-container ul li a {
     color: var(--primary-color);
     font-family: "Phudu";
     font-size: 1.5rem;
-    margin: 2.5rem 0 1rem;
     font-weight: 700;
     line-height: 110%;
   }
@@ -784,7 +745,6 @@ div#ez-toc-container ul li a {
     color: var(--primary-color);
     font-family: "Phudu";
     font-size: 1.25rem;
-    margin: 1.75rem 0 0.75rem;
     font-weight: 600;
     line-height: 120%;
   }
@@ -823,13 +783,11 @@ div#ez-toc-container ul li a {
     font-size: 1rem;
     font-weight: 400;
     line-height: 150%;
-    margin-bottom: 1rem;
   }
 
   .entry-content ul {
     list-style-type: disc;
     padding-left: 1.5rem;
-    margin-bottom: 1rem;
   }
 
   .entry-content ul li {
@@ -843,7 +801,6 @@ div#ez-toc-container ul li a {
   .entry-content ol {
     list-style-type: decimal;
     padding-left: 1.5rem;
-    margin-bottom: 1rem;
   }
 
   .entry-content ol li {
@@ -857,29 +814,21 @@ div#ez-toc-container ul li a {
   .entry-content img {
     width: 100%;
     height: auto;
-    margin: 2.5rem 0 !important;
   }
 
   .entry-content h1 {
     font-family: "Phudu";
     font-size: 2rem;
-    margin: 2.5rem 0 1rem;
   }
 
   .entry-content h4 {
     font-family: "Phudu";
     font-size: 1.125rem;
-    margin: 1.5rem 0 0.625rem;
   }
 
   .entry-content h5,
   .entry-content h6 {
     font-size: 1rem;
-    margin: 1.25rem 0 0.5rem;
-  }
-
-  .entry-content figure {
-    margin: 2.5rem 0;
   }
 
   .entry-content figcaption {
@@ -892,7 +841,6 @@ div#ez-toc-container ul li a {
 
   .entry-content table {
     font-size: 1rem;
-    margin-bottom: 2rem;
   }
 
   .footer-top-line {
