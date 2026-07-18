@@ -4,7 +4,7 @@
  * assets/images/ thay vì hardcode attachment ID của media library.
  *
  * Map sinh tự động ở inc/theme-images-map.php, key dạng "khu-vuc/ten"
- * (vd 'icons/arrow', 'services/offer').
+ * (vd 'icons/arrow', 'services/overlay').
  *
  * @param string $key   Key trong map, vd 'icons/arrow'
  * @param array  $args  class, alt, loading ('lazy'|'eager'), decoding, sizes (override),
