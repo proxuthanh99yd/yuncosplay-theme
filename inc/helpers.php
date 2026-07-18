@@ -2,9 +2,13 @@
 
 /**
  * Trả về closure dùng cho filter 'posts_clauses' để sắp xếp sản phẩm:
- * order_index số to lên trước, bằng nhau thì bài mới lên trước, chốt bằng ID
- * để thứ tự ổn định giữa các trang (tránh sản phẩm nhảy/lặp khi phân trang).
- * Sản phẩm không có order_index coi như 0 — giữ đúng thứ tự đang hiển thị.
+ * order_index là "thứ tự hiển thị" do admin đặt — SỐ NHỎ LÊN TRƯỚC (1 = đầu tiên),
+ * bằng nhau thì bài mới lên trước, chốt bằng ID để thứ tự ổn định giữa các trang
+ * (tránh sản phẩm nhảy/lặp khi phân trang). SP để trống hoặc <= 0 coi như KHÔNG
+ * GHIM: xếp sau nhóm đã ghim, theo bài mới nhất.
+ *
+ * Ngữ nghĩa này khớp UI "Thứ tự hiển thị" trong wp-admin (inc/admin-product-order):
+ * admin gõ 1, 2, 3… cho SP muốn đẩy lên đầu; SP còn lại bỏ trống.
  *
  * Dùng 1 LEFT JOIN đã lọc sẵn meta_key, thay cho meta_query EXISTS/NOT EXISTS:
  * cách cũ sinh 2 LEFT JOIN không lọc meta_key nên quét ~580ms/363 sản phẩm.
@@ -28,7 +32,11 @@ function okhub_product_order_clauses()
 
         $clauses['join'] .= " LEFT JOIN {$wpdb->postmeta} AS okhub_oi"
             . " ON (okhub_oi.post_id = {$wpdb->posts}.ID AND okhub_oi.meta_key = 'order_index')";
-        $clauses['orderby'] = "COALESCE(CAST(okhub_oi.meta_value AS SIGNED), 0) DESC,"
+        // Nhóm 0 = đã ghim (order_index >= 1) lên trước; nhóm 1 = chưa ghim xuống sau.
+        // Trong nhóm ghim: số nhỏ trước. Chốt bằng post_date/ID cho ổn định phân trang.
+        $clauses['orderby'] =
+            "CASE WHEN okhub_oi.meta_value IS NULL OR CAST(okhub_oi.meta_value AS SIGNED) < 1 THEN 1 ELSE 0 END ASC,"
+            . " CAST(okhub_oi.meta_value AS SIGNED) ASC,"
             . " {$wpdb->posts}.post_date DESC, {$wpdb->posts}.ID DESC";
 
         return $clauses;
