@@ -49,7 +49,9 @@ $banner_acf = get_field('banner') ?: [];
           </svg>
           <p>
             <?= esc_html($banner['link']['title'] ?? '') ?>
-            <span>(12)</span>
+            <?php if (isset($banner['count']) && $banner['count'] !== '') : ?>
+            <span>(<?= esc_html($banner['count']) ?>)</span>
+            <?php endif; ?>
           </p>
         </a>
       <?php endforeach; ?>
