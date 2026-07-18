@@ -51,4 +51,6 @@ return array(
   'faq/icon-minus' => array('src'=>'faq/icon-minus.svg',),
   'blog/top-line-pc' => array('src'=>'blog/top-line-pc.svg',),
   'blog/top-line-mb' => array('src'=>'blog/top-line-mb.svg',),
+  'service-change/bg' => array('src'=>'service-change/bg-2048.webp', 'srcset'=>"service-change/bg-768.webp 768w, service-change/bg-1024.webp 1024w, service-change/bg-1536.webp 1536w, service-change/bg-2048.webp 2048w", 'w'=>2048, 'h'=>1878, 'sizes'=>"100vw",),
+  'service-change/bg-m' => array('src'=>'service-change/bg-m-1125.webp', 'srcset'=>"service-change/bg-m-300.webp 300w, service-change/bg-m-600.webp 600w, service-change/bg-m-768.webp 768w, service-change/bg-m-1125.webp 1125w", 'w'=>1125, 'h'=>3438, 'sizes'=>"100vw",),
 );

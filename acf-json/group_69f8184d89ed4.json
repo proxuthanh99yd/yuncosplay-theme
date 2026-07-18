@@ -805,58 +805,6 @@
                     "mime_types": "",
                     "insert": "append",
                     "preview_size": "medium"
-                },
-                {
-                    "key": "field_69f950b8_bgpc",
-                    "label": "Ảnh nền PC",
-                    "name": "background_pc",
-                    "aria-label": "",
-                    "type": "image",
-                    "instructions": "Ảnh nền desktop của section. Tỉ lệ ~16:9.",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "id",
-                    "library": "all",
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": "",
-                    "allow_in_bindings": 0,
-                    "preview_size": "medium"
-                },
-                {
-                    "key": "field_69f950b8_bgmb",
-                    "label": "Ảnh nền Mobile",
-                    "name": "background_mb",
-                    "aria-label": "",
-                    "type": "image",
-                    "instructions": "Ảnh nền mobile của section. Tỉ lệ dọc ~3:4.",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "id",
-                    "library": "all",
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": "",
-                    "allow_in_bindings": 0,
-                    "preview_size": "medium"
                 }
             ]
         },
@@ -1015,5 +963,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1784361604
+    "modified": 1784362880
 }

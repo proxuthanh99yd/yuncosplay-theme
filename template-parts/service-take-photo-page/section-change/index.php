@@ -1,8 +1,5 @@
 <?php
 $change_acf = get_field("change");
-// Ảnh nền lấy từ ACF; fallback về ID cũ để không mất ảnh trước khi editor chọn lại.
-$backgound_pc = ($change_acf['background_pc'] ?? '') ?: 10513;
-$backgound_mb = ($change_acf['background_mb'] ?? '') ?: 10515;
 $title = $change_acf['title'];
 $subtitle = $change_acf['subtitle'];
 $steps = $change_acf['step'];
@@ -23,8 +20,8 @@ if (!empty($section_customer_gallery_items)) {
 
 
 <section class="section-change">
-    <?= wp_get_attachment_image($backgound_pc, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'backgound-pc')) ?>
-    <?= wp_get_attachment_image($backgound_mb, 'full', false, array('loading' => 'lazy', 'decoding' => 'async', 'class' => 'backgound-mb')) ?>
+    <?= okhub_img('service-change/bg', array('class' => 'backgound-pc')) ?>
+    <?= okhub_img('service-change/bg-m', array('class' => 'backgound-mb')) ?>
     <div class="header-container">
         <div>
             <h3><?php echo $title?></h3>
