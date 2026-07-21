@@ -5,17 +5,17 @@
  */
 get_header();
 $post_id  = get_the_ID();
-$taxonomy = 'service_category'; // đổi lại đúng taxonomy slug của bạn nếu là service_category
+$taxonomy = 'service_category';
 
-if (has_term('dich-vu-chup-anh', $taxonomy, $post_id)) {
+if (has_term('combo-chup-anh', $taxonomy, $post_id)) {
 
     get_template_part('template-parts/service-take-photo-page/index');
 
-} elseif (has_term('dich-vu-pg-pb', $taxonomy, $post_id)) {
+} elseif (has_term('pg-pb', $taxonomy, $post_id)) {
 
     get_template_part('template-parts/service-pgpb/index');
 
-} elseif (has_term('dich-vu-makeup', $taxonomy, $post_id)) {
+} elseif (has_term('makeup', $taxonomy, $post_id)) {
 
     get_template_part('template-parts/service-makeup/index');
 
