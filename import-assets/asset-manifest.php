@@ -451,15 +451,15 @@ function okhub_current_page_key() {
 	if ( is_singular( 'service' ) ) {
 		$post_id = get_the_ID();
 
-		if ( has_term( 'dich-vu-chup-anh', 'service_category', $post_id ) ) {
+		if ( has_term( 'combo-chup-anh', 'service_category', $post_id ) ) {
 			return 'service-take-photo-page';
 		}
 
-		if ( has_term( 'dich-vu-pg-pb', 'service_category', $post_id ) ) {
+		if ( has_term( 'pg-pb', 'service_category', $post_id ) ) {
 			return 'service-pgpb';
 		}
 
-		if ( has_term( 'dich-vu-makeup', 'service_category', $post_id ) ) {
+		if ( has_term( 'makeup', 'service_category', $post_id ) ) {
 			return 'service-makeup';
 		}
 
