@@ -628,6 +628,23 @@
                             ]
                         }
                     ]
+                },
+                {
+                    "key": "field_6a1414btncard0",
+                    "label": "Nút liên hệ ở card dịch vụ",
+                    "name": "button",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "Nút liên hệ hiện trên mỗi card dịch vụ. Nhập chữ nút (Title) và đường dẫn (URL), vd: /lien-he.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "allow_in_bindings": 0
                 }
             ]
         },
@@ -974,6 +991,23 @@
                             "parent_repeater": "field_6a14100c22153"
                         }
                     ]
+                },
+                {
+                    "key": "field_6a1414btnwork0",
+                    "label": "Nút CTA section quy trình",
+                    "name": "button",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "Nút CTA ở section quy trình (hiện cả desktop và mobile). Nhập chữ nút (Title) và đường dẫn (URL), vd: /lien-he.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "allow_in_bindings": 0
                 }
             ]
         },
@@ -1377,5 +1411,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1784600260
+    "modified": 1784600907
 }

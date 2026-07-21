@@ -3,6 +3,10 @@
       $title = $workflow_data['title'] ?? '';
       $subtitle = $workflow_data['subtitle'] ?? '';
       $workflow = $workflow_data['workflow'];
+      $button = $workflow_data['button'] ?? null;
+      $btn_text = !empty($button['title']) ? $button['title'] : 'Đặt lịch chụp ngay';
+      $btn_href = !empty($button['url']) ? $button['url'] : okhub_page_url('lien-he');
+      $btn_target = !empty($button['target']) ? $button['target'] : '_self';
 ?>
 
 <section class="process-section">
@@ -18,8 +22,8 @@
                   <h2 class="main-title"><?= $subtitle ?></h2>
             </div>
 
-            <a href="<?= okhub_page_url('lien-he') ?>" class="btn-link-desktop">
-                  <?php get_template_part('template-parts/components/animated-button/index', null, ['text' => 'Đặt lịch chụp ngay' ?? '']); ?>
+            <a href="<?= esc_url($btn_href) ?>" class="btn-link-desktop"<?= $btn_target !== '_self' ? ' target="' . esc_attr($btn_target) . '"' : '' ?>>
+                  <?php get_template_part('template-parts/components/animated-button/index', null, ['text' => $btn_text]); ?>
             </a>
       </div>
 
@@ -41,8 +45,8 @@
       <?php endif; ?>
 
       <div class="btn-link-mobile">
-            <a href="<?= okhub_page_url('lien-he') ?>" class="">
-                  <?php get_template_part('template-parts/components/animated-button/index', null, ['text' => 'Đặt lịch chụp ngay' ?? '']); ?>
+            <a href="<?= esc_url($btn_href) ?>" class=""<?= $btn_target !== '_self' ? ' target="' . esc_attr($btn_target) . '"' : '' ?>>
+                  <?php get_template_part('template-parts/components/animated-button/index', null, ['text' => $btn_text]); ?>
             </a>
       </div>
 </section>
