@@ -147,6 +147,23 @@
                             "preview_size": "medium"
                         }
                     ]
+                },
+                {
+                    "key": "field_6a140bcta22140",
+                    "label": "Nút liên hệ",
+                    "name": "button",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "Nút CTA ở hero. Nhập chữ nút (Title) và đường dẫn (URL), vd: /lien-he.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "allow_in_bindings": 0
                 }
             ]
         },
@@ -1360,5 +1377,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1784360766
+    "modified": 1784600260
 }
