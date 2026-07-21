@@ -10,11 +10,14 @@ $sub_service = $section_service['services'] ?? [];
 $isMobileDevice = isMobileDevice() || wp_is_mobile();
 
 foreach ($sub_service as $item) :
+    $item_link = $item['link'] ?? null;
     $section_service_items[] = [
       'service_title' => $item['name'] ?? '',
       'service_description' =>  '',
       'service_thumbnail' =>  $item['image'] ?? null,
-      'service_link' =>  '#contact-form-wrapper',
+      'service_link' =>  !empty($item_link['url']) ? $item_link['url'] : '#contact-form-wrapper',
+      'service_link_text' => !empty($item_link['title']) ? $item_link['title'] : 'Liên hệ ngay',
+      'service_link_target' => !empty($item_link['target']) ? $item_link['target'] : '_self',
       'service_offer_title' => $item['price'] ?? '',
       'service_offer_items' =>  $item['details'] ?? [],
     ];
@@ -41,6 +44,8 @@ endforeach;
                 $service_description = $service_item['service_description'] ?? '';
                 $service_thumbnail = $service_item['service_thumbnail'] ?? null;
                 $service_link = $service_item['service_link'] ?? '';
+                $service_link_text = $service_item['service_link_text'] ?? 'Liên hệ ngay';
+                $service_link_target = $service_item['service_link_target'] ?? '_self';
                 $service_offer_title = $service_item['service_offer_title'] ?? '';
                 $service_offer_items = $service_item['service_offer_items'] ?? [];
                 ?>
@@ -84,8 +89,8 @@ endforeach;
                             </li>
                             <?php endforeach; ?>
                         </ul>
-                        <a href="<?= esc_url($service_link) ?>" class="home-services__button">
-                            <?php get_template_part('template-parts/components/animated-button/index', null, array('text' => 'Liên hệ ngay')); ?>
+                        <a href="<?= esc_url($service_link) ?>" class="home-services__button"<?= $service_link_target !== '_self' ? ' target="' . esc_attr($service_link_target) . '"' : '' ?>>
+                            <?php get_template_part('template-parts/components/animated-button/index', null, array('text' => $service_link_text)); ?>
                         </a>
                     </div>
                 </div>
@@ -105,6 +110,8 @@ endforeach;
         $service_description = $service_item['service_description'] ?? '';
         $service_thumbnail = $service_item['service_thumbnail'] ?? null;
         $service_link = $service_item['service_link'] ?? '';
+        $service_link_text = $service_item['service_link_text'] ?? 'Liên hệ ngay';
+        $service_link_target = $service_item['service_link_target'] ?? '_self';
         $service_offer_title = $service_item['service_offer_title'] ?? '';
         $service_offer_items = $service_item['service_offer_items'] ?? [];
       ?>
@@ -133,8 +140,8 @@ endforeach;
                         </li>
                         <?php endforeach; ?>
                     </ul>
-                    <a href="<?= esc_url($service_link) ?>" class="home-services__button">
-                        <?php get_template_part('template-parts/components/animated-button/index', null, array('text' => 'Liên hệ ngay')); ?>
+                    <a href="<?= esc_url($service_link) ?>" class="home-services__button"<?= $service_link_target !== '_self' ? ' target="' . esc_attr($service_link_target) . '"' : '' ?>>
+                        <?php get_template_part('template-parts/components/animated-button/index', null, array('text' => $service_link_text)); ?>
                     </a>
                 </div>
             </div>

@@ -453,7 +453,7 @@
                         "class": "",
                         "id": ""
                     },
-                    "layout": "table",
+                    "layout": "block",
                     "pagination": 0,
                     "min": 0,
                     "max": 0,
@@ -577,6 +577,24 @@
                                     "parent_repeater": "field_6a3b9133e9c03"
                                 }
                             ]
+                        },
+                        {
+                            "key": "field_6a3b91linkcta0",
+                            "label": "Link liên hệ ngay",
+                            "name": "link",
+                            "aria-label": "",
+                            "type": "link",
+                            "instructions": "Đường dẫn cho nút \"Liên hệ ngay\" của gói này. Nhập chữ nút (Title) và URL (vd: /lien-he hoặc link Zalo). Bỏ trống URL sẽ cuộn tới form liên hệ.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "allow_in_bindings": 0,
+                            "parent_repeater": "field_69f869013c662"
                         }
                     ]
                 }
@@ -973,5 +991,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1784604410
+    "modified": 1784605624
 }
