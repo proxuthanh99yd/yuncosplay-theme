@@ -579,6 +579,24 @@
                             "prepend": "",
                             "append": "",
                             "parent_repeater": "field_6a13cc9fcb1d4"
+                        },
+                        {
+                            "key": "field_6a3ba0linkcard",
+                            "label": "Link liên hệ",
+                            "name": "link",
+                            "aria-label": "",
+                            "type": "link",
+                            "instructions": "Đường dẫn nút liên hệ của riêng card này. Nhập chữ nút (Title) và URL. Bỏ trống sẽ dùng nút liên hệ chung bên dưới.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "allow_in_bindings": 0,
+                            "parent_repeater": "field_6a13cc9fcb1d4"
                         }
                     ]
                 },
@@ -1206,5 +1224,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1784604410
+    "modified": 1784605624
 }

@@ -44,6 +44,10 @@
             <?php
                 $title_service = $service["title"] ?? '';
                 $thumbnail = $service["image"] ?? null;
+                $card_link = $service["link"] ?? null;
+                $link_href = !empty($card_link['url']) ? $card_link['url'] : $card_btn_href;
+                $link_text = !empty($card_link['title']) ? $card_link['title'] : $card_btn_text;
+                $link_target = !empty($card_link['target']) ? $card_link['target'] : $card_btn_target;
             ?>
             <div class="service-card">
                 <?php
@@ -61,13 +65,13 @@
                                 </span>
                             </h4>
 
-                            <a href="<?= esc_url($card_btn_href) ?>" class="card-link"<?= $card_btn_target !== '_self' ? ' target="' . esc_attr($card_btn_target) . '"' : '' ?>>
+                            <a href="<?= esc_url($link_href) ?>" class="card-link"<?= $link_target !== '_self' ? ' target="' . esc_attr($link_target) . '"' : '' ?>>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10"
                                     fill="none">
                                     <path
                                         d="M10.3809 4.98145L5.88867 9.47168L4.90332 9.44141L6.62305 7.72266C7.21691 7.12965 7.75996 6.59838 8.25293 6.12988L9.05371 5.36914L7.94922 5.36328L0.464844 5.32812L0.499023 4.55957L8.01855 4.5957L9.1416 4.60156L8.32617 3.8291C8.08531 3.6009 7.8313 3.35642 7.56445 3.0957L6.72461 2.26465L4.93945 0.479492L5.84668 0.450195L10.3809 4.98145Z"
                                         fill="#F26C59" stroke="#F26C59" stroke-width="0.8888" />
-                                </svg> <?= esc_html($card_btn_text) ?>
+                                </svg> <?= esc_html($link_text) ?>
                             </a>
                         </div>
                     </div>
