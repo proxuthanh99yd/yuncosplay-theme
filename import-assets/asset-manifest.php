@@ -466,18 +466,6 @@ function okhub_current_page_key() {
 		return null;
 	}
 
-	if ( is_page_template( 'service-take-photo-page.php' ) ) {
-		return 'service-take-photo-page';
-	}
-
-	if ( is_page_template( 'service-pgpb-page.php' ) ) {
-		return 'service-pgpb';
-	}
-
-	if ( is_page_template( 'service-makeup-page.php' ) ) {
-		return 'service-makeup';
-	}
-
 	// Bản cũ chấp nhận cả 2 biến thể hoa/thường của tên file template.
 	if ( is_page_template( 'faqs.php' ) || is_page_template( 'Faqs.php' ) ) {
 		return 'faqs';
