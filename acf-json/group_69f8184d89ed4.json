@@ -958,16 +958,9 @@
     "location": [
         [
             {
-                "param": "page_template",
-                "operator": "==",
-                "value": "service-take-photo-page.php"
-            }
-        ],
-        [
-            {
                 "param": "post_taxonomy",
                 "operator": "==",
-                "value": "category:tin-tuc-noi-bo"
+                "value": "service_category:combo-chup-anh"
             }
         ]
     ],
@@ -980,5 +973,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1784600907
+    "modified": 1784604410
 }
