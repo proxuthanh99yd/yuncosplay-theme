@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audit: Hardcode data / chưa ghép data — okhub-theme</title>
+<style>
+  :root { --hi:#c0392b; --med:#c8880f; --low:#2e7d32; --bd:#e2e2e2; --bg:#fafafa; --code:#f3f3f3; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         line-height: 1.6; color: #1d1d1d; max-width: 1000px; margin: 0 auto; padding: 2rem 1.25rem; background:#fff; }
+  h1 { font-size: 1.7rem; margin-bottom: .25rem; }
+  h2 { margin-top: 2.2rem; padding-bottom: .3rem; border-bottom: 2px solid var(--bd); }
+  .meta { color:#666; font-size:.9rem; margin-bottom:1.5rem; }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .92rem; }
+  th, td { border: 1px solid var(--bd); padding: .55rem .7rem; text-align: left; vertical-align: top; }
+  th { background: var(--bg); }
+  td:first-child { text-align:center; font-weight:600; width:2.2rem; }
+  code { background: var(--code); padding: .1rem .35rem; border-radius: 4px; font-size: .86em;
+         font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; word-break: break-word; }
+  .badge { display:inline-block; padding:.15rem .6rem; border-radius:999px; color:#fff; font-size:.8rem; font-weight:600; }
+  .b-hi{background:var(--hi);} .b-med{background:var(--med);} .b-low{background:var(--low);}
+  ul { padding-left: 1.2rem; }
+  li { margin: .35rem 0; }
+  blockquote { border-left: 3px solid var(--bd); margin: 1rem 0; padding: .3rem 1rem; color:#555; background:var(--bg); }
+  .ok { color: var(--low); }
+</style>
+</head>
+<body>
+<h1>Audit: Hardcode data / chưa ghép data — okhub-theme</h1>
+<div class="meta">Ngày: 2026-07-18 · Phạm vi: toàn bộ <code>template-parts/</code> + template root + <code>woocommerce/</code></div>
+
+<p>Theme đã có ACF field group cho gần như mọi page (<em>Trang chủ, Giới thiệu, Dịch vụ, FAQs, Sản phẩm, Review, Site settings, Site Business Schema</em>…). Phần lớn section <strong>đã ghép ACF/WP_Query đúng</strong>; dưới đây là những chỗ còn <strong>hardcode</strong> hoặc <strong>chưa nối vào nguồn data</strong>.</p>
+<p><strong>Bỏ qua</strong> (không tính lỗi): <code>okhub_img()</code> cho ảnh trang trí theme-owned; nhãn UI ngắn cố định; SVG icon inline; class CSS; config swiper/animation.</p>
+
+<h2><span class="badge b-hi">CAO</span> — hỏng hoặc không có data · <span class="ok">✅ ĐÃ FIX (2026-07-18)</span></h2>
+<table>
+<tr><th>#</th><th>Vị trí</th><th>Vấn đề</th><th>Cách xử lý</th></tr>
+<tr><td>1</td><td><code>service-details/</code></td><td><del>File rỗng</del> → thực chất <strong>code mồ côi</strong>: không được load/route ở đâu (routing <code>single-service.php</code> chỉ đi tới take-photo/pgpb/makeup)</td><td class="ok">✅ Đã xoá thư mục dead code</td></tr>
+<tr><td>2</td><td><code>faqs/section-detail-shop/index.php:163</code></td><td><strong>Bug biến</strong>: href Messenger dùng <code>$messenger_link</code> (không tồn tại) → link luôn rỗng. Đúng là <code>$mess_link</code></td><td class="ok">✅ Đổi <code>$messenger_link</code> → <code>$mess_link</code></td></tr>
+<tr><td>3</td><td><code>faqs/section-question/index.php:11-15</code></td><td>Label + tiêu đề hardcode dù ACF đã có field</td><td class="ok">✅ Ghép <code>Question.title/desc</code>, giữ text cũ làm fallback</td></tr>
+<tr><td>4</td><td><code>single-blog/index.php:226</code></td><td><code>&lt;img src="https://placehold.co/78x137"&gt;</code> — placeholder từ dịch vụ ngoài</td><td class="ok">✅ Thay bằng <code>okhub_img('common/placeholder')</code></td></tr>
+<tr><td>5</td><td><code>contact-page/section-contact-info/index.php</code></td><td><strong>Social lặp cứng</strong> với <code>url =&gt; '#'</code> (link chết) khi ACF trống</td><td class="ok">✅ Bỏ fallback giả, ẩn khối social khi ACF trống. <em>Còn: fallback giờ/địa chỉ → cân nhắc gộp về Business Schema</em></td></tr>
+</table>
+<blockquote><strong>Ghi chú kiến trúc (chưa xử lý):</strong> options <strong>Site Business Schema</strong> (<code>business_phone/address/opening_hours/socials</code>) hiện chỉ dùng cho JSON-LD. Header/footer/CTA/contact mỗi nơi tự khai field liên hệ/social riêng → dễ lệch dữ liệu. Gộp về 1 nguồn chuẩn là cải tiến riêng, cần bạn quyết định.</blockquote>
+
+<h2><span class="badge b-med">TRUNG BÌNH</span></h2>
+<table>
+<tr><th>#</th><th>Vị trí</th><th>Vấn đề</th><th>Nguồn đúng</th></tr>
+<tr><td>6</td><td><code>single-blog:90</code> + <code>blog-list/hero-section:10</code></td><td>Hardcode attachment ID <code>IS_MOBILE ? 10058 : 10056</code> cho line trang trí</td><td><code>okhub_img(...)</code></td></tr>
+<tr><td>7</td><td><code>service-take-photo-page/section-change:2-3</code></td><td>Hardcode ID ảnh nền <code>10513/10515</code>; biến <code>$target</code> (dòng 31,100) chưa gán</td><td>Thêm field ảnh nền vào ACF <code>change</code>; <code>$target</code> = <code>$link['target']</code></td></tr>
+<tr><td>8</td><td><code>service-take-photo-page/section-contact-form:11</code></td><td>Hardcode CF7 form ID <code>9898</code></td><td>ACF option (như <code>contact_cf7_form_id</code> của contact-page)</td></tr>
+<tr><td>9</td><td><code>header-mobile/header-menu.php:229</code>, <code>header-product.php:120</code></td><td><code>href="/"</code> chưa nối link (desktop đã đúng)</td><td><code>business_map_url</code> / <code>get_permalink(wc_get_page_id('shop'))</code></td></tr>
+<tr><td>10</td><td><code>service-makeup/feedback</code> + <code>service-pgpb/feedback</code> (22,29,36,43)</td><td>4 icon social đều <code>href="#"</code> chưa nối</td><td><code>get_field('cta','option')</code> / <code>business_socials</code></td></tr>
+<tr><td>11</td><td><code>home-page/section-banner:52</code></td><td><code>&lt;span&gt;(12)&lt;/span&gt;</code> — số đếm hardcode cạnh link banner</td><td>Đếm động / field ACF</td></tr>
+</table>
+
+<h2><span class="badge b-low">THẤP</span> — dọn dẹp / nhất quán</h2>
+<ul>
+<li><strong>Code chết</strong> (không được load — orchestrator dùng bản <code>components/</code>): <code>home-page/section-highlights</code> + <code>home-page/section-events</code> (trùng, còn hardcode ID <code>147/146/145/144</code>); <code>components/section-highlights:2-5</code> cũng còn dead ID; <code>header-menu.php:10</code> dead <code>$icon_list_disc_id=71</code>; <code>search-page:20</code> <code>$blog_overlay_url=''</code> (ảnh id 9833 đã xoá); <code>section-contact-service:2-3</code> dead ID <code>10244/10246</code>.</li>
+<li><strong>Text CTA hardcode</strong> trang dịch vụ: <code>service-makeup</code> (hero:28, workflow:22,45, service-makeups:66); <code>service-pgpb</code> (hero:27, workflow:22,45, service-makeups:89); <code>service-take-photo/section-banner:28</code>.</li>
+<li><strong>Markup placeholder chết</strong>: <code>service-take-photo/section-banner:49-56</code>, <code>section-intro-service:132-139</code>.</li>
+<li><strong>Link <code>"/"</code> thay vì <code>home_url('/')</code></strong>: logo <code>footer:37</code>, <code>header-desktop:166</code>, <code>mega-menu-search-result:34,121</code>, <code>header-menu.php:34</code>; breadcrumb <code>single-blog:67</code>, <code>hero-section:4</code>.</li>
+<li><strong>Chuỗi fallback dài hardcode</strong>: <code>section-intro-service:4-5</code>, <code>section-services:6</code>.</li>
+<li><code>faqs/section-quick-search:34</code> item <code>href="#"</code> (ACF chưa có field link).</li>
+<li><strong>Heading hardcode</strong> (nhẹ): <code>section-category:171</code> "Danh sách danh mục"; <code>product-faq:103</code> "Câu hỏi thường gặp".</li>
+<li><strong>Price slider min/max hardcode</strong>: <code>section-sidebar:122-126</code> (<code>100000–10000000</code>).</li>
+<li><strong>Ảnh theme manual</strong> (không theo okhub_img): <code>blog-list/featured-section</code> dùng <code>default.jpg</code> + <code>layer_image.svg</code>.</li>
+<li><code>single-service.php</code>: còn <code>print_r("Không có dịch vụ")</code> (debug) + hardcode slug routing.</li>
+</ul>
+
+<h2 class="ok">✅ Đã ghép data đầy đủ (OK)</h2>
+<ul>
+<li><strong>Home</strong>: banner, about, products, category, services, gallery, blog — ACF/query.</li>
+<li><strong>Single-product</strong>: product-detail (WooCommerce+ACF+CTA), product-faq (relationship+custom+fallback), product-feedback (ACF <code>product_review</code>), related-product (<code>wc_get_related_products</code>).</li>
+<li><strong>Product-listing</strong>: breadcrumb, content (WP_Query+infinite), sidebar (taxonomy động).</li>
+<li><strong>Blog</strong>: blog-item, blog-item-v2, blog-list (list+featured), related-posts, search-page (WP_Query).</li>
+<li><strong>About-us</strong> (toàn bộ), <strong>FAQs</strong> banner/mermaid, các trang dịch vụ (phần data chính).</li>
+<li><strong>Layout</strong>: header desktop/mobile (ACF+WP_Query), footer, cta, section-events, marquee, animated-button, contact form.</li>
+</ul>
+<blockquote>Theme không dùng <code>wp_nav_menu()</code> — menu chạy bằng ACF repeater (<code>header['menu']</code>, <code>footer['footer_navigation']</code>), là data-driven nên không tính là hardcode.</blockquote>
+
+</body>
+</html>
