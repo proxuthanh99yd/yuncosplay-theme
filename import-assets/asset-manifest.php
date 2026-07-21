@@ -148,6 +148,10 @@ function okhub_asset_pages_css() {
 			'/template-parts/search-page/assets/styles.css',
 		],
 
+		'error-404' => [
+			'/template-parts/404/assets/styles.css',
+		],
+
 		// FIX: bản cũ COMMENT dòng @import intro-service (aggregator dòng 2:
 		//   /* @import "../intro-service/assets/styles.css"; */
 		// ) trong khi service-makeup/index.php VẪN render section intro-service → section này
@@ -429,6 +433,11 @@ function okhub_current_page_key() {
 	// template trong editor) thì nó trả false và trang chủ mất sạch CSS.
 	if ( is_front_page() || is_page_template( 'front-page.php' ) ) {
 		return 'home-page';
+	}
+
+	// 404: loại trừ nhau với mọi nhánh dưới → đặt sớm, an toàn.
+	if ( is_404() ) {
+		return 'error-404';
 	}
 
 	if ( is_search() ) {

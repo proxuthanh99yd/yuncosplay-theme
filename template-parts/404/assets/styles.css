@@ -1,0 +1,178 @@
+/* template-parts/404 — Trang 404 (concept kem sáng editorial) */
+
+.error-404 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 78vh;
+    padding-block: 6rem;
+    background: #F7F4EC;
+    text-align: center;
+    overflow: hidden;
+}
+
+.error-404__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 46rem;
+}
+
+/* Số 404 lớn — Phudu, gradient warm clip vào chữ */
+.error-404__code {
+    font-family: Phudu, sans-serif;
+    font-weight: 700;
+    font-size: 11rem;
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #680103;
+    background: radial-gradient(60% 120% at 50% 0%, #CB5140 40%, #D8A061 95%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: error404In 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.error-404__divider {
+    display: block;
+    width: 12rem;
+    max-width: 60%;
+    height: auto;
+    margin-top: 1.5rem;
+    animation: error404In 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: 60ms;
+}
+
+.error-404__title {
+    margin-top: 1.5rem;
+    font-family: Phudu, sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    line-height: 1.2;
+    text-transform: uppercase;
+    color: #680103;
+    animation: error404In 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: 90ms;
+}
+
+.error-404__desc {
+    margin-top: 1rem;
+    max-width: 34rem;
+    font-family: "SF Pro Display", sans-serif;
+    font-weight: 400;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: rgba(29, 29, 29, 0.8);
+    animation: error404In 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: 150ms;
+}
+
+.error-404__actions {
+    margin-top: 2.5rem;
+    animation: error404In 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: 210ms;
+}
+
+/* animated-button đã có style pill riêng — chỉ canh giữa */
+.error-404__actions .animated-btn {
+    display: inline-flex;
+}
+
+.error-404__links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+    animation: error404In 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: 270ms;
+}
+
+.error-404__link {
+    position: relative;
+    padding: 0 1.25rem;
+    font-family: "SF Pro Display", sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #680103;
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+/* gạch ngăn giữa các link (thay cho gap) */
+.error-404__link + .error-404__link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 0.9rem;
+    background: rgba(104, 1, 3, 0.25);
+}
+
+.error-404__link:hover {
+    color: #F26C59;
+}
+
+@keyframes error404In {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 12px, 0);
+        filter: blur(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+        filter: blur(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .error-404__code,
+    .error-404__divider,
+    .error-404__title,
+    .error-404__desc,
+    .error-404__actions,
+    .error-404__links {
+        animation: none !important;
+        filter: none !important;
+    }
+}
+
+/* Mobile ≤ 639.98px */
+@media (max-width: 639.98px) {
+    .error-404 {
+        min-height: 70vh;
+        padding-block: 4rem;
+    }
+
+    .error-404__code {
+        font-size: 6rem;
+    }
+
+    .error-404__title {
+        margin-top: 1.25rem;
+        font-size: 1.75rem;
+    }
+
+    .error-404__desc {
+        font-size: 1rem;
+    }
+
+    .error-404__actions {
+        margin-top: 2rem;
+    }
+
+    .error-404__links {
+        margin-top: 1.5rem;
+    }
+
+    .error-404__link {
+        padding: 0 0.9rem;
+        font-size: 0.9375rem;
+    }
+}
