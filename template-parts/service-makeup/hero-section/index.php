@@ -3,6 +3,10 @@
       $title = $hero_data['title'];
       $subtitle = $hero_data['subtitle'];
       $banner = $hero_data['banner'];
+      $button = $hero_data['button'] ?? null;
+      $btn_text = !empty($button['title']) ? $button['title'] : 'Đặt lịch makeup ngay';
+      $btn_href = !empty($button['url']) ? $button['url'] : okhub_page_url('lien-he');
+      $btn_target = !empty($button['target']) ? $button['target'] : '_self';
 ?>
 
 <section class="hero">
@@ -24,8 +28,8 @@
                               <?= $subtitle ?>
                         </p>
 
-                        <a href="<?= okhub_page_url('lien-he') ?>" class="">
-                              <?php get_template_part('template-parts/components/animated-button/index', null, ['text' => 'Đặt lịch makeup ngay' ?? '']); ?>
+                        <a href="<?= esc_url($btn_href) ?>" class=""<?= $btn_target !== '_self' ? ' target="' . esc_attr($btn_target) . '"' : '' ?>>
+                              <?php get_template_part('template-parts/components/animated-button/index', null, ['text' => $btn_text]); ?>
                         </a>
                   </div>
             </div>
