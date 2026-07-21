@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan: Tối ưu Lighthouse trang chủ — OKHUB Theme</title>
+<style>
+  :root {
+    --bg: #fbfaf9;
+    --surface: #fff;
+    --text: #1f1d1b;
+    --muted: #6b6560;
+    --line: #e5e0da;
+    --accent: #680103;
+    --good: #1a7f4b;
+    --warn: #b45309;
+    --bad: #b91c1c;
+    --code-bg: #f4f1ee;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #171615; --surface: #201e1d; --text: #ecE8e4; --muted: #a09a94;
+      --line: #35312e; --accent: #ff8a8c; --good: #4ade80; --warn: #fbbf24;
+      --bad: #f87171; --code-bg: #2a2725;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 2.5rem 1.25rem 5rem;
+    background: var(--bg); color: var(--text);
+    font: 16px/1.7 -apple-system, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 62rem; margin: 0 auto; }
+
+  header.doc {
+    border-bottom: 2px solid var(--line);
+    padding-bottom: 1.5rem; margin-bottom: 2.5rem;
+  }
+  h1 { font-size: 2rem; line-height: 1.25; margin: 0 0 .75rem; letter-spacing: -.02em; }
+  .meta { color: var(--muted); font-size: .875rem; margin: 0; }
+  .badge {
+    display: inline-block; padding: .15rem .55rem; border-radius: 999px;
+    font-size: .75rem; font-weight: 600; letter-spacing: .02em;
+    background: color-mix(in srgb, var(--warn) 15%, transparent);
+    color: var(--warn); border: 1px solid color-mix(in srgb, var(--warn) 35%, transparent);
+  }
+
+  h2 {
+    font-size: 1.4rem; margin: 3rem 0 1rem; padding-top: 1.25rem;
+    border-top: 1px solid var(--line); letter-spacing: -.01em;
+  }
+  h3 { font-size: 1.1rem; margin: 2rem 0 .6rem; }
+  h4 { font-size: .95rem; margin: 1.5rem 0 .5rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  p { margin: 0 0 1rem; }
+
+  a { color: var(--accent); }
+  code {
+    background: var(--code-bg); padding: .12em .38em; border-radius: 4px;
+    font: .875em/1.5 ui-monospace, "SF Mono", Menlo, monospace;
+    word-break: break-word;
+  }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px;
+    padding: 1rem; overflow-x: auto; margin: 0 0 1.25rem;
+  }
+  pre code { background: none; padding: 0; font-size: .82rem; line-height: 1.6; }
+
+  .table-scroll { overflow-x: auto; margin: 0 0 1.5rem; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; min-width: 30rem; }
+  th, td { text-align: left; padding: .55rem .7rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-weight: 600; color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; }
+  tbody tr:hover { background: color-mix(in srgb, var(--accent) 4%, transparent); }
+  td strong { font-weight: 700; }
+
+  .callout {
+    border-left: 3px solid var(--line); background: var(--surface);
+    padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 0 0 1.5rem;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout--key { border-left-color: var(--accent); }
+  .callout--warn { border-left-color: var(--warn); }
+  .callout--good { border-left-color: var(--good); }
+
+  .stat-row { display: flex; flex-wrap: wrap; gap: 1rem; margin: 0 0 2rem; }
+  .stat {
+    flex: 1 1 10rem; background: var(--surface); border: 1px solid var(--line);
+    border-radius: 10px; padding: 1rem 1.15rem;
+  }
+  .stat__label { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin: 0 0 .3rem; }
+  .stat__value { font-size: 1.9rem; font-weight: 700; line-height: 1.1; margin: 0; letter-spacing: -.02em; }
+  .stat__note { font-size: .8rem; color: var(--muted); margin: .3rem 0 0; }
+  .is-good { color: var(--good); }
+  .is-bad { color: var(--bad); }
+  .is-warn { color: var(--warn); }
+
+  ul, ol { margin: 0 0 1.25rem; padding-left: 1.3rem; }
+  li { margin-bottom: .4rem; }
+  li > ul, li > ol { margin-top: .4rem; margin-bottom: .4rem; }
+
+  .check { list-style: none; padding-left: 0; }
+  .check li { padding-left: 1.7rem; position: relative; }
+  .check li::before {
+    content: "☐"; position: absolute; left: 0; top: 0;
+    color: var(--muted); font-size: 1.1rem; line-height: 1.5;
+  }
+
+  hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
+  .muted { color: var(--muted); }
+  .nowrap { white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc">
+  <h1>Plan: Tối ưu Lighthouse trang chủ</h1>
+  <p class="meta">
+    <span class="badge">Chờ duyệt</span>
+    &nbsp;·&nbsp; OKHUB Theme &nbsp;·&nbsp; 17/07/2026
+    &nbsp;·&nbsp; Mục tiêu: <strong>Desktop &gt; 95, Mobile &gt; 90</strong>
+  </p>
+</header>
+
+<h2 id="context">1. Context</h2>
+
+<p>Trước khi lên plan, đã đo baseline thật bằng <code>npx lighthouse@12</code> trên <code>yuncosplay.local</code>. Kết quả cho thấy <strong>hai điều làm thay đổi hoàn toàn hướng đi</strong>.</p>
+
+<h3>1.1. Desktop đã đạt mục tiêu rồi — con số 90 là artifact của LocalWP</h3>
+
+<div class="table-scroll">
+<table>
+  <thead><tr><th>Giao thức</th><th>Desktop</th><th>Mobile</th></tr></thead>
+  <tbody>
+    <tr><td><code>http://</code> (HTTP/1.1)</td><td>90</td><td>67</td></tr>
+    <tr><td><code>https://</code> (HTTP/2)</td><td><strong class="is-good">99</strong> ✅</td><td><strong class="is-warn">75</strong></td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>LocalWP phục vụ <code>http://</code> bằng HTTP/1.1 nhưng <code>https://</code> bằng HTTP/2. Trên HTTP/1.1, giới hạn 6-connection làm ảnh hero <code>fetchpriority=high</code> bị trì hoãn <strong>5713&nbsp;ms</strong> — một vấn đề <em>không tồn tại</em> trên production (mọi host thật đều có HTTP/2). Lighthouse cũng tự flag <em>"Use HTTP/2: 1210&nbsp;ms"</em>.</p>
+
+<div class="callout callout--key">
+  <p><strong>Mọi phép đo từ giờ phải chạy trên <code>https://yuncosplay.local/</code>.</strong> Đo trên <code>http://</code> sẽ đuổi theo một con ma và dẫn đến tối ưu sai chỗ.</p>
+  <p><strong>Desktop 99/100 — không cần làm gì.</strong> Toàn bộ plan này nhắm vào mobile.</p>
+</div>
+
+<h3>1.2. Mobile 75 → cần +15 điểm, và tất cả nằm ở một chỗ</h3>
+
+<p>Phân rã điểm mobile (đo trên HTTP/2):</p>
+
+<div class="table-scroll">
+<table>
+  <thead><tr><th>Metric</th><th>Giá trị</th><th>Score</th><th>Trọng số</th><th>Điểm</th></tr></thead>
+  <tbody>
+    <tr><td>FCP</td><td>2.7 s</td><td>0.61</td><td>10%</td><td>6.1</td></tr>
+    <tr><td>Speed Index</td><td>4.0 s</td><td>0.80</td><td>10%</td><td>8.0</td></tr>
+    <tr><td><strong>LCP</strong></td><td><strong class="is-bad">5.0 s</strong></td><td><strong class="is-bad">0.26</strong></td><td><strong>25%</strong></td><td><strong class="is-bad">6.5</strong></td></tr>
+    <tr><td>TBT</td><td>120 ms</td><td class="is-good">0.97</td><td>30%</td><td>29.1</td></tr>
+    <tr><td>CLS</td><td>0.001</td><td class="is-good">1.00</td><td>25%</td><td>25.0</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout callout--good">
+  <p><strong>TBT và CLS đã gần như hoàn hảo</strong> — công tối ưu asset trước đây (<code>docs/PLAN-optimize-import-css-js.md</code>) đã làm tốt phần này, <strong>đừng làm lại</strong>.</p>
+</div>
+
+<p>Điểm mất chỉ ở FCP / SI / LCP, và cả ba đều bị gate bởi <strong>cùng một nút thắt: Render Delay 4422&nbsp;ms</strong> (88% của LCP 5.0&nbsp;s). Ảnh hero tải xong tức thì (Load Delay 0&nbsp;ms, Load Time 0&nbsp;ms) nhưng không vẽ được trong 4.4 giây.</p>
+
+<p>Main-thread breakdown mobile: <code>Other 1897ms</code>, <code>Style &amp; Layout 766ms</code>, <code>Script Evaluation 614ms</code>, <code>Rendering 492ms</code>.</p>
+
+<h3>1.3. Đường tới &gt;90</h3>
+
+<div class="table-scroll">
+<table>
+  <thead><tr><th>Thay đổi</th><th>Điểm cộng</th></tr></thead>
+  <tbody>
+    <tr><td>Baseline</td><td><strong>75</strong></td></tr>
+    <tr><td>LCP 5.0 s → ~2.5 s (0.26 → 0.85)</td><td><strong class="is-good">+14.8</strong></td></tr>
+    <tr><td>FCP 2.7 s → ~1.8 s (0.61 → 0.88)</td><td>+2.7</td></tr>
+    <tr><td>SI 4.0 s → ~2.8 s (0.80 → 0.92)</td><td>+1.2</td></tr>
+    <tr><td><strong>Dự kiến</strong></td><td><strong class="is-good">~93</strong> ✅</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="phase1">2. Phase 1 — Ảnh nền CSS khổng lồ</h2>
+
+<div class="callout callout--key">
+  <p><strong>Tác động lớn nhất. Rủi ro thấp nhất. Làm đầu tiên.</strong></p>
+</div>
+
+<p>Đây là nguyên nhân số 1 của Render Delay. Các ảnh nền là CSS <code>background-image</code> nên <strong>không có <code>srcset</code></strong> — trình duyệt luôn decode full-size bất kể viewport:</p>
+
+<div class="table-scroll">
+<table>
+  <thead><tr><th>File</th><th>Kích thước</th><th>Dung lượng</th><th>Megapixel</th><th>RAM raster</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>2026/02/concept.webp</code></td>
+      <td class="nowrap"><strong class="is-bad">3200 × 15892</strong></td>
+      <td>418 KB</td>
+      <td><strong class="is-bad">50.9 MP</strong></td>
+      <td><strong class="is-bad">~203 MB</strong></td>
+    </tr>
+    <tr>
+      <td><code>2026/02/backgroundimage-4.webp</code></td>
+      <td class="nowrap">3200 × 4864</td><td>111 KB</td><td>15.6 MP</td><td>~62 MB</td>
+    </tr>
+    <tr>
+      <td><code>2026/02/backgroundimage-5.webp</code></td>
+      <td class="nowrap">750 × 3974</td><td>23 KB</td><td>3.0 MP</td><td>~12 MB</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><code>concept.webp</code> là resource lớn nhất trang (418&nbsp;KB) <strong>và</strong> bị WP Rocket preload <code>fetchpriority="high"</code> — nghĩa là nó vừa chiếm băng thông, vừa tranh ưu tiên với ảnh hero thật, rồi bắt CPU mobile (throttle 4×) decode 50.9 megapixel. Trong khi nó chỉ là backdrop <code>background-size: cover</code> cho <code>&lt;main&gt;</code>.</p>
+
+<h3>Việc cần làm — sửa <code>template-parts/home-page/assets/styles.css</code></h3>
+
+<ol>
+  <li><strong>Resize <code>concept.webp</code></strong>: giữ tỉ lệ 1:4.97, xuất bản desktop ~1200×5960 và bản mobile ~600×2980. Vì <code>background-size: cover</code> + đây là texture mềm, giảm độ phân giải không nhìn ra khác biệt. Mục tiêu &lt; 60&nbsp;KB/bản. Decode giảm ~7×.</li>
+  <li><strong>Resize <code>backgroundimage-4.webp</code></strong> → ~1200×1824.</li>
+  <li><strong>Thêm biến thể mobile cho <code>main</code></strong> trong <code>@media (max-width: 639px)</code> — hiện tại chỉ <code>.sections__bottom</code> (dòng 24) có bản mobile, còn <code>main</code> (dòng 12) bắt điện thoại tải nguyên bản 3200px.</li>
+  <li>Cân nhắc <code>image-set()</code> để tách bản desktop/mobile sạch hơn.</li>
+</ol>
+
+<h4>Lưu ý</h4>
+<ul>
+  <li>URL trong CSS đang hardcode <code>/wp-content/uploads/2026/02/...</code> (dòng 4, 12, 24) — giữ nguyên pattern này khi thay file để không phá bundler.</li>
+  <li><strong>Đặt tên file mới</strong> thay vì ghi đè, tránh cache cũ.</li>
+  <li><code>concept.webp</code> còn được dùng ở <code>service-makeup/assets/styles.css:5</code> và <code>service-pgpb/assets/styles.css:5</code> — kiểm tra 2 trang đó sau khi thay.</li>
+</ul>
+
+<h2 id="phase2">3. Phase 2 — Gỡ render-blocking không dùng khỏi trang chủ</h2>
+
+<p><code>&lt;head&gt;</code> trang chủ đang có <strong>6 script render-blocking</strong>, không cái nào được dùng:</p>
+
+<pre><code>/wp-includes/js/jquery/jquery.min.js                        (30.7 KB)
+/wp-includes/js/jquery/jquery-migrate.min.js                ( 5.2 KB)
+woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js
+woocommerce/assets/js/frontend/add-to-cart.min.js
+woocommerce/assets/js/js-cookie/js.cookie.min.js
+woocommerce/assets/js/frontend/woocommerce.min.js</code></pre>
+
+<p>cộng <code>wc-blocks.css</code> và <code>easy-table-of-contents/assets/css/screen.min.css</code> + 4 JS của TOC.</p>
+
+<div class="callout callout--good">
+  <p><strong>Đã xác minh an toàn</strong>: grep <code>add_to_cart|woocommerce_.*cart|wc_get_cart</code> trong <code>template-parts/home-page/</code>, <code>components/product/</code>, <code>layouts/</code> → <strong>0 kết quả</strong>. Trang chủ không hề dùng giỏ hàng. <code>wc-cart-fragments</code> cũng không load. Trang chủ cũng không có TOC.</p>
+</div>
+
+<p>Lighthouse ước tính: <strong>1273&nbsp;ms</strong>.</p>
+
+<h3>Việc cần làm</h3>
+<p>Tạo <code>inc/perf-dequeue.php</code>, require từ <code>functions.php</code> (đặt sau asset import, theo thứ tự import hiện có):</p>
+
+<pre><code>add_action('wp_enqueue_scripts', function () {
+    if (!is_front_page()) {
+        return;
+    }
+
+    // WooCommerce — trang chủ không dùng cart/add-to-cart
+    wp_dequeue_script('wc-add-to-cart');
+    wp_dequeue_script('woocommerce');
+    wp_dequeue_script('jquery-blockui');
+    wp_dequeue_script('js-cookie');
+    wp_dequeue_script('wc-order-attribution');
+    wp_dequeue_script('sourcebuster-js');
+    wp_dequeue_style('wc-blocks-style');
+
+    // Easy TOC — trang chủ không có TOC
+    wp_dequeue_style('ez-toc');
+    wp_dequeue_script('ez-toc-js');
+
+    // jQuery — chỉ bỏ SAU khi các dep trên đã gỡ
+    wp_dequeue_script('jquery');
+    wp_dequeue_script('jquery-migrate');
+}, 99);</code></pre>
+
+<div class="callout callout--warn">
+  <h4 style="margin-top:0">Cẩn trọng khi thực thi</h4>
+  <ul style="margin-bottom:0">
+    <li>Handle name phải <strong>verify lại bằng <code>wp_scripts()-&gt;queue</code></strong> thay vì tin danh sách trên — WooCommerce đổi handle giữa các version (đang chạy WC 10.5.2).</li>
+    <li>Dequeue <code>jquery</code> <strong>cuối cùng</strong> và chỉ khi không còn ai depend. Nếu Rank Math / CF7 cần jQuery ở trang chủ thì giữ lại — vẫn còn lời từ việc bỏ WooCommerce + TOC.</li>
+    <li>Chạy priority 99 để sau mọi enqueue của plugin.</li>
+    <li>Sau khi sửa: <strong>flush WP Rocket cache</strong> rồi mới đo lại.</li>
+  </ul>
+</div>
+
+<h2 id="phase3">4. Phase 3 — Giảm HTML: 672 KB → ~250 KB</h2>
+
+<p>HTML trang chủ hiện <strong>672&nbsp;KB raw / 71&nbsp;KB gzip</strong>, 2011–2288 element, <strong>552 thẻ <code>&lt;img&gt;</code></strong>. Raw bytes quyết định chi phí parse + Style &amp; Layout (766&nbsp;ms) trên main thread.</p>
+
+<p>Cấu thành đo được:</p>
+
+<div class="table-scroll">
+<table>
+  <thead><tr><th>Thành phần</th><th>Raw</th><th>Gzip</th></tr></thead>
+  <tbody>
+    <tr><td>246 khối <code>&lt;noscript&gt;</code> (nhân đôi markup ảnh)</td><td><strong>195 KB</strong> (29%)</td><td>~6.5 KB</td></tr>
+    <tr><td>68 inline <code>&lt;svg&gt;</code> (riêng 1 cái 38.7 KB)</td><td>91 KB</td><td>~28 KB</td></tr>
+    <tr><td><code>srcset</code> (594 attribute)</td><td>201 KB</td><td>—</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>4.1. Tắt WP Rocket LazyLoad</h3>
+
+<p>WP Rocket LazyLoad và ShortPixel picture-mode đang <strong>chồng lên nhau</strong>, sinh ra <code>&lt;noscript&gt;&lt;picture&gt;&lt;source srcset&gt;…</code> nhân đôi <strong>toàn bộ</strong> markup ảnh — trong khi <strong>theme đã tự set <code>loading="lazy"</code> native ở ~129 call site</strong>.</p>
+
+<p>Rocket JS lazyload ở đây là thừa hoàn toàn, mà lại còn thêm: <code>lazyload.min.js</code>, 195&nbsp;KB noscript, và 243 placeholder <code>data:image/svg+xml</code>.</p>
+
+<p>→ Tắt <code>lazyload</code> và <code>lazyload_css_bg_img</code> trong WP Rocket → native lazy của theme tiếp quản.</p>
+
+<div class="callout">
+  <p>Đây cũng chính là thứ mà <code>docs/plan-chan-lazy-load-anh-hero.md</code> đã phải viết code để chống đỡ — tắt ở gốc thì sạch hơn nhiều.</p>
+</div>
+
+<p><strong>Kiểm tra sau khi tắt</strong>: ảnh dưới fold vẫn phải lazy (native), và <strong>ảnh hero vẫn giữ <code>fetchpriority=high</code></strong>.</p>
+
+<h3>4.2. Externalize SVG mặt trời (38.7 KB)</h3>
+
+<p><code>template-parts/home-page/section-about/index.php:130</code> nhúng inline một SVG 38.7&nbsp;KB (19 path, 4061 số thập phân dài, 1 filter <code>feTurbulence</code>).</p>
+
+<div class="callout callout--warn">
+  <h4 style="margin-top:0">⚠️ Ràng buộc quan trọng</h4>
+  <p>Animation <code>.outer-rotate</code> được định nghĩa <strong>trong CSS theme</strong> (<code>section-about/assets/styles.css:199</code>) và có cơ chế pause <code>.section-about--paused .outer-rotate</code> do IntersectionObserver toggle (<code>section-about/assets/scripts.js:66-70</code>) để dừng quay khi ngoài viewport.</p>
+  <p style="margin-bottom:0">→ <strong>KHÔNG dùng <code>&lt;img src="sun.svg"&gt;</code></strong> — CSS ngoài không với được vào trong ảnh. Animation và cơ chế pause sẽ hỏng, và tệ hơn: SVG sẽ quay mãi không dừng → phản tác dụng về performance.</p>
+</div>
+
+<h4>Cách làm: SVGO + fetch/inject</h4>
+
+<p>SVGO trước (đo thật: <strong>38.7 → 25.1&nbsp;KB</strong>, gzip <strong>17.7 → 11.9&nbsp;KB</strong>), lưu thành <code>assets/images/about-sun.svg</code>, rồi <strong>fetch + inject</strong> bằng chính IntersectionObserver đã có sẵn ở <code>scripts.js:66-70</code>:</p>
+
+<pre><code>&lt;div class="section-about__sun"
+     data-svg="&lt;?= esc_url(get_theme_file_uri('/assets/images/about-sun.svg')) ?&gt;"&gt;&lt;/div&gt;</code></pre>
+
+<ul>
+  <li>Set sẵn <code>width/height</code> trong CSS (đã có: <code>styles.css:231-243</code>) → <strong>không phát sinh CLS</strong>.</li>
+  <li>Khi section sắp vào viewport → <code>fetch(url).then(r =&gt; r.text())</code> → <code>el.innerHTML = svg</code>, chỉ 1 lần.</li>
+  <li>SVG thành inline thật trong document → <code>.outer-rotate</code> và <code>.section-about--paused</code> hoạt động <strong>y nguyên</strong>.</li>
+  <li>File <code>.svg</code> được cache riêng, HTML nhẹ đi 38.7&nbsp;KB.</li>
+</ul>
+
+<p><strong>Cân nhắc thêm</strong>: <code>feTurbulence</code> là filter noise render rất đắt trên vùng 1007×1007. Nếu sau khi đo lại vẫn thấy Rendering cao, thay nó bằng texture WebP nhẹ.</p>
+
+<h3>4.3. (Tuỳ chọn) Icon SVG lặp lại</h3>
+<p>67 SVG còn lại ≈ 52&nbsp;KB, nhiều cái trùng nhau (ví dụ 1 icon 4.5&nbsp;KB xuất hiện 2 lần). Gom thành SVG sprite + <code>&lt;use&gt;</code> nếu cần thêm điểm. → <strong>Để sau</strong> — làm Phase 1 + 2 trước rồi đo lại.</p>
+
+<h2 id="phase4">5. Phase 4 — Ảnh còn lại (làm nếu chưa đủ điểm)</h2>
+
+<p>Lighthouse HTTP/2 mobile: <em>Serve images in next-gen formats</em> 300&nbsp;ms, <em>Properly size images</em> 450&nbsp;ms. Tổng payload <strong>3047&nbsp;KB</strong>.</p>
+
+<ul>
+  <li>Hero <code>2026/06/cua-hang-cho-thue-do-hoa-trang-yun-cosplay-tai-ha-noi.jpg</code> (1672×941, 147&nbsp;KB) → WebP.</li>
+  <li><code>rectangle34628622-1-748x1536.webp</code> — <strong>313&nbsp;KB cho chỉ 1.1&nbsp;MP</strong>, nén kém → nén lại, mục tiêu &lt; 80&nbsp;KB.</li>
+  <li><code>Nguoi-doi-Batman-4-1-732x1024.jpg</code> (177&nbsp;KB), <code>bo-do-con-gian_min-3-754x1024.jpg</code> (152&nbsp;KB), <code>cosplay-cong-chua-disney-2-731x1024.jpg</code> (127&nbsp;KB) → WebP.</li>
+  <li>Media library: <strong>49.220 jpg/png vs chỉ 1.294 webp</strong> — ShortPixel coverage rất mỏng. Chạy bulk optimize.</li>
+  <li>Áp dụng pattern <code>$about_img_sizes</code> / <code>okhub_about_img()</code> (đang có trong diff chưa commit ở <code>section-about/index.php</code>) cho <code>components/product/index.php</code> — 8 product card đang xin size <code>'full'</code> không kèm <code>sizes</code>, nên fallback về <code>100vw</code>.</li>
+</ul>
+
+<h2 id="ngoai-pham-vi">6. Ngoài phạm vi (ghi nhận, không làm trong plan này)</h2>
+
+<div class="table-scroll">
+<table>
+  <thead><tr><th>Vấn đề</th><th>Ghi chú</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>assets/images/layer_image.svg</code> <strong class="is-bad">10.8 MB</strong></td>
+      <td>Xuất hiện trên <strong>mọi blog card</strong> (<code>functions.php:665</code>, <code>blog-list/*</code>, <code>single-blog/*</code>). <strong>Không nằm trên trang chủ</strong> nên không ảnh hưởng mục tiêu này, nhưng là quả bom cho trang blog. Nên xử lý riêng.</td>
+    </tr>
+    <tr>
+      <td>~1.3 MB ảnh 0-reference</td>
+      <td><code>map-*.svg</code> (3 × 329 KB), <code>contact-page/assets/images/d-social-*.png</code></td>
+    </tr>
+    <tr>
+      <td>Stored XSS tiềm ẩn</td>
+      <td><code>section-category/index.php:210</code> dùng <code>json_encode()</code> không có <code>JSON_HEX_TAG</code> cho tên category (admin-controlled)</td>
+    </tr>
+    <tr>
+      <td><code>THEME-OVERVIEW.md</code> lỗi thời nặng</td>
+      <td>Ở root, mô tả AOS / CDN / ES-module — đều đã bị gỡ. Dễ gây hiểu sai cho lần sau.</td>
+    </tr>
+    <tr>
+      <td>WP Rocket <code>minify_google_fonts = 1</code></td>
+      <td>Vẫn bật dù theme không còn dùng Google Fonts → Rocket vẫn chèn <code>preconnect</code> tới <code>fonts.gstatic.com</code></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="verification">7. Verification</h2>
+
+<h3>Bắt buộc đo trên <code>https://</code> (HTTP/2), không phải <code>http://</code></h3>
+
+<pre><code># Sau MỖI phase — flush cache Rocket trước khi đo
+
+npx lighthouse@12 https://yuncosplay.local/ \
+  --only-categories=performance \
+  --chrome-flags="--headless=new --ignore-certificate-errors" \
+  --output=json --output-path=/tmp/lh-after-mobile.json --quiet
+
+npx lighthouse@12 https://yuncosplay.local/ --preset=desktop \
+  --only-categories=performance \
+  --chrome-flags="--headless=new --ignore-certificate-errors" \
+  --output=json --output-path=/tmp/lh-after-desktop.json --quiet</code></pre>
+
+<h3>Bảng theo dõi</h3>
+
+<div class="table-scroll">
+<table>
+  <thead><tr><th>Mốc</th><th>Mobile</th><th>Desktop</th><th>LCP mobile</th></tr></thead>
+  <tbody>
+    <tr><td>Baseline (đo 17/07/2026)</td><td>75</td><td>99</td><td>5.0 s</td></tr>
+    <tr><td>Sau Phase 1 (ảnh nền)</td><td>~85</td><td>99</td><td>~3.0 s</td></tr>
+    <tr><td>Sau Phase 2 (render-blocking)</td><td>~90</td><td>99</td><td>~2.5 s</td></tr>
+    <tr><td>Sau Phase 3 (HTML)</td><td>~93</td><td>99</td><td>~2.2 s</td></tr>
+    <tr><td><strong>Mục tiêu</strong></td><td><strong class="is-good">&gt; 90</strong></td><td><strong class="is-good">&gt; 95</strong></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Kiểm tra hồi quy sau mỗi phase (không chỉ nhìn điểm)</h3>
+
+<ul class="check">
+  <li>Banner Swiper vẫn chạy, autoplay + parallax bình thường</li>
+  <li><code>section-about</code>: mặt trời vẫn quay, <strong>vẫn dừng khi cuộn ra ngoài viewport</strong> (<code>.section-about--paused</code>)</li>
+  <li>Mega-menu header (desktop + mobile) mở/đóng bình thường — Swiper là site-wide, <strong>đừng đụng</strong></li>
+  <li>Ảnh dưới fold vẫn lazy; <strong>ảnh hero vẫn <code>loading=eager fetchpriority=high</code></strong> (xem <code>okhub_image_attrs()</code> — <code>inc/helpers.php:292</code>)</li>
+  <li>Trang shop/product <strong>vẫn còn</strong> WooCommerce JS (dequeue chỉ áp cho <code>is_front_page()</code>)</li>
+  <li>Trang <code>service-makeup</code> và <code>service-pgpb</code> vẫn hiển thị đúng nền (dùng chung <code>concept.webp</code>)</li>
+  <li>Xem network requests: jQuery/WC/TOC đã biến mất khỏi trang chủ và <strong>vẫn còn</strong> ở trang product</li>
+</ul>
+
+<div class="callout callout--warn">
+  <h4 style="margin-top:0">Caveat cần nhớ</h4>
+  <p style="margin-bottom:0">LocalWP trả <code>Cache-Control: no-cache, public, must-revalidate</code> cho mọi static asset, nên Lighthouse sẽ luôn báo <em>"Serve static assets with an efficient cache policy"</em>. Đây là <strong>diagnostic, không tính vào điểm Performance</strong> — bỏ qua, production sẽ khác.</p>
+</div>
+
+<h2 id="thu-tu">8. Thứ tự thực thi</h2>
+
+<ol>
+  <li><strong>Phase 1</strong> — ảnh nền. Đòn mạnh nhất, rủi ro thấp nhất, chỉ đụng file ảnh + 1 file CSS. → Đo lại.</li>
+  <li><strong>Phase 2</strong> — dequeue. → Đo lại + kiểm tra kỹ trang shop/product không hỏng.</li>
+  <li><strong>Phase 3a</strong> — tắt Rocket LazyLoad. → Đo lại + kiểm tra hero/lazy.</li>
+  <li><strong>Phase 3b</strong> — externalize SVG. → Đo lại.</li>
+  <li>Nếu chưa &gt; 90 → <strong>Phase 4</strong>.</li>
+</ol>
+
+<p>Commit riêng từng phase theo convention (<code>refactor: ...</code> / <code>fix: ...</code>), <strong>không gộp</strong>.</p>
+
+<p class="muted">Khi xong, ghi báo cáo kết quả vào <code>docs/</code> (kèm bản <code>.html</code>).</p>
+
+</div>
+</body>
+</html>
